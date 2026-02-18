@@ -1,0 +1,96 @@
+\documentclass{ximera}
+
+\title{Autokatalytische reactie: Oefening}
+\author{Mila Vervoort}
+\license{CC: 0}         % replace with an appropriate license, or set it in xmPreamble
+
+\begin{document}
+\begin{abstract}
+    Oefening op autokatalytische reactie
+\end{abstract}
+\maketitle
+
+\section{Oefening: autokatalytische reacties}
+
+We beschouwen een autokatalytische reactie van de vorm
+
+\[
+A \rightarrow B
+\]
+
+met reactiekinetiek
+
+\[
+r_A = -k C_A C_B
+\]
+
+Hoe kunnen we deze autokatalytische reacties drijven tot een zeer hoge conversie? 
+
+We veronderstellen:
+\begin{itemize}
+\item isotherme werking
+\item ideale reactoren
+\item constante densiteit
+\end{itemize}
+
+
+\subsection*{Gegeven}
+
+\begin{align*}
+C_{A0} &= 1 \ \text{kmol/m}^3 \\
+C_{B0} &= 0 \\
+q &= 10 \ \text{m}^3/\text{h} \\
+C_{A,\text{uit}} &= 0.01 \ \text{kmol/m}^3 \\
+k &= 4.2 \times 10^{-4} \ \text{m}^3/(\text{kmol}\cdot \text{s})\\
+X_A &= 0.99\\
+\end{align*}
+
+\subsection*{Gevraagd}
+
+\begin{enumerate}
+\item Bepaal het benodigde volume van één CSTR.
+\item Bepaal het benodigde volume voor een serieschakeling van: één CSTR gevolgd door één PFR met een intermediaire concentratie
+  \[
+  C_A = 0.5 \ \text{kmol/m}^3.
+  \]
+
+\item Bepaal de optimale recycleverhouding en het vereiste volume voor een PFR met recycle.
+\end{enumerate}
+
+\subsection*{Eén CSTR}
+
+\begin{question}
+    Bepaal het benodigde volume van één CSTR. 
+    \[
+    \text{Volume} = \answer[format=string]{661} m^3
+    \] 
+    \begin{hint}
+        Schrijf de stofbalans voor een CSTR uit. De stof balans is: 
+        \[ 
+        Q*C_{A,in} - Q*C_{A,out} + R_A*V = 0
+        \]
+    \end{hint}
+    \begin{hint}
+        Vul de reactiekinetiek voor een CSTR in.
+        \[
+        -R_A = k C_A (C_{A0} - C_{A}) 
+        \]
+    \end{hint}
+    \begin{solution}
+    Voor een autokatalytische reactie:
+    \[
+    -r_A = k C_A (C_{A0} - C_A)
+    \]
+    Invullen in het ontwerpverband:
+    \[\tau =
+    \frac{C_{A0} - C_{A,\text{uit}}}
+    {k C_{A,\text{uit}} (C_{A0} - C_{A,\text{uit}})}
+    \]
+    \end{solution}
+\end{question}
+
+
+
+
+
+\end{document}
