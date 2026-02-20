@@ -88,6 +88,10 @@ voor verschillende waarden van $n$.
 \end{tikzpicture}
 \end{remark}
 
+\documentclass{article}
+\usepackage{pgfplots}
+\begin{document}
+
 \section*{Batch reactor}
 
 \subsection*{Algemene massabalans}
@@ -112,7 +116,7 @@ t = \int_0^{X_A} \frac{C_{A0}}{-r_A}\, dX_A
 \begin{axis}[
     xlabel={$X_A$},
     ylabel={$-1/r_A$},
-    domain=0.01:0.8, % Avoid x=0
+    domain=0.01:0.8, % Avoid division by zero at x = 1
     samples=100,
     axis lines=left,
     width=10cm,
@@ -120,9 +124,8 @@ t = \int_0^{X_A} \frac{C_{A0}}{-r_A}\, dX_A
     legend pos=north west,
 ]
 \addplot[blue, thick] {1/(1-x)};
-
 \addplot[
-    domain=0.01:0.6, % Avoid x=1
+    domain=0.01:0.6, % Avoid division by zero at x = 1
     fill=blue!20
 ] {1/(1-x)} \closedcycle;
 
@@ -145,16 +148,15 @@ t = \int_{C_{A0}}^{C_A} \frac{dC_A}{r_A}
 \begin{axis}[
     xlabel={$C_A$},
     ylabel={$-1/r_A$},
-    domain=0.2:1, % Avoid x=0
+    domain=0.2:1, % Avoid division by zero at x = 0
     samples=100,
     axis lines=left,
     width=10cm,
     height=7cm,
 ]
 \addplot[red, thick] {1/x};
-
 \addplot[
-    domain=0.4:1, % Avoid x=0
+    domain=0.4:1, % Avoid division by zero at x = 0
     fill=red!20
 ] {1/x} \closedcycle;
 
@@ -162,6 +164,7 @@ t = \int_{C_{A0}}^{C_A} \frac{dC_A}{r_A}
 
 \end{axis}
 \end{tikzpicture}
+
  
 \section*{1. Batch Reactor}
 
