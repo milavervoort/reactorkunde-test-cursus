@@ -1,6 +1,6 @@
 \documentclass{ximera}
 
-\title{Theory}
+\title{Theory: stofbalansen van ideale reactoren}
 \author{Mila Vervoort}
 \license{CC: 0}         % replace with an appropriate license, or set it in xmPreamble
 
@@ -30,196 +30,526 @@ waar:
 \item $V$ = reactorvolume
 \end{itemize}
 
+\begin{remark}
+Monotoon stijgende kinetica
 
-\section*{1. Batch Reactor}
-
-In een batch reactor is er geen in- of uitstroom (\(F_{A,in} = F_{A,out} = 0\)):
-
-\[
-\frac{dN_A}{dt} = R_A V
-\]
-
-Aanname dat het volume V constant blijft:
+We veronderstellen een monotoom stijgende kinitiek in het vervolg van de theorie.
+Voor een irreversibele reactie met monotoon stijgende kinetica geldt:
 
 \[
-\frac{dC_A}{dt} = R_A
+R_A = \frac{dC_A}{dt} = -k C_A^n
 \]
 
+waarbij:
 
-Om de tijd \(t\) te berekenen die nodig is om van een initiële concentratie \(C_{A0}\) naar \(C_A\) te gaan, integreren we:
+\begin{itemize}
+\item $n=1$ : eerste orde
+\item $n=2$ : tweede orde
+\item $n=3$ : derde orde
+\item $\dots$
+\end{itemize}
+
+Hieruit volgt:
 
 \[
-\frac{dC_A}{dt} = R_A(C_A)
+-\frac{1}{R_A} = \frac{1}{k C_A^n}
 \]
 
-\[
-\int_{t=0}^{t} dt = \int_{C_{A0}}^{C_A} \frac{dC_A}{R_A(C_A)}
-\]
+De onderstaande grafiek toont $-1/R_A$ als functie van $C_A$
+voor verschillende waarden van $n$. 
 
-\[
-t = \int_{C_A}^{C_{A0}} \frac{dC_A}{-R_A(C_A)}
-\]
-
-\begin{image}
 \begin{tikzpicture}
 \begin{axis}[
-    domain=0:0.95,
+    xlabel={$C_A$},
+    ylabel={$-1/R_A$},
+    domain=0.1:0.6,
     samples=200,
-    xmin=0, xmax=1,
-    ymin=0, ymax=12,
     axis lines=left,
+    width=11cm,
+    height=8cm,
+    legend pos=north east,
+    ymin=0,
+    ymax=120,
+]
+
+% n = 1
+\addplot[blue, thick] {1/x};
+\addlegendentry{$n=1$ (eerste orde)}
+
+% n = 2
+\addplot[red, thick] {1/(x^2)};
+\addlegendentry{$n=2$ (tweede orde)}
+
+% n = 3
+\addplot[green!60!black, thick] {1/(x^3)};
+\addlegendentry{$n=3$ (derde orde)}
+
+\end{axis}
+\end{tikzpicture}
+\end{remark}
+
+
+\section*{1. Batch reactor}
+
+\subsection*{Algemene massabalans}
+
+In een batch reactor is er geen in- of uitstroom:
+
+\[
+\frac{dN_A}{dt} = r_A V
+\]
+
+Aangezien $N_A = N_{A0}(1-X_A)$:
+
+\[
+\boxed{
+\frac{dX_A}{dt} = \frac{-r_A}{C_{A0}}
+}
+\]
+
+\[
+t = \int_0^{X_A} \frac{C_{A0}}{-r_A}\, dX_A
+\]
+
+\begin{tikzpicture}
+\begin{axis}[
     xlabel={$X_A$},
-    ylabel={$\frac{1}{-r_A}$},
-]
-
-% parameters
-\addplot[ultra thick, blue]
-{1/(1*(1-x))};
-
-\end{axis}
-\end{tikzpicture}
-\end{image}
-
-\begin{image}
-\begin{tikzpicture}
-\begin{axis}[
-    domain=0.1:1,       % x loopt van 0 tot C_A0
-    samples=200,
-    xmin=0, xmax=1,
-    ymin=0, ymax=12,
+    ylabel={$-1/r_A$},
+    domain=0:0.8,
+    samples=100,
     axis lines=left,
-    xlabel={$C_A$},
-    ylabel={$\frac{1}{-r_A}$},
-]
-
-% parameters
-\def\k{1}   % snelheidsconstante
-
-% plot de curve
-\addplot[ultra thick, blue] {1/(\k*x)};
-
-% arceer het gebied tussen C_A_end en C_A0
-\addplot [
-    thick,
-    fill=blue!20,
-    domain=0.2:1,   % van C_A,e tot C_A0
-    samples=100
-] {1/(\k*x)} \closedcycle;
-
-% Voeg een t label toe in het gearceerde gebied
-\node at (axis cs:0.6,6) {$t$};
-
-\end{axis}
-\end{tikzpicture}
-\end{image}
-
-\textbf{Voorbeeld eerste orde reactie:} \(R_A = -k C_A\)
-
-\[
-\frac{dC_A}{dt} = -k C_A \quad \Rightarrow \quad \int_{C_{A0}}^{C_A} \frac{dC_A}{-k C_A} = \int_0^t dt
-\]
-
-\[
-t = \frac{1}{k} \ln \frac{C_{A0}}{C_A}
-\]
-
-\begin{image}
-\begin{tikzpicture}
-\begin{axis}[
-    domain=0.15:1,
-    samples=200,
-    xmin=0, xmax=1,
-    ymin=0, ymax=20,
-    axis lines=left,
-    xlabel={$C_A$},
-    ylabel={$\frac{1}{-r_A}$},
+    width=10cm,
+    height=7cm,
     legend pos=north west,
 ]
+\addplot[blue, thick] {1/(1-x)};
+\addlegendentry{$-1/r_A = 1/[kC_{A0}(1-X_A)]$}
 
-\addplot[ultra thick, blue] {1/x};
-\addlegendentry{1st order}
+\addplot[
+    domain=0:0.6,
+    fill=blue!20
+] {1/(1-x)} \closedcycle;
 
-\addplot[ultra thick, green!60!black] {1/(x^2)};
-\addlegendentry{2nd order}
+\draw[dashed] (axis cs:0.6,0) -- (axis cs:0.6,{1/(1-0.6)});
+\node at (axis cs:0.3,2) {Oppervlakte = $t/C_{A0}$};
 
 \end{axis}
 \end{tikzpicture}
-\end{image}
 
-\begin{image}
+Bij constante densiteit:
+
+\[
+\boxed{
+\frac{dC_A}{dt} = r_A
+}
+\]
+
+\[
+t = \int_{C_{A0}}^{C_A} \frac{dC_A}{r_A}
+\]
+
 \begin{tikzpicture}
 \begin{axis}[
-    domain=0.05:0.95,
-    samples=200,
-    xmin=0, xmax=1,
-    ymin=0, ymax=25,
+    xlabel={$C_A$},
+    ylabel={$-1/r_A$},
+    domain=0.2:1,
+    samples=100,
     axis lines=left,
-    xlabel={$X_A$},
-    ylabel={$\frac{1}{-r_A}$},
+    width=10cm,
+    height=7cm,
 ]
+\addplot[red, thick] {1/x};
 
-\addplot[ultra thick, purple]
-{1/(x*(1-x))};
+\addplot[
+    domain=0.4:1,
+    fill=red!20
+] {1/x} \closedcycle;
+
+\node at (axis cs:0.7,1.5) {Oppervlakte = $t$};
 
 \end{axis}
 \end{tikzpicture}
-\end{image}
 
-\section*{2. CSTR (Continuous Stirred Tank Reactor)}
+\section*{2. CSTR (stationair)}
 
-In een CSTR met constante volumestroom \(Q\) geldt bij stationaire toestand (\(\frac{dN_A}{dt} = 0\)):
+In een CSTR met constante in- en uitstroom geldt bij stationaire toestand:
 
-\[
-F_{A,in} - F_{A,out} + R_A V = 0
-\]
-
-Invullen van \(F_A = C_A Q\) geeft:
+\subsection*{Algemene massabalans}
 
 \[
-Q C_{A,in} - Q C_{A,out} + R_A V = 0
+0 = F_{A0}-F_A+r_A V
 \]
-
-of herschikt:
 
 \[
-C_{A,out} = C_{A,in} + \frac{R_A V}{Q}
+F_{A0}X_A = -r_A V
 \]
 
-\textbf{Uitleg:} In een goed gemengde CSTR is de concentratie overal uniform. De uitstroomconcentratie wordt bepaald door de balans tussen toevoer en reactie.
+\[
+\boxed{
+\tau = \frac{X_A}{-r_A/C_{A0}}
+}
+\]
 
-\section*{3. PFR (Plug Flow Reactor)}
+\begin{tikzpicture}
+\begin{axis}[
+    xlabel={$X_A$},
+    ylabel={$-1/r_A$},
+    domain=0:0.8,
+    samples=100,
+    axis lines=left,
+    width=10cm,
+    height=7cm,
+]
+\addplot[blue, thick] {1/(1-x)};
+
+\draw[fill=green!30] 
+    (axis cs:0,0) rectangle 
+    (axis cs:0.6,{1/(1-0.6)});
+
+\draw[dashed] (axis cs:0.6,0) -- (axis cs:0.6,{1/(1-0.6)});
+\node at (axis cs:0.3,1) {Oppervlakte = $\tau$};
+
+\end{axis}
+\end{tikzpicture}
+
+Bij constante densiteit:
+
+\[
+\boxed{
+\tau = \frac{C_{A0}-C_A}{-r_A}
+}
+\]
+
+\begin{tikzpicture}
+\begin{axis}[
+    xlabel={$C_A$},
+    ylabel={$-1/r_A$},
+    domain=0.2:1,
+    samples=100,
+    axis lines=left,
+    width=10cm,
+    height=7cm,
+]
+\addplot[red, thick] {1/x};
+
+\draw[fill=green!30] 
+    (axis cs:1,0) rectangle 
+    (axis cs:0.4,{1/0.4});
+
+\node at (axis cs:0.7,1) {Oppervlakte = $\tau$};
+
+\end{axis}
+\end{tikzpicture}
+
+\textbf{Uitleg:} In een goed gemengde CSTR is de concentratie overal uniform. De reactiesnelheid is daardoor ook constant. 
+
+\section*{3. Plug Flow Reactor (PFR)}
 
 In een PFR verandert de concentratie langs de reactorlengte \(x\). De stofbalans over een klein segment \(dx\) is:
 
-\[
-F_A(x) - F_A(x+dx) + R_A dV = 0
-\]
-
-Bij een constante volumestroom \(Q\) (bij vloeistoffen):
+\subsection*{Algemene massabalans}
 
 \[
-Q \frac{dC_A}{dx} = R_A
+\frac{dF_A}{dV} = r_A
 \]
-
-Met \(dV = A dx\) (doorsnede \(A\)):
 
 \[
-\frac{dC_A}{dx} = \frac{R_A}{Q}
+\frac{dX_A}{dV} = \frac{-r_A}{F_{A0}}
 \]
 
-\textbf{Uitleg:} In een PFR stroomt het reactiemengsel plug-gewijs; er is geen menging in de lengterichting. De concentratie verandert continu langs de reactor.
+\[
+\boxed{
+V = F_{A0}\int_0^{X_A}\frac{dX_A}{-r_A}
+}
+\]
 
-\section*{Samenvatting}
+\begin{tikzpicture}
+\begin{axis}[
+    xlabel={$X_A$},
+    ylabel={$-1/r_A$},
+    domain=0:0.8,
+    samples=100,
+    axis lines=left,
+    width=10cm,
+    height=7cm,
+]
+\addplot[blue, thick] {1/(1-x)};
 
-\begin{tabular}{|l|c|c|}
-    \hline
-    \textbf{Reactor Type} & \textbf{Stofbalans} & \textbf{Kernidee}\\
-    \hline
-    Batch & $\frac{dC_A}{dt} = R_A$ & Geen in-/uitstroom, alleen reactie\\
-    CSTR & $Q C_{A,in} - Q C_{A,out} + R_A V = 0$ & Goed gemengd, stationaire toestand\\
-    PFR & $\frac{dC_A}{dx} = \frac{R_A}{Q}$ & Concentratie verandert langs de lengte, plug-flow\\
-    \hline
-\end{tabular}
+\addplot[
+    domain=0:0.6,
+    fill=orange!30
+] {1/(1-x)} \closedcycle;
 
+\draw[dashed] (axis cs:0.6,0) -- (axis cs:0.6,{1/(1-0.6)});
+\node at (axis cs:0.3,2) {Oppervlakte = $\tau$};
+
+\end{axis}
+\end{tikzpicture}
+
+Bij constante densiteit:
+
+\[
+\boxed{
+\tau = \int_0^{X_A}\frac{C_{A0}}{-r_A} dX_A
+}
+\]
+
+\begin{tikzpicture}
+\begin{axis}[
+    xlabel={$C_A$},
+    ylabel={$-1/r_A$},
+    domain=0.2:1,
+    samples=100,
+    axis lines=left,
+    width=10cm,
+    height=7cm,
+]
+\addplot[red, thick] {1/x};
+
+\addplot[
+    domain=0.4:1,
+    fill=orange!30
+] {1/x} \closedcycle;
+
+\node at (axis cs:0.7,1.5) {Oppervlakte = $\tau$};
+
+\end{axis}
+\end{tikzpicture}
+
+\section*{Vergelijking van ideale reactoren}
+\subsection{4.1 Vergelijking: CSTR vs PFR}
+
+We vergelijken de verblijftijd voor eenzelfde uitgangsconcentratie $C_A$.
+
+\[
+\tau_{PFR} = \int_{C_{A0}}^{C_A} \frac{dC_A}{r_A}
+\]
+
+\[
+\tau_{CSTR} = \frac{C_{A0}-C_A}{-r_A|_{\text{uit}}}
+\]
+
+Grafisch in een $-1/r_A$ versus $C_A$ diagram:
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    xlabel={$C_A$},
+    ylabel={$-1/r_A$},
+    domain=0.2:1,
+    samples=200,
+    axis lines=left,
+    width=11cm,
+    height=8cm,
+    legend pos=north east,
+]
+
+% kinetiek
+\addplot[blue, thick] {1/x};
+\addlegendentry{$-1/r_A$}
+
+% PFR oppervlakte
+\addplot[
+    domain=0.4:1,
+    fill=orange!40
+] {1/x} \closedcycle;
+\addlegendentry{$\tau_{PFR}$}
+
+% CSTR rechthoek
+\draw[fill=green!40, opacity=0.6]
+    (axis cs:1,0)
+    rectangle
+    (axis cs:0.4,{1/0.4});
+\addlegendentry{$\tau_{CSTR}$}
+
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\textbf{Interpretatie:}
+
+Bij monotoon stijgende kinetica stijgt $-1/r_A$ bij dalende $C_A$.
+De rechthoek (CSTR) is daardoor groter dan de integraal (PFR):
+
+\[
+\tau_{CSTR} > \tau_{PFR}
+\]
+
+Een PFR is dus efficiënter dan een CSTR voor dezelfde conversie.
+
+\subsection*{Vergelijking: Batch vs PFR}
+
+Voor constante densiteit hebben Batch en PFR dezelfde
+integraalvorm.
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    xlabel={$C_A$},
+    ylabel={$-1/r_A$},
+    domain=0.2:1,
+    samples=200,
+    axis lines=left,
+    width=11cm,
+    height=8cm,
+    legend pos=north east,
+]
+
+% kinetiek
+\addplot[blue, thick] {1/x};
+\addlegendentry{$-1/r_A$}
+
+% PFR oppervlakte
+\addplot[
+    domain=0.4:1,
+    fill=orange!40
+] {1/x} \closedcycle;
+\addlegendentry{$\tau_{PFR}$}
+
+% Batch oppervlakte (zelfde gebied, andere kleur rand)
+\addplot[
+    domain=0.4:1,
+    draw=red,
+    pattern=north east lines,
+    pattern color=red
+] {1/x} \closedcycle;
+\addlegendentry{$t_{Batch}$}
+
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\textbf{Interpretatie:}
+
+Bij constante densiteit is:
+
+\[
+t_{Batch} = \tau_{PFR}
+\]
+
+Batch en PFR volgen exact dezelfde integraal.
+Het verschil is enkel operationeel:
+
+\begin{itemize}
+\item Batch: tijd evolueert in één vat
+\item PFR: concentratie evolueert langs de reactorlengte
+\end{itemize}
+
+\iffalse
+\section*{4. Toepassing op verschillende kinetica (constante densiteit)}
+
+\subsection*{0e orde: $r_A=-k$}
+
+\textbf{Batch:}
+\[
+C_A = C_{A0}-kt
+\qquad
+X_A = \frac{kt}{C_{A0}}
+\]
+
+\textbf{CSTR:}
+\[
+\tau = \frac{C_{A0}-C_A}{k}
+\]
+
+\textbf{PFR:}
+\[
+\tau = \frac{C_{A0}-C_A}{k}
+\]
+
+
+\subsection*{1e orde: $r_A=-kC_A$}
+
+\textbf{Batch:}
+\[
+C_A = C_{A0} e^{-kt}
+\qquad
+X_A = 1-e^{-kt}
+\]
+
+\textbf{CSTR:}
+\[
+\tau = \frac{X_A}{k(1-X_A)}
+\]
+
+\[
+X_A = \frac{k\tau}{1+k\tau}
+\]
+
+\textbf{PFR:}
+\[
+\tau = \frac{1}{k}\ln\left(\frac{1}{1-X_A}\right)
+\]
+
+\[
+X_A = 1-e^{-k\tau}
+\]
+
+
+\subsection*{2e orde: $r_A=-kC_A^2$}
+
+\textbf{Batch:}
+\[
+\frac{1}{C_A} = \frac{1}{C_{A0}} + kt
+\]
+
+\[
+X_A = \frac{k C_{A0} t}{1+k C_{A0} t}
+\]
+
+\textbf{CSTR:}
+\[
+\tau = \frac{X_A}{kC_{A0}(1-X_A)^2}
+\]
+
+\textbf{PFR:}
+\[
+\tau = \frac{1}{kC_{A0}}
+\left(
+\frac{X_A}{1-X_A}
+\right)
+\]
+
+\section*{5. Variabele densiteit (gasfase)}
+
+\[
+C_A = \frac{C_{A0}(1-X_A)}{1+\varepsilon_A X_A}
+\]
+
+\textbf{PFR ontwerpvergelijking:}
+
+\[
+\tau =
+\int_0^{X_A}
+\frac{C_{A0}(1+\varepsilon_A X_A)}{-r_A}
+\, dX_A
+\]
+
+Voor 1e orde blijkt:
+
+\[
+X_A = 1-e^{-k\tau}
+\]
+
+onafhankelijk van $\varepsilon_A$ (perfect gemengd systeem).
+
+\section*{6. Damköhlergetal}
+
+\[
+Da = k\tau
+\]
+
+\textbf{1e orde:}
+
+Batch en PFR:
+\[
+X_A = 1-e^{-Da}
+\]
+
+CSTR:
+\[
+X_A = \frac{Da}{1+Da}
+\]
+\fi
 
 \end{document}
