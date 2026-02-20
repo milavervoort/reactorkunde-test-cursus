@@ -371,6 +371,57 @@ Bij de aanname van constante densiteit:
 \end{tikzpicture}
 \end{image}
 
+\section*{Vergelijking van ideale reactoren}
+\subsection{Vergelijking: CSTR vs PFR}
+
+We vergelijken de verblijftijd voor eenzelfde uitgangsconcentratie $C_A$.
+
+\[
+\tau_{PFR} = \int_{C_{A0}}^{C_A} \frac{dC_A}{r_A}
+\]
+
+\[
+\tau_{CSTR} = \frac{C_{A0}-C_A}{-r_A|_{\text{uit}}}
+\]
+
+Grafisch in een $-1/r_A$ versus $C_A$ diagram:
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    xlabel={$C_A$},
+    ylabel={$-1/r_A$},
+    domain=0.2:1,
+    samples=200,
+    axis lines=left,
+    width=11cm,
+    height=8cm,
+    legend pos=north east,
+]
+
+% kinetiek
+\addplot[blue, thick] {1/x};
+\addlegendentry{$-1/r_A$}
+
+% PFR oppervlakte
+\addplot[
+    domain=0.4:1,
+    fill=orange!40
+] {1/x} \closedcycle;
+\addlegendentry{$\tau_{PFR}$}
+
+% CSTR rechthoek
+\draw[fill=green!40, opacity=0.6]
+    (axis cs:1,0)
+    rectangle
+    (axis cs:0.4,{1/0.4});
+\addlegendentry{$\tau_{CSTR}$}
+
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+
 
 \section*{Samenvatting}
 
