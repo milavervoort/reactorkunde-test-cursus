@@ -401,12 +401,11 @@ Grafisch in een $-1/r_A$ versus $C_A$ diagram:
 
 % kinetiek
 \addplot[blue, thick] {1/x};
-\addlegendentry{$-1/r_A$}
 
 % PFR oppervlakte
 \addplot[
     domain=0.4:1,
-    fill=orange!40
+    fill=orange!60
 ] {1/x} \closedcycle;
 \addlegendentry{$\tau_{PFR}$}
 
@@ -420,6 +419,82 @@ Grafisch in een $-1/r_A$ versus $C_A$ diagram:
 \end{axis}
 \end{tikzpicture}
 \end{center}
+
+\textbf{Interpretatie:}
+
+Bij monotoon stijgende kinetica stijgt $-1/r_A$ bij dalende $C_A$.
+De rechthoek (CSTR) is daardoor groter dan de integraal (PFR):
+
+\[
+\tau_{CSTR} > \tau_{PFR}
+\]
+
+Een PFR is dus efficiënter dan een CSTR voor dezelfde conversie.
+
+Dit kan je ook zelf even uittesten:
+\begin{center}
+\geogebra{m4v7cs3y}{700}{700}
+\end{center}
+
+\subsection*{Vergelijking: Batch vs PFR}
+
+Voor constante densiteit hebben Batch en PFR dezelfde
+integraalvorm.
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    xlabel={$C_A$},
+    ylabel={$-1/r_A$},
+    domain=0.2:1,
+    samples=200,
+    axis lines=left,
+    width=11cm,
+    height=8cm,
+    legend pos=north east,
+]
+
+% kinetiek
+\addplot[blue, thick] {1/x};
+\addlegendentry{$-1/r_A$}
+
+% PFR oppervlakte
+\addplot[
+    domain=0.4:1,
+    fill=orange!40
+] {1/x} \closedcycle;
+\addlegendentry{$\tau_{PFR}$}
+
+% Batch oppervlakte (zelfde gebied, andere kleur rand)
+\addplot[
+    domain=0.4:1,
+    draw=red,
+    pattern=north east lines,
+    pattern color=red
+] {1/x} \closedcycle;
+\addlegendentry{$t_{Batch}$}
+
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\textbf{Interpretatie:}
+
+Bij constante densiteit is:
+
+\[
+t_{Batch} = \tau_{PFR}
+\]
+
+Batch en PFR volgen exact dezelfde integraal.
+Het verschil is enkel operationeel:
+
+\begin{itemize}
+\item Batch: tijd evolueert in één vat
+\item PFR: concentratie evolueert langs de reactorlengte
+\end{itemize}
+
+
 
 
 
