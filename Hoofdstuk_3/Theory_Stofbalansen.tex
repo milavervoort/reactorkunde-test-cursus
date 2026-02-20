@@ -33,7 +33,7 @@ waar:
 \begin{remark}
 Monotoon stijgende kinetica
 
-We veronderstellen een monotoom stijgende kinitiek in het vervolg van de theorie.
+We veronderstellen een monotoom stijgende kinetiek in het vervolg van de theorie.
 Voor een irreversibele reactie met monotoon stijgende kinetica geldt:
 
 \[
@@ -122,14 +122,13 @@ t = \int_0^{X_A} \frac{C_{A0}}{-r_A}\, dX_A
     legend pos=north west,
 ]
 \addplot[blue, thick] {1/(1-x)};
-\addlegendentry{$-1/r_A = 1/[kC_{A0}(1-X_A)]$}
 
 \addplot[
     domain=0:0.6,
     fill=blue!20
 ] {1/(1-x)} \closedcycle;
 
-\draw[dashed] (axis cs:0.6,0) -- (axis cs:0.6,{1/(1-0.6)});
+
 \node at (axis cs:0.3,2) {Oppervlakte = $t/C_{A0}$};
 
 \end{axis}
