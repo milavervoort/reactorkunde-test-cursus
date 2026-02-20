@@ -90,13 +90,58 @@ voor verschillende waarden van $n$.
 
 
  
-\section*{1. Batch Reactor}
+\section*{Batch Reactor}
 
 In een batch reactor is er geen in- of uitstroom (\(F_{A,in} = F_{A,out} = 0\)):
 
 \[
 \frac{dN_A}{dt} = R_A V
 \]
+
+Aangezien $N_A = N_{A0}(1-X_A)$:
+
+\[
+\boxed{
+\frac{dX_A}{dt} = \frac{-r_A}{C_{A0}}
+}
+\]
+
+Om de tijd \(t\) te berekenen die nodig is om van een initiële conversie \(X_{A0} = 0\) naar conversie \(X_A\) te gaan, integreren we:
+
+\[
+t = \int_0^{X_A} \frac{C_{A0}}{-r_A}\, dX_A
+\]
+
+\begin{image}
+\begin{tikzpicture}
+\begin{axis}[
+    domain=0:0.95,
+    samples=200,
+    xmin=0, xmax=1,
+    ymin=0, ymax=12,
+    axis lines=left,
+    xlabel={$X_A$},
+    ylabel={$\frac{1}{-r_A}$},
+]
+
+% parameters
+\addplot[ultra thick, blue]
+{1/(1*(1-x))};
+
+% arceer het gebied tussen C_A_end en C_A0
+\addplot [
+    thick,
+    fill=blue!20,
+    domain=0:0.9,   % van C_A,e tot C_A0
+    samples=100
+] {1/(1*(1-x))} \closedcycle;
+
+% Voeg een t label toe in het gearceerde gebied
+\node at (axis cs:0.5,5) {Oppervlakte = $t/C_{A0}$};
+
+\end{axis}
+\end{tikzpicture}
+\end{image} 
 
 Aanname dat het volume V constant blijft:
 
@@ -119,25 +164,7 @@ Om de tijd \(t\) te berekenen die nodig is om van een initiële concentratie \(C
 t = \int_{C_A}^{C_{A0}} \frac{dC_A}{-R_A(C_A)}
 \]
 
-\begin{image}
-\begin{tikzpicture}
-\begin{axis}[
-    domain=0:0.95,
-    samples=200,
-    xmin=0, xmax=1,
-    ymin=0, ymax=12,
-    axis lines=left,
-    xlabel={$X_A$},
-    ylabel={$\frac{1}{-r_A}$},
-]
 
-% parameters
-\addplot[ultra thick, blue]
-{1/(1*(1-x))};
-
-\end{axis}
-\end{tikzpicture}
-\end{image}
 
 \begin{image}
 \begin{tikzpicture}
