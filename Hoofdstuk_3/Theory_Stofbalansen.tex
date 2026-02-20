@@ -30,7 +30,64 @@ waar:
 \item $V$ = reactorvolume
 \end{itemize}
 
+\begin{remark}
+Monotoon stijgende kinetica
 
+We veronderstellen een monotoom stijgende kinitiek in het vervolg van de theorie.
+Voor een irreversibele reactie met monotoon stijgende kinetica geldt:
+
+\[
+R_A = \frac{dC_A}{dt} = -k C_A^n
+\]
+
+waarbij:
+
+\begin{itemize}
+\item $n=1$ : eerste orde
+\item $n=2$ : tweede orde
+\item $n=3$ : derde orde
+\item $\dots$
+\end{itemize}
+
+Hieruit volgt:
+
+\[
+-\frac{1}{R_A} = \frac{1}{k C_A^n}
+\]
+
+De onderstaande grafiek toont $-1/R_A$ als functie van $C_A$
+voor verschillende waarden van $n$. 
+
+\begin{tikzpicture}
+\begin{axis}[
+    xlabel={$C_A$},
+    ylabel={$-1/R_A$},
+    domain=0.1:0.6,
+    samples=200,
+    axis lines=left,
+    width=11cm,
+    height=8cm,
+    legend pos=north east,
+    ymin=0,
+    ymax=120,
+]
+
+% n = 1
+\addplot[blue, thick] {1/x};
+\addlegendentry{$n=1$ (eerste orde)}
+
+% n = 2
+\addplot[red, thick] {1/(x^2)};
+\addlegendentry{$n=2$ (tweede orde)}
+
+% n = 3
+\addplot[green!60!black, thick] {1/(x^3)};
+\addlegendentry{$n=3$ (derde orde)}
+
+\end{axis}
+\end{tikzpicture}
+\end{remark}
+ 
 \section*{1. Batch Reactor}
 
 In een batch reactor is er geen in- of uitstroom (\(F_{A,in} = F_{A,out} = 0\)):
