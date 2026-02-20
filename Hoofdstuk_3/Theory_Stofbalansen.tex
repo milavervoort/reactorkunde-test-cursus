@@ -101,15 +101,15 @@ In een batch reactor is er geen in- of uitstroom (\(F_{A,in} = F_{A,out} = 0\)):
 Aangezien $N_A = N_{A0}(1-X_A)$:
 
 \[
-\boxed{
 \frac{dX_A}{dt} = \frac{-r_A}{C_{A0}}
-}
 \]
 
 Om de tijd \(t\) te berekenen die nodig is om van een initiële conversie \(X_{A0} = 0\) naar conversie \(X_A\) te gaan, integreren we:
 
 \[
+\boxed{
 t = \int_0^{X_A} \frac{C_{A0}}{-r_A}\, dX_A
+}
 \]
 
 \begin{image}
@@ -146,17 +146,15 @@ t = \int_0^{X_A} \frac{C_{A0}}{-r_A}\, dX_A
 Bij de aanname van constante densiteit:
 
 \[
-\boxed{
 \frac{dC_A}{dt} = r_A
-}
 \]
 
 Om de tijd \(t\) te berekenen die nodig is om van een initiële concentratie \(C_{A0}\) naar \(C_A\) te gaan, integreren we:
 \[
+\boxed{
 t = \int_{C_{A0}}^{C_A} \frac{dC_A}{r_A}
+}
 \]
-
-
 
 \begin{image}
 \begin{tikzpicture}
@@ -192,49 +190,187 @@ t = \int_{C_{A0}}^{C_A} \frac{dC_A}{r_A}
 \end{image}
 
 
-\section*{2. CSTR (Continuous Stirred Tank Reactor)}
+\section*{CSTR (Continuous Stirred Tank Reactor)}
 
-In een CSTR met constante volumestroom \(Q\) geldt bij stationaire toestand (\(\frac{dN_A}{dt} = 0\)):
-
-\[
-F_{A,in} - F_{A,out} + R_A V = 0
-\]
-
-Invullen van \(F_A = C_A Q\) geeft:
+In een CSTR met constante in- en uitstroom geldt bij stationaire toestand:
 
 \[
-Q C_{A,in} - Q C_{A,out} + R_A V = 0
+0 = F_{A0}-F_A+r_A V
 \]
-
-of herschikt:
 
 \[
-C_{A,out} = C_{A,in} + \frac{R_A V}{Q}
+F_{A0}X_A = -r_A V
 \]
 
-\textbf{Uitleg:} In een goed gemengde CSTR is de concentratie overal uniform. De uitstroomconcentratie wordt bepaald door de balans tussen toevoer en reactie.
+\[
+\boxed{
+\frac{V}{F_{A0}} = \frac{dX_{A,e}}{-r_A}
+}
+\]
+
+\begin{image}
+\begin{tikzpicture}
+\begin{axis}[
+    domain=0:0.95,
+    samples=200,
+    xmin=0, xmax=1,
+    ymin=0, ymax=12,
+    axis lines=left,
+    xlabel={$X_A$},
+    ylabel={$\frac{1}{-r_A}$},
+]
+
+
+% arceer het gebied 
+\draw[fill=blue!20] 
+    (axis cs:0,0) rectangle 
+    (axis cs:0.9,{1/(1-0.9)});
+
+% parameters
+\addplot[ultra thick, blue]
+{1/(1*(1-x))};
+
+\node at (axis cs:0.3,6) {Oppervlakte = $\frac{V}{F_{A0}}$};
+
+
+\end{axis}
+\end{tikzpicture}
+\end{image} 
+
+Bij de aanname van constante densiteit:
+
+\[
+\boxed{
+\tau = \frac{C_{A0}-C_{Ae}}{-r_A}
+}
+\]
+
+
+\begin{image}
+\begin{tikzpicture}
+\begin{axis}[
+    domain=0:1,       % x loopt van 0 tot C_A0
+    samples=200,
+    xmin=0, xmax=1,
+    ymin=0, ymax=12,
+    axis lines=left,
+    xlabel={$C_A$},
+    ylabel={$\frac{1}{-r_A}$},
+]
+
+% parameters
+\def\k{1}   % snelheidsconstante
+
+
+
+% arceer het gebied 
+
+\draw[fill=blue!20] 
+    (axis cs:1,0) rectangle 
+    (axis cs:0.1,{1/0.1});
+% plot de curve
+\addplot[ultra thick, blue] {1/(\k*x)};
+    
+% Voeg een t label toe in het gearceerde gebied
+\node at (axis cs:0.6,5) {Oppervlakte = $\tau$};
+
+\end{axis}
+\end{tikzpicture}
+\end{image}
+
 
 \section*{3. PFR (Plug Flow Reactor)}
 
-In een PFR verandert de concentratie langs de reactorlengte \(x\). De stofbalans over een klein segment \(dx\) is:
+In een PFR verandert de concentratie langs de reactorlengte \(x\). De stofbalans over een klein segment \(dV\) is:
+
 
 \[
-F_A(x) - F_A(x+dx) + R_A dV = 0
+\frac{dF_A}{dV} = r_A
 \]
-
-Bij een constante volumestroom \(Q\) (bij vloeistoffen):
 
 \[
-Q \frac{dC_A}{dx} = R_A
+\frac{dX_A}{dV} = \frac{-r_A}{F_{A0}}
 \]
-
-Met \(dV = A dx\) (doorsnede \(A\)):
 
 \[
-\frac{dC_A}{dx} = \frac{R_A}{Q}
+\boxed{
+\frac{V}{F_{A0}} = \int_0^{X_A}\frac{dX_A}{-r_A}
+}
 \]
 
-\textbf{Uitleg:} In een PFR stroomt het reactiemengsel plug-gewijs; er is geen menging in de lengterichting. De concentratie verandert continu langs de reactor.
+
+\begin{image}
+\begin{tikzpicture}
+\begin{axis}[
+    domain=0:0.95,
+    samples=200,
+    xmin=0, xmax=1,
+    ymin=0, ymax=12,
+    axis lines=left,
+    xlabel={$X_A$},
+    ylabel={$\frac{1}{-r_A}$},
+]
+
+% parameters
+\addplot[ultra thick, blue]
+{1/(1*(1-x))};
+
+% arceer het gebied tussen C_A_end en C_A0
+\addplot [
+    thick,
+    fill=blue!20,
+    domain=0:0.9,   % van C_A,e tot C_A0
+    samples=100
+] {1/(1*(1-x))} \closedcycle;
+
+% Voeg een t label toe in het gearceerde gebied
+\node at (axis cs:0.5,5) {Oppervlakte = $V/F_{A0}$};
+
+\end{axis}
+\end{tikzpicture}
+\end{image} 
+
+Bij de aanname van constante densiteit:
+
+\[
+\boxed{
+\tau = \int_0^{X_A}\frac{C_{A0}}{-r_A} dX_A
+}
+\]
+
+\begin{image}
+\begin{tikzpicture}
+\begin{axis}[
+    domain=0.1:1,       % x loopt van 0 tot C_A0
+    samples=200,
+    xmin=0, xmax=1,
+    ymin=0, ymax=12,
+    axis lines=left,
+    xlabel={$C_A$},
+    ylabel={$\frac{1}{-r_A}$},
+]
+
+% parameters
+\def\k{1}   % snelheidsconstante
+
+% plot de curve
+\addplot[ultra thick, blue] {1/(\k*x)};
+
+% arceer het gebied tussen C_A_end en C_A0
+\addplot [
+    thick,
+    fill=blue!20,
+    domain=0.2:1,   % van C_A,e tot C_A0
+    samples=100
+] {1/(\k*x)} \closedcycle;
+
+% Voeg een t label toe in het gearceerde gebied
+\node at (axis cs:0.6,5) {Oppervlakte = $\tau$};
+
+\end{axis}
+\end{tikzpicture}
+\end{image}
+
 
 \section*{Samenvatting}
 
