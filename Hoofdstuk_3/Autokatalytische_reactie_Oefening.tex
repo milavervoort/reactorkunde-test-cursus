@@ -255,40 +255,26 @@ $V_1 = \answer{13.2}\ \text{m}^3$
 $V_2 = \answer{30.4}\ \text{m}^3$
     
 \begin{hint}
-Bereken eerst het volume van de CSTR met
-\[
-\tau_1 = \frac{V_1}{q} = \frac{C_{A0}-C_A^*}{k\,C_A^*(C_{A0}-C_A^*)}.
-\]
-Voor de PFR gebruik je
-\[
-\tau_2 = \frac{V_2}{q} = -\int_{C_A^*}^{C_{A,\text{uit}}} 
-\frac{dC_A}{k\,C_A(C_{A0}-C_A)}.
-\]
-Splits de breuk met partieelbreuken.
+    Bereken eerst het benodigde volume van de CSTR om van $C_{A0}$ naar $C_A^*$ te gaan.
+    Bereken vervolgens het benodigde volume van de PFR van $C_A^*$ naar $C_{A,uit}$ te gaan.
 \end{hint}
 
 \begin{solution}
-
 \textbf{CSTR}
-
 \[
 \tau_1 = \frac{V_1}{q}
 = \frac{C_{A0}-C_A^*}{k\,C_A^*(C_{A0}-C_A^*)}
 = 1.32\ \text{uur}
 \]
-
 \[
 V_1 = 13.2\ \text{m}^3
 \]
-
 \textbf{PFR}
-
 \[
 \tau_2 = \frac{V_2}{q}
 = -\int_{C_A^*}^{C_{A,\text{uit}}} 
 \frac{dC_A}{k\,C_A(C_{A0}-C_A)}
 \]
-
 \[
 = -\frac{1}{kC_{A0}} 
 \int_{C_A^*}^{C_{A,\text{uit}}} 
@@ -297,7 +283,6 @@ V_1 = 13.2\ \text{m}^3
 \right) dC_A
 = 3.04\ \text{uur}
 \]
-
 \[
 V_2 = 30.4\ \text{m}^3
 \]
