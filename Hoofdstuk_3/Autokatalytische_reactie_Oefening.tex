@@ -139,15 +139,16 @@ X_A &= 0.99\\
 
 \subsection*{Eén CSTR}
 \begin{exercise}
-Bepaal het benodigde volume van één CSTR. 
+Bepaal het benodigde volume van één CSTR. \\
+
 $\text{Volume} = \answer{661} m^3$
     \begin{hint}
     Gebruik de formule afgeleid voor de verblijftijd.
     \end{hint}
-    \begin{solution}
+    \begin{feedback}
     \[ \tau = \frac{V}{q} = \frac{C_{A0} - C_{A,\text{uit}}}{k\,C_{A,\text{uit}}\left(C_{A0} - C_{A,\text{uit}}\right)} = 66.1\ \text{uur}\]
     \[V = 661\ \text{m}^3\]
-    \end{solution}
+    \end{feedback}
 \end{exercise}
 
 \begin{exercise}
@@ -159,16 +160,21 @@ Bepaal het benodigde volume van een serieschakeling van één CSTR en één PFR 
         \choice{Eerst een PFR daarna een CSTR} 
     \end{multipleChoice}
     \begin{solution}
+    \begin{figure}[h!]
+    \centering
     \begin{tikzpicture}
     \begin{axis}[
-        width=10cm,
+        width=8cm,
         height=7cm,
         xlabel={$C_A$},
         ylabel={$-\frac{1}{R_A}$},
         xmin=0, xmax=1,
         ymin=0, ymax=10,
         axis lines=left,
-        domain=0.05:0.95]
+        xtick=\empty,
+        ytick=\empty,
+        domain=0.05:0.95,
+        title={Eerst CSTR, dan PFR}]
     % parameters
     \def\k{1}
     \def\CAzero{1}
@@ -196,17 +202,19 @@ Bepaal het benodigde volume van een serieschakeling van één CSTR en één PFR 
     \node at (axis cs:0.65,3) {$\tau_{\text{CSTR}}$};
     \node at (axis cs:0.3,3) {$\tau_{\text{PFR}}$};
     \end{axis}
-    \end{tikzpicture}
-    \begin{tikzpicture}
     \begin{axis}[
-        width=12cm,
+        at={(8cm,0)},
+        width=8cm,
         height=7cm,
         xlabel={$C_A$},
         ylabel={$-\frac{1}{R_A}$},
         xmin=0, xmax=1,
         ymin=0, ymax=10,
         axis lines=left,
-        domain=0.05:0.95]
+        xtick=\empty,
+        ytick=\empty,
+        domain=0.05:0.95,
+        title={Eerst PFR, dan CSTR}]
     % parameters
     \def\k{1}
     \def\CAzero{1}
@@ -228,15 +236,17 @@ Bepaal het benodigde volume van een serieschakeling van één CSTR en één PFR 
     (\CAout,0)
     (\CAout,{1/(\k*\CAout*(\CAzero-\CAout))})
     (\CAstar,{1/(\k*\CAout*(\CAzero-\CAout))})};
-    \node at (axis cs:0.65,4) {$\tau_{\text{PFR}}$};
-    \node at (axis cs:0.25,7) {$\tau_{\text{CSTR}}$};
+    \node at (axis cs:0.65,3) {$\tau_{\text{PFR}}$};
+    \node at (axis cs:0.25,3) {$\tau_{\text{CSTR}}$};
     % curve
     \addplot[thick,blue]
     {1/(\k*x*(\CAzero-x))};
     \end{axis}
     \end{tikzpicture}
+    \end{figure}
     \end{solution}
 \end{question}
+
 \begin{question}
 Bepaal het benodigde volume van een serieschakeling van één CSTR en één PFR met een intermediaire concentratie $C_A^* = 0.5\ \text{kmol/m}^3$ en een eindconversie $X_A = 99\%$.
 
