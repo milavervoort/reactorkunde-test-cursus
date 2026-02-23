@@ -18,21 +18,12 @@ Een typisch voorbeeld van een autokatalytische reactie is:
 
 \[A \rightarrow B\]
 
-Hierbij is \(B\) zowel een product als een katalysator voor de reactie. De reactiesnelheid neemt toe naarmate er meer \(B\) gevormd wordt.  
+Hierbij is \(B\) zowel een product als een katalysator voor de reactie. De reactiesnelheid neemt toe naarmate er meer \(B\) gevormd wordt. \\
 
-\textbf{Belangrijkste eigenschappen:}
-\begin{itemize}
-    \item De snelheid van de reactie neemt toe naarmate de concentratie van het product \(B\) toeneemt.
-    \item Het kan leiden tot een \emph{sigmoidale} concentratieverloop in de tijd.
-    \item Autokatalytische reacties komen vaak voor in biologische systemen en bepaalde chemische oscillatorreacties.
-\end{itemize}
-
-\textbf{Voorbeeld van snelheidsvergelijking:}
-
+De snelheidsvergelijking van deze reactie is:
 \[
 -r_A = k C_A C_B
 \]
-
 waarbij:
 \begin{itemize}
     \item \(C_A\) = concentratie van reactant \(A\)  
@@ -40,11 +31,32 @@ waarbij:
     \item \(k\) = snelheidsconstante
 \end{itemize}
 
+De concentratie van B kan herschreven worden als:
+\[
+C_B = C_{B0} + C_{A0} - C_A
+\]
+
+Invullen in de snelheidsvergelijking geeft:
+
+\[
+-r_A = k C_A (C_{B0} + C_{A0} - C_A)
+\]
 
 
-\begin{center}
-\geogebra{vrjscbe6}{700}{700}
-\end{center}
+Dit kan ook verder uitgeschreven worden in functie van conversie met $C_A = C_{A0}(1-X_A)$:
+\[
+-r_A
+= k C_{A0}(1-X_A)(C_{B0} + C_{A0}X_A)
+\]
+\begin{remark}
+ \begin{itemize}
+     \item Indien er aanvankelijk geen product aanwezig is:
+     \[-r_A = k C_A (C_{A0}-C_A)\] 
+     \item Indien $C_{B0}=\varepsilon >0$:
+     \[-r_A = k C_A (\varepsilon + C_{A0}-C_A)\]
+     of in conversievorm:
+ \end{itemize}
+ \end{remark}
 
 Hoe kunnen we deze autokatalytische reacties drijven tot een zeer hoge conversie? 
 
@@ -55,6 +67,53 @@ We veronderstellen:
 \item constante densiteit
 \end{itemize}
 
+Een autokatalytische reactie heeft geen monotoon stijgende kinetiek.
+De reactiesnelheid vertoont een maximum bij een intermediaire
+concentratie (of conversie). Hierdoor veranderen ook de relatieve
+prestaties van verschillende reactoren.
+
+De verblijftijd wordt gegeven door:
+\[
+\tau_{\text{CSTR}} 
+= \frac{X_A}{-r_A/C_{A0}\big|_{X_A}}
+\] 
+
+\[
+\tau_{\text{PFR}} 
+= \int_{0}^{X_A} \frac{dX_A}{-r_A/C_{A0}}
+\]
+Bij monotoon stijgende kinetiek geldt steeds:
+\[
+\tau_{\text{CSTR}} > \tau_{\text{PFR}}
+\]
+Een PFR is dan altijd volume-efficiënter.
+
+Bij een autokatalytische reactie is dit echter
+niet langer gegarandeerd. Omdat de reactiesnelheid
+bij lage conversie zeer klein is (weinig product aanwezig),
+werkt een PFR in het begin van zijn lengte in een
+ongunstig kinetisch gebied.
+Een CSTR daarentegen opereert volledig aan de
+uitlaatconcentratie. Indien deze zich dichter bij
+het snelheidsmaximum bevindt dan de lage
+inlaatconcentratie van een PFR, kan de CSTR
+bij lage conversies een kleinere verblijftijd
+vereisen dan de PFR.
+
+Met andere woorden:
+\begin{itemize}
+\item Bij lage conversie kan de CSTR performanter zijn.
+\item Bij hogere conversie wordt de PFR opnieuw voordeliger.
+\end{itemize}
+Dit kan eenvoudig geverifieerd worden door in de
+interactieve figuur de gewenste conversie te variëren
+en $\tau_{\text{CSTR}}$ en $\tau_{\text{PFR}}$ te vergelijken.
+\begin{center}
+\geogebra{vrjscbe6}{700}{700}
+\end{center}
+Autokatalytische kinetiek doorbreekt dus de klassieke
+rangorde waarbij een PFR altijd efficiënter is dan een CSTR. 
+Ook andere reactorconfiguraties kunnen performanter zijn, en dat wordt duidelijk in volgende oefening.
 
 \subsection*{Gegeven}
 
