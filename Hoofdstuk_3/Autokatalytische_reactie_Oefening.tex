@@ -253,7 +253,7 @@ $V_1 = \answer{13.2}\ \text{m}^3$
 
 $V_2 = \answer{30.4}\ \text{m}^3$
     
-\begin{hint}
+\begin{hint} 
     Bereken eerst het benodigde volume van de CSTR om van $C_{A0}$ naar $C_A^*$ te gaan.
     Bereken vervolgens het benodigde volume van de PFR van $C_A^*$ naar $C_{A,uit}$ te gaan.
 \end{hint}
@@ -289,7 +289,117 @@ V_2 = 30.4\ \text{m}^3
 \end{question}
 \end{exercise}
 
+\begin{exercise}
+Bepaal de optimale recycleverhouding en het bijhorende volume voor een PFR. \\
 
+$\text{Optimale recycleverhouding } R = \answer{0.1893}$ \\
 
+$\text{Volume} = \answer{49.329} \ \text{m}^3$
+
+\begin{hint}
+Minimaliseer de verblijftijd $\tau = \dfrac{V}{q}$ ten opzichte van $R$.  
+
+Gebruik:
+\[
+\tau = \frac{V}{q} = -(R+1)\int_{C_{A,\text{in}}}^{C_{A,\text{uit}}} 
+\frac{dC_A}{k C_A (C_{A0}-C_A)}
+\] met 
+\[
+C_{A,\text{in}} =
+\frac{C_{A0} + R C_{A,\text{uit}}}{1+R}
+\]
+en stel $\dfrac{d\tau}{dR}=0$.
+\end{hint}
+
+\begin{feedback}
+\[
+\tau = \frac{V}{q} = -(R+1)\int_{C_{A,\text{in}}}^{C_{A,\text{uit}}} 
+\frac{dC_A}{k C_A (C_{A0}-C_A)}
+\] met 
+\[
+C_{A,\text{in}} =
+\frac{C_{A0} + R C_{A,\text{uit}}}{1+R}
+\]
+Voor 99\% conversie geldt:
+\[
+C_{A,\text{uit}} = 0.01 C_{A0}
+\]
+Dus:
+\[
+C_{A,\text{in}} =
+C_{A0}\frac{1+0.01R}{1+R}
+\]
+We lossen op:
+\[
+\tau =
+ -(R+1)\int_{C_{A,\text{in}}}^{C_{A,\text{uit}}}
+\frac{dC_A}{k C_A (C_{A0} - C_A)}
+\]
+Gebruik partiële breuken:
+\[
+\frac{1}{C_A(C_{A0}-C_A)}
+=
+\frac{1}{C_{A0}}
+\left(
+\frac{1}{C_A}
++
+\frac{1}{C_{A0}-C_A}
+\right)
+\]
+Integreren geeft:
+\[
+\tau =  -(R+1)
+\frac{1}{kC_{A0}}
+\left[
+\ln\left(\frac{C_A}{C_{A0}-C_A}\right)
+\right]_{C_{A,\text{in}}}^{C_{A,\text{uit}}}
+\]
+Dus:
+\[
+\tau = -(R+1)
+\frac{1}{kC_{A0}}
+\ln\left(
+\frac{C_{A,\text{uit}}(C_{A0}-C_{A,\text{in}})}
+{C_{A,\text{in}}(C_{A0}-C_{A,\text{uit}})}
+\right)
+\]
+Na invullen van de grenzen en vereenvoudigen volgt:
+\[
+\tau =
+-\frac{R+1}{k}
+\ln\left(\frac{R}{100+R}\right) 
+\]
+\vspace{0.5em}
+\textbf{Optimalisatie}
+Voor het minimum geldt:
+\[
+\frac{d\tau}{dR}=0
+\]
+Toepassen van de productregel:
+\[
+\frac{d\tau}{dR}
+=
+-\frac{1}{k}
+\left[
+\ln\left(\frac{R}{100+R}\right)
++
+(R+1)
+\left(
+\frac{1}{R}
+-
+\frac{1}{100+R}
+\right)
+\right] = 0
+\]
+Numeriek oplossen geeft:
+\[
+R = 0.1893
+\]
+Invullen van $R=0.1893$ geeft:
+\[
+V = 49.329 \ \text{m}^3
+\]
+\end{feedback}
+\end{exercise}
 
 \end{document}
