@@ -48,7 +48,7 @@ Dit kan ook verder uitgeschreven worden in functie van conversie met $C_A = C_{A
 -r_A
 = k C_{A0}(1-X_A)(C_{B0} + C_{A0}X_A)
 \]
-\begin{remark}
+\begin{remark} \
  \begin{itemize}
      \item Indien er aanvankelijk geen product aanwezig is:
      \[-r_A = k C_A (C_{A0}-C_A)\] 
@@ -134,43 +134,167 @@ X_A &= 0.99\\
   \[
   C_A = 0.5 \ \text{kmol/m}^3.
   \]
-
 \item Bepaal de optimale recycleverhouding en het vereiste volume voor een PFR met recycle.
 \end{enumerate}
 
 \subsection*{Eén CSTR}
+\begin{exercise}
+Bepaal het benodigde volume van één CSTR. 
+$\text{Volume} = \answer{661} m^3$
+    \begin{hint}
+    Gebruik de formule afgeleid voor de verblijftijd.
+    \end{hint}
+    \begin{solution}
+    \[ \tau = \frac{V}{q} = \frac{C_{A0} - C_{A,\text{uit}}}{k\,C_{A,\text{uit}}\left(C_{A0} - C_{A,\text{uit}}\right)} = 66.1\ \text{uur}\]
+    \[V = 661\ \text{m}^3\]
+    \end{solution}
+\end{exercise}
 
 \begin{exercise}
+Bepaal het benodigde volume van een serieschakeling van één CSTR en één PFR met een intermediaire concentratie $C_A^* = 0.5\ \text{kmol/m}^3$ en een eindconversie $X_A = 99\%$.
 \begin{question}
-Bepaal het benodigde volume van één CSTR. 
-\[
-\text{Volume} = \answer{661} m^3
-\] 
-\begin{hint}
-    Schrijf de stofbalans voor een CSTR uit. De stof balans is: 
-    \[ 
-    Q*C_{A,in} - Q*C_{A,out} + R_A*V = 0
-    \]
-\end{hint}
-\begin{hint}
-    Vul de reactiekinetiek voor een CSTR in.
-    \[
-    -R_A = k C_A (C_{A0} - C_{A}) 
-    \]
-\end{hint}
-\begin{feedback}
-    Voor een autokatalytische reactie:
-    \[
-    -r_A = k C_A (C_{A0} - C_A)
-    \]
-    Invullen in het ontwerpverband:
-    \[\tau =
-    \frac{C_{A0} - C_{A,\text{uit}}}
-    {k C_{A,\text{uit}} (C_{A0} - C_{A,\text{uit}})}
-    \]
-\end{feedback}
+    Wat is de beste optie?
+    \begin{multipleChoice}
+        \choice[correct]{Eerst een CSTR daarna een PFR}
+        \choice{Eerst een PFR daarna een CSTR} 
+    \end{multipleChoice}
+    \begin{solution}
+    \begin{tikzpicture}
+    \begin{axis}[
+        width=10cm,
+        height=7cm,
+        xlabel={$C_A$},
+        ylabel={$-\frac{1}{R_A}$},
+        xmin=0, xmax=1,
+        ymin=0, ymax=10,
+        axis lines=left,
+        domain=0.05:0.95]
+    % parameters
+    \def\k{1}
+    \def\CAzero{1}
+    % curve
+    \addplot[thick,blue]
+    {1/(\k*x*(\CAzero-x))};
+    % concentraties
+    \def\CAin{0.8}
+    \def\CAstar{0.5}
+    \def\CAout{0.1}
+    % verticale lijnen
+    \addplot[dashed] coordinates {(\CAin,0) (\CAin,10)};
+    \addplot[dashed] coordinates {(\CAstar,0) (\CAstar,10)};
+    \addplot[dashed] coordinates {(\CAout,0) (\CAout,10)};
+    % CSTR rechthoek
+    \addplot[fill=blue!20,draw=none]
+    coordinates {
+    (\CAin,0)
+    (\CAstar,0)
+    (\CAstar,{1/(\k*\CAstar*(\CAzero-\CAstar))})
+    (\CAin,{1/(\k*\CAstar*(\CAzero-\CAstar))})};
+    % PFR oppervlakte
+    \addplot[fill=red!20,domain=\CAout:\CAstar]
+    {1/(\k*x*(\CAzero-x))} \closedcycle;
+    \node at (axis cs:0.65,3) {$\tau_{\text{CSTR}}$};
+    \node at (axis cs:0.3,3) {$\tau_{\text{PFR}}$};
+    \end{axis}
+    \end{tikzpicture}
+    \begin{tikzpicture}
+    \begin{axis}[
+        width=12cm,
+        height=7cm,
+        xlabel={$C_A$},
+        ylabel={$-\frac{1}{R_A}$},
+        xmin=0, xmax=1,
+        ymin=0, ymax=10,
+        axis lines=left,
+        domain=0.05:0.95]
+    % parameters
+    \def\k{1}
+    \def\CAzero{1}
+    % concentraties
+    \def\CAin{0.8}
+    \def\CAstar{0.5}
+    \def\CAout{0.1}
+    % verticale lijnen
+    \addplot[dashed] coordinates {(\CAin,0) (\CAin,10)};
+    \addplot[dashed] coordinates {(\CAstar,0) (\CAstar,10)};
+    \addplot[dashed] coordinates {(\CAout,0) (\CAout,10)};
+    % PFR oppervlakte (eerst)
+    \addplot[fill=red!20,domain=\CAstar:\CAin]
+    {1/(\k*x*(\CAzero-x))} \closedcycle;
+    % CSTR rechthoek (nadien)
+    \addplot[fill=blue!20,draw=none]
+    coordinates {
+    (\CAstar,0)
+    (\CAout,0)
+    (\CAout,{1/(\k*\CAout*(\CAzero-\CAout))})
+    (\CAstar,{1/(\k*\CAout*(\CAzero-\CAout))})};
+    \node at (axis cs:0.65,4) {$\tau_{\text{PFR}}$};
+    \node at (axis cs:0.25,7) {$\tau_{\text{CSTR}}$};
+    % curve
+    \addplot[thick,blue]
+    {1/(\k*x*(\CAzero-x))};
+    \end{axis}
+    \end{tikzpicture}
+    \end{solution}
 \end{question}
+\begin{question}
+Bepaal het benodigde volume van een serieschakeling van één CSTR en één PFR met een intermediaire concentratie $C_A^* = 0.5\ \text{kmol/m}^3$ en een eindconversie $X_A = 99\%$.
 
+$V_1 = \answer{13.2}\ \text{m}^3$
+
+$V_2 = \answer{30.4}\ \text{m}^3$
+    
+\begin{hint}
+Bereken eerst het volume van de CSTR met
+\[
+\tau_1 = \frac{V_1}{q} = \frac{C_{A0}-C_A^*}{k\,C_A^*(C_{A0}-C_A^*)}.
+\]
+Voor de PFR gebruik je
+\[
+\tau_2 = \frac{V_2}{q} = -\int_{C_A^*}^{C_{A,\text{uit}}} 
+\frac{dC_A}{k\,C_A(C_{A0}-C_A)}.
+\]
+Splits de breuk met partieelbreuken.
+\end{hint}
+
+\begin{solution}
+
+\textbf{CSTR}
+
+\[
+\tau_1 = \frac{V_1}{q}
+= \frac{C_{A0}-C_A^*}{k\,C_A^*(C_{A0}-C_A^*)}
+= 1.32\ \text{uur}
+\]
+
+\[
+V_1 = 13.2\ \text{m}^3
+\]
+
+\textbf{PFR}
+
+\[
+\tau_2 = \frac{V_2}{q}
+= -\int_{C_A^*}^{C_{A,\text{uit}}} 
+\frac{dC_A}{k\,C_A(C_{A0}-C_A)}
+\]
+
+\[
+= -\frac{1}{kC_{A0}} 
+\int_{C_A^*}^{C_{A,\text{uit}}} 
+\left(
+\frac{1}{C_A} + \frac{1}{C_{A0}-C_A}
+\right) dC_A
+= 3.04\ \text{uur}
+\]
+
+\[
+V_2 = 30.4\ \text{m}^3
+\]
+
+\end{solution}
+\end{question}
+\end{exercise}
 
 \begin{question}
     Evaluate the following:
@@ -187,7 +311,7 @@ Bepaal het benodigde volume van één CSTR.
         \item $|\sin(x) - 3| = \answer{3 - \sin(x)}$
     \end{enumerate}
 \end{question}
-\end{exercise}
+
 
 
 \end{document}
