@@ -52,6 +52,44 @@ waarbij:
 \item $\dots$
 \end{itemize}
 
+
+In de volgende grafiek is te zien hoe de concentratie van reagens A afneemt in functie van de tijd voor verschillende reactie-ordes, telkens met dezelfde beginconcentratie en dezelfde snelheidsconstante $k$.
+
+
+\begin{tikzpicture}
+\begin{axis}[
+    xlabel={$t$},
+    ylabel={$C_A$},
+    domain=0:0.9,
+    samples=200,
+    axis lines=left,
+    width=11cm,
+    height=8cm,
+    legend pos=north east,
+    ymin=0,
+    ymax=1.1,
+]
+
+% n = 0
+\addplot[purple, thick] {1 - x};
+\addlegendentry{$n=0$ (nulde orde)}
+
+% n = 1
+\addplot[blue, thick] {exp(-x)};
+\addlegendentry{$n=1$ (eerste orde)}
+
+% n = 2
+\addplot[red, thick] {1/(1 + x)};
+\addlegendentry{$n=2$ (tweede orde)}
+
+% n = 3
+\addplot[green!60!black, thick] {1/sqrt(1 + 2*x)};
+\addlegendentry{$n=3$ (derde orde)}
+
+\end{axis}
+\end{tikzpicture}
+
+
 Verder volgt dat:
 
 \[
