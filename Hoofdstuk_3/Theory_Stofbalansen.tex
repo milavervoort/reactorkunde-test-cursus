@@ -17,7 +17,7 @@ In hoofdstuk 3 'Ontwerp van homogene reaktoren onder isotherme werkingsvoorwaard
 Stofbalans\\
 Een stofbalans is van de volgende vorm: 
 \[
-\text{Accumulation} = \text{In} - \text{Uit} + \text{Vorming} - \text{Verbruik}
+\text{Accumulatie} = \text{In} - \text{Uit} + \text{Reactie} 
 \]
 In formulevorm:
 \[
@@ -52,14 +52,50 @@ waarbij:
 \item $\dots$
 \end{itemize}
 
-Hieruit volgt:
+In de volgende grafiek is te zien hoe de concentratie van reagens A afneemt in functie van de tijd voor verschillende reactie-ordes, telkens met dezelfde beginconcentratie en dezelfde snelheidsconstante $k$.
+
+
+\begin{tikzpicture}
+\begin{axis}[
+    xlabel={$t$},
+    ylabel={$C_A$},
+    domain=0:0.9,
+    samples=200,
+    axis lines=left,
+    width=11cm,
+    height=8cm,
+    legend pos=north east,
+    ymin=0,
+    ymax=1.1,
+]
+
+% n = 0
+\addplot[purple, thick] {1 - x};
+\addlegendentry{$n=0$ (nulde orde)}
+
+% n = 1
+\addplot[blue, thick] {exp(-x)};
+\addlegendentry{$n=1$ (eerste orde)}
+
+% n = 2
+\addplot[red, thick] {1/(1 + x)};
+\addlegendentry{$n=2$ (tweede orde)}
+
+% n = 3
+\addplot[green!60!black, thick] {1/sqrt(1 + 2*x)};
+\addlegendentry{$n=3$ (derde orde)}
+
+\end{axis}
+\end{tikzpicture}
+
+Verder volgt dat:
 
 \[
 -\frac{1}{R_A} = \frac{1}{k C_A^n}
 \]
 
 De onderstaande grafiek toont $-1/R_A$ als functie van $C_A$
-voor verschillende waarden van $n$. 
+voor verschillende waarden van de reactie-orde $n$. 
 
 \begin{tikzpicture}
 \begin{axis}[
@@ -72,8 +108,11 @@ voor verschillende waarden van $n$.
     height=8cm,
     legend pos=north east,
     ymin=0,
-    ymax=120,
+    ymax=50,
 ]
+% n = 0
+\addplot[purple, thick] {1};
+\addlegendentry{$n=0$ (nulde orde)}
 
 % n = 1
 \addplot[blue, thick] {1/x};
@@ -89,6 +128,36 @@ voor verschillende waarden van $n$.
 
 \end{axis}
 \end{tikzpicture}
+\end{remark}
+
+\begin{remark}
+\textbf{Variabele densiteit}
+
+In veel reacties is de densiteit van het reagerend mengsel niet constant. 
+Wanneer tijdens de reactie het aantal mol gas toeneemt of afneemt, zal ook het totale volume veranderen. 
+Het controlevolume wordt dus een functie van de reactievoortgang.
+
+Als lineaire benadering wordt aangenomen:
+\[
+V = V_0 (1 + \varepsilon_A X_A)
+\]
+Hierbij is:
+\begin{itemize}
+    \item $V_0$ het beginvolume,
+    \item $X_A$ de conversie van component $A$,
+    \item $\varepsilon_A$ de expansiefactor.
+\end{itemize}
+
+De expansiefactor $\varepsilon_A$ geeft weer hoe sterk het volume verandert bij volledige omzetting van $A$:
+\[
+\varepsilon_A = \frac{V_{X_A=1} - V_0}{V_0}
+\]
+
+Hieruit volgt:
+\begin{itemize}
+    \item $\varepsilon_A > 0$ : expansie (toename van het volume),
+    \item $\varepsilon_A < 0$ : compressie (afname van het volume).
+\end{itemize}
 \end{remark}
 
 
@@ -146,7 +215,7 @@ t = \int_0^{X_A} \frac{C_{A0}}{-r_A}\, dX_A
 \end{tikzpicture}
 \end{image} 
 
-Bij de aanname van constante densiteit:
+Bij de aanname van constante densiteit en dus een constant controlevolume, kan de molaire hoeveelheid omgevormd worden naar de concentratie van reagens A.
 
 \[
 \frac{dC_A}{dt} = r_A
@@ -207,7 +276,7 @@ F_{A0}X_A = -r_A V
 
 \[
 \boxed{
-\frac{V}{F_{A0}} = \frac{dX_{A,e}}{-r_A}
+\frac{V}{F_{A0}} = \frac{X_{Ae}}{-r_A(X_{Ae}}
 }
 \]
 
@@ -244,7 +313,7 @@ Bij de aanname van constante densiteit:
 
 \[
 \boxed{
-\tau = \frac{C_{A0}-C_{Ae}}{-r_A}
+\tau = \frac{C_{A0}-C_{Ae}}{-r_A(C_{Ae})}
 }
 \]
 
@@ -297,7 +366,7 @@ In een PFR verandert de concentratie langs de reactorlengte \(x\). De stofbalans
 
 \[
 \boxed{
-\frac{V}{F_{A0}} = \int_0^{X_A}\frac{dX_A}{-r_A}
+\frac{V}{F_{A0}} = \int_0^{X_{Ae}}\frac{dX_A}{-r_A}
 }
 \]
 
@@ -337,7 +406,7 @@ Bij de aanname van constante densiteit:
 
 \[
 \boxed{
-\tau = \int_0^{X_A}\frac{C_{A0}}{-r_A} dX_A
+\tau = - \int_{C_{A0}}^{C_{Ae}} \frac{dC_A}{-r_A}
 }
 \]
 
@@ -380,11 +449,11 @@ Bij de aanname van constante densiteit:
 We vergelijken de verblijftijd voor eenzelfde uitgangsconcentratie $C_A$.
 
 \[
-\tau_{PFR} = \int_{C_{A0}}^{C_A} \frac{dC_A}{r_A}
+\tau_{PFR} = \int_{C_{A0}}^{C_{Ae}} \frac{dC_A}{r_A}
 \]
 
 \[
-\tau_{CSTR} = \frac{C_{A0}-C_A}{-r_A|_{\text{uit}}}
+\tau_{CSTR} = \frac{C_{A0}-C_{Ae}}{-r_A(C_{Ae})}
 \]
 
 Grafisch in een $-1/r_A$ versus $C_A$ diagram:
@@ -425,14 +494,14 @@ Grafisch in een $-1/r_A$ versus $C_A$ diagram:
 
 \textbf{Interpretatie:}
 
-Bij monotoon stijgende kinetica stijgt $-1/r_A$ bij dalende $C_A$.
-De rechthoek (CSTR) is daardoor groter dan de integraal (PFR):
+Bij monotoon stijgende kinetica:
+
 
 \[
 \tau_{CSTR} > \tau_{PFR}
 \]
 
-Een PFR is dus efficiënter dan een CSTR voor dezelfde conversie.
+Een PFR is dus meer performant dan een CSTR voor dezelfde conversie.
 
 Dit kan je ook zelf even uittesten:
 \begin{center}
@@ -489,13 +558,7 @@ Bij constante densiteit is:
 t_{Batch} = \tau_{PFR}
 \]
 
-Batch en PFR volgen exact dezelfde integraal.
-Het verschil is enkel operationeel:
-
-\begin{itemize}
-\item Batch: tijd evolueert in één vat
-\item PFR: concentratie evolueert langs de reactorlengte
-\end{itemize}
+De tijd dat een fluidumelement verblijft in een propstroom reactor en in een batch reactor zijn equivalent.
 
 \section{PFR met recyclestroom}
 We beschouwen een plug flow reactor (PFR) met een externe recyclestroom.
