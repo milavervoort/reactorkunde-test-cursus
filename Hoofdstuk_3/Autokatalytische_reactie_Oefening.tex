@@ -24,7 +24,7 @@ Hierbij is \(B\) zowel een product als een katalysator voor de reactie. De react
 
 De snelheidsvergelijking van deze reactie is:
 \[
--r_A = k C_A C_B
+-R_A = k C_A C_B
 \]
 waarbij:
 \begin{itemize}
@@ -42,54 +42,56 @@ C_B = C_{B0} + C_{A0} - C_A
 Invullen in de snelheidsvergelijking geeft:
 
 \[
--r_A = k C_A (C_{B0} + C_{A0} - C_A)
+-R_A = k C_A (C_{B0} + C_{A0} - C_A)
 \]
 
 
-Dit kan ook verder uitgeschreven worden in functie van conversie met $C_A = C_{A0}(1-X_A)$:
+Dit kan ook verder uitgeschreven worden in functie van conversie met $C_A = C_{A0}(1-X_A)$ en $C_B = C_{B0}+C_{A0}X_A$:
 \[
--r_A
+-R_A
 = k C_{A0}(1-X_A)(C_{B0} + C_{A0}X_A)
 \]
 \begin{remark} \
  \begin{itemize}
      \item Indien er aanvankelijk geen product aanwezig is:
-     \[-r_A = k C_A (C_{A0}-C_A)\] 
+     \[-R_A = k C_A (C_{A0}-C_A) = k C_{A0}^2(1-X_A)X_A\]
      \item Indien $C_{B0}=\varepsilon >0$:
-     \[-r_A = k C_A (\varepsilon + C_{A0}-C_A)\]
-     of in conversievorm:
+     \[-R_A = k C_A (\varepsilon + C_{A0}-C_A)= k C_{A0}(1-X_A)(\varepsilon + C_{A0}X_A) \]
  \end{itemize}
  \end{remark}
 
-Hoe kunnen we deze autokatalytische reacties drijven tot een zeer hoge conversie? 
+Een autokatalytische reactie vertoont geen monotoon stijgende kinetiek. De reactiesnelheid bereikt een maximum bij een intermediaire waarde van de concentratie (of conversie).\\
 
-We veronderstellen:
-\begin{itemize}
-\item isotherme werking
-\item ideale reactoren
-\item constante densiteit
-\end{itemize}
+Wanneer $\frac{1}{-R_A}$ wordt uitgezet tegen $C_A$, zal de resulterende reactiecurve een ander verloop vertonen dan bij een monotoon stijgende reactiekinetiek. De curve ziet er als volgt uit:
 
-Een autokatalytische reactie heeft geen monotoon stijgende kinetiek.
-De reactiesnelheid vertoont een maximum bij een intermediaire
-concentratie (of conversie). Hierdoor veranderen ook de relatieve
-prestaties van verschillende reactoren.
+\begin{image}
+\begin{tikzpicture}
+\begin{axis}[
+    domain=0.1:0.9,
+    samples=200,
+    xmin=0, xmax=1,
+    ymin=0, ymax=12,
+    axis lines=left,
+    xlabel={$C_A$},
+    ylabel={$\frac{1}{(-R_A)}$},
+    xtick=\empty,
+    ytick=\empty
+]
 
-De verblijftijd wordt gegeven door:
-\[
-\tau_{\text{CSTR}} 
-= \frac{X_A}{-r_A/C_{A0}\big|_{X_A}}
-\] 
+% parameters
+\addplot[ultra thick, blue]
+{1/(x*(1-x))};
+\end{axis}
+\end{tikzpicture}
+\end{image} 
 
-\[
-\tau_{\text{PFR}} 
-= \int_{0}^{X_A} \frac{dX_A}{-r_A/C_{A0}}
-\]
-Bij monotoon stijgende kinetiek geldt steeds:
+Hierdoor verandert de performantie van de verschillende reactoren ten opzichte van elkaar.
+
+Bij een isotherme reactie met monotoon stijgende kinetiek hebben we gezien dat er steeds geldt:
 \[
 \tau_{\text{CSTR}} > \tau_{\text{PFR}}
 \]
-Een PFR is dan altijd volume-efficiënter.
+Een PFR is dan altijd volume-efficiënter. \\
 
 Bij een autokatalytische reactie is dit echter
 niet langer gegarandeerd. Omdat de reactiesnelheid
@@ -114,9 +116,12 @@ en $\tau_{\text{CSTR}}$ en $\tau_{\text{PFR}}$ te vergelijken.
 \begin{center}
 \geogebra{vrjscbe6}{700}{700}
 \end{center}
+
+\begin{conclusion}
 Autokatalytische kinetiek doorbreekt dus de klassieke
 rangorde waarbij een PFR altijd efficiënter is dan een CSTR. 
-Ook andere reactorconfiguraties kunnen performanter zijn, en dat wordt duidelijk in volgende oefening.
+Ook andere reactorconfiguraties kunnen performanter zijn.
+\end{conclusion}
 
 \subsection*{Gegeven}
 
