@@ -1,6 +1,6 @@
 \documentclass{ximera}
 
-\title{Theory}
+\title{THEORIE HOOFDSTUK 3: Ontwerp van homogene reactoren onder isotherme werkingsvoorwaarden}
 \author{Mila Vervoort}
 \license{CC: 0}         % replace with an appropriate license, or set it in xmPreamble
 
@@ -11,9 +11,13 @@
 \maketitle
 \label{xim:theory}
 
-In hoofdstuk 3 'Ontwerp van homogene reaktoren onder isotherme werkingsvoorwaarden' werd gezien hoe door het opstellen van de stofbalans de nodige ontwerpvergelijkingen bekomen kunnen worden. 
+\section{Stofbalansen}
 
-\begin{definition} 
+In hoofdstuk 3 'Ontwerp van homogene reaktoren onder isotherme werkingsvoorwaarden' werd gezien hoe door het opstellen van de stofbalans de nodige ontwerpvergelijkingen bekomen kunnen worden.
+
+In dit hoofdstuk wordt verondersteld dat de reactor onder \textbf{isotherme omstandigheden} werkt, bij een vooraf gekende of eenvoudig te bepalen temperatuur. Hierdoor is een enthalpiebalans niet nodig voor het ontwerp van de reactorinstallatie. Bovendien kan de uitdrukking voor de reactiesnelheid worden vereenvoudigd, aangezien er geen expliciete temperatuurafhankelijkheid meer in rekening hoeft te worden gebracht.
+
+\begin{formula}
 Stofbalans\\
 Een stofbalans is van de volgende vorm: 
 \[
@@ -31,138 +35,7 @@ waar:
 \item $R_A$ = reactiesnelheid van A (mol/(m$^3$s))
 \item $V$ = reactorvolume
 \end{itemize}
-\end{definition}
-
-\begin{remark}
-Monotoon stijgende kinetica
-
-We veronderstellen een monotoom stijgende kinetiek in het vervolg van de theorie.
-Voor een irreversibele reactie met monotoon stijgende kinetica geldt:
-
-\[
-R_A = \frac{dC_A}{dt} = -k C_A^n
-\]
-
-waarbij:
-
-\begin{itemize}
-\item $n=1$ : eerste orde
-\item $n=2$ : tweede orde
-\item $n=3$ : derde orde
-\item $\dots$
-\end{itemize}
-
-
-In de volgende grafiek is te zien hoe de concentratie van reagens A afneemt in functie van de tijd voor verschillende reactie-ordes, telkens met dezelfde beginconcentratie en dezelfde snelheidsconstante $k$.
-
-
-\begin{tikzpicture}
-\begin{axis}[
-    xlabel={$t$},
-    ylabel={$C_A$},
-    domain=0:0.9,
-    samples=200,
-    axis lines=left,
-    width=11cm,
-    height=8cm,
-    legend pos=north east,
-    ymin=0,
-    ymax=1.1,
-]
-
-% n = 0
-\addplot[purple, thick] {1 - x};
-\addlegendentry{$n=0$ (nulde orde)}
-
-% n = 1
-\addplot[blue, thick] {exp(-x)};
-\addlegendentry{$n=1$ (eerste orde)}
-
-% n = 2
-\addplot[red, thick] {1/(1 + x)};
-\addlegendentry{$n=2$ (tweede orde)}
-
-% n = 3
-\addplot[green!60!black, thick] {1/sqrt(1 + 2*x)};
-\addlegendentry{$n=3$ (derde orde)}
-
-\end{axis}
-\end{tikzpicture}
-
-
-Verder volgt dat:
-
-\[
--\frac{1}{R_A} = \frac{1}{k C_A^n}
-\]
-
-De onderstaande grafiek toont $-1/R_A$ als functie van $C_A$
-voor verschillende waarden van de reactie-orde $n$. 
-
-\begin{tikzpicture}
-\begin{axis}[
-    xlabel={$C_A$},
-    ylabel={$-1/R_A$},
-    domain=0.1:0.6,
-    samples=200,
-    axis lines=left,
-    width=11cm,
-    height=8cm,
-    legend pos=north east,
-    ymin=0,
-    ymax=50,
-]
-% n = 0
-\addplot[purple, thick] {1};
-\addlegendentry{$n=0$ (nulde orde)}
-
-% n = 1
-\addplot[blue, thick] {1/x};
-\addlegendentry{$n=1$ (eerste orde)}
-
-% n = 2
-\addplot[red, thick] {1/(x^2)};
-\addlegendentry{$n=2$ (tweede orde)}
-
-% n = 3
-\addplot[green!60!black, thick] {1/(x^3)};
-\addlegendentry{$n=3$ (derde orde)}
-
-\end{axis}
-\end{tikzpicture}
-\end{remark}
-
-\begin{remark}
-\textbf{Variabele densiteit}
-
-In veel reacties is de densiteit van het reagerend mengsel niet constant. 
-Wanneer tijdens de reactie het aantal mol gas toeneemt of afneemt, zal ook het totale volume veranderen. 
-Het controlevolume wordt dus een functie van de reactievoortgang.
-
-Als lineaire benadering wordt aangenomen:
-\[
-V = V_0 (1 + \varepsilon_A X_A)
-\]
-Hierbij is:
-\begin{itemize}
-    \item $V_0$ het beginvolume,
-    \item $X_A$ de conversie van component $A$,
-    \item $\varepsilon_A$ de expansiefactor.
-\end{itemize}
-
-De expansiefactor $\varepsilon_A$ geeft weer hoe sterk het volume verandert bij volledige omzetting van $A$:
-\[
-\varepsilon_A = \frac{V_{X_A=1} - V_0}{V_0}
-\]
-
-Hieruit volgt:
-\begin{itemize}
-    \item $\varepsilon_A > 0$ : expansie (toename van het volume),
-    \item $\varepsilon_A < 0$ : compressie (afname van het volume).
-\end{itemize}
-\end{remark}
-
-
+\end{formula} 
  
 \section{Batch Reactor}
 
@@ -262,6 +135,99 @@ t = \int_{C_{A0}}^{C_A} \frac{dC_A}{r_A}
 \end{axis}
 \end{tikzpicture}
 \end{image}
+
+\begin{remark}
+\textbf{Variabele densiteit}
+
+In veel reacties is de densiteit van het reagerend mengsel niet constant. 
+Wanneer tijdens de reactie het aantal mol gas toeneemt of afneemt, zal ook het totale volume veranderen. 
+Het controlevolume wordt dus een functie van de reactievoortgang.
+
+Als lineaire benadering wordt aangenomen:
+\[
+V = V_0 (1 + \varepsilon_A X_A)
+\]
+Hierbij is:
+\begin{itemize}
+    \item $V_0$ het beginvolume,
+    \item $X_A$ de conversie van component $A$,
+    \item $\varepsilon_A$ de expansiefactor.
+\end{itemize}
+
+De expansiefactor $\varepsilon_A$ geeft weer hoe sterk het volume verandert bij volledige omzetting van $A$:
+\[
+\varepsilon_A = \frac{V_{X_A=1} - V_0}{V_0}
+\]
+
+Hieruit volgt:
+\begin{itemize}
+    \item $\varepsilon_A > 0$ : expansie (toename van het volume),
+    \item $\varepsilon_A < 0$ : compressie (afname van het volume).
+\end{itemize}
+\end{remark}
+
+\begin{remark}
+Monotoon stijgende kinetica
+
+De grafische veoorstellingen die worden getoond voor de tijd, gaan uit van een monotoom stijgende kinetica. \\
+Hiervoor geldt: 
+
+\[
+R_A = \frac{dC_A}{dt} = -k C_A^n
+\]
+
+waarbij:
+
+\begin{itemize}
+\item $n=1$ : eerste orde
+\item $n=2$ : tweede orde
+\item $n=3$ : derde orde
+\item $\dots$
+\end{itemize}
+
+Voor deze kinetica volgt dat:
+
+\[
+-\frac{1}{R_A} = \frac{1}{k C_A^n}
+\]
+
+De onderstaande grafiek toont $-1/R_A$ als functie van $C_A$
+voor verschillende waarden van de reactie-orde $n$. 
+
+\begin{tikzpicture}
+\begin{axis}[
+    xlabel={$C_A$},
+    ylabel={$-1/R_A$},
+    domain=0.1:0.6,
+    samples=200,
+    axis lines=left,
+    width=11cm,
+    height=8cm,
+    legend pos=north east,
+    ymin=0,
+    ymax=50,
+]
+% n = 0
+\addplot[purple, thick] {1};
+\addlegendentry{$n=0$ (nulde orde)}
+
+% n = 1
+\addplot[blue, thick] {1/x};
+\addlegendentry{$n=1$ (eerste orde)}
+
+% n = 2
+\addplot[red, thick] {1/(x^2)};
+\addlegendentry{$n=2$ (tweede orde)}
+
+% n = 3
+\addplot[green!60!black, thick] {1/(x^3)};
+\addlegendentry{$n=3$ (derde orde)}
+
+\end{axis}
+\end{tikzpicture}
+
+Bij een andere kinetica kan de reactiecurve dus een andere vorm aannemen.
+\end{remark}
 
 
 \section{CSTR (Continuous Stirred Tank Reactor)}

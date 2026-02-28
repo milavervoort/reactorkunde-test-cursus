@@ -307,7 +307,7 @@
 
       \newtheorem{lemma}{\GetTranslation{Lemma}}
 
-      \newtheorem{formula}{\GetTranslation{Formula}}
+      \newtheorem{formula}{\GetTranslation{Formule}}
 
       \newtheorem{idea}{\GetTranslation{Idea}}
 
@@ -323,7 +323,7 @@
 
       \newtheorem{procedure}{\GetTranslation{Procedure}}
 
-      \newtheorem{remark}{\GetTranslation{Remark}}
+      \newtheorem{remark}{\GetTranslation{Opmerking}}
 
       \newtheorem{summary}{\GetTranslation{Summary}}
 
