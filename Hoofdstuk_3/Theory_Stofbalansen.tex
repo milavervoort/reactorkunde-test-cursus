@@ -62,13 +62,16 @@ t = N_{A0} \int_0^{X_A} \frac{dX_A}{(-R_A)V}\
 \begin{image}
 \begin{tikzpicture}
 \begin{axis}[
-    domain=0:0.95,
+    domain=0:0.9,
     samples=200,
     xmin=0, xmax=1,
     ymin=0, ymax=12,
     axis lines=left,
     xlabel={$X_A$},
-    ylabel={$\frac{1}{-r_A}$},
+    ylabel={$\frac{1}{(-R_A)V}$},
+     xtick={0.8},                 % positie van de tick
+    xticklabels={$X_{Ae}$},
+    ytick=\empty
 ]
 
 % parameters
@@ -79,12 +82,12 @@ t = N_{A0} \int_0^{X_A} \frac{dX_A}{(-R_A)V}\
 \addplot [
     thick,
     fill=blue!20,
-    domain=0:0.9,   % van C_A,e tot C_A0
+    domain=0:0.8,   % van C_A,e tot C_A0
     samples=100
 ] {1/(1*(1-x))} \closedcycle;
 
 % Voeg een t label toe in het gearceerde gebied
-\node at (axis cs:0.5,5) {Oppervlakte = $t/C_{A0}$};
+\node at (axis cs:0.5,5) {Oppervlakte = $t/N_{A0}$};
 
 \end{axis}
 \end{tikzpicture}
@@ -93,26 +96,29 @@ t = N_{A0} \int_0^{X_A} \frac{dX_A}{(-R_A)V}\
 Bij de aanname van constante densiteit en dus een constant controlevolume, kan de molaire hoeveelheid omgevormd worden naar de concentratie van reagens A.
 
 \[
-\frac{dC_A}{dt} = r_A
+\frac{dC_A}{dt} = R_A
 \]
 
 Om de tijd \(t\) te berekenen die nodig is om van een initiële concentratie \(C_{A0}\) naar \(C_A\) te gaan, integreren we:
 \[
 \boxed{
-t = \int_{C_{A0}}^{C_A} \frac{dC_A}{r_A}
+t = -\int_{C_{A0}}^{C_A} \frac{dC_A}{(-R_A)}
 }
 \]
 
 \begin{image}
 \begin{tikzpicture}
 \begin{axis}[
-    domain=0.1:1,       % x loopt van 0 tot C_A0
+    domain=0.01:1,       % x loopt van 0 tot C_A0
     samples=200,
     xmin=0, xmax=1,
     ymin=0, ymax=12,
     axis lines=left,
     xlabel={$C_A$},
-    ylabel={$\frac{1}{-r_A}$},
+    ylabel={$\frac{1}{(-R_A)}$},
+     xtick={0.1,0.9},                 % positie van de tick
+    xticklabels={$C_{Ae}$,$C_{A0}$},
+    ytick=\empty
 ]
 
 % parameters
@@ -125,7 +131,7 @@ t = \int_{C_{A0}}^{C_A} \frac{dC_A}{r_A}
 \addplot [
     thick,
     fill=blue!20,
-    domain=0.2:1,   % van C_A,e tot C_A0
+    domain=0.1:0.9,   % van C_A,e tot C_A0
     samples=100
 ] {1/(\k*x)} \closedcycle;
 
@@ -206,6 +212,8 @@ voor verschillende waarden van de reactie-orde $n$.
     legend pos=north east,
     ymin=0,
     ymax=50,
+    xtick=\empty,
+    ytick=\empty
 ]
 % n = 0
 \addplot[purple, thick] {1};
@@ -235,16 +243,16 @@ Bij een andere kinetica kan de reactiecurve dus een andere vorm aannemen.
 In een CSTR met constante in- en uitstroom geldt bij stationaire toestand:
 
 \[
-0 = F_{A0}-F_A+r_A V
+0 = F_{A0}-F_A+R_A V
 \]
 
 \[
-F_{A0}X_A = -r_A V
+F_{A0}X_A = -R_A V
 \]
 
 \[
 \boxed{
-\frac{V}{F_{A0}} = \frac{X_{Ae}}{-r_A(X_{Ae}}
+\frac{V}{F_{A0}} = \frac{X_{Ae}}{-R_A(X_{Ae})}
 }
 \]
 
@@ -257,7 +265,10 @@ F_{A0}X_A = -r_A V
     ymin=0, ymax=12,
     axis lines=left,
     xlabel={$X_A$},
-    ylabel={$\frac{1}{-r_A}$},
+    ylabel={$\frac{1}{(-R_A)}$},
+    xtick={0.9},                 % positie van de tick
+    xticklabels={$X_{Ae}$},
+    ytick=\empty
 ]
 
 
@@ -281,7 +292,7 @@ Bij de aanname van constante densiteit:
 
 \[
 \boxed{
-\tau = \frac{C_{A0}-C_{Ae}}{-r_A(C_{Ae})}
+\tau = \frac{C_{A0}-C_{Ae}}{-R_A(C_{Ae})}
 }
 \]
 
@@ -295,7 +306,10 @@ Bij de aanname van constante densiteit:
     ymin=0, ymax=12,
     axis lines=left,
     xlabel={$C_A$},
-    ylabel={$\frac{1}{-r_A}$},
+    ylabel={$\frac{1}{(-R_A)}$},
+    xtick={0.1,0.9},                 % positie van de tick
+    xticklabels={$C_{Ae}$,$C_{A0}$},
+    ytick=\empty
 ]
 
 % parameters
@@ -306,8 +320,8 @@ Bij de aanname van constante densiteit:
 % arceer het gebied 
 
 \draw[fill=blue!20] 
-    (axis cs:1,0) rectangle 
-    (axis cs:0.1,{1/0.1});
+    (axis cs:0.9,0) rectangle 
+    (axis cs:0.1,{0.9/0.1});
 % plot de curve
 \addplot[ultra thick, blue] {1/(\k*x)};
     
@@ -321,20 +335,20 @@ Bij de aanname van constante densiteit:
 
 \section{PFR (Plug Flow Reactor)}
 
-In een PFR verandert de concentratie langs de reactorlengte \(x\). De stofbalans over een klein segment \(dV\) is:
+In een PFR verandert de concentratie langs de reactorlengte. De stofbalans over een klein segment \(dV\) is:
 
 
 \[
-\frac{dF_A}{dV} = r_A
+\frac{dF_A}{dV} = R_A
 \]
 
 \[
-\frac{dX_A}{dV} = \frac{-r_A}{F_{A0}}
+\frac{dX_A}{dV} = \frac{-R_A}{F_{A0}}
 \]
 
 \[
 \boxed{
-\frac{V}{F_{A0}} = \int_0^{X_{Ae}}\frac{dX_A}{-r_A}
+\frac{V}{F_{A0}} = \int_0^{X_{Ae}}\frac{dX_A}{-R_A}
 }
 \]
 
@@ -348,7 +362,10 @@ In een PFR verandert de concentratie langs de reactorlengte \(x\). De stofbalans
     ymin=0, ymax=12,
     axis lines=left,
     xlabel={$X_A$},
-    ylabel={$\frac{1}{-r_A}$},
+    ylabel={$\frac{1}{(-R_A)}$},
+    xtick={0.9},                 % positie van de tick
+    xticklabels={$X_{Ae}$},
+    ytick=\empty
 ]
 
 % parameters
@@ -374,20 +391,23 @@ Bij de aanname van constante densiteit:
 
 \[
 \boxed{
-\tau = - \int_{C_{A0}}^{C_{Ae}} \frac{dC_A}{-r_A}
+\tau = - \int_{C_{A0}}^{C_{Ae}} \frac{dC_A}{(-R_A)}
 }
 \]
 
 \begin{image}
 \begin{tikzpicture}
 \begin{axis}[
-    domain=0.1:1,       % x loopt van 0 tot C_A0
+    domain=0.05:1,       % x loopt van 0 tot C_A0
     samples=200,
     xmin=0, xmax=1,
     ymin=0, ymax=12,
     axis lines=left,
     xlabel={$C_A$},
-    ylabel={$\frac{1}{-r_A}$},
+    ylabel={$\frac{1}{(-R_A)}$},
+    xtick={0.1, 0.9},            
+    xticklabels={$C_{Ae}$,$C_{A0}$},
+    ytick=\empty
 ]
 
 % parameters
@@ -400,7 +420,7 @@ Bij de aanname van constante densiteit:
 \addplot [
     thick,
     fill=blue!20,
-    domain=0.2:1,   % van C_A,e tot C_A0
+    domain=0.1:0.9,   % van C_A,e tot C_A0
     samples=100
 ] {1/(\k*x)} \closedcycle;
 
@@ -414,29 +434,33 @@ Bij de aanname van constante densiteit:
 \section{Vergelijking van ideale reactoren}
 \subsection{Vergelijking: CSTR vs PFR}
 
-We vergelijken de verblijftijd voor eenzelfde uitgangsconcentratie $C_A$.
+We vergelijken de verblijftijd voor eenzelfde uitgangsconcentratie $C_{Ae}$.
 
 \[
-\tau_{PFR} = \int_{C_{A0}}^{C_{Ae}} \frac{dC_A}{r_A}
+\tau_{CSTR} = \frac{C_{A0}-C_{Ae}}{-R_A(C_{Ae})}
 \]
 
 \[
-\tau_{CSTR} = \frac{C_{A0}-C_{Ae}}{-r_A(C_{Ae})}
+\tau_{PFR} = - \int_{C_{A0}}^{C_{Ae}} \frac{dC_A}{(-R_A)}
 \]
 
-Grafisch in een $-1/r_A$ versus $C_A$ diagram:
+
+Grafisch in een $-1/R_A$ versus $C_A$ diagram:
 
 \begin{center}
 \begin{tikzpicture}
 \begin{axis}[
     xlabel={$C_A$},
-    ylabel={$-1/r_A$},
-    domain=0.2:1,
+    ylabel={$1/(-R_A)$},
+    domain=0.05:1,
     samples=200,
     axis lines=left,
     width=11cm,
     height=8cm,
     legend pos=north east,
+    xtick={0.1, 0.9},            
+    xticklabels={$C_{Ae}$,$C_{A0}$},
+    ytick=\empty
 ]
 
 % kinetiek
@@ -444,24 +468,25 @@ Grafisch in een $-1/r_A$ versus $C_A$ diagram:
 
 % PFR oppervlakte
 \addplot[
-    domain=0.4:1,
-    fill=orange!60
+    domain=0.1:0.9,
+    fill=orange!60,
+    draw=orange!60
 ] {1/x} \closedcycle;
-\addlegendentry{$\tau_{PFR}$}
 
 % CSTR rechthoek
 \draw[fill=green!40, opacity=0.6]
-    (axis cs:1,0)
+    (axis cs:0.9,0)
     rectangle
-    (axis cs:0.4,{1/0.4});
-\addlegendentry{$\tau_{CSTR}$}
+    (axis cs:0.1,{1/0.1});
+
+\node at (axis cs:0.2,2) {$\tau_{PFR}$};
+\node at (axis cs:0.6,5) {$\tau_{CSTR}$};
 
 \end{axis}
 \end{tikzpicture}
 \end{center}
 
-\textbf{Interpretatie:}
-
+\begin{conclusion}
 Bij monotoon stijgende kinetica:
 
 
@@ -470,6 +495,7 @@ Bij monotoon stijgende kinetica:
 \]
 
 Een PFR is dus meer performant dan een CSTR voor dezelfde conversie.
+\end{conclusion}
 
 Dit kan je ook zelf even uittesten:
 \begin{center}
@@ -480,46 +506,52 @@ Dit kan je ook zelf even uittesten:
 
 Voor constante densiteit hebben Batch en PFR dezelfde
 integraalvorm.
+\[
+t_{Batch} = -\int_{C_{A0}}^{C_{Ae}} \frac{dC_A}{(-R_A)}
+\]
+
+\[
+\tau_{PFR} = - \int_{C_{A0}}^{C_{Ae}} \frac{dC_A}{(-R_A)}
+\]
 
 \begin{center}
 \begin{tikzpicture}
 \begin{axis}[
     xlabel={$C_A$},
-    ylabel={$-1/r_A$},
-    domain=0.2:1,
+    ylabel={$1/(-R_A)$},
+    domain=0.05:1,
     samples=200,
     axis lines=left,
     width=11cm,
     height=8cm,
     legend pos=north east,
+    xtick={0.1, 0.9},            
+    xticklabels={$C_{Ae}$,$C_{A0}$},
+    ytick=\empty
 ]
 
 % kinetiek
 \addplot[blue, thick] {1/x};
-\addlegendentry{$-1/r_A$}
 
 % PFR oppervlakte
 \addplot[
-    domain=0.4:1,
+    domain=0.1:0.9,
     fill=orange!40
 ] {1/x} \closedcycle;
-\addlegendentry{$\tau_{PFR}$}
 
 % Batch oppervlakte (zelfde gebied, andere kleur rand)
 \addplot[
-    domain=0.4:1,
+    domain=0.1:0.9,
     draw=red,
     pattern=north east lines,
     pattern color=red
 ] {1/x} \closedcycle;
-\addlegendentry{$t_{Batch}$}
 
 \end{axis}
 \end{tikzpicture}
 \end{center}
 
-\textbf{Interpretatie:}
-
+\begin{conclusion}
 Bij constante densiteit is:
 
 \[
@@ -527,6 +559,7 @@ t_{Batch} = \tau_{PFR}
 \]
 
 De tijd dat een fluidumelement verblijft in een propstroom reactor en in een batch reactor zijn equivalent.
+\end{conclusion}
 
 \section{PFR met recyclestroom}
 We beschouwen een plug flow reactor (PFR) met een externe recyclestroom.
