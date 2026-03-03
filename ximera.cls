@@ -328,7 +328,7 @@
       \newtheorem{procedure}{\GetTranslation{Procedure}}
 
       \newtheorem{remark}{\GetTranslation{Remark}}
-      \newtheorem{Opmerking}{\GetTranslation{Opmerking}}
+      \newtheorem{opmerking}{\GetTranslation{Opmerking}}
 
       \newtheorem{summary}{\GetTranslation{Summary}}
 
