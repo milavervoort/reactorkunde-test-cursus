@@ -56,6 +56,9 @@
 .remark::before {
 	content: "remark" attr(numbered) ".";
 }
+.opmerking::before {
+	content: "opmerking" attr(numbered) ".";
+}
 .proposition::before {
 	content: "proposition" attr(numbered) ".";
 }
