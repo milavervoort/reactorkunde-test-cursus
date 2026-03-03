@@ -298,10 +298,10 @@
 
       \newtheorem{criterion}{\GetTranslation{Criterion}}
 
-      \newtheorem{definition}{\GetTranslation{Definition}}
+      \newtheorem{definition}{\GetTranslation{Definitie}}
       \newtheorem{definitie}{\GetTranslation{Definitie}}
 
-      \newtheorem{example}{\GetTranslation{Example}}
+      \newtheorem{example}{\GetTranslation{Voorbeeld}}
       \newtheorem{voorbeeld}{\GetTranslation{Voorbeeld}}
 
       \newtheorem*{explanation}{\GetTranslation{Explanation}}
@@ -310,7 +310,7 @@
 
       \newtheorem{lemma}{\GetTranslation{Lemma}}
 
-      \newtheorem{formula}{\GetTranslation{Formula}}
+      \newtheorem{formula}{\GetTranslation{Formule}}
       \newtheorem{formule}{\GetTranslation{Formule}}
 
       \newtheorem{idea}{\GetTranslation{Idea}}
@@ -327,7 +327,7 @@
 
       \newtheorem{procedure}{\GetTranslation{Procedure}}
 
-      \newtheorem{remark}{\GetTranslation{Remark}}
+      \newtheorem{remark}{\GetTranslation{Opmerking}}
       \newtheorem{opmerking}{\GetTranslation{Opmerking}}
 
       \newtheorem{summary}{\GetTranslation{Summary}}
