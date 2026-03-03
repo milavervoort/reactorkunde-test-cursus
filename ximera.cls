@@ -549,6 +549,15 @@
 {
 \end{trivlist}
 }
+\renewenvironment{hint}
+{
+  \begin{trivlist}
+    \item[\hskip \labelsep\small\slshape\bfseries Toon hint:\hspace{2ex}]
+    \small\slshape
+}
+{
+  \end{trivlist}
+}
 \fi
 
 \let\abstract\relax
