@@ -516,9 +516,9 @@
 %%%% Now populate the old environment names
 
 \createProblemEnv{problem}{Problem}
-\createProblemEnv{exercise}{Exercise}
+\createProblemEnv{exercise}{Oefening}
 \createProblemEnv{exploration}{Exploration}
-\createProblemEnv{question}{Question}
+\createProblemEnv{question}{Vraag}
 \newcounter{hintLevel}
 \setcounter{hintLevel}{0}
 \newenvironment{hint}{}{}
