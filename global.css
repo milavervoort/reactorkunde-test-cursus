@@ -11,11 +11,11 @@
  
  
 .xmhint::before {
-    content: "Show hint" counter(hint_number, notfirst);
+    content: "Show hint";
 }
   
 .xmhint.ui-state-active::before {
-    content: "Hide hint " counter(hint_number, notfirst);
+    content: "Hide hint ";
 }
   
 .xmoplossing::before {
