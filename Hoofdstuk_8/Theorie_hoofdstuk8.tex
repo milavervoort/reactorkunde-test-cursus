@@ -12,8 +12,77 @@ kinetische metingen}
 \maketitle
 \label{xim:theory}
 
-\section{Analyse en verwerking van kinetische metingen}
+\section*{Analyse en verwerking van kinetische metingen}
+
+\subsection*{Introductie}
+
+Eigenschappen van chemische reacties zijn vaak ongekend en niet eenvoudig te verkrijgen.
+
+Soms, voornamelijk voor elementaire gasfase reacties, zijn er benaderingen mogelijk
+of kan men quantumchemische berekeningen uitvoeren.
+
+De meest gebruikte methode om chemische kinetica te bepalen is echter via
+\textbf{experimentele metingen}. In dit hoofdstuk behandelen we de analyse
+en verwerking van experimentele metingen om kinetische parameters te bepalen.
+
+We gaan uit van een functionele vorm voor de reactiesnelheid:
+\[-R_A = f(C_A)g(T)
+\]
+
+\subsection*{Kinetische metingen in een batch reactor}
+
+Deze methode wordt vooral gebruikt voor homogene reacties. We veronderstellen een
+isotherme reactor met constant volume.
+
+Om een uitdrukking voor de reactiesnelheid te bepalen, worden concentratiemetingen op verschillende tijdstippen uitgevoerd.
+
+Soms wordt de concentratie gekoppeld aan andere meetbare eigenschappen, zoals:
+
+\begin{itemize}
+\item thermische conductiviteit
+\item viscositeit
+\item spectrometrie
+\end{itemize}
+
+\begin{example}
+Voor gasfase reacties kan men concentraties eenvoudig bepalen door de totale druk en de partieeldrukken te meten.
+
+\[
+\begin{aligned}
+aA + bB &\rightarrow rR + sS \\[6pt]
+N_A &= N_{A0} - ax \\
+N &= N_0 + (r + s - a - b)x = N_0 + \Delta n\,x \\[6pt]
+C_A &= \frac{N_A}{V} = \frac{p_A}{RT} \\
+p_A &= p_{A0} - \frac{a}{\Delta n}(p - p_0)
+\end{aligned}
+\]
+\end{example}
+
+Wanneer kinetische metingen de concentratie $C_A$ op verschillende tijdstippen $t$ opleveren, 
+kan de reactiekinetiek hieruit worden afgeleid. 
+
+Hiervoor kunnen verschillende methoden worden gebruikt:
+\begin{itemize}
+    \item Integrale analysemethode
+    \item Differentiële analysemethode
+\end{itemize}
 
 
+\subsection*{Integrale analysemethode}
+
+Voor een isotherme batch reactor met constant volume:
+
+\begin{enumerate}
+\item Stel een voorstel op voor de functionele afhankelijkheid tussen
+reactiesnelheid en concentratie.
+\item Integreer de massabalans.
+\item Voer kinetische metingen uit in het labo.
+\item Bereken de integraal met behulp van de kinetische metingen
+en zet deze grafisch uit als functie van de tijd.
+\end{enumerate}
+
+Als het voorgestelde kinetische model correct is, verkrijg je een
+\textbf{rechte lijn}. De helling van deze lijn is gelijk aan de
+\textbf{snelheidsconstante}.
 
 \end{document}
