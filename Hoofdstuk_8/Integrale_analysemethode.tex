@@ -57,12 +57,12 @@ Het linkerlid is een functie van de concentratie $C_A$ en moet lineair variëren
     width=6cm,
     height=5cm,
     xticklabels= \empty,
-    ytick=\empty,
-    legend to name=sharedlegend
+    ytick=\empty
+    %legend to name=sharedlegend
 ]
 
 \addplot[domain=0:9,thick]{0.9*x};
-\addlegendentry{Voorgestelde reactiekinetiek}
+%\addlegendentry{Voorgestelde reactiekinetiek}
 
 \addplot[only marks,mark=o] coordinates {
 (0.5,0.7) (1,0.9) (1.5,1.6) (2,2.0) (2.5,2.3)
@@ -70,7 +70,7 @@ Het linkerlid is een functie van de concentratie $C_A$ en moet lineair variëren
 (5.5,5.0) (6,5.4) (6.5,5.7) (7,6.3) (7.5,6.8)
 (8,7.1) (8.5,7.9)
 };
-\addlegendentry{Experimentele gegevens}
+%\addlegendentry{Experimentele gegevens}
 
 
 \end{axis}
@@ -96,8 +96,8 @@ Het linkerlid is een functie van de concentratie $C_A$ en moet lineair variëren
     width=6cm,
     height=5cm,
     xticklabels= \empty,
-    ytick=\empty,
-    legend to name=sharedlegend
+    ytick=\empty
+    %legend to name=sharedlegend
 ]
 
 \addplot[domain=0:9,thick]{0.9*x};
@@ -107,7 +107,7 @@ Het linkerlid is een functie van de concentratie $C_A$ en moet lineair variëren
 (3,2.9) (3.5,3.7) (4,4.6) (4.5,5.6) (5,6.7)
 (5.5,7.9) (6,9.2)
 };
-\legend{Voorgestelde reactiekinetiek, Experimentele gegevens}
+%\legend{Voorgestelde reactiekinetiek, Experimentele gegevens}
 \end{axis}
 \end{tikzpicture}
 };
@@ -116,7 +116,7 @@ Het linkerlid is een functie van de concentratie $C_A$ en moet lineair variëren
 \label{fig: integrale methode foutief}
 \end{subfigure}
 
-\ref{sharedlegend}
+%\ref{sharedlegend}
 
 \caption{Vergelijking tussen voorgestelde reactiekinetiek en experimentele data}
 \label{fig: Intergale methode}
