@@ -11,8 +11,234 @@
 \maketitle
 \label{xim:Integrale analysemethode}
 
+\section{Integrale analysemethode}
+\subsection{Algemeen principe}
 
-\section*{Integrale analysemethode}
+Voor het toepassen van de integrale methode gaat men uit van een specifiek veronderstelde vorm van de snelheidsvergelijking, die vervolgens geïntegreerd wordt en vergeleken wordt met experimentele data. Indien de experimentele gegevens niet overeenkomen met de voorgestelde reactiekinetiek, wordt er een nieuwe vergelijking voor de reactiesnelheid gezocht en herhaalt men de procedure.
+
+De methode verloopt volgens de volgende stappen:
+
+\begin{enumerate}
+\item Voor een systeem met constant volume wordt de verdwijningssnelheid van component $A$ geschreven als
+\[
+-r_A = - \frac{dC_A}{dt} = k\,g(C)
+\]
+waarbij $k$ de reactiesnelheidsconstante is en $g(C)$ de afhankelijkheid van de reactiesnelheid van de concentraties beschrijft.
+Met behulp van de reactiestoichiometrie kunnen de concentraties van andere componenten worden geëlimineerd zodat \[g(C) = f(C_A).\]
+
+\item De vergelijking wordt herschikt en geïntegreerd:
+\[- \frac{dC_A}{dt} = k\,f(C_A)\]
+\[
+\int_{C_{A0}}^{C_A} \frac{dC_A}{f(C_A)} = kt
+\]
+Het linkerlid is een functie van de concentratie $C_A$ en moet lineair variëren met de tijd $t$ indien de gekozen snelheidsvergelijking correct is.
+
+\item Gebruik de experimentele meetwaarden $C_A$ versus $t$ om een numerieke benadering voor de bovenstaande integraal uit te zetten bij de overeenkomstige waarden van tijd, zoals is aangegeven in Fig. \ref{fig: Intergale methode}  met de open cirkel symbolen.
+
+\item Indien de discrete experimentele datapunten ongeveer op een rechte lijn door de oorsprong liggen, dan aanvaarden we de voorgestelde snelheidsvergelijking zoals in Fig. \ref{fig: integrale methode correct}. Is dit niet het geval, en vallen de punten eerder op een kromme zoals in Fig. \ref{fig: integrale methode foutief} , dan dient een andere uitdrukking voor de reactiesnelheid uitgeprobeerd te worden.
+\end{enumerate}
+
+\pgfplotsset{compat=1.18}
+\begin{figure}[h]
+\centering
+
+% ---------- LINKER FIGUUR ----------
+\begin{subfigure}{0.45\textwidth}
+\centering
+\begin{tikzpicture}
+\node[fill=green!15,rounded corners,inner sep=1pt]{
+\begin{tikzpicture}
+\begin{axis}[
+    axis lines=left,
+    xlabel={$t$},
+    ylabel={$-\int_{C_{A0}}^{C_A} \frac{dC_A}{r(C_A)}$},
+    xmin=0, xmax=10,
+    ymin=0, ymax=10,
+    width=6cm,
+    height=5cm,
+    xticklabels= \empty,
+    ytick=\empty,
+    legend to name=sharedlegend
+]
+
+\addplot[domain=0:9,thick]{0.9*x};
+\addlegendentry{Voorgestelde reactiekinetiek}
+
+\addplot[only marks,mark=o] coordinates {
+(0.5,0.7) (1,0.9) (1.5,1.6) (2,2.0) (2.5,2.3)
+(3,2.9) (3.5,3.1) (4,3.8) (4.5,4.2) (5,4.4)
+(5.5,5.0) (6,5.4) (6.5,5.7) (7,6.3) (7.5,6.8)
+(8,7.1) (8.5,7.9)
+};
+\addlegendentry{Experimentele gegevens}
+
+
+\end{axis}
+\end{tikzpicture}
+};
+\end{tikzpicture}
+\caption{Goede overeenkomst tussen model en experimentele gegevens}
+\label{fig: integrale methode correct}
+\end{subfigure}
+\hfill
+% ---------- RECHTER FIGUUR ----------
+\begin{subfigure}{0.45\textwidth}
+\centering
+\begin{tikzpicture}
+\node[fill=red!15,rounded corners,inner sep=1pt]{
+\begin{tikzpicture}
+\begin{axis}[
+    axis lines=left,
+    xlabel={$t$},
+    ylabel={$-\int_{C_{A0}}^{C_A} \frac{dC_A}{r(C_A)}$},
+    xmin=0, xmax=10,
+    ymin=0, ymax=10,
+    width=6cm,
+    height=5cm,
+    xticklabels= \empty,
+    ytick=\empty,
+    legend to name=sharedlegend
+]
+
+\addplot[domain=0:9,thick]{0.9*x};
+
+\addplot[only marks,mark=o] coordinates {
+(0.5,0.4) (1,0.7) (1.5,1.1) (2,1.6) (2.5,2.2)
+(3,2.9) (3.5,3.7) (4,4.6) (4.5,5.6) (5,6.7)
+(5.5,7.9) (6,9.2)
+};
+\legend{Voorgestelde reactiekinetiek, Experimentele gegevens}
+\end{axis}
+\end{tikzpicture}
+};
+\end{tikzpicture}
+\caption{Slechte overeenkomst tussen model en experimentele gegevens}
+\label{fig: integrale methode foutief}
+\end{subfigure}
+
+\ref{sharedlegend}
+
+\caption{Vergelijking tussen voorgestelde reactiekinetiek en experimentele data}
+\label{fig: Intergale methode}
+\end{figure}
+
+
+
+
+De integrale methode is voornamelijk geschikt voor het testen van eenvoudige vormen van de snelheidsvergelijking, waarbij de orde van reactie reeds vooraf gekend is zodat enkel de snelheidsconstante k ge¨evalueerd dient te worden.
+
+\subsection{Toepassingen}
+
+\paragraph{Nulde-orde reactie}
+
+Voor een nulde-orde reactie is de reactiesnelheid onafhankelijk van de concentratie:
+
+\[
+-r_A = k
+\]
+
+In een batchreactor geldt:
+
+\[
+-r_A = -\frac{dC_A}{dt} = k
+\]
+
+Integratie geeft:
+
+\[
+C_{A0} - C_A = kt
+\]
+
+of
+
+\[
+C_A = C_{A0} - kt
+\]
+
+Een grafiek van $C_A$ tegen $t$ geeft een rechte lijn met helling $-k$.
+
+\paragraph{Eerste-orde reactie}
+
+Voor een eerste-orde reactie geldt:
+
+\[
+-r_A = kC_A
+\]
+
+In een batchreactor:
+
+\[
+-\frac{dC_A}{dt} = kC_A
+\]
+
+Na integratie:
+
+\[
+\ln\!\left(\frac{C_{A0}}{C_A}\right) = kt
+\]
+
+Een grafiek van
+
+\[
+\ln\left(\frac{C_{A0}}{C_A}\right)
+\]
+
+tegen $t$ levert een rechte lijn met helling $k$.
+
+\paragraph{Tweede-orde reactie}
+
+Voor een bimoleculaire reactie
+
+\[
+A + B \rightarrow \text{producten}
+\]
+
+met kinetiek
+
+\[
+-r_A = kC_A C_B
+\]
+
+kan men bij constant volume gebruik maken van de stoichiometrische relatie
+tussen $C_A$ en $C_B$ om $C_B$ uit te drukken als functie van $C_A$.
+Na integratie van de batchreactor-massabalans verkrijgt men een lineaire relatie
+tussen een functie van $C_A$ en de tijd $t$.
+
+De grafische verwerking van de experimentele gegevens laat toe
+de snelheidsconstante $k$ te bepalen uit de helling van de rechte.
+
+\subsubsection{Opmerkingen}
+
+\begin{itemize}
+\item Indien één reagens in grote overmaat aanwezig is,
+blijft zijn concentratie praktisch constant. De kinetiek kan dan
+benaderd worden als een \textbf{pseudo-eerste orde reactie}:
+
+\[
+-r_A = kC_A C_B \approx k' C_A
+\]
+
+met
+
+\[
+k' = kC_{B0}.
+\]
+
+\item Wanneer de reagentia in stoichiometrische verhouding aanwezig zijn,
+kan voor reacties van het type $A + A \rightarrow$ producten de kinetiek
+geschreven worden als
+
+\[
+-r_A = kC_A^2
+\]
+
+waarvan de integratie geeft:
+
+\[
+\frac{1}{C_A} - \frac{1}{C_{A0}} = kt.
+\]
+
+\end{itemize}
 
 Voor een isotherme batch reactor met constant volume:
 
