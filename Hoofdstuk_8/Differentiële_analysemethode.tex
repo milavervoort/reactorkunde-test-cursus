@@ -11,7 +11,198 @@
 \maketitle
 \label{xim:Differentiële analysemethode}
 
-\section{Differentiële analysemethode}
 
+\section{Differentiële analysemethode}
+\label{Differentiele analyse methode}
+
+\subsection{Algemeen principe}
+
+Bij de differentiële methode wordt de reactiesnelheid rechtstreeks bepaald uit de helling van de concentratie-tijd curve. In plaats van een vergelijking te integreren, vertrekt men van experimentele gegevens en bepaalt men de afgeleide $\frac{dC_A}{dt}$ numeriek.
+
+De bekomen reactiesnelheden worden vervolgens gebruikt om de functionele vorm van de snelheidsvergelijking te bepalen.
+
+\begin{procedure}
+De methode verloopt volgens de volgende stappen:
+
+\begin{enumerate}
+\item Bepaal experimenteel het verloop van de concentratie $C_A$ als functie van de tijd $t$.
+
+\item Bepaal de reactiesnelheid op verschillende tijdstippen door de helling van de $C_A(t)$-curve te berekenen:
+\[
+-r_A = -\frac{dC_A}{dt}
+\]
+
+Dit gebeurt typisch numeriek (bv. via differentiequotiënten of grafisch via raaklijnen).
+
+\item Stel een veronderstelde vorm op voor de snelheidsvergelijking:
+\[
+-r_A = k f(C_A)
+\]
+
+\item Zet de bekomen waarden van $-r_A$ uit als functie van $C_A$ (of een functie ervan).
+
+\item Indien de gekozen vorm correct is, verkrijgt men een eenvoudige relatie (bv. rechte lijn in log-log schaal). Zoniet wordt een andere kinetische uitdrukking getest.
+\end{enumerate}
+
+\end{procedure}
+
+De differentiële methode is vooral nuttig wanneer:
+\begin{itemize}
+\item men geen eenvoudige integreerbare vorm heeft,
+\item of wanneer men de orde van de reactie wil bepalen zonder voorafgaande hypothese.
+\end{itemize}
+
+\subsection{Toepassingen}
+
+\begin{example}
+Bepaling van de reactieorde (algemeen geval)
+
+Stel dat de reactiesnelheid gegeven wordt door:
+\[
+-r_A = k C_A^n
+\]
+
+Neem de logaritme van beide leden:
+\[
+\ln(-r_A) = \ln k + n \ln C_A
+\]
+
+Een grafiek van $\ln(-r_A)$ tegen $\ln C_A$ geeft een rechte lijn:
+\begin{itemize}
+\item helling = $n$ (reactieorde)
+\item snijpunt = $\ln k$
+\end{itemize}
+
+\begin{tikzpicture}
+\begin{axis}[
+    axis lines=middle,
+    axis line style={->, thick},
+    xlabel={$\ln C_A$},
+    ylabel={$\ln(-r_A)$},
+    xmin=0, xmax=5,
+    ymin=0, ymax=5,
+    xtick=\empty,
+    ytick=\empty,
+    width=10cm,
+    height=7cm
+]
+
+% lineaire relatie
+\addplot[
+    domain=0.5:4.5,
+    thick
+] {0.8*x + 0.5};
+
+% experimentele punten
+\addplot[
+    only marks,
+    mark=*,
+    mark size=2.5pt
+] coordinates {
+(0.8,1.2)
+(1.3,1.5)
+(1.8,2.1)
+(2.4,2.6)
+(3.0,3.0)
+(3.5,3.4)
+(4.0,3.9)
+};
+
+\node at (axis cs:3.8,2.3) {$n$};
+
+\end{axis}
+\end{tikzpicture}
+
+\end{example}
+
+\begin{example}
+Tweede-orde reactie
+
+Beschouw een reactie met snelheidswet:
+\[
+-r_A = k C_A^2
+\]
+
+De reactiesnelheid wordt bepaald uit experimentele data via:
+\[
+-r_A = -\frac{dC_A}{dt}
+\]
+
+Vervolgens wordt $-r_A$ uitgezet als functie van $C_A^2$:
+\[
+-r_A = k C_A^2
+\]
+
+Een grafiek van $-r_A$ tegen $C_A^2$ levert een rechte lijn met helling $k$.
+
+\begin{tikzpicture}
+\begin{axis}[
+    axis lines=middle,
+    axis line style={->, thick},
+    xlabel={$C_A^2$},
+    ylabel={$-r_A$},
+    xmin=0, xmax=10,
+    ymin=0, ymax=5,
+    xtick=\empty,
+    ytick=\empty,
+    width=10cm,
+    height=7cm
+]
+
+% lineaire fit
+\addplot[
+    domain=0:9,
+    thick
+] {0.4*x};
+
+% experimentele punten
+\addplot[
+    only marks,
+    mark=*,
+    mark size=2.5pt
+] coordinates {
+(1,0.5)
+(2,0.9)
+(3,1.1)
+(4,1.7)
+(5,2.1)
+(6,2.5)
+(7,3.0)
+(8,3.3)
+};
+
+% helling driehoek
+\draw[dashed, thick] (axis cs:3,1.2) -- (axis cs:6,1.2);
+\draw[dashed, thick] (axis cs:6,1.2) -- (axis cs:6,2.4);
+
+\node at (axis cs:6.5,2.0) {$k$};
+
+\end{axis}
+\end{tikzpicture}
+
+\end{example}
+
+\subsubsection{Opmerkingen}
+
+\begin{itemize}
+\item De differentiële methode is gevoeliger voor experimentele ruis, omdat afgeleiden numeriek bepaald worden.
+
+\item Kleine meetfouten in $C_A$ kunnen leiden tot grote fouten in $\frac{dC_A}{dt}$.
+
+\item Daarom wordt vaak eerst een gladde curve gefit door de data alvorens de afgeleide te bepalen.
+
+\item In tegenstelling tot de integrale methode is geen expliciete integratie nodig.
+\end{itemize}
+
+Voor een isotherme batch reactor met constant volume:
+
+\begin{enumerate}
+\item Meet $C_A(t)$ experimenteel.
+\item Bepaal numeriek de helling $\frac{dC_A}{dt}$.
+\item Stel een kinetisch model op.
+\item Test het model door $-r_A$ uit te zetten tegen geschikte functies van $C_A$.
+\end{enumerate}
+
+Indien het model correct is, bekomt men een eenvoudige relatie (vaak lineair), waarvan de helling de kinetische parameters oplevert.
 
 \end{document}
