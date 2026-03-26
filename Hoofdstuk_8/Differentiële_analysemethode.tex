@@ -24,35 +24,102 @@ De experimentele reactiesnelheid wordt daarbij rechtstreeks bepaald uit de helli
 
 Indien de experimentele resultaten niet overeenkomen met de voorgestelde reactiekinetiek, wordt een nieuwe snelheidsvergelijking opgesteld en wordt de procedure herhaald.
 
-De differentiële methode is vooral nuttig wanneer:
-\begin{itemize}
-    \item er geen eenvoudig integreerbare vorm beschikbaar is, of
-    \item men de reactieorde wil bepalen zonder vooraf een hypothese te formuleren.
-\end{itemize}
-
 \begin{procedure}
-De methode verloopt volgens de volgende stappen:
+De differentiële analysemethode verloopt volgens de volgende stappen:
 
 \begin{enumerate}
-\item Bepaal experimenteel het verloop van de concentratie $C_A$ als functie van de tijd $t$.
-
-\item Bepaal de reactiesnelheid op verschillende tijdstippen door de helling van de $C_A(t)$-curve te berekenen:
+\item Voor een systeem met constant volume wordt de verdwijningssnelheid van component $A$ geschreven als
 \[
--r_A = -\frac{dC_A}{dt}
+-r_A = - \frac{dC_A}{dt} = k\,g(C)
 \]
+waarbij $k$ de reactiesnelheidsconstante is en $g(C)$ de afhankelijkheid van de reactiesnelheid van de concentraties beschrijft. Met behulp van de reactiestoichiometrie kunnen de concentraties van andere componenten worden geëlimineerd zodat $g(C) = f(C_A)$.
 
-Dit gebeurt typisch numeriek (bv. via differentiequotiënten of grafisch via raaklijnen).
-
-\item Stel een veronderstelde vorm op voor de snelheidsvergelijking:
+\item In tegenstelling tot de integrale methode wordt de vergelijking niet geïntegreerd. In plaats daarvan wordt de reactiesnelheid rechtstreeks bepaald uit experimentele gegevens door de helling van de concentratie-tijdcurve te berekenen:
 \[
--r_A = k f(C_A)
+- r_A = - \frac{dC_A}{dt}
 \]
+Deze afgeleide wordt numeriek geschat uit de gemeten waarden van $C_A$ als functie van $t$.
 
-\item Zet de bekomen waarden van $-r_A$ uit als functie van $C_A$ (of een functie ervan).
+\item Voor elk meetpunt wordt dus een waarde van $-r_A$ bepaald. Deze waarden worden vervolgens uitgezet als functie van $C_A$, zoals weergegeven in Fig.~\ref{fig: differentiele methode}. 
 
-\item Indien de gekozen vorm correct is, verkrijgt men een eenvoudige relatie (bv. rechte lijn in log-log schaal). Zoniet wordt een andere kinetische uitdrukking getest.
+\item Indien de gekozen vorm van de snelheidsvergelijking correct is, zullen de experimentele datapunten een eenvoudig functioneel verband volgen (bv. rechte lijn in log-log schaal). Indien dit niet het geval is, moet een andere vorm van de snelheidsvergelijking worden verondersteld en wordt de procedure herhaald.
+
 \end{enumerate}
 
+\pgfplotsset{compat=1.18}
+\begin{figure}[h]
+\centering
+
+% ---------- LINKER FIGUUR ----------
+\begin{subfigure}{0.45\textwidth}
+\centering
+\begin{tikzpicture}
+\node[fill=green!15,rounded corners,inner sep=1pt]{
+\begin{tikzpicture}
+\begin{axis}[
+    axis lines=left,
+    xlabel={$C_A$},
+    ylabel={$-r_A$},
+    xmin=0, xmax=10,
+    ymin=0, ymax=10,
+    width=6cm,
+    height=5cm,
+    xticklabels=\empty,
+    ytick=\empty
+]
+
+\addplot[domain=0:9,thick]{0.8*x};
+
+\addplot[only marks,mark=o] coordinates {
+(1,0.9) (2,1.6) (3,2.5) (4,3.1) (5,4.2)
+(6,4.9) (7,5.8) (8,6.5)
+};
+
+\end{axis}
+\end{tikzpicture}
+};
+\end{tikzpicture}
+\caption{Goede overeenkomst tussen model en experimentele gegevens}
+\label{fig: differentiele methode correct}
+\end{subfigure}
+\hfill
+
+% ---------- RECHTER FIGUUR ----------
+\begin{subfigure}{0.45\textwidth}
+\centering
+\begin{tikzpicture}
+\node[fill=red!15,rounded corners,inner sep=1pt]{
+\begin{tikzpicture}
+\begin{axis}[
+    axis lines=left,
+    xlabel={$C_A$},
+    ylabel={$-r_A$},
+    xmin=0, xmax=10,
+    ymin=0, ymax=10,
+    width=6cm,
+    height=5cm,
+    xticklabels=\empty,
+    ytick=\empty
+]
+
+\addplot[domain=0:9,thick]{0.8*x};
+
+\addplot[only marks,mark=o] coordinates {
+(1,0.5) (2,1.2) (3,2.1) (4,3.5) (5,5.2)
+(6,7.4) (7,9.0)
+};
+
+\end{axis}
+\end{tikzpicture}
+};
+\end{tikzpicture}
+\caption{Slechte overeenkomst tussen model en experimentele gegevens}
+\label{fig: differentiele methode foutief}
+\end{subfigure}
+
+\caption{Vergelijking tussen voorgestelde reactiekinetiek en experimentele data voor de differentiële methode}
+\label{fig: differentiele methode}
+\end{figure}
 \end{procedure}
 
 De differentiële methode is vooral nuttig wanneer:
@@ -63,20 +130,23 @@ De differentiële methode is vooral nuttig wanneer:
 
 \subsection{Toepassingen}
 
-\begin{example}
-Bepaling van de reactieorde (algemeen geval)
+\begin{example} $n^{de}$ orde reactie
+
+Met de differentiële analysemethode kunnen we de reactieconstante $k$ en de reactieorde $n$ bepalen. 
 
 Stel dat de reactiesnelheid gegeven wordt door:
 \[
 -r_A = k C_A^n
 \]
 
+We herschrijven deze reactievergelijking in een vorm waarbij de gezochte variabelen eenvoudig uit een grafiek kunnen worden afgelezen.
+
 Neem de logaritme van beide leden:
 \[
 \ln(-r_A) = \ln k + n \ln C_A
 \]
 
-Een grafiek van $\ln(-r_A)$ tegen $\ln C_A$ geeft een rechte lijn:
+Een grafiek van $\ln(-r_A)$ tegen $\ln C_A$ geeft een rechte lijn met:
 \begin{itemize}
 \item helling = $n$ (reactieorde)
 \item snijpunt = $\ln k$
