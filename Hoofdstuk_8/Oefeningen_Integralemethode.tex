@@ -164,10 +164,10 @@ Controleer dit door na te gaan of de data overeenkomt met een nulde-orde, eerste
     Welke uitdrukking krijg je dan?
     
     \begin{multipleChoice}
-            \choice{$\frac{1}{p} - \frac{1}{p_0}= -\frac{3}{2RT} k t$}
-            \choice{$\frac{1}{p} - \frac{1}{p_0}= \frac{3}{2RT} k t$}
-            \choice[correct]{$\frac{1}{p} - \frac{1}{p_0}= \frac{3}{2RT} k t$}
-            \choice{$p - p_0= \frac{3}{2RT} k t$}
+            \choice{$\frac{1}{3p_0 - p} - \frac{1}{2p_0}= \frac{3k}{2RT} t$}
+            \choice{$\frac{1}{p - 3p_0} + \frac{1}{2p_0}= \frac{3k}{2RT} t$}
+            \choice[correct]{$\frac{1}{3p_0 - p} - \frac{1}{2p_0}= \frac{k}{2RT} t$}
+            \choice{$\frac{1}{p - 3p_0} + \frac{1}{2p_0}= \frac{k}{2RT} t$}
     \end{multipleChoice}
     
     \begin{feedback}
@@ -200,7 +200,7 @@ Controleer dit door na te gaan of de data overeenkomt met een nulde-orde, eerste
     De omgevormde data voor elke reactiekinetiek is: 
     \begin{center}
     \begin{tabular}{c|c|c|c|c}
-    $t$ & $p$ & 0de orde & 1ste orde & 2de orde \\
+    $t$ & $p$ & \textbf{0de orde} & \textbf{1ste orde} & \textbf{2de orde} \\
      & & $p - p_0$ & $\ln\left(\frac{2p_0}{3p_0-p}\right)$ & $\frac{1}{3p_0-p} - \frac{1}{2p_0}$ \\
     \hline
     $0$  & $7.5$  & $0.0$   & $0.00$ & $0.00$ \\
@@ -218,6 +218,8 @@ Controleer dit door na te gaan of de data overeenkomt met een nulde-orde, eerste
     \begin{feedback}
     \pgfplotsset{compat=1.18}
     % --- 0de orde ---
+    \begin{figure}[h!]
+    \centering
     \begin{tikzpicture}
     \begin{axis}[
         axis lines=left,
@@ -231,8 +233,10 @@ Controleer dit door na te gaan of de data overeenkomt met een nulde-orde, eerste
     \node[fill=white] at (axis cs:12,5) {$y = 0.595\,t$};
     \end{axis}
     \end{tikzpicture}
-    
+    \end{figure}
     % --- 1ste orde ---
+    \begin{figure}[h!]
+    \centering
     \begin{tikzpicture}
     \begin{axis}[
         axis lines=left,
@@ -246,8 +250,10 @@ Controleer dit door na te gaan of de data overeenkomt met een nulde-orde, eerste
     \node[fill=white] at (axis cs:12,0.7) {$y = 0.079\,t$};
     \end{axis}
     \end{tikzpicture}
-    
+    \end{figure}
     % --- 2de orde ---
+    \begin{figure}[h!]
+    \centering
     \begin{tikzpicture}
     \begin{axis}[
         axis lines=left,
@@ -261,8 +267,7 @@ Controleer dit door na te gaan of de data overeenkomt met een nulde-orde, eerste
     \node[fill=white] at (axis cs:8,0.15) {$y = 0.013\,t$};
     \end{axis}
     \end{tikzpicture}
-    \end{feedback}
-    
+    \end{figure}
     Welke reactie-orde past het best bij deze reactie?
     \begin{multipleChoice}
             \choice{0de orde}
@@ -273,6 +278,7 @@ Controleer dit door na te gaan of de data overeenkomt met een nulde-orde, eerste
     \[
     k = \answer{0.079}
     \]
+    \end{feedback}
 \end{question}
 
 
