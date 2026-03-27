@@ -17,7 +17,7 @@
 
 \subsection{Algemeen principe}
 
-Ook bij de differentiële analysemethode wordt er vertrokken van een veronderstelde vorm van de snelheidsvergelijking. Deze wordt nu niet geintergreerd, maar wordt herschreven zodat er een eenvoudig verband ontstaat tussen $\frac{dC_A}{dt}$ en $C_A$.
+Ook bij de differentiële analysemethode wordt er vertrokken van een veronderstelde vorm van de snelheidsvergelijking. Deze wordt nu niet geïntergreerd, maar wordt herschreven zodat er een eenvoudig verband ontstaat tussen $\frac{dC_A}{dt}$ en $C_A$.
 De experimenteel bepaalde reactiesnelheden worden vervolgens gebruikt om de veronderstelde functionele vorm te fitten.
 
 De experimentele reactiesnelheid wordt daarbij rechtstreeks bepaald uit de helling van de concentratie-tijdcurve. Met andere woorden, op basis van experimentele gegevens wordt de afgeleide $\frac{dC_A}{dt}$ numeriek geschat. 
@@ -30,17 +30,53 @@ De differentiële analysemethode verloopt volgens de volgende stappen:
 \begin{enumerate}
 \item Voor een systeem met constant volume wordt de verdwijningssnelheid van component $A$ geschreven als
 \[
--r_A = - \frac{dC_A}{dt} = k\,g(C)
+-R_A = - \frac{dC_A}{dt} = k\,g(C)
 \]
 waarbij $k$ de reactiesnelheidsconstante is en $g(C)$ de afhankelijkheid van de reactiesnelheid van de concentraties beschrijft. Met behulp van de reactiestoichiometrie kunnen de concentraties van andere componenten worden geëlimineerd zodat $g(C) = f(C_A)$.
 
-\item In tegenstelling tot de integrale methode wordt de vergelijking niet geïntegreerd. In plaats daarvan wordt de reactiesnelheid rechtstreeks bepaald uit experimentele gegevens door de helling van de concentratie-tijdcurve te berekenen:
+\item In tegenstelling tot de integrale methode wordt de vergelijking niet geïntegreerd. In plaats daarvan wordt de vergelijking zo herschreven zodat er een eenvoudig verband is tussen de reactiesnelheid, de concentratie en de tijd:
 \[
-- r_A = - \frac{dC_A}{dt}
+- \frac{dC_A}{dt} = f(C_A,t)
 \]
-Deze afgeleide wordt numeriek geschat uit de gemeten waarden van $C_A$ als functie van $t$.
 
-\item Voor elk meetpunt wordt dus een waarde van $-r_A$ bepaald. Deze waarden worden vervolgens uitgezet als functie van $C_A$, zoals weergegeven in Fig.~\ref{fig: differentiele methode}. 
+\item Voor elk meetpunt wordt nu dus een waarde van $-\frac{dC_A}{dt}$ bepaald, dit is de helling van de $C_A(t)-curve$, zoals aangegeven in Fig. \ref{fig:helling raaklijn}. Deze waarden worden vervolgens uitgezet als functie van $C_A$, zoals weergegeven in Fig.~\ref{fig: differentiele methode}. 
+De bepaling van de locale helling is de cruciale stap in de toepassing van de differentiële methode en kan op verschillende manieren gebeuren:
+\begin{itemize}
+    \item Een differentiebenadering van lage of hogere orde. \\
+    Dit is veruit de eenvoudigste methode, maar aangezien numerieke differentiatie dikwijls onnauwkeurig is (wegens amplificatie van experimentele fouten) is deze methode voor echt ``professioneel'' gebruik niet aangewezen.
+    \item Grafische differentiatie aan een vloeiend getekende curve doorheen de datapunten. \\
+    Het voordeel van deze methode is dat ze eerst een zekere \textit{smoothing} toepast op de data, alvorens de afgeleide te bepalen. De methode is snel maar wegens gebrek aan nauwkeurigheid evenmin sterk aan te raden.
+    \item Een \textit{spline}-benadering. \\
+    Splines zijn speciale functies die samengesteld zijn uit een verzameling van veeltermen van meestal lage graad. Elke veelterm is gedefinieerd over een subinterval van het hele domein, en bijkomend worden dan continu\"iteitsvoorwaarden gesteld bij de overgang van het ene naar het andere subinterval. Globaal kan op deze wijze een vloeiende, continue functie worden bekomen die de experimentele data zo goed mogelijk fit. (Voor verdere info, verwijzing naar gepaste literatuur over numerieke wiskunde.)
+\end{itemize}
+
+Wij zullen vanuit het oogpunt van eenvoud meestal een lage orde differentiebenadering gebruiken.
+\begin{figure}
+    \begin{tikzpicture}[scale=1.2]
+    % Assen
+    \draw[->] (0,0) -- (6,0) node[right] {$t$};
+    \draw[->] (0,0) -- (0,4) node[above] {$C_A$};
+    % Curve (afnemend)
+    \draw[thick, domain=0.5:5, smooth] 
+    plot (\x,{3.5*exp(-0.5*\x)+0.3});
+    % Datapunten
+    \foreach \x in {0.7,1.2,1.8,2.5,3.2,4.2,5}
+    {
+        \fill (\x,{3.5*exp(-0.5*\x)+0.3}) circle (1.5pt);
+    } 
+    % Punt CA1
+    \coordinate (P) at (1.8,{3.5*exp(-0.5*1.8)+0.3});
+    \draw[dashed] (P) -- (0,{3.5*exp(-0.5*1.8)+0.3}) 
+    node[left] {$C_{A1}$};
+    % Raaklijn (lineaire benadering)
+    \draw[dashed] (0.2,2.86) -- (4,0.1577);
+    % Annotatie slope
+    \node at (3.7,2.2) {$\text{Slope} = -R_{A}(C_{A1}) = \left(\frac{dC_A}{dt}\right)_1$};
+    \end{tikzpicture}
+    \caption{Bepaling van de helling van de $C_A(t)-curve$ }
+    \label{fig:helling raaklijn}
+\end{figure}
+
 
 \item Indien de gekozen vorm van de snelheidsvergelijking correct is, zullen de experimentele datapunten een eenvoudig functioneel verband volgen (bv. rechte lijn in log-log schaal). Indien dit niet het geval is, moet een andere vorm van de snelheidsvergelijking worden verondersteld en wordt de procedure herhaald.
 
@@ -59,7 +95,7 @@ Deze afgeleide wordt numeriek geschat uit de gemeten waarden van $C_A$ als funct
 \begin{axis}[
     axis lines=left,
     xlabel={$C_A$},
-    ylabel={$-r_A$},
+    ylabel={$-R_A$},
     xmin=0, xmax=10,
     ymin=0, ymax=10,
     width=6cm,
@@ -93,7 +129,7 @@ Deze afgeleide wordt numeriek geschat uit de gemeten waarden van $C_A$ als funct
 \begin{axis}[
     axis lines=left,
     xlabel={$C_A$},
-    ylabel={$-r_A$},
+    ylabel={$-R_A$},
     xmin=0, xmax=10,
     ymin=0, ymax=10,
     width=6cm,
@@ -136,17 +172,17 @@ Met de differentiële analysemethode kunnen we de reactieconstante $k$ en de rea
 
 Stel dat de reactiesnelheid gegeven wordt door:
 \[
--r_A = k C_A^n
+-R_A = k C_A^n
 \]
 
 We herschrijven deze reactievergelijking in een vorm waarbij de gezochte variabelen eenvoudig uit een grafiek kunnen worden afgelezen.
 
 Neem de logaritme van beide leden:
 \[
-\ln(-r_A) = \ln k + n \ln C_A
+\ln(-R_A) = \ln k + n \ln C_A
 \]
 
-Een grafiek van $\ln(-r_A)$ tegen $\ln C_A$ geeft een rechte lijn met:
+Een grafiek van $\ln(-R_A)$ tegen $\ln C_A$ geeft een rechte lijn met:
 \begin{itemize}
 \item helling = $n$ (reactieorde)
 \item snijpunt = $\ln k$
@@ -157,7 +193,7 @@ Een grafiek van $\ln(-r_A)$ tegen $\ln C_A$ geeft een rechte lijn met:
     axis lines=middle,
     axis line style={->, thick},
     xlabel={$\ln C_A$},
-    ylabel={$\ln(-r_A)$},
+    ylabel={$\ln(-R_A)$},
     xmin=0, xmax=5,
     ymin=0, ymax=5,
     xtick=\empty,
@@ -199,20 +235,20 @@ Tweede-orde reactie
 
 Beschouw een reactie met snelheidswet:
 \[
--r_A = k C_A^2
+-R_A = k C_A^2
 \]
 
 De reactiesnelheid wordt bepaald uit experimentele data via:
 \[
--r_A = -\frac{dC_A}{dt}
+-R_A = -\frac{dC_A}{dt}
 \]
 
-Vervolgens wordt $-r_A$ uitgezet als functie van $C_A^2$:
+Vervolgens wordt $-R_A$ uitgezet als functie van $C_A^2$:
 \[
--r_A = k C_A^2
+-R_A = k C_A^2
 \]
 
-Een grafiek van $-r_A$ tegen $C_A^2$ levert een rechte lijn met helling $k$.
+Een grafiek van $-R_A$ tegen $C_A^2$ levert een rechte lijn met helling $k$.
 
 \begin{tikzpicture}
 \begin{axis}[
