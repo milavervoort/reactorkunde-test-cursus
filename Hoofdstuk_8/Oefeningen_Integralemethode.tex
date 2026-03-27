@@ -67,7 +67,7 @@ Controleer dit door na te gaan of de data overeenkomt met een nulde-orde, eerste
     \begin{feedback}
         We kunnen in dit geval $C_A$ schrijven in functie van $p$ als:
         \[
-        C_A = \frac{3(p_0-p)}{2RT}
+        C_A = \frac{3p_0-p}{2RT}
         \]
     \end{feedback}
     
@@ -84,26 +84,26 @@ Controleer dit door na te gaan of de data overeenkomt met een nulde-orde, eerste
     Schrijf dit nu in functie de druk en integreer.
     Welke uitdrukking krijg je dan?
     \begin{multipleChoice}
-            \choice{$p - p_0= \frac{3}{2RT} k*t$}
-            \choice[correct]{$p - p_0= \frac{2RT}{3} k*t$}
-            \choice{$p - p_0= -\frac{2RT}{3} k*t$}
-            \choice{$p - p_0= -\frac{3}{2RT} k*t$}
+            \choice{$p - p_0= \frac{1}{2RT} k*t$}
+            \choice[correct]{$p - p_0= 2RT k*t$}
+            \choice{$p - p_0= -2RT k*t$}
+            \choice{$p - p_0= -\frac{1}{2RTk}*t$}
     \end{multipleChoice}
     \begin{feedback}
         \[
-        \frac{3}{2RT}\frac{dp}{dt} = k
+        \frac{-1}{2RT}\frac{dp}{dt} = -k
         \]
         \[
-        \int \frac{3}{2RT}\,dp= \int k\,dt
+        \int \frac{1}{2RT}\,dp= \int k\,dt
         \]
         \[
-        p - p_0= \frac{2RT}{3} k*t
+        p - p_0= 2RTk*t
         \]
         Volgens deze functie kunnen we de data nu gaan plotten:
         \[
         \underbrace{p - p_0}_{y}
         =
-        \underbrace{\left(\frac{2RT}{3} k\right)}_{\text{helling}}
+        \underbrace{\left(2RT k\right)}_{\text{helling}}
         \cdot
         \underbrace{t}_{x}
         \]
@@ -122,30 +122,30 @@ Controleer dit door na te gaan of de data overeenkomt met een nulde-orde, eerste
     Welke uitdrukking krijg je dan?
     
     \begin{multipleChoice}
+            \choice{$\ln\left(\frac{3p_0-p}{2p_0}\right)= k t$}
             \choice{$\ln\left(\frac{p}{p_0}\right)= -\frac{2RT}{3} k t$}
-            \choice[correct]{$\ln\left(\frac{p}{p_0}\right)= -\frac{3}{2RT} k t$}
-            \choice{$\ln\left(\frac{p}{p_0}\right)= \frac{3}{2RT} k t$}
-            \choice{$\frac{p - p_0}{p_0}= -\frac{3}{2RT} k t$}
+            \choice{$\ln\left(\frac{p}{p_0}\right)= -\frac{1}{2RT} k t$}
+            \choice[correct]{$\ln\left(\frac{2p_0}{3p_0-p}\right)= k t$}
     \end{multipleChoice}
     
     \begin{feedback}
         \[
-        \frac{3}{2RT}\frac{dp}{dt} = -k p
+        \frac{-1}{2RT}\frac{dp}{dt} = -k*\frac{3p_0-p}{2RT}
         \]
         \[
-        \frac{1}{p} dp = -\frac{3}{2RT} k dt
+        \frac{dp}{3p_0-p} =  k dt
         \]
         \[
-        \int \frac{1}{p} dp = \int -\frac{3}{2RT} k dt
+        \int \frac{1}{3p_0-p}\,dp = \int k\,dt
         \]
         \[
-        \ln\left(\frac{p}{p_0}\right)= -\frac{3}{2RT} k t
+        \ln\left(\frac{2p_0}{3p_0-p}\right)=  k t
         \]
         Volgens deze functie kunnen we de data nu gaan plotten:
         \[
-        \underbrace{\ln\left(\frac{p}{p_0}\right)}_{y}
+        \underbrace{\ln\left(\frac{2p_0}{3p_0-p}\right)}_{y}
         =
-        \underbrace{\left(-\frac{3}{2RT} k\right)}_{\text{helling}}
+        \underbrace{k}_{\text{helling}}
         \cdot
         \underbrace{t}_{x}
         \]
@@ -172,32 +172,30 @@ Controleer dit door na te gaan of de data overeenkomt met een nulde-orde, eerste
     
     \begin{feedback}
         \[
-        \frac{3}{2RT}\frac{dp}{dt} = -k p^2
+        \frac{-1}{2RT}\frac{dp}{dt} = -k (\frac{3p_0-p}{2RT})^2
         \]
         \[
-        \frac{1}{p^2} dp = -\frac{3}{2RT} k dt
+        \frac{dp}{dt} = \frac{k(3p_0-p)^2}{2RT} 
         \]
         \[
-        \int \frac{1}{p^2} dp = \int -\frac{3}{2RT} k dt
+        \int \frac{1}{(3p_0-p)^2} dp = \int\frac{k}{2RT}dt
         \]
         \[
-        -\frac{1}{p} + \frac{1}{p_0}= -\frac{3}{2RT} k t
-        \]
-        \[
-        \frac{1}{p} - \frac{1}{p_0}= \frac{3}{2RT} k t
+        \frac{1}{3p_0-p} - \frac{1}{2p_0}= \frac{k}{2RT}  t
         \]
         Volgens deze functie kunnen we de data nu gaan plotten:
         \[
-        \underbrace{\left(\frac{1}{p} - \frac{1}{p_0}\right)}_{y}
+        \underbrace{\left(\frac{1}{3p_0-p} - \frac{1}{2p_0}\right)}_{y}
         =
-        \underbrace{\left(\frac{3}{2RT} k\right)}_{\text{helling}}
+        \underbrace{\left(\frac{k}{2RT} \right)}_{\text{helling}}
         \cdot
         \underbrace{t}_{x}
         \]
     \end{feedback}
 \end{question}
 
-\begin{question} Welke reactiekinetiek past het beste?
+\begin{question} Welke reactiekinetiek past het beste? \\
+
     We kunnen nu de plots maken van de experimentele data. 
     De omgevormde data voor elke reactiekinetiek is: 
     \begin{center}
@@ -217,56 +215,65 @@ Controleer dit door na te gaan of de data overeenkomt met een nulde-orde, eerste
     \[b = \answer{0.41} \]
     \[c = \answer{0.08} \]
     
-     \begin{feedback}
-         \begin{center}
-        \geogebra{mtznapmc}{700}{700}
-        \end{center}
-     \end{feedback}
-        
-            
+    \begin{feedback}
+    \pgfplotsset{compat=1.18}
+    % --- 0de orde ---
+    \begin{tikzpicture}
+    \begin{axis}[
+        axis lines=left,
+        xlabel={$t$},
+        ylabel={$p - p_0$},
+    ]
+    \addplot[only marks, mark=o] coordinates {
+    (0,0) (5,5.0) (10,8.3) (15,10.4) (20,11.9)
+    };
+    \addplot[domain=0:20] {0.595*x};
+    \node[fill=white] at (axis cs:12,5) {$y = 0.595\,t$};
+    \end{axis}
+    \end{tikzpicture}
+    
+    % --- 1ste orde ---
+    \begin{tikzpicture}
+    \begin{axis}[
+        axis lines=left,
+        xlabel={$t$},
+        ylabel={$\ln\left(\frac{2p_0}{3p_0-p}\right)$},
+    ]
+    \addplot[only marks, mark=o] coordinates {
+    (0,0.00) (5,0.41) (10,0.81) (15,1.18) (20,1.58)
+    };
+    \addplot[domain=0:20] {0.079*x};
+    \node[fill=white] at (axis cs:12,0.7) {$y = 0.079\,t$};
+    \end{axis}
+    \end{tikzpicture}
+    
+    % --- 2de orde ---
+    \begin{tikzpicture}
+    \begin{axis}[
+        axis lines=left,
+        xlabel={$t$},
+        ylabel={$\frac{1}{3p_0-p} - \frac{1}{2p_0}$},
+    ]
+    \addplot[only marks, mark=o] coordinates {
+    (0,0.00) (5,0.03) (10,0.08) (15,0.15) (20,0.26)
+    };
+    \addplot[domain=0:20] {0.013*x};
+    \node[fill=white] at (axis cs:8,0.15) {$y = 0.013\,t$};
+    \end{axis}
+    \end{tikzpicture}
+    \end{feedback}
+    
+    Welke reactie-orde past het best bij deze reactie?
+    \begin{multipleChoice}
+            \choice{0de orde}
+            \choice[correct]{1ste orde}
+            \choice{2de orde}
+    \end{multipleChoice}
+    Wat is de waarde van de reactieconstante?
+    \[
+    k = \answer{0.079}
+    \]
 \end{question}
 
-
-\begin{question}
-Bereken voor $t=5$ min de waarde van:
-
-\[
-\ln\left(\frac{2p_0}{3p_0 - p}\right)
-\]
-
-\[
-= \answer{0.405}
-\]
-\end{question}
-
-\section*{Stap 3: Interpretatie}
-
-\begin{question}
-Als de grafiek van 
-\[
-\ln\left(\frac{2p_0}{3p_0 - p}\right) \text{ vs } t
-\]
-een rechte is, wat is dan de orde van de reactie?
-
-\begin{multipleChoice}
-\choice{Nulde orde}
-\choice[correct]{Eerste orde}
-\choice{Tweede orde}
-\end{multipleChoice}
-\end{question}
-
-\begin{question}
-Wat stelt de helling van deze rechte voor?
-
-\begin{multipleChoice}
-\choice{De initiële druk}
-\choice[correct]{De snelheidsconstante $k$}
-\choice{De concentratie}
-\end{multipleChoice}
-\end{question}
-
-\begin{center}
-\geogebra{mtznapmc}{700}{700}
-\end{center}
 
 \end{document}
