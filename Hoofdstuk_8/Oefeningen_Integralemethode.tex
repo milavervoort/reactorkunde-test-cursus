@@ -46,36 +46,186 @@ $t$ (min) & $p$ (mmHg) \\
 Gebruik de integrale analysemethode om te bepalen welke orde deze reactie heeft en wat de reactieconstante is. \\
 Controleer dit door na te gaan of de data overeenkomt met een nulde-orde, eerste-orde en tweede-orde reactie.
 
-
-\section*{Stap 1: Verband tussen druk en concentratie}
-
-We gebruiken:
-
-\[
-C_A = \frac{p_A}{RT}
-\]
-
-Voor dit systeem kan men afleiden:
-
-\[
-C_A = \frac{3p_0 - p}{2RT}
-\]
-
-\begin{question}
-Wat is $p_0$ (de initiële druk)?
-
-\[
-p_0 = \answer{7.5}
-\]
+\begin{question} Verband tussen druk en concentratie
+    \\
+    In de opgave is niet concentratie in functie van de tijd gegeven, maar de druk in functie van de tijd. Om hiermee te kunnen verder werken, moeten we eerst het verband tussen concentratie en druk zoeken. 
+    
+    Dit werd afgeleid al afgeleid in het begin van dit hoofdstuk. Hier kwamen we tot de uitdrukking: 
+    \[
+    C_A = \frac{p_{A0}}{RT} - \frac{a}{\Delta n} \cdot \frac{(p - p_0)}{RT}
+    \]
+    
+    Voor dit systeem beschouwen $p_{A0} = p_0$. Wat zijn $a$ en $\Delta n$ voor dit systeem?
+    
+    \[
+    a = \answer{1}
+    \]
+    \[
+    \Delta n = \answer{2}
+    \]
+    
+    \begin{feedback}
+        We kunnen in dit geval $C_A$ schrijven in functie van $p$ als:
+        \[
+        C_A = \frac{3(p_0-p)}{2RT}
+        \]
+    \end{feedback}
+    
 \end{question}
 
-\section*{Stap 2: Eerste orde test}
+\begin{question} 0de orde reactie
 
-Voor een eerste orde reactie geldt:
+    We gaan eerst uit van een 0de orde reactie en controleren of deze orde overeen komt met de experimentele data.
+    
+    Voor een 0de orde reactie geldt: 
+    \[
+    \frac{dC_A}{dt} = - k
+    \]
+    Schrijf dit nu in functie de druk en integreer.
+    Welke uitdrukking krijg je dan?
+    \begin{multipleChoice}
+            \choice{$p - p_0= \frac{3}{2RT} k*t$}
+            \choice[correct]{$p - p_0= \frac{2RT}{3} k*t$}
+            \choice{$p - p_0= -\frac{2RT}{3} k*t$}
+            \choice{$p - p_0= -\frac{3}{2RT} k*t$}
+    \end{multipleChoice}
+    \begin{feedback}
+        \[
+        \frac{3}{2RT}\frac{dp}{dt} = k
+        \]
+        \[
+        \int \frac{3}{2RT}\,dp= \int k\,dt
+        \]
+        \[
+        p - p_0= \frac{2RT}{3} k*t
+        \]
+        Volgens deze functie kunnen we de data nu gaan plotten:
+        \[
+        \underbrace{p - p_0}_{y}
+        =
+        \underbrace{\left(\frac{2RT}{3} k\right)}_{\text{helling}}
+        \cdot
+        \underbrace{t}_{x}
+        \]
+    \end{feedback}
+\end{question}
 
-\[
-\ln\left(\frac{2p_0}{3p_0 - p}\right) = kt
-\]
+\begin{question} 1ste orde reactie
+
+    We gaan nu uit van een 1ste orde reactie en controleren of deze orde overeen komt met de experimentele data.
+    
+    Voor een 1ste orde reactie geldt: 
+    \[
+    \frac{dC_A}{dt} = - k C_A
+    \]
+    Schrijf dit nu in functie van de druk en integreer.
+    Welke uitdrukking krijg je dan?
+    
+    \begin{multipleChoice}
+            \choice{$\ln\left(\frac{p}{p_0}\right)= -\frac{2RT}{3} k t$}
+            \choice[correct]{$\ln\left(\frac{p}{p_0}\right)= -\frac{3}{2RT} k t$}
+            \choice{$\ln\left(\frac{p}{p_0}\right)= \frac{3}{2RT} k t$}
+            \choice{$\frac{p - p_0}{p_0}= -\frac{3}{2RT} k t$}
+    \end{multipleChoice}
+    
+    \begin{feedback}
+        \[
+        \frac{3}{2RT}\frac{dp}{dt} = -k p
+        \]
+        \[
+        \frac{1}{p} dp = -\frac{3}{2RT} k dt
+        \]
+        \[
+        \int \frac{1}{p} dp = \int -\frac{3}{2RT} k dt
+        \]
+        \[
+        \ln\left(\frac{p}{p_0}\right)= -\frac{3}{2RT} k t
+        \]
+        Volgens deze functie kunnen we de data nu gaan plotten:
+        \[
+        \underbrace{\ln\left(\frac{p}{p_0}\right)}_{y}
+        =
+        \underbrace{\left(-\frac{3}{2RT} k\right)}_{\text{helling}}
+        \cdot
+        \underbrace{t}_{x}
+        \]
+    \end{feedback}
+\end{question}
+
+\begin{question} 2de orde reactie
+
+    We gaan nu uit van een 2de orde reactie en controleren of deze orde overeen komt met de experimentele data.
+    
+    Voor een 2de orde reactie geldt: 
+    \[
+    \frac{dC_A}{dt} = - k C_A^2
+    \]
+    Schrijf dit nu in functie van de druk en integreer.
+    Welke uitdrukking krijg je dan?
+    
+    \begin{multipleChoice}
+            \choice{$\frac{1}{p} - \frac{1}{p_0}= -\frac{3}{2RT} k t$}
+            \choice{$\frac{1}{p} - \frac{1}{p_0}= \frac{3}{2RT} k t$}
+            \choice[correct]{$\frac{1}{p} - \frac{1}{p_0}= \frac{3}{2RT} k t$}
+            \choice{$p - p_0= \frac{3}{2RT} k t$}
+    \end{multipleChoice}
+    
+    \begin{feedback}
+        \[
+        \frac{3}{2RT}\frac{dp}{dt} = -k p^2
+        \]
+        \[
+        \frac{1}{p^2} dp = -\frac{3}{2RT} k dt
+        \]
+        \[
+        \int \frac{1}{p^2} dp = \int -\frac{3}{2RT} k dt
+        \]
+        \[
+        -\frac{1}{p} + \frac{1}{p_0}= -\frac{3}{2RT} k t
+        \]
+        \[
+        \frac{1}{p} - \frac{1}{p_0}= \frac{3}{2RT} k t
+        \]
+        Volgens deze functie kunnen we de data nu gaan plotten:
+        \[
+        \underbrace{\left(\frac{1}{p} - \frac{1}{p_0}\right)}_{y}
+        =
+        \underbrace{\left(\frac{3}{2RT} k\right)}_{\text{helling}}
+        \cdot
+        \underbrace{t}_{x}
+        \]
+    \end{feedback}
+\end{question}
+
+\begin{question} Welke reactiekinetiek past het beste?
+    We kunnen nu de plots maken van de experimentele data. 
+    De omgevormde data voor elke reactiekinetiek is: 
+    \begin{center}
+    \begin{tabular}{c|c|c|c|c}
+    $t$ & $p$ & 0de orde & 1ste orde & 2de orde \\
+     & & $p - p_0$ & $\ln\left(\frac{2p_0}{3p_0-p}\right)$ & $\frac{1}{3p_0-p} - \frac{1}{2p_0}$ \\
+    \hline
+    $0$  & $7.5$  & $0.0$   & $0.00$ & $0.00$ \\
+    $5$  & $12.5$ & $5.0$   & $b$ & $0.03$ \\
+    $10$ & $15.8$ & $8.3$   & $0.81$ & $c$ \\
+    $15$ & $17.9$ & $a$  & $1.18$ & $0.15$ \\
+    $20$ & $19.4$ & $11.9$  & $1.58$ & $0.26$ \\
+    \end{tabular}
+    \end{center}
+    Vul de ontbrekende waarde aan.
+    \[a = \answer{10.4} \]
+    \[b = \answer{0.41} \]
+    \[c = \answer{0.08} \]
+    
+     \begin{feedback}
+         \begin{center}
+        \geogebra{mtznapmc}{700}{700}
+        \end{center}
+     \end{feedback}
+        
+            
+\end{question}
+
 
 \begin{question}
 Bereken voor $t=5$ min de waarde van:
