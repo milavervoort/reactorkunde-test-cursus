@@ -11,4 +11,182 @@
 \maketitle
 \label{xim:oefeningen differentiële analysemethode}
 
+\section*{Oefening 1}
+
+Dit is dezelfde oefening als bij de integrale analyse methode. We gaan deze nu proberen op te lossen met de differentiële analysemethode.
+
+\textbf{Gegeven}
+
+De gasfase ontbinding van di-\textit{tert}-butylperoxide in producten ethaan en aceton gebeurt volgens de reactie:
+
+\[
+(\mathrm{CH}_3)_3\mathrm{COOC}(\mathrm{CH}_3)_3 \rightarrow \mathrm{C}_2\mathrm{H}_6 + 2\,\mathrm{CH}_3\mathrm{COCH}_3
+\]
+of symbolisch:
+\[
+A \rightarrow R + 2S
+\]
+
+Er werden experimenten uitgevoerd in een isotherme batchreactor. De totale druk werd gemeten als functie van de tijd:
+
+\begin{center}
+\begin{tabular}{c|c}
+$t$ (min) & $p$ (mmHg) \\
+\hline
+0.0 & 7.5 \\
+5.0 & 12.5 \\
+10.0 & 15.8 \\
+15.0 & 17.9 \\
+20.0 & 19.4 \\
+\end{tabular}
+\end{center}
+
+\textbf{Gevraagd}
+
+Gebruik de differentiële analysemethode om te bepalen welke orde deze reactie heeft en wat de reactieconstante is. \\
+
+Uit de vorige oefening weten we al dat het verband tussen concentratie $C_A$ en de druk $p$ gegeven wordt door volgende vergelijking:
+    \[
+    C_A = \frac{3p_0-p}{2RT}
+    \]
+Voor het gebruik van de differentiële methode moeten we nog niet perse alvast een reactiekinetiek aannemen. We kunnen zowel $k$ en $n$ gelijktijdig bepalen.
+
+\begin{question} 
+Vergelijking in de juiste vorm schrijven
+\\
+De snelheidsvergelijking voor een nde orde reactie is 
+\[
+\frac{dC_A}{dt} = -kC_A ^n
+\]
+Invullen voor de de druk: 
+\[
+\frac{-1}{2RT}\frac{dp}{dt} = -k(\frac{3p_0-p}{2RT})^n
+\]
+\[
+\frac{dp}{dt} = k(\frac{1}{2RT})^{n-1}(3p_0-p)^n
+\]
+Vervang $k$ door $k' = k(\frac{1}{2RT})^{n-1}$
+\[
+\frac{dp}{dt} = k'(3p_0-p)^n
+\]
+Probeer deze vergelijking nu om te vormen zodat zowel $k'$ en $n$ gelijktijdig bepaald kunnen worden.
+
+    \begin{multipleChoice}
+            \choice{$\ln(\frac{dp}{dt})= \ln(k')+\ln(3p_0-p)^n$}
+            \choice{$\ln(\frac{dp}{dt})= n\ln(k'(3p_0-p))$}
+            \choice[correct]{$\ln(\frac{dp}{dt})= \ln(k')+n\ln(3p_0-p))$}
+    \end{multipleChoice}
+    \begin{feedback}
+        Als de snelheidsvergelijking in deze vorm geschreven wordt, kunnen $n$ en $k'$ eenvoudig bepaald worden.
+        \[
+        \underbrace{\ln \left(\frac{dp}{dt}\right)}_{y}
+        =
+        \underbrace{\ln k'}_{\text{intercept}}
+        +
+        \underbrace{n}_{\text{helling}}
+        \,
+        \underbrace{\ln(3p_0 - p)}_{x}
+        \]
+    \end{feedback}
+
+\end{question}
+
+\begin{question} 
+Data verwerken\\
+Om een plot te kunnen maken, hebben we de afgeleide $\frac{dp}{dt}$ nodig op elk tijdspunt. 
+Voor het berekenen van de afgeleide $\frac{dp}{dt}$ gebruiken we een eenvoudige centrale differentiebenadering. 
+
+\begin{remark}
+    De centrale differentiebenadering benadert de afgeleide door gebruik te maken van punten aan beide zijden:
+    \[
+    f'(t) \approx \frac{f(t+h) - f(t-h)}{2h}.
+    \]
+     In dit voorbeeld bepalen we de afgeleide in het middenpunt $t_{n+\frac{1}{2}}$:
+    \[
+    f'\bigl(t_{n+\frac{1}{2}}\bigr) \approx \frac{f(t_{n+1}) - f(t_n)}{\Delta t}.
+    \]
+\end{remark}
+De afgeleide zelf is dus gedefinieerd op de intermediaire tijdswaarden $t = 2.5, t = 7.5, \ldots$. 
+\begin{table}[h!]
+\centering
+\begin{tabular}{c|c||c|c|c}
+$t$ [min] & $p$ [mmHg] & $t$ [min] &$p$ [mmHg] & $\frac{dp}{dt}$ \\
+\hline
+0.0  & 7.50  &  & & \\
+     &       & 2.50   & 10   & 1.00  \\
+5.0  & 12.50 &  & &    \\
+     &       &   7.50     & a & 0.66\\
+10.0    &   15.80    &   &    &  \\
+&  & 12.50 & 16.85 & b     \\
+  15.0   & 17.90       &       &  & \\
+ & & 17.50 & 16.85 & 0.30   \\
+20.0 & 19.40 &       &  &     \\
+\end{tabular}
+\end{table}
+
+Vul de tabel  verder aan:
+\[a = \answer{14.15}\]
+\[b = \answer{0.42}\]
+
+Om de plot te kunnen maken hebben we als laatste nog data voor $\ln(3p_0 - p)$ nodig. 
+\begin{itemize}
+    \item Voor tijdstip $t_1$ = 2.5 min: \[\ln(\frac{dp}{dt}) = \answer{0.00}\]  \[\ln(3p_0 - p) = \answer{2.526}\]
+    \item Voor tijdstip $t_2$ = 7.5 min: \[\ln(\frac{dp}{dt}) = \answer{-0.416}\]  \[\ln(3p_0 - p) = \answer{2.122}\]
+    \item Voor tijdstip $t_3$ = 12.5 min: \[\ln(\frac{dp}{dt}) = \answer{-0.868}\] \[\ln(3p_0 - p) = \answer{1.732}\]
+    \item Voor tijdstip $t_4$ = 17.5 min:\[\ln(\frac{dp}{dt}) = \answer{-1.204}\] \[\ln(3p_0 - p) = \answer{1.348}\]
+\end{itemize}
+\end{question}
+
+\begin{question} 
+    Interpreteren van de plot \\
+    De verzamelde data kan nu geplot worden in een $\ln(\frac{dp}{dt})$ versus $\ln(3p_0-p)$ plot.
+\pgfplotsset{compat=1.18}
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=10cm,
+    height=7cm,
+    xlabel={$ \ln(3p_0 - p) $},
+    ylabel={$ \ln\!\left(\frac{dp}{dt}\right) $},
+    grid=major,
+    legend pos=south east
+]
+% Datapunten
+\addplot[
+    only marks,
+    mark=*,
+] coordinates {
+    (2.526, 0.00)
+    (2.122, -0.416)
+    (1.732, -0.868)
+    (1.348, -1.204)
+};
+% Best fit lijn: y = 1.02x - 3.48
+\addplot[
+    domain=1.3:2.6,
+    samples=100,
+    thick
+] {1.00*x - 2.55};
+\legend{Data, Fit: $y = 1.00x - 2.55$}
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+
+Hiermee kunnen we $k$ en $n$ bepalen.
+\[n = \answer{1}\]
+\[k = \answer{0.079}\]
+\begin{feedback} .
+\newline
+    De helling van de rechte: $n = 1$. \\
+    Het intercept van de rechte: $ln(k') = -2.55$.
+    \[\ln(k') = \ln(k(\frac{1}{2RT})^{n-1} = \ln{k} = -2.55\]
+    \[k = 0.079\]
+\end{feedback}
+
+\end{question}
+
+
+
 \end{document}
