@@ -15,4 +15,163 @@
 \label{Methode der beginsnelheden}
 \subsection{Algemeen principe}
 
+\begin{figure}[h!]
+\centering
+
+% -------- LINKER FIGUUR --------
+\begin{subfigure}{0.45\textwidth}
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=\textwidth,
+    height=6cm,
+    xlabel={$t$},
+    ylabel={$C_A$},
+    xmin=0, xmax=5,
+    ymin=0, ymax=1.2,
+    axis lines=left,
+    domain=0:5,
+    samples=100
+]
+
+% Run 1
+\addplot[thick] {1.0*exp(-0.8*x)};
+\node at (axis cs:3,0.3) {Run 1};
+
+% Run 2
+\addplot[thick,dashed] {0.8*exp(-0.8*x)};
+\node at (axis cs:3,0.2) {Run 2};
+
+% Run 3
+\addplot[thick,dotted] {0.6*exp(-0.8*x)};
+\node at (axis cs:3,0.1) {Run 3};
+
+\end{axis}
+\end{tikzpicture}
+\caption{Concentratieverloop voor verschillende initiële waarden}
+\end{subfigure}
+\hfill
+
+% -------- RECHTER FIGUUR --------
+\begin{subfigure}{0.45\textwidth}
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=\textwidth,
+    height=6cm,
+    xlabel={$\ln C_{A0}$},
+    ylabel={$\ln(-R_{A0})$},
+    xmin=0, xmax=2,
+    ymin=0, ymax=2,
+    axis lines=left
+]
+
+% Rechte lijn (helling = n)
+\addplot[thick] {0.5 + 1.2*x};
+
+% Punten (runs)
+\addplot[only marks] coordinates {(0.3,0.9) (0.8,1.4) (1.3,1.9)};
+
+\node at (axis cs:1.2,1.2) {helling = $n$};
+
+\end{axis}
+\end{tikzpicture}
+\caption{Bepaling van de reactieorde via log-log plot}
+\end{subfigure}
+
+Deze methode vereist slechts beperkte experimentele data en is daarom bijzonder nuttig voor het snel bepalen van kinetische parameters.
+
+\end{figure}
+
+De differentiële analysemethode kan niet meer gebruikt worden voor de bepaling van de voorwaartse reactieparameters indien de reactie reversibel is, zoals bijvoorbeeld:
+
+\[
+A \;\xrightleftharpoons[k_2]{k_1}\; R
+\]
+
+In dit geval kan men experimenten uitvoeren bij verschillende waarden van initiële concentratie $C_{A0}$, waarvoor men telkens de initiële reactiesnelheid bepaalt door differentiatie van de opgemeten data en extrapolatie naar $t \to 0$, zie Figuur 8.9. Indien de voorwaartse reactie van orde $n$ is:
+
+\[
+- R_A = k C_A^n \quad \text{alsook} \quad - R_{A0} = k C_{A0}^n
+\]
+
+\[
+\Rightarrow \ln(-R_{A0}) = \ln k + n \ln C_{A0}
+\]
+
+waarbij:
+\[
+\text{intercept} = \ln k, \quad \text{helling} = n
+\]
+
+\begin{figure}[h!]
+\centering
+
+% -------- LINKER FIGUUR --------
+\begin{subfigure}{0.45\textwidth}
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=\textwidth,
+    height=6cm,
+    xlabel={$t$},
+    ylabel={$C_A$},
+    xmin=0, xmax=5,
+    ymin=0, ymax=1.2,
+    axis lines=left,
+    domain=0:5,
+    samples=100
+]
+
+% Run 1
+\addplot[thick] {1.0*exp(-0.8*x)};
+\node at (axis cs:3,0.3) {Run 1};
+
+% Run 2
+\addplot[thick,dashed] {0.8*exp(-0.8*x)};
+\node at (axis cs:3,0.2) {Run 2};
+
+% Run 3
+\addplot[thick,dotted] {0.6*exp(-0.8*x)};
+\node at (axis cs:3,0.1) {Run 3};
+
+\end{axis}
+\end{tikzpicture}
+\caption{Concentratieverloop voor verschillende initiële waarden}
+\end{subfigure}
+\hfill
+
+% -------- RECHTER FIGUUR --------
+\begin{subfigure}{0.45\textwidth}
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=\textwidth,
+    height=6cm,
+    xlabel={$\ln C_{A0}$},
+    ylabel={$\ln(-R_{A0})$},
+    xmin=0, xmax=2,
+    ymin=0, ymax=2,
+    axis lines=left
+]
+
+% Rechte lijn (helling = n)
+\addplot[thick] {0.5 + 1.2*x};
+
+% Punten (runs)
+\addplot[only marks] coordinates {(0.3,0.9) (0.8,1.4) (1.3,1.9)};
+
+\node at (axis cs:1.2,1.2) {helling = $n$};
+
+\end{axis}
+\end{tikzpicture}
+\caption{Bepaling van de reactieorde via log-log plot}
+\end{subfigure}
+
+\caption{Method of initial rates used to test an $n$th-order rate equation.}
+\end{figure}
+
+Het gebruik van de methode der beginsnelheden is instructief en aan te raden omdat ze soms een andere orde dan van reactie oplevert dan bijvoorbeeld de integrale methode. Dit betekent meestal dat de werkelijke kinetica complexer is dan gedacht en dat de producten na verloop van tijd de reactiesnelheid beïnvloeden. Gebruik daarom bij kinetische analyse indien mogelijk verschillende combinaties van methoden.
+
+
 \end{document}

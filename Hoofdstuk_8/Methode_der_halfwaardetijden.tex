@@ -13,6 +13,202 @@
 
 \section{Methode der halfwaardetijden}
 \label{Methode der halfwaardetijden}
-\subsection{Algemeen principe}
+
+De methode der halfwaardetijden is ook een techniek waarmee men de reactieorde en de snelheidswet kan bepalen.\\
+De halfwaardetijd $t_{1/2}$ wordt gedefinieerd als de tijd die nodig is om de concentratie van een reagens te laten dalen tot de helft van de initiële waarde $C_A = \frac{C_{A0}}{2}$.\\
+Het centrale idee van deze methode is dat de halfwaardetijd op een karakteristieke manier afhangt van de beginconcentratie $C_{A0}$. Deze afhankelijkheid verschilt naargelang de reactieorde.
+Door te onderzoeken hoe $t_{1/2}$ verandert bij verschillende beginconcentraties, kan men dus informatie verkrijgen over de reactieorde zonder de volledige concentratie-tijdcurve te analyseren.
+
+\begin{procedure}
+De methode wordt toegepast volgens de volgende stappen:
+
+\begin{enumerate}
+    \item Voer meerdere experimenten uit met verschillende beginconcentraties $C_{A0}$ en meet voor elk experiment de halfwaardetijd $t_{1/2}$. Dat is de tijd waarbij $C_A = \frac{C_{A0}}{2}$.
+
+    \item Veronderstel een bepaalde reactiekinetiek en bepaal een uitdrukking voor de halfwaardetijd.
+
+    \item Herschrijf de uitdrukking voor de halfwaaardetijd zodat de gezochte waarden (bv. $n$ en $k$) via een eenvoudig verband kunnen bepaald worden.
+    
+    \item Maak een grafiek van de datapunten volgens de herschreven vergelijking. Indien de aangenomen reactiekinetiek klopt, kunnen de gezochten waarden bepaald worden.
+\end{enumerate}
+
+
+Deze methode vereist slechts beperkte experimentele data en is daarom bijzonder nuttig voor het snel bepalen van kinetische parameters.
+
+
+\end{procedure}
+
+\begin{example} nde orde reactie
+    
+Voor een irreversibele reactie van het type  $A\longrightarrow P$
+met snelheidswet $ -R_A = -\frac{dC_A}{dt} = k C_A^n$ in een batchreactor met constant volume kunnen we een uitdrukking voor de halfwaarde tijd bepalen. \\
+
+Integratie van de differentiaalvergelijking geeft:
+\[
+C_A^{1-n} - C_{A0}^{1-n} = (n-1)kt
+\]
+De halfwaardetijd krijgen we door $C_A$ gelijk te stellen aan $\frac{C_{A0}}{2}$.
+\[
+(\frac{C_{A0}}{2})^{1-n} - C_{A0}^{1-n} = (n-1)kt_{1/2}
+\]
+\[
+C_{A0}^{1-n}(2^{n-1}-1) = (n-1)kt_{1/2}
+\]
+\[
+t_{1/2} = \frac{2^{n-1} - 1}{k(n-1)} C_{A0}^{1-n} \quad \text{voor } n \neq 1
+\]
+\[
+t_{1/2} = \frac{\ln 2}{k} \quad \text{voor } n = 1
+\] 
+
+Deze uitdrukking kan herschreven worden zodat er de waarde van $n$ en $k$ eenvoudig kunnen bepaald worden.
+Neem de logaritme van de halfwaardetijd:
+\[
+\ln t_{1/2} = (1-n)\ln C_{A0} + \ln(\frac{2^{n-1} - 1}{k(n-1)})
+\]
+
+Er worden xperimenten uitgevoerd met verschillende beginconcentraties $C_{A0}$ en de halfwaardetijd wordt gemeten. Met deze data kan vervolgens een plot gemaakt worden van $\ln t_{1/2}$ vs $\ln C_{A0}$.
+
+Indien deze reactie effectief van de nde orde is, kan er een rechte lijn getrokken worden door de datapunten met $helling = 1 - n$.
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=9cm,
+    height=6cm,
+    xlabel={$\ln t_{1/2}$},
+    ylabel={$\ln(C_{A0})$},
+    xmin=0, xmax=2,
+    ymin=0, ymax=2,
+    xtick=\empty,
+    ytick=\empty,
+    axis lines=left
+]
+
+% Rechte lijn (helling = n)
+\addplot[thick] {0.45 + 1.2*x};
+
+% Punten (runs)
+\addplot[only marks] coordinates {(0.29,0.88) (0.55,1.13)(0.8,1.42) (1.05, 1.74) (1.3,1.96)};
+
+\node at (axis cs:1.2,1.2) {helling = $1-n$};
+
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+
+\begin{itemize}
+    \item $n = 1$: horizontale lijn (onafhankelijk van $C_{A0}$)
+    \item $n > 1$: dalende lijn
+    \item $n < 1$: stijgende lijn
+\end{itemize}
+
+\end{example}
+
+
+
+\section{Uitbreiding: methode van overmaat}
+
+De methode kan gecombineerd worden met een overmaat van een tweede component.
+
+Voor de reactie:
+
+\[
+A + B \longrightarrow \text{producten}
+\]
+
+met:
+
+\[
+-r_A = k C_A^m C_B^p
+\]
+
+Indien $C_B \gg C_A$, dan is $C_B$ quasi constant en:
+
+\[
+-r_A = k' C_A^m
+\]
+
+met:
+
+\[
+k' = k C_B^p
+\]
+
+Dit reduceert het probleem tot een pseudo-$m$-de orde reactie.
+
+---
+
+\section{Uitbreiding: stoichiometrische verhoudingen}
+
+Indien initieel:
+
+\[
+C_{A0} = a C_{B0}
+\]
+
+dan kan men schrijven:
+
+\[
+C_B = \frac{C_A}{a}
+\]
+
+waardoor:
+
+\[
+-r_A = k C_A^m \left(\frac{C_A}{a}\right)^p = k' C_A^{m+p}
+\]
+
+met:
+
+\[
+k' = \frac{k}{a^p}
+\]
+
+---
+
+\section{Oefening}
+
+\begin{exercise}
+Voor een reactie wordt gemeten dat:
+
+\[
+\log t_{1/2} = -0.5 \log C_{A0} + 1
+\]
+
+Bepaal de reactieorde $n$.
+\end{exercise}
+
+\begin{solution}
+We vergelijken met:
+
+\[
+\text{slope} = 1 - n
+\]
+
+Dus:
+
+\[
+-0.5 = 1 - n
+\]
+
+\[
+n = 1.5
+\]
+\end{solution}
+
+---
+
+\section{Samenvatting}
+
+\begin{itemize}
+    \item Halfwaardetijd: tijd om $C_A$ te halveren
+    \item Voor $n \neq 1$: $t_{1/2} \propto C_{A0}^{1-n}$
+    \item Voor $n = 1$: $t_{1/2}$ constant
+    \item Grafiek $\log t_{1/2}$ vs $\log C_{A0}$ geeft reactieorde
+\end{itemize}
+
+\end{document}
 
 \end{document}
