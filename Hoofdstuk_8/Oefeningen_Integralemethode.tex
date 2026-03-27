@@ -11,4 +11,112 @@
 \maketitle
 \label{xim:oefeningen integrale analysemethode}
 
+\
+\section*{Oefening 1}
+
+\textbf{Gegeven}
+
+De gasfase ontbinding van di-\textit{tert}-butylperoxide in producten ethaan en aceton gebeurt volgens de reactie:
+
+\[
+(\mathrm{CH}_3)_3\mathrm{COOC}(\mathrm{CH}_3)_3 \rightarrow \mathrm{C}_2\mathrm{H}_6 + 2\,\mathrm{CH}_3\mathrm{COCH}_3
+\]
+of symbolisch:
+\[
+A \rightarrow R + 2S
+\]
+
+
+Er werden experimenten uitgevoerd in een isotherme batchreactor. De totale druk werd gemeten als functie van de tijd:
+
+\begin{center}
+\begin{tabular}{c|c}
+$t$ (min) & $p$ (mmHg) \\
+\hline
+0.0 & 7.5 \\
+5.0 & 12.5 \\
+10.0 & 15.8 \\
+15.0 & 17.9 \\
+20.0 & 19.4 \\
+\end{tabular}
+\end{center}
+
+\textbf{Gevraagd}
+
+Gebruik de integrale analysemethode om te bepalen welke orde deze reactie heeft en wat de reactieconstante is. \\
+Controleer dit door na te gaan of de data overeenkomt met een nulde-orde, eerste-orde en tweede-orde reactie.
+
+
+\section*{Stap 1: Verband tussen druk en concentratie}
+
+We gebruiken:
+
+\[
+C_A = \frac{p_A}{RT}
+\]
+
+Voor dit systeem kan men afleiden:
+
+\[
+C_A = \frac{3p_0 - p}{2RT}
+\]
+
+\begin{question}
+Wat is $p_0$ (de initiële druk)?
+
+\[
+p_0 = \answer{7.5}
+\]
+\end{question}
+
+\section*{Stap 2: Eerste orde test}
+
+Voor een eerste orde reactie geldt:
+
+\[
+\ln\left(\frac{2p_0}{3p_0 - p}\right) = kt
+\]
+
+\begin{question}
+Bereken voor $t=5$ min de waarde van:
+
+\[
+\ln\left(\frac{2p_0}{3p_0 - p}\right)
+\]
+
+\[
+= \answer{0.405}
+\]
+\end{question}
+
+\section*{Stap 3: Interpretatie}
+
+\begin{question}
+Als de grafiek van 
+\[
+\ln\left(\frac{2p_0}{3p_0 - p}\right) \text{ vs } t
+\]
+een rechte is, wat is dan de orde van de reactie?
+
+\begin{multipleChoice}
+\choice{Nulde orde}
+\choice[correct]{Eerste orde}
+\choice{Tweede orde}
+\end{multipleChoice}
+\end{question}
+
+\begin{question}
+Wat stelt de helling van deze rechte voor?
+
+\begin{multipleChoice}
+\choice{De initiële druk}
+\choice[correct]{De snelheidsconstante $k$}
+\choice{De concentratie}
+\end{multipleChoice}
+\end{question}
+
+\begin{center}
+\geogebra{mtznapmc}{700}{700}
+\end{center}
+
 \end{document}
