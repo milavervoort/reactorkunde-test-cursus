@@ -231,11 +231,11 @@ Een grafiek van $\ln(-R_A)$ tegen $\ln C_A$ geeft een rechte lijn met:
 \end{example}
 
 \begin{example}
-Tweede-orde reactie
+Langmuir--Hinshelwood kinetica 
 
 Beschouw een reactie met snelheidswet:
 \[
--R_A = k C_A^2
+-R_A = \frac{k_1 C_A}{1 + k_2 C_A}
 \]
 
 De reactiesnelheid wordt bepaald uit experimentele data via:
@@ -243,19 +243,31 @@ De reactiesnelheid wordt bepaald uit experimentele data via:
 -R_A = -\frac{dC_A}{dt}
 \]
 
-Vervolgens wordt $-R_A$ uitgezet als functie van $C_A^2$:
+
+Herschrijven van de snelheidswet geeft:
 \[
--R_A = k C_A^2
+\frac{1}{-R_A} = \frac{1 + k_2 C_A}{k_1 C_A}
+= \frac{1}{k_1 C_A} + \frac{k_2}{k_1}
 \]
 
-Een grafiek van $-R_A$ tegen $C_A^2$ levert een rechte lijn met helling $k$.
+\[
+\underbrace{\frac{1}{-R_A}}_{y}
+=
+\underbrace{\frac{1}{k_1}}_{\text{helling}}
+\;
+\underbrace{\frac{1}{C_A}}_{x}
++
+\underbrace{\frac{k_2}{k_1}}_{\text{intercept}}
+\]
+
+Volgens deze functie kunnen we de data nu gaan plotten:
 
 \begin{tikzpicture}
 \begin{axis}[
     axis lines=middle,
     axis line style={->, thick},
-    xlabel={$C_A^2$},
-    ylabel={$-r_A$},
+    xlabel={$ \dfrac{1}{C_A} $},
+    ylabel={$ \dfrac{1}{-R_A} $},
     xmin=0, xmax=10,
     ymin=0, ymax=5,
     xtick=\empty,
@@ -268,7 +280,73 @@ Een grafiek van $-R_A$ tegen $C_A^2$ levert een rechte lijn met helling $k$.
 \addplot[
     domain=0:9,
     thick
-] {0.4*x};
+] {0.4*x + 0.8};
+
+% experimentele punten (consistent met rechte)
+\addplot[
+    only marks,
+    mark=*,
+    mark size=2.5pt
+] coordinates {
+(1,1.2)
+(2,1.6)
+(3,2.0)
+(4,2.4)
+(5,2.8)
+(6,3.2)
+(7,3.6)
+(8,4.0)
+};
+
+% helling driehoek
+\draw[dashed, thick] (axis cs:2,1.6) -- (axis cs:6,1.6);
+\draw[dashed, thick] (axis cs:6,1.6) -- (axis cs:6,3.2);
+
+% labels
+\node at (axis cs:6.8,2.6) {$\frac{1}{k_1}$};
+\node at (axis cs:0.4,0.5) {$\frac{k_2}{k_1}$};
+
+\end{axis}
+\end{tikzpicture}
+
+\textbf{Alternatieve afleiding}
+
+De snelheidswet kan ook herschreven worden als:
+\[
+-R_A = \frac{k_1}{k_2} - \frac{1}{k_2}\,\frac{-R_A}{C_A}
+\]
+
+\[
+\underbrace{-R_A}_{y}
+=
+\underbrace{-\frac{1}{k_2}}_{\text{helling}}
+\;
+\underbrace{\frac{-R_A}{C_A}}_{x}
++
+\underbrace{\frac{k_1}{k_2}}_{\text{intercept}}
+\]
+
+Volgens deze functie kunnen we de data nu gaan plotten:
+
+\begin{tikzpicture}
+\begin{axis}[
+    axis lines=middle,
+    axis line style={->, thick},
+    xlabel={$ \dfrac{-R_A}{C_A} $},
+    ylabel={$ -R_A $},
+    xmin=0, xmax=5,
+    ymin=0, ymax=5,
+    xtick=\empty,
+    ytick=\empty,
+    width=10cm,
+    height=7cm
+]
+
+% lineaire fit (dalende rechte!)
+\addplot[
+    domain=0:5,
+    thick
+] {-0.6*x + 4};
 
 % experimentele punten
 \addplot[
@@ -276,48 +354,32 @@ Een grafiek van $-R_A$ tegen $C_A^2$ levert een rechte lijn met helling $k$.
     mark=*,
     mark size=2.5pt
 ] coordinates {
-(1,0.5)
-(2,0.9)
-(3,1.1)
-(4,1.7)
-(5,2.1)
-(6,2.5)
-(7,3.0)
-(8,3.3)
+(0.5,3.7)
+(1,3.4)
+(1.5,3.1)
+(2,2.8)
+(2.5,2.5)
+(3,2.2)
+(3.5,1.9)
+(4,1.6)
 };
 
 % helling driehoek
-\draw[dashed, thick] (axis cs:3,1.2) -- (axis cs:6,1.2);
-\draw[dashed, thick] (axis cs:6,1.2) -- (axis cs:6,2.4);
+\draw[dashed, thick] (axis cs:1,3.4) -- (axis cs:3,3.4);
+\draw[dashed, thick] (axis cs:3,3.4) -- (axis cs:3,2.2);
 
-\node at (axis cs:6.5,2.0) {$k$};
+% labels
+\node at (axis cs:3.5,2.8) {$-\frac{1}{k_2}$};
+\node at (axis cs:0.2,4) {$\frac{k_1}{k_2}$};
 
 \end{axis}
 \end{tikzpicture}
 
 \end{example}
 
-\subsubsection{Opmerkingen}
+\begin{remark}
+De differentiële methode is gevoeliger voor experimentele ruis, omdat afgeleiden numeriek bepaald worden. Kleine meetfouten in $C_A$ kunnen leiden tot grote fouten in $\frac{dC_A}{dt}$.
+\end{remark}
 
-\begin{itemize}
-\item De differentiële methode is gevoeliger voor experimentele ruis, omdat afgeleiden numeriek bepaald worden.
-
-\item Kleine meetfouten in $C_A$ kunnen leiden tot grote fouten in $\frac{dC_A}{dt}$.
-
-\item Daarom wordt vaak eerst een gladde curve gefit door de data alvorens de afgeleide te bepalen.
-
-\item In tegenstelling tot de integrale methode is geen expliciete integratie nodig.
-\end{itemize}
-
-Voor een isotherme batch reactor met constant volume:
-
-\begin{enumerate}
-\item Meet $C_A(t)$ experimenteel.
-\item Bepaal numeriek de helling $\frac{dC_A}{dt}$.
-\item Stel een kinetisch model op.
-\item Test het model door $-r_A$ uit te zetten tegen geschikte functies van $C_A$.
-\end{enumerate}
-
-Indien het model correct is, bekomt men een eenvoudige relatie (vaak lineair), waarvan de helling de kinetische parameters oplevert.
 
 \end{document}
