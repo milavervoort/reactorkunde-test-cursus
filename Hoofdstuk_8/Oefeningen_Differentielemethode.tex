@@ -41,6 +41,35 @@ $t$ (min) & $p$ (mmHg) \\
 \end{tabular}
 \end{center}
 
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=8cm,
+    height=6cm,
+    xlabel={$t$ (min)},
+    ylabel={$p$ (mmHg)},
+    grid=major
+]
+
+% Enkel datapunten
+\addplot[
+    only marks,
+    mark=*,
+    mark size=2.5pt
+] coordinates {
+    (0.0, 7.5)
+    (5.0, 12.5)
+    (10.0, 15.8)
+    (15.0, 17.9)
+    (20.0, 19.4)
+};
+
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+
 \textbf{Gevraagd}
 
 Gebruik de differentiële analysemethode om te bepalen welke orde deze reactie heeft en wat de reactieconstante is. \\
@@ -51,8 +80,7 @@ Uit de vorige oefening weten we al dat het verband tussen concentratie $C_A$ en 
     \]
 Voor het gebruik van de differentiële methode moeten we nog niet perse alvast een reactiekinetiek aannemen. We kunnen zowel $k$ en $n$ gelijktijdig bepalen.
 
-\begin{question} 
-Vergelijking in de juiste vorm schrijven
+\begin{question} \textbf{Linearisatie van de reactiekinetiek}
 \\
 De snelheidsvergelijking voor een nde orde reactie is 
 \[
@@ -91,8 +119,7 @@ Probeer deze vergelijking nu om te vormen zodat zowel $k'$ en $n$ gelijktijdig b
 
 \end{question}
 
-\begin{question} 
-Data verwerken\\
+\begin{question} \textbf{Data verwerken}\\
 Om een plot te kunnen maken, hebben we de afgeleide $\frac{dp}{dt}$ nodig op elk tijdspunt. 
 Voor het berekenen van de afgeleide $\frac{dp}{dt}$ gebruiken we een eenvoudige centrale differentiebenadering. 
 
@@ -137,8 +164,7 @@ Om de plot te kunnen maken hebben we als laatste nog data voor $ln(\frac{dp}{dt}
 \end{itemize}
 \end{question}
 
-\begin{question} 
-    Interpreteren van de plot \\
+\begin{question} \textbf{Interpreteren van de plot }\\
     De verzamelde data kan nu geplot worden in een $\ln(\frac{dp}{dt})$ versus $\ln(3p_0-p)$ plot.
 \pgfplotsset{compat=1.18}
 
@@ -184,9 +210,185 @@ Hiermee kunnen we $k$ en $n$ bepalen.
     \[\ln(k') = \ln(k(\frac{1}{2RT})^{n-1} = \ln{k} = -2.55\]
     \[k = 0.079\]
 \end{feedback}
-
 \end{question}
 
+\section*{Oefening 2}
+\textbf{Rotte appel kinetiek}
 
+\textbf{Gegeven}
+
+De reactiekinetiek van een reactie wordt vermoedt: 
+\[
+-R_A = \frac{k_1 C_A}{(1 + k_2 C_A)^2}
+\]
+Er worden experimentele metingen gedaan waaruit volgende data wordt gehaald.
+\begin{center}
+\begin{tabular}{c|c}
+$t$ (h) & $C_A$ (mol/L) \\
+\hline
+0 & 1.00 \\
+1 & 0.83 \\
+2 & 0.71 \\
+3 & 0.62 \\
+4 & 0.55 \\
+5 & 0.50 \\
+\end{tabular}
+\end{center}
+\pgfplotsset{compat=1.18}
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=8cm,
+    height=6cm,
+    xlabel={$t$ (h)},
+    ylabel={$C_A$ (mol/L)},
+    grid=major
+]
+
+% Enkel datapunten
+\addplot[
+    only marks,
+    mark=*,
+    mark size=2.5pt
+] coordinates {
+    (0, 1.00)
+    (1, 0.83)
+    (2, 0.71)
+    (3, 0.62)
+    (4, 0.55)
+    (5, 0.50)
+};
+
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+
+\begin{question} \textbf{Linearisatie van de reactiekinetiek}
+
+Probeer de snelheidsvergelijking om te vormen naar een lineaire vorm waarbij de gezochte waarden makkelijk zouden moeten kunnen afgelezen worden van een grafiek.
+
+Welke van de onderstaande linearisaties is correct?
+\begin{multipleChoice}
+\choice{$\dfrac{C_A}{-R_A} = \dfrac{1}{k_1} + \dfrac{k_2}{k_1} \sqrt{C_A}$}
+
+\choice{$\dfrac{C_A}{-R_A} = \dfrac{1}{k_1} + \dfrac{k_2}{k_1} C_A$}
+
+\choice[correct]{$\sqrt{\dfrac{C_A}{-R_A}} = \dfrac{1}{\sqrt{k_1}} + \dfrac{k_2}{\sqrt{k_1}} C_A$}
+
+\choice{$\sqrt{\dfrac{C_A}{-R_A}} = \dfrac{1}{k_1} + \dfrac{\sqrt{k_2}}{k_1} C_A$}
+\begin{feedback}
+    \[
+    \underbrace{\sqrt{\frac{C_A}{-R_A}}}_{y}
+    =
+    \underbrace{\frac{k_2}{\sqrt{k_1}}}_{\text{helling}}
+    \;
+    \underbrace{C_A}_{x}
+    +
+    \underbrace{\frac{1}{\sqrt{k_1}}}_{\text{intercept}}
+    \]
+\end{feedback}
+\end{multipleChoice}
+\end{question}
+
+\begin{question} \textbf{Data verwerken}
+
+Om een plot te kunnen maken, hebben we $-R_A = -\frac{dC_A}{dt}$ nodig op elk tijdspunt. Voor het berekenen van de afgeleide $\frac{dC_A}{dt}$ gebruiken we weer de centrale differentiebenadering.
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{c|c||c|c|c}
+$t$ (h) & $C_A$ (mol/L) & $t$ (h) & $C_A$ (mol/L) & $-R_A$ (mol/L$\cdot$h) \\
+\hline
+0.0  & 1.00  &  &  &  \\
+     &       & 0.5  & 0.915 & 0.17  \\
+1.0  & 0.83  &  &  &  \\
+     &       & 1.5  & 0.77  & a  \\
+2.0  & 0.71  &  &  &  \\
+     &       & 2.5  & 0.665 & 0.09  \\
+3.0  & 0.62  &  &  &  \\
+     &       & 3.5  & b & 0.07  \\
+4.0  & 0.55  &  &  &  \\
+     &       & 4.5  & 0.525 & c  \\
+5.0  & 0.50  &  &  &  \\
+\end{tabular}
+\end{table}
+
+Vul de tabel  verder aan:
+\[a = \answer{0.12}\]
+\[b = \answer{0.585}\]
+\[c = \answer{0.05}\]
+
+Om de plot te kunnen maken hebben we als laatste nog data voor $\sqrt{\frac{C_A}{-R_A}}$ nodig. 
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{c||c|c}
+$t$ (h) & $C_A$ (mol/L) & $\sqrt{\frac{C_A}{-R_A}}$ \\
+\hline
+0.5 & 0.915 & 2.32 \\
+1.5 & 0.77  & d \\
+2.5 & 0.665 & 2.72 \\
+3.5 & 0.585 & e \\
+4.5 & 0.525 & 3.24 \\
+\end{tabular}
+\end{table}
+
+Vul de tabel aan:
+\[d = \answer{2.53}\]
+\[e = \answer{2.89}\]
+\end{question}
+
+\begin{question} \textbf{Interpreteren van de plot} \\
+    De verzamelde data kan nu geplot worden in een $C_A$ versus $\sqrt{\frac{C_A}{-R_A}}$ plot.
+\pgfplotsset{compat=1.18}
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=10cm,
+    height=7cm,
+    xlabel={$ C_A $},
+    ylabel={$ \sqrt{\frac{C_A}{-R_A}} $},
+    grid=major,
+    legend pos=north west
+]
+
+% Datapunten
+\addplot[
+    only marks,
+    mark=*,
+] coordinates {
+    (0.915, 2.32)
+    (0.77, 2.53)
+    (0.665, 2.72)
+    (0.585, 2.89)
+    (0.525, 3.24)
+};
+
+% Lineaire fit (benaderd)
+\addplot[
+    domain=0.5:1.0,
+    samples=100,
+    thick
+] {-2.2*x + 4.25};
+
+\legend{Data, Fit: $y \approx -2.2x + 4.25$}
+
+\end{axis}
+\end{tikzpicture}
+\end{figure}
+
+Hiermee kunnen we $k_1$ en $k_2$ bepalen.
+\[k_1 = \answer{0.055}\]
+\[k_2 = \answer{-0.518}\]
+\begin{feedback} .
+\newline
+    Het intercept van de rechte: $\frac{1}{\sqrt{k_1}} = 4.25$.
+    \[k_1 = 0.055\]
+    De helling van de rechte: $\frac{k_2}{\sqrt{k_1}} = -2.2$. \\
+    \[k_2 = -0.518\]
+\end{feedback}
+\end{question}
 
 \end{document}
