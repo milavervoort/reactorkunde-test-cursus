@@ -12,7 +12,7 @@
 \label{xim:oefeningen integrale analysemethode}
 
 \
-\section*{Oefening 1}
+\section*{Oefening 1: $n^{de}$ orde reactie}
 
 \textbf{Gegeven}
 
@@ -281,5 +281,232 @@ Controleer dit door na te gaan of de data overeenkomt met een nulde-orde, eerste
     \end{feedback}
 \end{question}
 
+\section*{Oefening 2: Reversibele 1e orde reactie}
+
+\textbf{Gegeven}
+
+Beschouw de reversibele reactie:
+\[
+A \rightleftharpoons R
+\]
+
+met snelheidswet:
+\[
+- R_A = k_1 C_A - k_2 C_R
+\]
+
+Er werden experimenten uitgevoerd waarbij de concentratie $C_A$ in functie van de tijd werd gemeten.
+
+\[
+\begin{array}{c|c}
+t \ (\text{s}) & C_A \ (\text{mol/L}) \\
+\hline
+0 & 2.0 \\
+1 & 1.55 \\
+2 & 1.30 \\
+3 & 1.15 \\
+4 & 1.07 \\
+\end{array}
+\]
+
+Verder is gegeven dat $C_{A,eq} = 1.0 \ \text{mol/L}$.
+
+\textbf{Gevraagd}
+
+Bepaal de waarden van $k_1$ en $k_2$.
+
+\begin{question} \textbf{Lineariseren van de vergelijking}
+
+Welke van de onderstaande grootheden moet uitgezet worden tegen de tijd $t$ om een rechte te bekomen?
+
+\begin{multipleChoice}
+\choice{$\ln\left(\frac{C_A}{C_{Ae}}\right)$}
+\choice{$\ln\left(\frac{C_A - C_{Ae}}{C_A}\right)$}
+\choice[correct]{$-\ln\left(\frac{C_A - C_{Ae}}{C_{A0} - C_{Ae}}\right)$}
+\choice{$\frac{C_A - C_{Ae}}{C_{A0}}$}
+\end{multipleChoice}
+
+\begin{hint} \text{ }
+
+     Bij een reversibele reactie is de verhouding van de concentraties in evenwicht gerelateerd aan de evenwichtsconstante:
+\[
+K_c = \frac{C_{Re}}{C_{Ae}}
+\]
+Gebruik deze relatie om de snelheidsvergelijking te herschrijven.
+\end{hint}
+
+\begin{feedback} \text{  }
+
+De reversibele reactie $A \rightleftharpoons R$ heeft snelheidswet $- \frac{dC_A}{dt} = k_1 C_A - k_2 C_R$.
+
+In een batchreactor met constant volume geldt op om het even welk tijdstip:
+\[
+C_A + C_R = C_{A0} + C_{R0}
+\]
+
+Bij evenwicht geldt $\frac{dC_A}{dt} = 0$ zodat: 
+$k_1 C_{Ae} = k_2C_{Re}$ of $K_c = \frac{C_{Re}}{C_{Ae}}$
+
+Invullen van $C_{A} + C_{R} = C_{Ae} + C_{Re}$ in de snelheidswet geeft:
+\[
+- \frac{dC_A}{dt} = k_1 C_A - k_2 (C_{Ae} + C_{Re} - C_A)
+= (k_1 + k_2)(C_A - C_{Ae})
+\]
+
+De integrale analysemethode kan nu toegepast worden. Integreren van de vergelijking geeft:
+\[
+\int_{C_{A0}}^{C_A} \frac{dC_A}{C_A - C_{Ae}}
+=
+- (k_1 + k_2)\int_0^t dt
+\]
+\[
+- \ln\left(\frac{C_A - C_{Ae}}{C_{A0} - C_{Ae}}\right)
+= (k_1 + k_2)t
+\]
+
+
+Dit heeft de vorm:
+\[
+\underbrace{- \ln\left(\frac{C_A - C_{Ae}}{C_{A0} - C_{Ae}}\right)}_{y}
+=
+\underbrace{(k_1 + k_2)}_{\text{helling } m}
+\cdot
+\underbrace{t}_{x}
+\]
+
+Dus een plot van deze logaritmische term tegen $t$ geeft een rechte lijn.
+\end{feedback}
+\end{question}
+
+\begin{question} \textbf{Data verwerken}
+
+Bereken voor elk tijdstip de waarde van $y$ en kies de correcte tabel.
+
+\begin{multipleChoice}
+\choice{
+\[
+\begin{array}{c|c|c}
+t & C_A & y \\
+\hline
+0 & 2.0 & 0 \\
+1 & 1.55 & 0.58 \\
+2 & 1.30 & 1.20 \\
+3 & 1.15 & 1.90 \\
+4 & 1.07 & 2.66 \\
+\end{array}
+\]
+}
+\choice[correct]{
+\[
+\begin{array}{c|c|c}
+t & C_A & y \\
+\hline
+0 & 2.0 & 0 \\
+1 & 1.55 & 0.60 \\
+2 & 1.30 & 1.20 \\
+3 & 1.15 & 1.90 \\
+4 & 1.07 & 2.65 \\
+\end{array}
+\]
+}
+\choice{
+\[
+\begin{array}{c|c|c}
+t & C_A & y \\
+\hline
+0 & 2.0 & 0 \\
+1 & 1.55 & 0.62 \\
+2 & 1.30 & 1.18 \\
+3 & 1.15 & 1.92 \\
+4 & 1.07 & 2.60 \\
+\end{array}
+\]
+}
+\choice{
+\[
+\begin{array}{c|c|c}
+t & C_A & y \\
+\hline
+0 & 2.0 & 0 \\
+1 & 1.55 & 0.58 \\
+2 & 1.30 & 1.23 \\
+3 & 1.15 & 1.88 \\
+4 & 1.07 & 2.70 \\
+\end{array}
+\]
+}
+\end{multipleChoice}
+\end{question}
+
+
+\begin{question} \textbf{Interpreteren van de plot}
+
+De datapunten $y$ worden uitgezet tegen de tijd $t$ en er wordt een lineaire fit gemaakt.
+
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+    xlabel={$t$ (s)},
+    ylabel={$-\ln\left(\frac{C_A - C_{A,eq}}{C_{A0} - C_{A,eq}}\right)$},
+    grid=major,
+    width=10cm,
+    height=7cm,
+    xmin=0, xmax=5,
+    ymin=0, ymax=2,
+    legend pos=north west,
+]
+
+% Data punten (benaderd)
+\addplot[
+    only marks,
+    mark=*,
+] coordinates {
+    (0,0)
+    (1,0.60)
+    (2,1.00)
+    (3,1.30)
+    (4,1.55)
+};
+
+% Regressielijn
+\addplot[
+    domain=0:5,
+    samples=100,
+] {0.4*x};
+
+\legend{Data, Lineaire fit: $y = 0.40\,t$}
+
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+De rechte heeft de vorm:
+\[
+y = 0.40 t
+\]
+
+Hieruit kan worden afgeleid dat:
+\[k_1 = \answer{0.20} \text{s}^{-1}\]
+\[k_2 = \answer{0.20} \text{s}^{-1}\]
+
+\begin{feedback} \text{ }
+
+Uit de helling:
+\[
+k_1 + k_2 = 0.40
+\]
+Uit het evenwicht:
+\[
+\frac{C_{Ae}}{C_{Re}} = \frac{C_{Ae}}{C_{Ae}-C_{A0}} = \frac{k_2}{k_1} = 1 \Rightarrow k_1 = k_2
+\]
+
+Dus:
+\[
+2k_1 = 0.40 \Rightarrow k_1 = 0.20,  k_2 = 0.20
+\]
+
+\end{feedback}
+
+\end{question}
 
 \end{document}
