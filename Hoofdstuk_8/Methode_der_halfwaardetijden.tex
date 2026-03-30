@@ -14,62 +14,95 @@
 \section{Methode der halfwaardetijden}
 \label{Methode der halfwaardetijden}
 
-De methode der halfwaardetijden is ook een techniek waarmee men de reactieorde en de snelheidswet kan bepalen.\\
+De methode der halfwaardetijden is ook een techniek waarmee men de parameters van de snelheidsvergelijking kan bepalen.\\
 De halfwaardetijd $t_{1/2}$ wordt gedefinieerd als de tijd die nodig is om de concentratie van een reagens te laten dalen tot de helft van de initiële waarde $C_A = \frac{C_{A0}}{2}$.\\
-Het centrale idee van deze methode is dat de halfwaardetijd op een karakteristieke manier afhangt van de beginconcentratie $C_{A0}$. Deze afhankelijkheid verschilt naargelang de reactieorde.
-Door te onderzoeken hoe $t_{1/2}$ verandert bij verschillende beginconcentraties, kan men dus informatie verkrijgen over de reactieorde zonder de volledige concentratie-tijdcurve te analyseren.
+Het centrale idee van deze methode is dat de halfwaardetijd op een karakteristieke manier afhangt van de beginconcentratie $C_{A0}$. Deze afhankelijkheid verschilt naargelang de reactiekinetiek.
+Door te onderzoeken hoe $t_{1/2}$ verandert bij verschillende beginconcentraties, kan men informatie verkrijgen over de reactiekinetiek zonder de volledige concentratie-tijdcurve te analyseren.
 
-\begin{procedure}
+\begin{procedure} \text{ }
+
 De methode wordt toegepast volgens de volgende stappen:
 
 \begin{enumerate}
-    \item Voer meerdere experimenten uit met verschillende beginconcentraties $C_{A0}$ en meet voor elk experiment de halfwaardetijd $t_{1/2}$. Dat is de tijd waarbij $C_A = \frac{C_{A0}}{2}$.
+    \item Voer meerdere experimenten uit met verschillende beginconcentraties $C_{A0}$ en meet voor elk experiment de halfwaardetijd $t_{1/2}$. Dit is de tijd waarbij $C_A = \frac{C_{A0}}{2}$.
 
     \item Veronderstel een bepaalde reactiekinetiek en bepaal een uitdrukking voor de halfwaardetijd.
 
-    \item Herschrijf de uitdrukking voor de halfwaaardetijd zodat de gezochte waarden (bv. $n$ en $k$) via een eenvoudig verband kunnen bepaald worden.
+    \item Herschrijf de uitdrukking voor de halfwaardetijd zodat de gezochte parameters (bv. $n$ en $k$) via een eenvoudig verband kunnen worden bepaald.
     
-    \item Maak een grafiek van de datapunten volgens de herschreven vergelijking. Indien de aangenomen reactiekinetiek klopt, kunnen de gezochten waarden bepaald worden.
+    \item Maak een grafiek van de datapunten volgens de herschreven vergelijking. Indien de aangenomen reactiekinetiek correct is, kunnen de gezochte parameters worden bepaald.
 \end{enumerate}
+
+\end{procedure}
 
 
 Deze methode vereist slechts beperkte experimentele data en is daarom bijzonder nuttig voor het snel bepalen van kinetische parameters.
 
+\begin{example}
+\textbf{$n$-de orde reactie}
 
-\end{procedure}
+Beschouw een irreversibele reactie van het type $A \longrightarrow P$ 
+met snelheidswet
+\[
+- R_A = -\frac{dC_A}{dt} = k C_A^n
+\]
+in een batchreactor met constant volume.
 
-\begin{example} nde orde reactie
-    
-Voor een irreversibele reactie van het type  $A\longrightarrow P$
-met snelheidswet $ -R_A = -\frac{dC_A}{dt} = k C_A^n$ in een batchreactor met constant volume kunnen we een uitdrukking voor de halfwaarde tijd bepalen. \\
+\medskip
 
-Integratie van de differentiaalvergelijking geeft:
+\textbf{Bepaling van de halfwaardetijd}
+
+Integratie van de differentiaalvergelijking levert:
 \[
 C_A^{1-n} - C_{A0}^{1-n} = (n-1)kt
 \]
-De halfwaardetijd krijgen we door $C_A$ gelijk te stellen aan $\frac{C_{A0}}{2}$.
+
+De halfwaardetijd $t_{1/2}$ wordt bekomen door $C_A = \frac{C_{A0}}{2}$ te stellen:
 \[
-(\frac{C_{A0}}{2})^{1-n} - C_{A0}^{1-n} = (n-1)kt_{1/2}
+\left(\frac{C_{A0}}{2}\right)^{1-n} - C_{A0}^{1-n} = (n-1)k t_{1/2}
 \]
+
+Na herschrijven volgt:
 \[
-C_{A0}^{1-n}(2^{n-1}-1) = (n-1)kt_{1/2}
+C_{A0}^{1-n}(2^{n-1} - 1) = (n-1)k t_{1/2}
 \]
+
+Dus:
 \[
 t_{1/2} = \frac{2^{n-1} - 1}{k(n-1)} C_{A0}^{1-n} \quad \text{voor } n \neq 1
 \]
 \[
 t_{1/2} = \frac{\ln 2}{k} \quad \text{voor } n = 1
-\] 
-
-Deze uitdrukking kan herschreven worden zodat er de waarde van $n$ en $k$ eenvoudig kunnen bepaald worden.
-Neem de logaritme van de halfwaardetijd:
-\[
-\ln t_{1/2} = (1-n)\ln C_{A0} + \ln(\frac{2^{n-1} - 1}{k(n-1)})
 \]
 
-Er worden xperimenten uitgevoerd met verschillende beginconcentraties $C_{A0}$ en de halfwaardetijd wordt gemeten. Met deze data kan vervolgens een plot gemaakt worden van $\ln t_{1/2}$ vs $\ln C_{A0}$.
+\medskip
 
-Indien deze reactie effectief van de nde orde is, kan er een rechte lijn getrokken worden door de datapunten met $helling = 1 - n$.
+\textbf{Linearisatie}
+
+Om de parameters $n$ en $k$ te bepalen, nemen we de logaritme:
+\[
+\ln t_{1/2} = (1-n)\ln C_{A0} + \ln\left(\frac{2^{n-1} - 1}{k(n-1)}\right)
+\]
+
+Dit heeft de vorm van een rechte:
+\[
+\underbrace{\ln t_{1/2}}_{y}
+=
+\underbrace{(1-n)}_{helling}
+\,
+\underbrace{\ln C_{A0}}_{x}
++
+\underbrace{\ln\left(\frac{2^{n-1} - 1}{k(n-1)}\right)}_{intercept}
+\]
+\medskip
+
+\textbf{Experimentele bepaling en interpretatie van de plot}
+
+Er worden experimenten uitgevoerd met verschillende beginconcentraties $C_{A0}$, waarbij telkens de halfwaardetijd $t_{1/2}$ wordt gemeten. Vervolgens wordt een grafiek opgesteld van $\ln t_{1/2}$ als functie van $\ln C_{A0}$.
+
+Indien de reactie effectief van $n$-de orde is, liggen de datapunten op een rechte lijn met $\text{helling} = 1 - n$.
+Uit de helling en het intercept van deze rechte kunnen de parameters $n$ en $k$ worden bepaald.
+
 
 \begin{figure}[h!]
 \centering
@@ -77,8 +110,8 @@ Indien deze reactie effectief van de nde orde is, kan er een rechte lijn getrokk
 \begin{axis}[
     width=9cm,
     height=6cm,
-    xlabel={$\ln t_{1/2}$},
-    ylabel={$\ln(C_{A0})$},
+    xlabel={$\ln C_{A0}$},
+    ylabel={$\ln t_{1/2}$},
     xmin=0, xmax=2,
     ymin=0, ymax=2,
     xtick=\empty,
@@ -86,7 +119,7 @@ Indien deze reactie effectief van de nde orde is, kan er een rechte lijn getrokk
     axis lines=left
 ]
 
-% Rechte lijn (helling = n)
+% Rechte lijn
 \addplot[thick] {0.45 + 1.2*x};
 
 % Punten (runs)
@@ -98,117 +131,7 @@ Indien deze reactie effectief van de nde orde is, kan er een rechte lijn getrokk
 \end{tikzpicture}
 \end{figure}
 
-\begin{itemize}
-    \item $n = 1$: horizontale lijn (onafhankelijk van $C_{A0}$)
-    \item $n > 1$: dalende lijn
-    \item $n < 1$: stijgende lijn
-\end{itemize}
+\medskip
 
 \end{example}
-
-
-
-\textbf{Uitbreiding: methode van overmaat}
-
-De methode kan gecombineerd worden met een overmaat van een tweede component.
-
-Voor de reactie:
-
-\[
-A + B \longrightarrow \text{producten}
-\]
-
-met:
-
-\[
--r_A = k C_A^m C_B^p
-\]
-
-Indien $C_B \gg C_A$, dan is $C_B$ quasi constant en:
-
-\[
--r_A = k' C_A^m
-\]
-
-met:
-
-\[
-k' = k C_B^p
-\]
-
-Dit reduceert het probleem tot een pseudo-$m$-de orde reactie.
-
----
-
-\textbf{Uitbreiding: stoichiometrische verhoudingen}
-
-Indien initieel:
-
-\[
-C_{A0} = a C_{B0}
-\]
-
-dan kan men schrijven:
-
-\[
-C_B = \frac{C_A}{a}
-\]
-
-waardoor:
-
-\[
--r_A = k C_A^m \left(\frac{C_A}{a}\right)^p = k' C_A^{m+p}
-\]
-
-met:
-
-\[
-k' = \frac{k}{a^p}
-\]
-
----
-
-\textbf{Oefening}
-
-\begin{exercise}
-Voor een reactie wordt gemeten dat:
-
-\[
-\log t_{1/2} = -0.5 \log C_{A0} + 1
-\]
-
-Bepaal de reactieorde $n$.
-\end{exercise}
-
-\begin{solution}
-We vergelijken met:
-
-\[
-\text{slope} = 1 - n
-\]
-
-Dus:
-
-\[
--0.5 = 1 - n
-\]
-
-\[
-n = 1.5
-\]
-\end{solution}
-
----
-
-\textbf{Samenvatting}
-
-\begin{itemize}
-    \item Halfwaardetijd: tijd om $C_A$ te halveren
-    \item Voor $n \neq 1$: $t_{1/2} \propto C_{A0}^{1-n}$
-    \item Voor $n = 1$: $t_{1/2}$ constant
-    \item Grafiek $\log t_{1/2}$ vs $\log C_{A0}$ geeft reactieorde
-\end{itemize}
-
-
-
 \end{document}
