@@ -15,9 +15,9 @@ In hoofdstuk 3 'Ontwerp van homogene reaktoren onder isotherme werkingsvoorwaard
 
 In dit hoofdstuk wordt verondersteld dat de reactor onder \textbf{isotherme omstandigheden} werkt, bij een vooraf gekende of eenvoudig te bepalen temperatuur. Hierdoor is een enthalpiebalans niet nodig voor het ontwerp van de reactorinstallatie. Bovendien kan de uitdrukking voor de reactiesnelheid worden vereenvoudigd, aangezien er geen expliciete temperatuurafhankelijkheid meer in rekening hoeft te worden gebracht. 
 
-\section{Stofbalansen}
-\begin{formula}
-Stofbalans\\
+\section*{Stofbalansen}
+\begin{formula} \textbf{Stofbalans}
+
 Een stofbalans is van de volgende vorm: 
 \[
 \text{Accumulatie} = \text{In} - \text{Uit} + \text{Reactie} 
@@ -36,7 +36,7 @@ waar:
 \end{itemize}
 \end{formula} 
  
-\section{Batch Reactor}
+\section*{Batch Reactor}
 
 In een batch reactor is er geen in- of uitstroom (\(F_{A,in} = F_{A,out} = 0\)):
 
@@ -141,8 +141,7 @@ t = -\int_{C_{A0}}^{C_{Ae}} \frac{dC_A}{(-R_A)}
 \end{tikzpicture}
 \end{image}
 
-\begin{remark}
-Variabele densiteit
+\begin{remark} \textbf{Variabele densiteit}
 
 In veel reacties is de densiteit van het reagerend mengsel niet constant. 
 Wanneer tijdens de reactie het aantal mol gas toeneemt of afneemt, zal ook het totale volume veranderen. 
@@ -171,8 +170,7 @@ Hieruit volgt:
 \end{itemize}
 \end{remark}
 
-\begin{remark}
-Monotoon stijgende kinetica
+\begin{remark} \textbf{Monotoon stijgende kinetica}
 
 De grafische interpretaties in de $\frac{1}{-R_A}$- versus $X_A$- en $C_A$-curven zijn gebaseerd op een monotoon stijgende kinetiek.\\
 
@@ -238,7 +236,7 @@ Bij een andere kinetica kan de reactiecurve dus een andere vorm aannemen.
 \end{remark}
 
 
-\section{CSTR (Continuous Stirred Tank Reactor)}
+\section*{CSTR (Continuous Stirred Tank Reactor)}
 
 In een CSTR met constante in- en uitstroom geldt bij stationaire toestand:
 
@@ -333,7 +331,7 @@ Bij de aanname van constante densiteit:
 \end{image}
 
 
-\section{PFR (Plug Flow Reactor)}
+\section*{PFR (Plug Flow Reactor)}
 
 In een PFR verandert de concentratie langs de reactorlengte. De stofbalans over een klein segment \(dV\) is:
 
@@ -431,8 +429,8 @@ Bij de aanname van constante densiteit:
 \end{tikzpicture}
 \end{image}
 
-\section{Vergelijking van ideale reactoren}
-\subsection{Vergelijking: CSTR vs PFR}
+\section*{Vergelijking van ideale reactoren}
+\subsection*{Vergelijking: CSTR vs PFR}
 
 We vergelijken de verblijftijd voor eenzelfde uitgangsconcentratie $C_{Ae}$.
 
@@ -486,7 +484,8 @@ Grafisch in een $-1/R_A$ versus $C_A$ diagram:
 \end{tikzpicture}
 \end{center}
 
-\begin{conclusion}
+\begin{conclusion} \text{ }
+
 Bij monotoon stijgende kinetica:
 
 
@@ -502,7 +501,7 @@ Dit kan je ook zelf even uittesten:
 \geogebra{m4v7cs3y}{700}{500}
 \end{center}
 
-\subsection{Vergelijking: Batch vs PFR}
+\subsection*{Vergelijking: Batch vs PFR}
 
 Voor constante densiteit hebben Batch en PFR dezelfde
 integraalvorm.
@@ -551,7 +550,8 @@ t_{Batch} = -\int_{C_{A0}}^{C_{Ae}} \frac{dC_A}{(-R_A)}
 \end{tikzpicture}
 \end{center}
 
-\begin{conclusion}
+\begin{conclusion} \text{ }
+
 Bij constante densiteit is:
 
 \[
@@ -561,7 +561,7 @@ t_{Batch} = \tau_{PFR}
 De tijd dat een fluidumelement verblijft in een propstroom reactor en in een batch reactor zijn equivalent.
 \end{conclusion}
 
-\section{PFR met recyclestroom}
+\section*{PFR met recyclestroom}
 We beschouwen een plug flow reactor (PFR) met een externe recyclestroom.
 De verse voeding heeft volumestroom $q$ en concentratie $C_{A0}$.
 Een deel van de uitstroom wordt teruggevoerd naar de ingang van de reactor. \\
@@ -590,8 +590,7 @@ C_{A,in} = \frac{C_{A0} + R C_{A,uit}}{R+1}
 \]
 De inlaatconcentratie ligt dus tussen $C_{A0}$ en $C_{A,uit}$.\\
 
-\begin{remark}
-Fysische interpretatie 
+\begin{remark} \textbf{Fysische interpretatie}
 
 De recycleverhouding R kan variëren van $0$ tot $\infty$
 \begin{itemize}
@@ -630,7 +629,7 @@ Integreren van $C_{A,in}$ tot $C_{A,uit}$ levert:
 = (R+1)\int_{C_{A,uit}}^{C_{A,in}} \frac{dC_A}{-R_A}
 \]
 
-\begin{remark}
+\begin{conclusion} \textbf{ }
 
 Het toevoegen van een recyclestroom verhoogt het totale debiet door de reactor met een factor $(R+1)$ en verlaagt de inlaatconcentratie. Hierdoor wordt de gemiddelde reactiesnelheid kleiner en neemt het benodigde volume om dezelfde conversie te behalen toe. In de limiet $R \rightarrow \infty$ wordt het vereiste volume gelijk aan dat van een CSTR.\\
 
@@ -642,7 +641,7 @@ Recycle is dus voor zuiver isotherme systemen met eenvoudige,
 monotoon stijgende kinetiek niet gunstig vanuit volume-oogpunt. 
 Bij niet-isotherme processen of complexere kinetiek kan recycle 
 echter wél voordelig zijn.
-\end{remark}
+\end{conclusion}
 
 
 \end{document}
