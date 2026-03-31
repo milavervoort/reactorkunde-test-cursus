@@ -11,20 +11,20 @@
 \maketitle
 \label{xim:Methode der halfwaardetijden}
 
-\section{Methode der halfwaardetijden}
+\section*{Methode der halfwaardetijden}
 \label{Methode der halfwaardetijden}
-
+\subsubsection*{Algemeen principe}
 De methode der halfwaardetijden is ook een techniek waarmee men de parameters van de snelheidsvergelijking kan bepalen.\\
 De halfwaardetijd $t_{1/2}$ wordt gedefinieerd als de tijd die nodig is om de concentratie van een reagens te laten dalen tot de helft van de initiële waarde $C_A = \frac{C_{A0}}{2}$.\\
 Het centrale idee van deze methode is dat de halfwaardetijd op een karakteristieke manier afhangt van de beginconcentratie $C_{A0}$. Deze afhankelijkheid verschilt naargelang de reactiekinetiek.
 Door te onderzoeken hoe $t_{1/2}$ verandert bij verschillende beginconcentraties, kan men informatie verkrijgen over de reactiekinetiek zonder de volledige concentratie-tijdcurve te analyseren.
 
-\begin{procedure} \text{ }
+\begin{procedure} \textbf{Methode der halfwaardetijden}
 
 De methode wordt toegepast volgens de volgende stappen:
 
 \begin{enumerate}
-    \item Voer meerdere experimenten uit met verschillende beginconcentraties $C_{A0}$ en meet voor elk experiment de halfwaardetijd $t_{1/2}$. Dit is de tijd waarbij $C_A = \frac{C_{A0}}{2}$.
+    \item Voer meerdere experimenten uit met verschillende beginconcentraties $C_{A0}$ en meet voor elk experiment de halfwaardetijd $t_{1/2}$.
 
     \item Veronderstel een bepaalde reactiekinetiek en bepaal een uitdrukking voor de halfwaardetijd.
 
@@ -34,10 +34,11 @@ De methode wordt toegepast volgens de volgende stappen:
 \end{enumerate}
 
 \end{procedure}
-
+\text{ }  \\
 
 Deze methode vereist slechts beperkte experimentele data en is daarom bijzonder nuttig voor het snel bepalen van kinetische parameters.
 
+\subsection*{Toepassingen}
 \begin{example}
 \textbf{$n$-de orde reactie}
 
@@ -48,10 +49,7 @@ met snelheidswet
 \]
 in een batchreactor met constant volume.
 
-\medskip
-
-\textbf{Bepaling van de halfwaardetijd}
-
+Eerst wordt er een uitdrukking gezocht voor de halfwaardetijd. \\
 Integratie van de differentiaalvergelijking levert:
 \[
 C_A^{1-n} - C_{A0}^{1-n} = (n-1)kt
@@ -75,10 +73,7 @@ t_{1/2} = \frac{2^{n-1} - 1}{k(n-1)} C_{A0}^{1-n} \quad \text{voor } n \neq 1
 t_{1/2} = \frac{\ln 2}{k} \quad \text{voor } n = 1
 \]
 
-\medskip
-
-\textbf{Linearisatie}
-
+Vervolgens wordt de vergelijking gelineariseerd. \\
 Om de parameters $n$ en $k$ te bepalen, nemen we de logaritme:
 \[
 \ln t_{1/2} = (1-n)\ln C_{A0} + \ln\left(\frac{2^{n-1} - 1}{k(n-1)}\right)
@@ -94,11 +89,8 @@ Dit heeft de vorm van een rechte:
 +
 \underbrace{\ln\left(\frac{2^{n-1} - 1}{k(n-1)}\right)}_{intercept}
 \]
-\medskip
 
-\textbf{Experimentele bepaling en interpretatie van de plot}
-
-Er worden experimenten uitgevoerd met verschillende beginconcentraties $C_{A0}$, waarbij telkens de halfwaardetijd $t_{1/2}$ wordt gemeten. Vervolgens wordt een grafiek opgesteld van $\ln t_{1/2}$ als functie van $\ln C_{A0}$.
+Er worden experimenten uitgevoerd met verschillende beginconcentraties $C_{A0}$, waarbij telkens de halfwaardetijd $t_{1/2}$ wordt gemeten. Deze gegevens worden nu geplot in een grafiek met $\ln t_{1/2}$ als functie van $\ln C_{A0}$.
 
 Indien de reactie effectief van $n$-de orde is, liggen de datapunten op een rechte lijn met $\text{helling} = 1 - n$.
 Uit de helling en het intercept van deze rechte kunnen de parameters $n$ en $k$ worden bepaald.
