@@ -15,8 +15,8 @@
 
 Om een reactor van een bepaald type te ontwerpen, is een uitdrukking nodig voor de chemische reactiesnelheid. In combinatie met de massabalans en de stoichiometrische relaties laat deze snelheidsvergelijking toe om een isotherm reactiesysteem te dimensioneren.
 
-Eigenschappen van chemische reacties zijn vaak ongekend en niet eenvoudig te verkrijgen.Soms, voornamelijk voor elementaire gasfase reacties, zijn er voorspellende methoden mogelijk die nauwkeurige schattingen kunnen geven. De meest gebruikte methode om chemische kinetica te bepalen is echter via
-\textbf{experimentele metingen}. In dit hoofdstuk behandelen we de analyse
+Eigenschappen van chemische reacties zijn vaak ongekend en niet eenvoudig te verkrijgen. Soms, voornamelijk voor elementaire gasfase reacties, zijn er voorspellende methoden mogelijk die nauwkeurige schattingen kunnen geven. De meest gebruikte methode om chemische kinetica te bepalen is echter via
+experimentele metingen. In dit hoofdstuk behandelen we de analyse
 en verwerking van experimentele metingen om kinetische parameters te bepalen.
 
 We gaan uit van een functionele vorm voor de reactiesnelheid:
@@ -29,18 +29,15 @@ Voor kinetische metingen worden doorgaans twee types reactoren gebruikt:
 \end{itemize}
 
 
-
-
 \subsection*{Kinetische metingen in een batch reactor}
 \label{Kinetische metingen in een batch reactor}
 
 Deze methode wordt vooral gebruikt voor homogene reacties. We veronderstellen een isotherme reactor met constant volume.
 
-Om een uitdrukking voor de reactiesnelheid te bepalen, worden concentratiemetingen op verschillende tijdstippen uitgevoerd.
+Om een uitdrukking voor de reactiesnelheid te bepalen, worden concentratiemetingen op verschillende tijdstippen uitgevoerd. Soms wordt de concentratie gekoppeld aan andere meetbare eigenschappen, zoals: thermische conductiviteit, viscositeit, spectrometrie of de totaaldruk.
 
-Soms wordt de concentratie gekoppeld aan andere meetbare eigenschappen, zoals: thermische conductiviteit, viscositeit, spectrometrie of de totaaldruk.
+\begin{example} \textbf{Concentratiebepaling via drukmetingen}
 
-\begin{example}
 In dit voorbeeld wordt aangetoond hoe de concentraties in een batchreactor voor gasfasereacties eenvoudig bepaald kunnen worden door de totale druk en de partieel druk te meten.
 
 Beschouw een reactie met stoichiometrie:
@@ -52,22 +49,17 @@ De molaire hoeveelheden van de componenten gedurende de reactie zijn:
 \begin{array}{c|ccccc}
  & A & B & R & S & I \\ \hline
 t=0 & N_{A0} & N_{B0} & N_{R0} & N_{S0} & N_{I0} \\
-t=t & N_{A0}-ax & N_{B0}-bx & N_{R0}+rx & N_{S0}+x & N_{I0}
+t=t & N_{A0}-ax & N_{B0}-bx & N_{R0}+rx & N_{S0}+sx & N_{I0}
 \end{array}
 \]
-waar $x$ de reactiegraad is.
-De totale hoeveelheid mol op tijdstip $t$ wordt dan
+waar $x$ de reactiegraad is.\\
+De totale hoeveelheid mol op tijdstip $t$ wordt dan:
 \[
-N = N_0 + x \Delta n
+N = N_0 + x \Delta n \text{   met   } \Delta n = (r + s - a - b)
 \]
-met
-\[
-\Delta n = (r + s - a - b)
-\]
-de netto verandering in het aantal mol.
 De concentratie van component $A$ is
 \[
-C_A = \frac{N_A}{V} = \frac{N_{A0} - x}{V}.
+C_A = \frac{N_A}{V} = \frac{N_{A0} - ax}{V}.
 \]
 Voor een ideaal gas geldt de ideale gaswet: 
 \[V p_A = N_A R T\]
