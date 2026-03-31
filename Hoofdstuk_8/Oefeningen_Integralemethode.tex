@@ -332,9 +332,14 @@ Welke van de onderstaande grootheden moet uitgezet worden tegen de tijd $t$ om e
 
      Bij een reversibele reactie is de verhouding van de concentraties in evenwicht gerelateerd aan de evenwichtsconstante:
 \[
-K_c = \frac{C_{Re}}{C_{Ae}}
+K_c = \frac{k_1}{k_2} = \frac{C_{Re}}{C_{Ae}}
 \]
-Gebruik deze relatie om de snelheidsvergelijking te herschrijven.
+
+Verder geldt op om het even welk tijdstip in een batchreactor met constant volume:
+\[
+C_A + C_R = C_{A0} + C_{R0}
+\]
+Gebruik deze relaties om de snelheidsvergelijking te herschrijven.
 \end{hint}
 
 \begin{feedback} \text{  }
@@ -347,7 +352,7 @@ C_A + C_R = C_{A0} + C_{R0}
 \]
 
 Bij evenwicht geldt $\frac{dC_A}{dt} = 0$ zodat: 
-$k_1 C_{Ae} = k_2C_{Re}$ of $K_c = \frac{C_{Re}}{C_{Ae}}$
+$k_1 C_{Ae} = k_2C_{Re}$ of $K_c = \frac{k_1}{k_2} = \frac{C_{Re}}{C_{Ae}}$
 
 Invullen van $C_{A} + C_{R} = C_{Ae} + C_{Re}$ in de snelheidswet geeft:
 \[
@@ -376,7 +381,8 @@ Dit heeft de vorm:
 \underbrace{t}_{x}
 \]
 
-Dus een plot van deze logaritmische term tegen $t$ geeft een rechte lijn.
+Een plot van deze logaritmische term tegen $t$ geeft een rechte lijn.
+
 \end{feedback}
 \end{question}
 
@@ -454,7 +460,7 @@ De datapunten $y$ worden uitgezet tegen de tijd $t$ en er wordt een lineaire fit
     width=10cm,
     height=7cm,
     xmin=0, xmax=5,
-    ymin=0, ymax=2,
+    ymin=0, ymax=4,
     legend pos=north west,
 ]
 
@@ -465,18 +471,18 @@ De datapunten $y$ worden uitgezet tegen de tijd $t$ en er wordt een lineaire fit
 ] coordinates {
     (0,0)
     (1,0.60)
-    (2,1.00)
-    (3,1.30)
-    (4,1.55)
+    (2,1.20)
+    (3,1.90)
+    (4,2.65)
 };
 
 % Regressielijn
 \addplot[
     domain=0:5,
     samples=100,
-] {0.4*x};
+] {0.64*x};
 
-\legend{Data, Lineaire fit: $y = 0.40\,t$}
+\legend{Data, Lineaire fit: $y = 0.64\,t$}
 
 \end{axis}
 \end{tikzpicture}
@@ -484,18 +490,18 @@ De datapunten $y$ worden uitgezet tegen de tijd $t$ en er wordt een lineaire fit
 
 De rechte heeft de vorm:
 \[
-y = 0.40 t
+y = 0.64 t
 \]
 
 Hieruit kan worden afgeleid dat:
-\[k_1 = \answer{0.20} \text{s}^{-1}\]
-\[k_2 = \answer{0.20} \text{s}^{-1}\]
+\[k_1 = \answer{0.32} \text{ s}^{-1}\]
+\[k_2 = \answer{0.32} \text{ s}^{-1}\]
 
 \begin{feedback} \text{ }
 
 Uit de helling:
 \[
-k_1 + k_2 = 0.40
+k_1 + k_2 = 0.64
 \]
 Uit het evenwicht:
 \[
@@ -504,7 +510,7 @@ Uit het evenwicht:
 
 Dus:
 \[
-2k_1 = 0.40 \Rightarrow k_1 = 0.20,  k_2 = 0.20
+2k_1 = 0.64 \Rightarrow k_1 = 0.32,  k_2 = 0.32
 \]
 
 \end{feedback}
