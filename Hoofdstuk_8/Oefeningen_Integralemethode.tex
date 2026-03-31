@@ -46,16 +46,16 @@ $t$ (min) & $p$ (mmHg) \\
 Gebruik de integrale analysemethode om te bepalen welke orde deze reactie heeft en wat de reactieconstante is. \\
 Controleer dit door na te gaan of de data overeenkomt met een nulde-orde, eerste-orde en tweede-orde reactie.
 
-\begin{question} Verband tussen druk en concentratie
+\begin{question} \textbf{Verband tussen druk en concentratie}
     \\
     In de opgave is niet concentratie in functie van de tijd gegeven, maar de druk in functie van de tijd. Om hiermee te kunnen verder werken, moeten we eerst het verband tussen concentratie en druk zoeken. 
     
-    Dit werd afgeleid al afgeleid in het begin van dit hoofdstuk. Hier kwamen we tot de uitdrukking: 
+    Dit werd al eens afgeleid in het begin van dit hoofdstuk. We kwamen toen tot de uitdrukking: 
     \[
     C_A = \frac{p_{A0}}{RT} - \frac{a}{\Delta n} \cdot \frac{(p - p_0)}{RT}
     \]
     
-    Voor dit systeem beschouwen $p_{A0} = p_0$. Wat zijn $a$ en $\Delta n$ voor dit systeem?
+    Voor dit systeem beschouwen we $p_{A0} = p_0$. Wat zijn $a$ en $\Delta n$ voor dit systeem?
     
     \[
     a = \answer{1}
@@ -67,22 +67,23 @@ Controleer dit door na te gaan of de data overeenkomt met een nulde-orde, eerste
     \begin{feedback}
         We kunnen in dit geval $C_A$ schrijven in functie van $p$ als:
         \[
+        C_A = \frac{p_0}{RT}-\frac{p-p_0}{2RT}
+        \]
+        \[
         C_A = \frac{3p_0-p}{2RT}
         \]
     \end{feedback}
     
 \end{question}
 
-\begin{question} 0de orde reactie
-
-    We gaan eerst uit van een 0de orde reactie en controleren of deze orde overeen komt met de experimentele data.
+\begin{question} \textbf{Linearisatie van de $0^{de}$ orde reactiekinetiek}
     
     Voor een 0de orde reactie geldt: 
     \[
     \frac{dC_A}{dt} = - k
     \]
-    Schrijf dit nu in functie de druk en integreer.
-    Welke uitdrukking krijg je dan?
+    Schrijf dit nu in functie van de druk en integreer om tot een lineaire vorm te komen.
+    De uitdrukking die je dan bekomt is:
     \begin{multipleChoice}
             \choice{$p - p_0= \frac{1}{2RT} k*t$}
             \choice[correct]{$p - p_0= 2RT k*t$}
@@ -110,9 +111,7 @@ Controleer dit door na te gaan of de data overeenkomt met een nulde-orde, eerste
     \end{feedback}
 \end{question}
 
-\begin{question} 1ste orde reactie
-
-    We gaan nu uit van een 1ste orde reactie en controleren of deze orde overeen komt met de experimentele data.
+\begin{question} \textbf{Linearisatie van de $1^{ste}$ orde reactiekinetiek}
     
     Voor een 1ste orde reactie geldt: 
     \[
@@ -152,10 +151,8 @@ Controleer dit door na te gaan of de data overeenkomt met een nulde-orde, eerste
     \end{feedback}
 \end{question}
 
-\begin{question} 2de orde reactie
+\begin{question} \textbf{Linearisatie van de $2^{de}$ orde reactiekinetiek}
 
-    We gaan nu uit van een 2de orde reactie en controleren of deze orde overeen komt met de experimentele data.
-    
     Voor een 2de orde reactie geldt: 
     \[
     \frac{dC_A}{dt} = - k C_A^2
@@ -194,10 +191,10 @@ Controleer dit door na te gaan of de data overeenkomt met een nulde-orde, eerste
     \end{feedback}
 \end{question}
 
-\begin{question} Welke reactiekinetiek past het beste? \\
+\begin{question} \textbf{Data verwerken} 
 
-    We kunnen nu de plots maken van de experimentele data. 
-    De omgevormde data voor elke reactiekinetiek is: 
+    We kunnen nu de plots maken met behulp van de experimentele data.\\ 
+    De omgevormde data voor elke reactiekinetiek is gegeven in volgende tabel: 
     \begin{center}
     \begin{tabular}{c|c|c|c|c}
     $t$ & $p$ & \textbf{0de orde} & \textbf{1ste orde} & \textbf{2de orde} \\
@@ -214,8 +211,12 @@ Controleer dit door na te gaan of de data overeenkomt met een nulde-orde, eerste
     \[a = \answer{10.4} \]
     \[b = \answer{0.41} \]
     \[c = \answer{0.08} \]
-    
-    \begin{feedback}
+\end{question}
+
+\begin{question}\textbf{Interpreteren van de plot}
+
+De datapunten worden uitgezet tegen de tijd  en er wordt een lineaire fit gemaakt voor elke reactiekinetiek.
+
     \pgfplotsset{compat=1.18}
     % --- 0de orde ---
     \begin{figure}[h!]
@@ -274,12 +275,13 @@ Controleer dit door na te gaan of de data overeenkomt met een nulde-orde, eerste
             \choice[correct]{1ste orde}
             \choice{2de orde}
     \end{multipleChoice}
-    Wat is de waarde van de reactieconstante?
+    Wat is de waarde van de reactieconstante voor de reactiekinetiek?
     \[
     k = \answer{0.079}
     \]
-    \end{feedback}
 \end{question}
+
+\text{  }\\
 
 \section*{Oefening 2: Reversibele 1e orde reactie}
 
