@@ -41,44 +41,14 @@ $t$ (min) & $p$ (mmHg) \\
 \end{tabular}
 \end{center}
 
-
-\begin{figure}[h!]
-\centering
-\begin{tikzpicture}
-\begin{axis}[
-    width=8cm,
-    height=6cm,
-    xlabel={$t$ (min)},
-    ylabel={$p$ (mmHg)},
-    grid=major
-]
-
-% Enkel datapunten
-\addplot[
-    only marks,
-    mark=*,
-    mark size=2.5pt
-] coordinates {
-    (0.0, 7.5)
-    (5.0, 12.5)
-    (10.0, 15.8)
-    (15.0, 17.9)
-    (20.0, 19.4)
-};
-
-\end{axis}
-\end{tikzpicture}
-\end{figure}
-
 \textbf{Gevraagd}
 
 Gebruik de differentiële analysemethode om te bepalen welke orde deze reactie heeft en wat de reactieconstante is. \\
 
-Uit de vorige oefening weten we al dat het verband tussen concentratie $C_A$ en de druk $p$ gegeven wordt door volgende vergelijking:
-    \[
-    C_A = \frac{3p_0-p}{2RT}
-    \]
-Voor het gebruik van de differentiële methode moeten we nog niet perse alvast een reactiekinetiek aannemen. We kunnen zowel $k$ en $n$ gelijktijdig bepalen.
+\begin{remark} \text{  }
+
+Met behulp van de differentiële analysemethode kunnen zowel de reactieorde $n$ als de reactieconstante $k$ gelijktijdig uit de experimentele gegevens worden bepaald. Dit vormt een belangrijk voordeel ten opzichte van de integrale analysemethode, waarbij vooraf een reactieorde moet worden verondersteld.
+\end{remark}
 
 \begin{question} \textbf{Linearisatie van de reactiekinetiek}
 \\
@@ -86,7 +56,11 @@ De snelheidsvergelijking voor een nde orde reactie is
 \[
 \frac{dC_A}{dt} = -kC_A ^n
 \]
-Invullen voor de de druk: 
+Uit de vorige oefening weten we al dat het verband tussen concentratie $C_A$ en de druk $p$ gegeven wordt door volgende vergelijking:
+    \[
+    C_A = \frac{3p_0-p}{2RT}
+    \]
+Deze uitdrukking invullen geeft: 
 \[
 \frac{-1}{2RT}\frac{dp}{dt} = -k(\frac{3p_0-p}{2RT})^n
 \]
@@ -97,14 +71,15 @@ Vervang $k$ door $k' = k(\frac{1}{2RT})^{n-1}$
 \[
 \frac{dp}{dt} = k'(3p_0-p)^n
 \]
-Probeer deze vergelijking nu om te vormen zodat zowel $k'$ en $n$ gelijktijdig bepaald kunnen worden.
+Herschrijf deze vergelijking zodanig dat zowel $k'$ als $n$ gelijktijdig kunnen worden bepaald. De meest geschikte vorm is:
 
     \begin{multipleChoice}
             \choice{$\ln(\frac{dp}{dt})= \ln(k')+\ln(3p_0-p)^n$}
             \choice{$\ln(\frac{dp}{dt})= n\ln(k'(3p_0-p))$}
             \choice[correct]{$\ln(\frac{dp}{dt})= \ln(k')+n\ln(3p_0-p))$}
     \end{multipleChoice}
-    \begin{feedback}
+    \begin{feedback} \text{  }
+    
         Als de snelheidsvergelijking in deze vorm geschreven wordt, kunnen $n$ en $k'$ eenvoudig bepaald worden.
         \[
         \underbrace{\ln \left(\frac{dp}{dt}\right)}_{y}
@@ -119,11 +94,8 @@ Probeer deze vergelijking nu om te vormen zodat zowel $k'$ en $n$ gelijktijdig b
 
 \end{question}
 
-\begin{question} \textbf{Data verwerken}\\
-Om een plot te kunnen maken, hebben we de afgeleide $\frac{dp}{dt}$ nodig op elk tijdspunt. 
-Voor het berekenen van de afgeleide $\frac{dp}{dt}$ gebruiken we een eenvoudige centrale differentiebenadering. 
+\begin{remark} \textbf{Centrale differentiebenadering}
 
-\begin{remark}
     De centrale differentiebenadering benadert de afgeleide door gebruik te maken van punten aan beide zijden:
     \[
     f'(t) \approx \frac{f(t+h) - f(t-h)}{2h}.
@@ -133,6 +105,11 @@ Voor het berekenen van de afgeleide $\frac{dp}{dt}$ gebruiken we een eenvoudige 
     f'\bigl(t_{n+\frac{1}{2}}\bigr) \approx \frac{f(t_{n+1}) - f(t_n)}{\Delta t}.
     \]
 \end{remark}
+
+\begin{question} \textbf{Data verwerken}\\
+Om een plot te kunnen maken, hebben we de afgeleide $\frac{dp}{dt}$ nodig op elk tijdspunt. 
+Voor het berekenen van de afgeleide $\frac{dp}{dt}$ gebruiken we een eenvoudige centrale differentiebenadering. \\
+
 De afgeleide zelf is dus gedefinieerd op de intermediaire tijdswaarden $t = 2.5, t = 7.5, \ldots$. 
 \begin{table}[h!]
 \centering
@@ -155,13 +132,39 @@ Vul de tabel  verder aan:
 \[a = \answer{14.15}\]
 \[b = \answer{0.42}\]
 
-Om de plot te kunnen maken hebben we als laatste nog data voor $ln(\frac{dp}{dt})$ en $\ln(3p_0 - p)$ nodig. 
-\begin{itemize}
-    \item Voor tijdstip $t_1$ = 2.5 min: \[\ln(\frac{dp}{dt}) = \answer{0.00}\]  \[\ln(3p_0 - p) = \answer{2.526}\]
-    \item Voor tijdstip $t_2$ = 7.5 min: \[\ln(\frac{dp}{dt}) = \answer{-0.416}\]  \[\ln(3p_0 - p) = \answer{2.122}\]
-    \item Voor tijdstip $t_3$ = 12.5 min: \[\ln(\frac{dp}{dt}) = \answer{-0.868}\] \[\ln(3p_0 - p) = \answer{1.732}\]
-    \item Voor tijdstip $t_4$ = 17.5 min:\[\ln(\frac{dp}{dt}) = \answer{-1.204}\] \[\ln(3p_0 - p) = \answer{1.348}\]
-\end{itemize}
+Om de plot te kunnen maken hebben we als laatste nog data nodig voor $\ln\!\left(\frac{dp}{dt}\right)$ en $\ln(3p_0 - p)$.
+
+Duid de correcte tabel aan:
+
+\begin{multipleChoice}
+    \choice[correct]{\begin{tabular}{c|c}
+    $\ln\!\left(\frac{dp}{dt}\right)$ & $\ln(3p_0 - p)$ \\
+    \hline
+    0.00 & 2.526 \\
+    -0.416 & 2.122 \\
+    -0.868 & 1.732 \\
+    -1.204 & 1.348 \\
+    \end{tabular}} 
+
+    \choice{\begin{tabular}{c|c}
+    $\ln\!\left(\frac{dp}{dt}\right)$ & $\ln(3p_0 - p)$ \\
+    \hline
+    0.00 & 2.526 \\
+    -0.340 & 2.122 \\
+    -0.908 & 1.732 \\
+    -1.350 & 1.348 \\
+    \end{tabular}} 
+    
+    \choice{\begin{tabular}{c|c}
+    $\ln\!\left(\frac{dp}{dt}\right)$ & $\ln(3p_0 - p)$ \\
+    \hline
+    0.00 & 2.400 \\
+    -0.416 & 2.000 \\
+    -0.868 & 1.600 \\
+    -1.204 & 1.200 \\
+    \end{tabular}} 
+\end{multipleChoice}
+
 \end{question}
 
 \begin{question} \textbf{Interpreteren van de plot }\\
@@ -189,12 +192,11 @@ Om de plot te kunnen maken hebben we als laatste nog data voor $ln(\frac{dp}{dt}
     (1.732, -0.868)
     (1.348, -1.204)
 };
-% Best fit lijn: y = 1.02x - 3.48
 \addplot[
     domain=1.3:2.6,
     samples=100,
     thick
-] {1.00*x - 2.55};
+] {1.0*x - 2.55};
 \legend{Data, Fit: $y = 1.00x - 2.55$}
 \end{axis}
 \end{tikzpicture}
@@ -202,26 +204,26 @@ Om de plot te kunnen maken hebben we als laatste nog data voor $ln(\frac{dp}{dt}
 
 Hiermee kunnen we $k$ en $n$ bepalen.
 \[n = \answer{1}\]
-\[k = \answer{0.079}\]
+\[k = \answer{0.078}\]
 \begin{feedback} .
 \newline
     De helling van de rechte: $n = 1$. \\
-    Het intercept van de rechte: $ln(k') = -2.55$.
-    \[\ln(k') = \ln(k(\frac{1}{2RT})^{n-1} = \ln{k} = -2.55\]
+    Het intercept van de rechte: $\ln(k') = -2.55$.
+    \[\ln(k') = \ln(k(\frac{1}{2RT})^{n-1}) = \ln{k} = -2.55\]
     \[k = 0.079\]
 \end{feedback}
 \end{question}
+\text{  } \\
 
-\vspace{2cm}
 \section*{Oefening 2: Rotte appel kinetiek}
 
 \textbf{Gegeven}
 
-De reactiekinetiek van een reactie wordt vermoedt: 
+De reactiekinetiek van de reactie wordt verondersteld als volgt:
 \[
 -R_A = \frac{k_1 C_A}{(1 + k_2 C_A)^2}
 \]
-Er worden experimentele metingen gedaan waaruit volgende data wordt gehaald.
+Er worden experimentele metingen gedaan waaruit volgende data wordt gehaald:
 \begin{center}
 \begin{tabular}{c|c}
 $t$ (h) & $C_A$ (mol/L) \\
@@ -234,35 +236,10 @@ $t$ (h) & $C_A$ (mol/L) \\
 5 & 0.50 \\
 \end{tabular}
 \end{center}
-\pgfplotsset{compat=1.18}
-\begin{figure}[h!]
-\centering
-\begin{tikzpicture}
-\begin{axis}[
-    width=8cm,
-    height=6cm,
-    xlabel={$t$ (h)},
-    ylabel={$C_A$ (mol/L)},
-    grid=major
-]
 
-% Enkel datapunten
-\addplot[
-    only marks,
-    mark=*,
-    mark size=2.5pt
-] coordinates {
-    (0, 1.00)
-    (1, 0.83)
-    (2, 0.71)
-    (3, 0.62)
-    (4, 0.55)
-    (5, 0.50)
-};
+\textbf{Gevraagd}
 
-\end{axis}
-\end{tikzpicture}
-\end{figure}
+Bepaal de waarden van $k_1$ en $k_2$.
 
 \begin{question} \textbf{Linearisatie van de reactiekinetiek}
 
@@ -278,6 +255,20 @@ Welke van de onderstaande linearisaties is correct?
 
 \choice{$\sqrt{\dfrac{C_A}{-R_A}} = \dfrac{1}{k_1} + \dfrac{\sqrt{k_2}}{k_1} C_A$}
 \begin{feedback}
+    \[
+    - R_A = \frac{k_1 C_A}{(1 + k_2 C_A)^2}
+    \]
+    
+    Neem het omgekeerde en vermenigvuldig met $C_A$:
+    \[
+    \frac{C_A}{-R_A} = \frac{(1 + k_2 C_A)^2}{k_1}
+    \]
+    
+    Neem de wortel:
+    \[
+    \sqrt{\frac{C_A}{-R_A}} = \frac{1 + k_2 C_A}{\sqrt{k_1}}
+    \]
+    Herschrijf:
     \[
     \underbrace{\sqrt{\frac{C_A}{-R_A}}}_{y}
     =
@@ -350,8 +341,8 @@ Vul de tabel aan:
     height=7cm,
     xlabel={$ C_A $},
     ylabel={$ \sqrt{\frac{C_A}{-R_A}} $},
-    grid=major,
-    legend pos=north west
+    xmin=0.5, xmax=1,
+    ymin=2, ymax=3.5
 ]
 
 % Datapunten
@@ -371,9 +362,9 @@ Vul de tabel aan:
     domain=0.5:1.0,
     samples=100,
     thick
-] {-2.2*x + 4.25};
+] {-2.18*x + 4.25};
 
-\legend{Data, Fit: $y \approx -2.2x + 4.25$}
+\legend{Data, Fit: $y \approx -2.18x + 4.25$}
 
 \end{axis}
 \end{tikzpicture}
@@ -381,13 +372,13 @@ Vul de tabel aan:
 
 Hiermee kunnen we $k_1$ en $k_2$ bepalen.
 \[k_1 = \answer{0.055}\]
-\[k_2 = \answer{-0.518}\]
+\[k_2 = \answer{-0.513}\]
 \begin{feedback} .
 \newline
     Het intercept van de rechte: $\frac{1}{\sqrt{k_1}} = 4.25$.
     \[k_1 = 0.055\]
-    De helling van de rechte: $\frac{k_2}{\sqrt{k_1}} = -2.2$. \\
-    \[k_2 = -0.518\]
+    De helling van de rechte: $\frac{k_2}{\sqrt{k_1}} = -2.18$. \\
+    \[k_2 = -0.513\]
 \end{feedback}
 \end{question}
 
