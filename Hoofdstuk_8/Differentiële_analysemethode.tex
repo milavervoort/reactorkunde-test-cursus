@@ -224,7 +224,11 @@ Een grafiek van $\ln(-R_A)$ tegen $\ln C_A$ geeft een rechte lijn met:
 (4.0,3.9)
 };
 
-\node at (axis cs:3.8,2.3) {$n$};
+% helling driehoek
+\draw[dashed, thick] (axis cs:2.6,2.6) -- (axis cs:3.5,2.6);
+\draw[dashed, thick] (axis cs:3.5,2.6) -- (axis cs:3.5,3.5);
+
+\node at (axis cs:3.8,3) {$n$};
 \node at (axis cs:0.2,0.3) {$\ln{k}$};
 
 \end{axis}
