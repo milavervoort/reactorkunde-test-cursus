@@ -199,13 +199,6 @@ Controleer dit door na te gaan of de data overeenkomt met een nulde-orde, eerste
 \href{https://colab.research.google.com/drive/17OgikG5AMJrcq17wvrM8fH6I01i4wifi?usp=sharing}{\Large Open de Google Colab notebook}
     \end{center}
 
-\begin{center}
-\colorbox{blue}{
-\href{https://colab.research.google.com/drive/17OgikG5AMJrcq17wvrM8fH6I01i4wifi?usp=sharing}
-{\textcolor{white}{\Large Open de Google Colab notebook}}
-}
-\end{center}
-    
      Volgende tabel wordt bekomen: 
     \begin{center}
     \begin{tabular}{c|c|c|c|c}
@@ -366,13 +359,16 @@ In een batchreactor met constant volume geldt op om het even welk tijdstip:
 C_A + C_R = C_{A0} + C_{R0}
 \]
 
-Bij evenwicht geldt $\frac{dC_A}{dt} = 0$ zodat: 
-$k_1 C_{Ae} = k_2C_{Re}$ of $K_c = \frac{k_1}{k_2} = \frac{C_{Re}}{C_{Ae}}$
-
 Invullen van $C_{A} + C_{R} = C_{Ae} + C_{Re}$ in de snelheidswet geeft:
 \[
 - \frac{dC_A}{dt} = k_1 C_A - k_2 (C_{Ae} + C_{Re} - C_A)
-= (k_1 + k_2)(C_A - C_{Ae})
+\]
+
+Bij evenwicht geldt $\frac{dC_A}{dt} = 0$ zodat: 
+$k_1 C_{Ae} = k_2C_{Re}$ of $K_c = \frac{k_1}{k_2} = \frac{C_{Re}}{C_{Ae}}$.
+
+\[
+- \frac{dC_A}{dt} = (k_1 + k_2)(C_A - C_{Ae})
 \]
 
 De integrale analysemethode kan nu toegepast worden. Integreren van de vergelijking geeft:
@@ -403,7 +399,12 @@ Een plot van deze logaritmische term tegen $t$ geeft een rechte lijn.
 
 \begin{question} \textbf{Data verwerken}
 
-Bereken voor elk tijdstip de waarde van $y$ en kies de correcte tabel.
+Bereken voor elk tijdstip de waarde van $y$ en kies de correcte tabel. Gebruik hiervoor weer dezelfde google colab file.
+
+\begin{center}
+\href{https://colab.research.google.com/drive/17OgikG5AMJrcq17wvrM8fH6I01i4wifi?usp=sharing}{\Large Open de Google Colab notebook}
+\end{center}
+
 
 \begin{multipleChoice}
 \choice{
@@ -464,8 +465,10 @@ t & C_A & y \\
 
 \begin{question} \textbf{Interpreteren van de plot}
 
-De datapunten $y$ worden uitgezet tegen de tijd $t$ en er wordt een lineaire fit gemaakt.
+Maak in de google colab file ook een plot van de de berekende waarden en maak een lineaire fit doorheen de punten.
+\\
 
+\iffalse
 \begin{center}
 \begin{tikzpicture}
 \begin{axis}[
@@ -507,16 +510,17 @@ De rechte heeft de vorm:
 \[
 y = 0.64 t
 \]
+\fi 
 
-Hieruit kan worden afgeleid dat:
-\[k_1 = \answer{0.32} \text{ s}^{-1}\]
-\[k_2 = \answer{0.32} \text{ s}^{-1}\]
+Met behulp van de lineaire fit kan worden afgeleid dat:
+\[k_1 = \answer{0.33} \text{ s}^{-1}\]
+\[k_2 = \answer{0.33} \text{ s}^{-1}\]
 
 \begin{feedback} \text{ }
 
 Uit de helling:
 \[
-k_1 + k_2 = 0.64
+k_1 + k_2 = 0.662
 \]
 Uit het evenwicht:
 \[
@@ -525,7 +529,7 @@ Uit het evenwicht:
 
 Dus:
 \[
-2k_1 = 0.64 \Rightarrow k_1 = 0.32,  k_2 = 0.32
+2k_1 = 0.662 \Rightarrow k_1 = 0.33,  k_2 = 0.33
 \]
 
 \end{feedback}
