@@ -107,10 +107,36 @@ Herschrijf deze vergelijking zodanig dat zowel $k'$ als $n$ gelijktijdig kunnen 
 \end{remark}
 
 \begin{question} \textbf{Data verwerken}\\
+We kunnen nu de plots maken met behulp van de experimentele data. Gebruik de python code in volgende Google Colab-file om de oefening verder op te lossen. Vul de lege regels in waar nodig om de berkeningen uit te voeren.
+
+\begin{center}
+\href{https://colab.research.google.com/drive/1dWckfscjsUmQ97Mw7P00nvdMTTST00n3?usp=sharing}{\Large Open de Google Colab notebook}
+    \end{center}
+
 Om een plot te kunnen maken, hebben we de afgeleide $\frac{dp}{dt}$ nodig op elk tijdspunt. 
 Voor het berekenen van de afgeleide $\frac{dp}{dt}$ gebruiken we een eenvoudige centrale differentiebenadering. \\
+ 
+Gebruik de Google Colab-file om de afgeleide te bepalen op alle intermediare waarden.
 
-De afgeleide zelf is dus gedefinieerd op de intermediaire tijdswaarden $t = 2.5, t = 7.5, \ldots$. 
+Beschouw het \textbf{eerste tijdsinterval} tussen $t=0$ min en $t=5$ min:
+\begin{enumerate}
+    \item Wat is het intermediaire tijdstip?
+    \[
+    t = \answer{2.5}\ \text{min}
+    \]
+
+    \item Wat is de druk op dit intermediaire tijdstip?
+    \[
+    p = \answer{10.0}\ \text{mmHg}
+    \]
+
+    \item Bereken de afgeleide $\dfrac{dp}{dt}$ op dit intermediaire tijdstip met de centrale differentiebenadering.
+    \[
+    \frac{dp}{dt}=\answer{1.00}\ \text{mmHg/min}
+    \]
+\end{enumerate}
+
+\iffalse
 \begin{table}[h!]
 \centering
 \begin{tabular}{c|c||c|c|c}
@@ -131,46 +157,50 @@ $t$ [min] & $p$ [mmHg] & $t$ [min] &$p$ [mmHg] & $\frac{dp}{dt}$ \\
 Vul de tabel  verder aan:
 \[a = \answer{14.15}\]
 \[b = \answer{0.42}\]
+\fi 
 
-Om de plot te kunnen maken hebben we als laatste nog data nodig voor $\ln\!\left(\frac{dp}{dt}\right)$ en $\ln(3p_0 - p)$.
+Om de plot te kunnen maken, moeten de waarde voor x en y nog bepaald worden met behulp van de gelineariseerde uitdrukking. 
 
-Duid de correcte tabel aan:
+Vul de Google-Colab file verder aan en duid de correcte tabel aan met behulp van de bekomen resultaten.
 
 \begin{multipleChoice}
     \choice[correct]{\begin{tabular}{c|c}
     $\ln\!\left(\frac{dp}{dt}\right)$ & $\ln(3p_0 - p)$ \\
     \hline
-    0.00 & 2.526 \\
-    -0.416 & 2.122 \\
-    -0.868 & 1.732 \\
-    -1.204 & 1.348 \\
+    0.00 & 2.53 \\
+    -0.42 & 2.12 \\
+    -0.87 & 1.73 \\
+    -1.20 & 1.35 \\
     \end{tabular}} 
 
     \choice{\begin{tabular}{c|c}
     $\ln\!\left(\frac{dp}{dt}\right)$ & $\ln(3p_0 - p)$ \\
     \hline
-    0.00 & 2.526 \\
-    -0.340 & 2.122 \\
-    -0.908 & 1.732 \\
-    -1.350 & 1.348 \\
+    0.00 & 2.53 \\
+    -0.34 & 2.12 \\
+    -0.90 & 1.73 \\
+    -1.35 & 1.35 \\
     \end{tabular}} 
     
     \choice{\begin{tabular}{c|c}
     $\ln\!\left(\frac{dp}{dt}\right)$ & $\ln(3p_0 - p)$ \\
     \hline
-    0.00 & 2.400 \\
-    -0.416 & 2.000 \\
-    -0.868 & 1.600 \\
-    -1.204 & 1.200 \\
+    0.00 & 2.40 \\
+    -0.42 & 2.00 \\
+    -0.87 & 1.60 \\
+    -1.20 & 1.20 \\
     \end{tabular}} 
 \end{multipleChoice}
 
 \end{question}
 
 \begin{question} \textbf{Interpreteren van de plot }\\
+
+Maak in de Google Colab-file vervolgens een plot van de de berekende waarden en maak een lineaire fit doorheen de punten.
+
+\iffalse
     De verzamelde data kan nu geplot worden in een $\ln(\frac{dp}{dt})$ versus $\ln(3p_0-p)$ plot.
 \pgfplotsset{compat=1.18}
-
 \begin{figure}[h!]
 \centering
 \begin{tikzpicture}
@@ -201,16 +231,17 @@ Duid de correcte tabel aan:
 \end{axis}
 \end{tikzpicture}
 \end{figure}
+\fi
 
-Hiermee kunnen we $k$ en $n$ bepalen.
-\[n = \answer{1}\]
-\[k = \answer{0.078}\]
+eMet behulp van de lineaire fit kunnen $k$ en $n$ bepaald worden:
+\[n = \answer{1.04}\]
+\[k = \answer{0.073}\]
 \begin{feedback} .
 \newline
-    De helling van de rechte: $n = 1$. \\
-    Het intercept van de rechte: $\ln(k') = -2.55$.
-    \[\ln(k') = \ln(k(\frac{1}{2RT})^{n-1}) = \ln{k} = -2.55\]
-    \[k = 0.079\]
+    De helling van de rechte: $n = 1.04$. \\
+    Het intercept van de rechte: $\ln(k') = -2.623$.
+    \[\ln(k') = \ln(k(\frac{1}{2RT})^{n-1}) = \ln{k} = -2.623\]
+    \[k = 0.073\]
 \end{feedback}
 \end{question}
 \text{  } \\
