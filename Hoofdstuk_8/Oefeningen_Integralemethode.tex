@@ -194,33 +194,35 @@ Controleer dit door na te gaan of de data overeenkomt met een nulde-orde, eerste
 
 \begin{question} \textbf{Data verwerken} 
 
-    We kunnen nu de plots maken met behulp van de experimentele data.\\ 
+    We kunnen nu de plots maken met behulp van de experimentele data. Gebruik de python code in volgende google colab file om de oefening verder op te lossen. Vul de lege regels in waar nodig om de berkeningen uit te voeren.\\ 
     \begin{center}
 \href{https://colab.research.google.com/drive/17OgikG5AMJrcq17wvrM8fH6I01i4wifi?usp=sharing}{\Large Open de Google Colab notebook}
     \end{center}
-    De omgevormde data voor elke reactiekinetiek is gegeven in volgende tabel: 
+    
+     Volgende tabel wordt bekomen: 
     \begin{center}
     \begin{tabular}{c|c|c|c|c}
     $t$ & $p$ & \textbf{0de orde} & \textbf{1ste orde} & \textbf{2de orde} \\
      & & $p - p_0$ & $\ln\left(\frac{2p_0}{3p_0-p}\right)$ & $\frac{1}{3p_0-p} - \frac{1}{2p_0}$ \\
     \hline
-    $0$  & $7.5$  & $0.0$   & $0.00$ & $0.00$ \\
-    $5$  & $12.5$ & $5.0$   & $b$ & $0.03$ \\
-    $10$ & $15.8$ & $8.3$   & $0.81$ & $c$ \\
-    $15$ & $17.9$ & $a$  & $1.18$ & $0.15$ \\
-    $20$ & $19.4$ & $11.9$  & $1.58$ & $0.26$ \\
+    $0$  & $7.5$  & $y00$   & $y10$ & $y20$ \\
+    $5$  & $12.5$ & $y01$   & $y11$ & $y21$ \\
+    $10$ & $15.8$ & $y02$   & $y12$ & $y22$ \\
+    $15$ & $17.9$ & $y03$   & $y13$ & $y23$ \\
+    $20$ & $19.4$ & $y04$   & $y14$ & $y24$ \\
     \end{tabular}
     \end{center}
-    Vul de ontbrekende waarde aan.
-    \[a = \answer{10.4} \]
-    \[b = \answer{0.41} \]
-    \[c = \answer{0.08} \]
+
+    Vul de volgende waarde aan die je hebt berekend in de google colab file.
+    \[y03 = \answer{10.4} \]
+    \[y11 = \answer{0.41} \]
+    \[y22 = \answer{0.08} \]
 \end{question}
 
 \begin{question}\textbf{Interpreteren van de plot}
 
-De datapunten worden uitgezet tegen de tijd  en er wordt een lineaire fit gemaakt voor elke reactiekinetiek.
-
+Maak in de google colab file ook een plot van de de berekende waarden en maak een lineaire fit doorheen de punten.
+\iffalse 
     \pgfplotsset{compat=1.18}
     % --- 0de orde ---
     \begin{figure}[h!]
@@ -273,6 +275,8 @@ De datapunten worden uitgezet tegen de tijd  en er wordt een lineaire fit gemaak
     \end{axis}
     \end{tikzpicture}
     \end{figure}
+\fi
+\\
     Welke reactie-orde past het best bij deze reactie?
     \begin{multipleChoice}
             \choice{0de orde}
