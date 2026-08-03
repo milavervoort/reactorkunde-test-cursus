@@ -318,51 +318,56 @@ Welke van de onderstaande linearisaties is correct?
 
 Om een plot te kunnen maken, hebben we $-R_A = -\frac{dC_A}{dt}$ nodig op elk tijdspunt. Voor het berekenen van de afgeleide $\frac{dC_A}{dt}$ gebruiken we weer de centrale differentiebenadering.
 
+Gebruik hiervoor dezelfde Google Colab-file als bij de vorige oefening.
+\begin{center}
+\href{https://colab.research.google.com/drive/1dWckfscjsUmQ97Mw7P00nvdMTTST00n3?usp=sharing}{\Large Open de Google Colab notebook}
+\end{center}
+
+Vul de volgende tabellen  verder aan met behulp van je bekomen resultaten:
 \begin{table}[h!]
 \centering
 \begin{tabular}{c|c||c|c|c}
-$t$ (h) & $C_A$ (mol/L) & $t$ (h) & $C_A$ (mol/L) & $-R_A$ (mol/L$\cdot$h) \\
+$t$ (h) & $C_A$ (mol/L) & $t$ (h) & $C_A$ (mol/L) & $R_A$ (mol/L$\cdot$h) \\
 \hline
 0.0  & 1.00  &  &  &  \\
-     &       & 0.5  & 0.915 & 0.17  \\
+     &       & 0.5  & 0.92 & 0.17  \\
 1.0  & 0.83  &  &  &  \\
      &       & 1.5  & 0.77  & a  \\
 2.0  & 0.71  &  &  &  \\
-     &       & 2.5  & 0.665 & 0.09  \\
+     &       & 2.5  & 0.66 & 0.09  \\
 3.0  & 0.62  &  &  &  \\
      &       & 3.5  & b & 0.07  \\
 4.0  & 0.55  &  &  &  \\
-     &       & 4.5  & 0.525 & c  \\
+     &       & 4.5  & 0.52 & c  \\
 5.0  & 0.50  &  &  &  \\
 \end{tabular}
 \end{table}
 
-Vul de tabel  verder aan:
-\[a = \answer{0.12}\]
-\[b = \answer{0.585}\]
-\[c = \answer{0.05}\]
-
-Om de plot te kunnen maken hebben we als laatste nog data voor $\sqrt{\frac{C_A}{-R_A}}$ nodig. 
-
 \begin{table}[h!]
 \centering
 \begin{tabular}{c||c|c}
-$t$ (h) & $C_A$ (mol/L) & $\sqrt{\frac{C_A}{-R_A}}$ \\
+$t$ (h) & $x$ & $y$ \\
 \hline
-0.5 & 0.915 & 2.32 \\
+0.5 & 0.92 & 2.32 \\
 1.5 & 0.77  & d \\
-2.5 & 0.665 & 2.72 \\
-3.5 & 0.585 & e \\
-4.5 & 0.525 & 3.24 \\
+2.5 & 0.66 & 2.72 \\
+3.5 & b & e \\
+4.5 & 0.52 & 3.24 \\
 \end{tabular}
 \end{table}
 
-Vul de tabel aan:
+\[a = \answer{0.12}\]
+\[b = \answer{0.58}\]
+\[c = \answer{0.05}\]
 \[d = \answer{2.53}\]
 \[e = \answer{2.89}\]
+
 \end{question}
 
 \begin{question} \textbf{Interpreteren van de plot} \\
+Maak in de Google Colab-file vervolgens een plot van de de berekende waarden en maak een lineaire fit doorheen de punten. 
+
+\iffalse 
     De verzamelde data kan nu geplot worden in een $C_A$ versus $\sqrt{\frac{C_A}{-R_A}}$ plot.
 \pgfplotsset{compat=1.18}
 \begin{figure}[h!]
@@ -401,7 +406,7 @@ Vul de tabel aan:
 \end{axis}
 \end{tikzpicture}
 \end{figure}
-
+\fi
 Hiermee kunnen we $k_1$ en $k_2$ bepalen.
 \[k_1 = \answer{0.055}\]
 \[k_2 = \answer{-0.513}\]
@@ -410,7 +415,7 @@ Hiermee kunnen we $k_1$ en $k_2$ bepalen.
     Het intercept van de rechte: $\frac{1}{\sqrt{k_1}} = 4.25$.
     \[k_1 = 0.055\]
     De helling van de rechte: $\frac{k_2}{\sqrt{k_1}} = -2.18$. \\
-    \[k_2 = -0.513\]
+    \[k_2 = -0.51\]
 \end{feedback}
 \end{question}
 
