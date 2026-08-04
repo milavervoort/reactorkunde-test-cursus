@@ -25,7 +25,7 @@ Beschouw bijvoorbeeld de reactiesnelheid:
 \]
 waarin de onbekende parameters de snelheidsconstante $k$ en de reactieordes $n$ en $m$ zijn.
 
-Deze vergelijking kan herschreven worden zodat we een lineair model krijgen:
+Deze vergelijking kan herschreven worden zodat het probleem wordt omgezet naar een lineair model in de onbekende parameters:
 
 \[
 \underbrace{\ln\!\left(-\frac{dC_A}{dt}\right)}_{y}
@@ -86,8 +86,7 @@ a_0+a_1x_{1,j}+a_2x_{2,j}.
 
 \textit{(De notatie $\hat{y}$ wordt gebruikt om aan te geven dat dit de door het model voorspelde waarde is, in tegenstelling tot de experimenteel gemeten waarde $y$.)}
 
-Voor elke andere keuze van de parameters krijgen we een andere voorspelling. De parameters van het model bepalen dus rechtstreeks hoe goed het model de experimentele gegevens beschrijft. De kleinste-kwadratenmethode zal daarom niet zomaar de waarden van $a_0$, $a_1$ en $a_2$ kiezen, maar zoekt specifiek naar de combinatie die de
-beste overeenkomst geeft tussen het model en de experimenten.
+Elke keuze van de parameters levert dus een andere modelvoorspelling op. De kleinste-kwadratenmethode zoekt de parametercombinatie waarvoor de afwijking tussen de modelvoorspellingen en de experimentele gegevens minimaal is.
 
 De experimentele waarde $y_j$ en de modelvoorspelling $\hat{y}_j$ zullen in het
 algemeen niet gelijk zijn:
@@ -112,19 +111,20 @@ Voor een ideaal model dat de reactiesnelheidsvergelijking perfect beschrijft, zo
 
 De grootte van deze residuen hangt dus af van de gekozen waarden van de parameters. Door de parameters van het model te veranderen, verandert immers ook de voorspelde waarde $\hat{y}_j$ en bijgevolg ook het residu.
 
-De optimale parameters zijn deze waarvoor $S$ minimaal wordt.
+De optimale parameters zijn dus deze waarvoor de totale afwijking tussen het model en de experimentele gegevens zo klein mogelijk is.
 
-Men zou kunnen proberen de residuen eenvoudig op te tellen,
-
+Het principe van de kleinste-kwadratenmethode kan daarom schematisch worden weergegeven als:
 \[
-\sum_{j=1}^{N}e_j,
+(a_0,a_1,a_2)
+\longrightarrow
+\hat{y}_j
+\longrightarrow
+e_j=y_j-\hat{y}_j
+\longrightarrow
+S
 \]
 
-maar dit is geen goede maat voor de kwaliteit van de benadering.
-Positieve en negatieve residuen kunnen elkaar immers opheffen, waardoor een
-slechte benadering toch een kleine som kan opleveren.
-
-Daarom beschouwen we de \textbf{som van de gekwadrateerde residuen}
+Omdat positieve en negatieve afwijkingen elkaar kunnen opheffen, wordt niet de som van de residuen gebruikt, maar de som van de gekwadrateerde residuen:
 
 \[
 S
@@ -135,16 +135,6 @@ S
 Door de residuen te kwadrateren zijn alle bijdragen positief en krijgen grote
 afwijkingen bovendien een groter gewicht dan kleine afwijkingen.
 
-Het principe van de kleinste-kwadratenmethode kan daarom schematisch worden weergegeven als:
-\[
-(a_0,a_1,a_2)
-\longrightarrow
-\hat{y}_j
-\longrightarrow
-e_j=y_j-\hat{y}_j
-\longrightarrow
-S=\sum_j e_j^2
-\]
 
 Invullen van de uitdrukking voor het residu levert
 
@@ -241,6 +231,7 @@ Deze vergelijkingen worden de \textbf{normaalvergelijkingen} genoemd. Ze vormen
 een stelsel van drie lineaire vergelijkingen met de drie onbekenden $a_0$, $a_1$ en $a_2$. Door dit stelsel op te lossen verkrijgen we de regressiecoëfficiënten van het lineaire model.
 
 \begin{example} \textbf{Een rechte fitten met de kleinste-kwadratenmethode} 
+
 In de hoofdstukken over de integrale en differentiële analysemethode werd eenrechte door de experimentele meetpunten gefit met behulp van de Python-functie \texttt{polyfit}. 
 
 Deze functie gebruikt achterliggend de methode van de kleinste kwadraten om de coëfficiënten van de best passende rechte te bepalen. We bekijken nu hoe hetzelfde resultaat stap voor stap bekomen kan worden met de afleiding uit de vorige paragraaf.
@@ -259,14 +250,6 @@ In Python werd de regressierechte bepaald met
 a, b = np.polyfit(x, y, 1)
 y_fit = a*np.array(x) + b
 \end{verbatim}
-
-De functie \texttt{np.polyfit()} voert deze optimalisatie automatisch uit. Achterliggend worden de parameters $a_0$ en $a_1$ bepaald waarvoor de som van de gekwadrateerde afwijkingen minimaal wordt:
-
-\[
-S=\sum_j(y_j-(a_0+a_1x_j))^2
-\]
-
-De gebruiker hoeft dus de normaalvergelijkingen niet zelf op te lossen.
 
 We bekijken nu hoe dezelfde rechte bekomen wordt met de methode van de
 kleinste kwadraten.\\
@@ -435,36 +418,17 @@ de totale afwijking tussen model en experiment minimaal is.
 
 \subsection*{Praktische uitvoering}
 
-Hoewel de normaalvergelijkingen analytisch kunnen worden opgelost, gebeurt dit in
-de praktijk vrijwel nooit met de hand. Bij een groot aantal experimenten of een
-groter aantal onbekende parameters wordt het oplossen van deze vergelijkingen
-immers snel omslachtig.
+Hoewel de normaalvergelijkingen voor eenvoudige lineaire problemen analytisch
+kunnen worden opgelost, is dit bij complexe kinetische modellen meestal niet
+meer praktisch mogelijk. De onbekende parameters zijn daar immers gekoppeld aan
+een systeem van differentiaalvergelijkingen.
 
-Daarom worden regressieproblemen tegenwoordig vrijwel altijd numeriek opgelost
-met behulp van software zoals Python, MATLAB of Excel. Deze programma's
-implementeren efficiënte algoritmen die de kleinste-kwadratenoplossing
-automatisch bepalen.
+Daarom wordt de kleinste-kwadratenmethode in de praktijk numeriek uitgevoerd met
+behulp van software zoals Python, MATLAB of Excel. Hierbij wordt een
+optimalisatie-algoritme gebruikt dat de parameterwaarden automatisch aanpast
+tot de som van de gekwadrateerde residuen minimaal is.
 
-Het basisprincipe blijft echter hetzelfde als bij de analytische afleiding:
-er wordt gezocht naar de parameterwaarden waarvoor de som van de
-gekwadrateerde residuen minimaal is.
-
-Bij eenvoudige lineaire modellen, zoals
-
-\[
-y=a_0+a_1x,
-\]
-
-kunnen de normaalvergelijkingen rechtstreeks worden opgesteld en opgelost.
-Bij complexere modellen, zoals kinetische reactiesystemen, is dit meestal niet
-meer praktisch mogelijk. De onbekende parameters zijn dan vaak verweven in een
-systeem van differentiaalvergelijkingen.
-
-In dat geval wordt gebruikgemaakt van een numerieke optimalisatieprocedure. De
-software probeert verschillende waarden van de onbekende parameters uit en
-berekent telkens hoe goed het model de experimentele gegevens beschrijft.
-
-Hiervoor gebruiken we in Python de functie
+In Python gebruiken we hiervoor de functie
 \texttt{least\_squares()} uit de bibliotheek
 \texttt{scipy.optimize}.
 Deze functie bevat het optimalisatie-algoritme, maar kent zelf niets van het
@@ -477,23 +441,14 @@ onderliggende kinetische model. De gebruiker moet daarom drie zaken definiëren:
     \item een eerste schatting van de onbekende parameters.
 \end{enumerate}
 
-De functie \texttt{least\_squares()} past vervolgens de parameters automatisch
-aan totdat de som van de gekwadrateerde residuen minimaal is:
+De functie \texttt{least\_squares()} verandert vervolgens de parameters
+iteratief en zoekt de combinatie waarvoor:
 
 \[
 S=\sum_i e_i^2
 \]
 
-waarbij
-
-\[
-e_i=y_{\text{model},i}-y_{\text{experiment},i}.
-\]
-
-In de volgende sectie bekijken we hoe deze werkwijze praktisch wordt toegepast
-op een kinetisch reactiesysteem met behulp van Python.
-
-\subsection*{Toepassingen}
+minimaal wordt.
 
 
 \end{document}
