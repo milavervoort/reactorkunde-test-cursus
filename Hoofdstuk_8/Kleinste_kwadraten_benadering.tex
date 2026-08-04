@@ -218,5 +218,100 @@ een stelsel van drie lineaire vergelijkingen met de drie onbekenden
 $a_0$, $a_1$ en $a_2$. Door dit stelsel op te lossen verkrijgen we de
 regressiecoëfficiënten van het lineaire model.
 
+\subsubsection*{Praktische uitvoering}
+
+Hoewel de normaalvergelijkingen analytisch kunnen worden opgelost, gebeurt dit
+in de praktijk vrijwel nooit met de hand. Bij een groot aantal experimenten of
+een groter aantal onbekende parameters wordt het oplossen van deze vergelijkingen
+immers snel omslachtig.
+
+Daarom worden regressieproblemen tegenwoordig vrijwel altijd numeriek opgelost
+met behulp van software zoals Python, MATLAB of Excel. Deze programma's
+implementeren efficiënte algoritmen die rechtstreeks de kleinste-kwadratenoplossing berekenen.
+
+\subsection*{Toepassingen}
+\begin{example} \textbf{Een rechte fitten met de kleinste-kwadratenmethode} 
+In de hoofdstukken over de integrale en differentiële analysemethode werd eenrechte door de experimentele meetpunten gefit met behulp van de Python- functie \texttt{polyfit}. 
+
+Deze functie gebruikt achterliggend de methode van de kleinste kwadraten om de coëfficiënten van de best passende rechte te bepalen. We bekijken nu hoe hetzelfde resultaat stap voor stap bekomen kan worden met de afleiding uit de vorige paragraaf.
+
+Beschouw bijvoorbeeld de volgende meetgegevens (dit zijn de gegevens van oefening 2 op de integrale analysemethode):
+\[
+\begin{array}{c|ccccc}
+x = t~(\mathrm{min}) &0&1&2&3&4\\
+\hline
+y = -\ln\left(\frac{C_A-C_{A,eq}}{C_{A0}-C_{A,eq}}\right)&0.00&0.60&1.20&1.90&2.66
+\end{array}
+\]
+
+In Python werd de regressierechte bepaald met
+\begin{verbatim}
+a, b = np.polyfit(x, y, 1)
+y_fit = a*np.array(x) + b
+\end{verbatim}
+
+We bekijken nu hoe dezelfde rechte bekomen wordt met de methode van de
+kleinste kwadraten.\\
+
+Omdat we slechts één onafhankelijke variabele hebben, schrijven we het model als
+\[
+y=a_0+a_1x,
+\]
+waarbij
+\[x=t.\]
+
+De som van de gekwadrateerde residuen wordt
+\[
+S(a_0,a_1) = \sum_{j=1}^{N}\left(y_j-a_0-a_1x_j\right)^2.
+\]
+
+Om het minimum van deze functie te bepalen stellen we de partiële afgeleiden gelijk aan nul.\\
+Dit leidt tot de twee normaalvergelijkingen
+\[\sum y_j = Na_0 + a_1\sum x_j,\]
+\[\sum x_jy_j = a_0\sum x_j + a_1\sum x_j^2. \]
+
+We berekenen nu eerst alle benodigde sommen.
+
+\[
+\sum x_j = 10,  
+\sum y_j = 6.36, 
+\sum x_j^2 = 30,
+\sum x_jy_j = 19.34
+\]
+
+Invullen in de normaalvergelijkingen geeft
+
+\[
+6.36 = 5a_0 + 10a_1,
+\]
+
+\[19.34 = 10a_0 + 30a_1.
+\]
+
+We lossen dit stelsel op.
+Uit de eerste vergelijking volgt
+
+\[ a_0 = \frac{6.36-10a_1}{5}.\]
+
+Invullen in de tweede vergelijking geeft
+\[19.34 = 10\left( \frac{6.36-10a_1}{5}\right)+30a_1,\]
+of
+\[19.34 = 12.72-20a_1+30a_1.\]
+
+Hieruit volgt
+\[a_1 =0.662.\]
+\[a_0 = -0.052.\]
+
+De regressierechte wordt dus
+
+\[
+\boxed{
+y=-0.052+0.662\,t.
+}
+\]
+
+Deze waarden komen (op afrondingsverschillen na) overeen met het resultaat berekend met \textt{np.polyfit(x,y,1)}.
+
+\end{example}
 
 \end{document}
