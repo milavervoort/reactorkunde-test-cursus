@@ -18,20 +18,19 @@
 
 In de vorige hoofdstukken werden de kinetische parameters bepaald met behulp van de integrale analysemethode, de differentiële analysemethode, de methode der beginsnelheden en de methode der halfwaardetijden. Na een geschikte transformatie konden de experimentele gegevens telkens worden beschreven door een lineair verband met één onafhankelijke variabele. De onbekende parameters werden vervolgens bepaald met behulp van een lineaire regressie.
 
-In Python werd hiervoor de functie \texttt{np.polyfit()} gebruikt. Hoewel dit voor de gebruiker grotendeels verborgen blijft, bepaalt deze functie de best passende regressielijn met behulp van de methode van de kleinste kwadraten. In de vorige toepassingen bevatte het model slechts één onafhankelijke variabele, waardoor de regressie eenvoudig grafisch kon worden voorgesteld als een rechte.
+\begin{remark}
+    In Python werd hiervoor de functie \texttt{np.polyfit()} gebruikt. Hoewel dit voor de gebruiker grotendeels verborgen blijft, bepaalt deze functie de best passende regressielijn met behulp van de methode van de kleinste kwadraten. In de vorige toepassingen bevatte het model slechts één onafhankelijke variabele, waardoor de regressie eenvoudig grafisch kon worden voorgesteld als een rechte.
+\end{remark}
 
-In dit hoofdstuk bekijken we hoe deze methode achter de lineaire regressie werkt en hoe hetzelfde principe kan worden uitgebreid naar complexere modellen waarbij meerdere onbekende parameters gelijktijdig moeten worden bepaald.
+In dit hoofdstuk bekijken we hoe de methode achter de lineaire regressie werkt en hoe hetzelfde principe kan worden uitgebreid naar complexere modellen waarbij meerdere onbekende parameters gelijktijdig moeten worden bepaald.
 
 In de praktijk zijn reactiesnelheden immers vaak afhankelijk van meerdere parameters. Beschouw bijvoorbeeld de reactiesnelheidsvergelijking
-
 \[
 -\frac{dC_A}{dt}=kC_A^nC_B^m,
 \]
-
 waarin de onbekende parameters de snelheidsconstante $k$ en de reactieordes $n$ en $m$ zijn.
 
 Door beide zijden te logaritmeren kan deze vergelijking herschreven worden als
-
 \[
 \underbrace{\ln\!\left(-\frac{dC_A}{dt}\right)}_{y}
 =
@@ -41,17 +40,13 @@ Door beide zijden te logaritmeren kan deze vergelijking herschreven worden als
 +
 \underbrace{m}_{a_2}\ln C_B,
 \]
-
 of, met
-
 \[
 x_1=\ln C_A,
 \qquad
 x_2=\ln C_B,
 \]
-
 als
-
 \[
 y=a_0+a_1x_1+a_2x_2.
 \]
@@ -110,7 +105,7 @@ Kan één rechte exact door alle meetpunten worden getrokken?
 
 \end{question}
 
-
+\begin{conclusie}
 Omdat experimentele meetpunten niet perfect op één rechte of modelvergelijking liggen, bestaat er meestal geen parametercombinatie die alle meetgegevens exact beschrijft.
 
 De vraag is daarom niet hoe we een perfecte beschrijving vinden, maar wel hoe we de best mogelijke beschrijving kunnen bepalen:
@@ -120,6 +115,7 @@ De vraag is daarom niet hoe we een perfecte beschrijving vinden, maar wel hoe we
 \end{center}
 
 Om deze vraag objectief te beantwoorden gebruikt men de \textbf{kleinste-kwadratenbenadering} (\textit{Least Squares Approximation}). Deze methode zoekt de parameterwaarden waarvoor de afwijking tussen de experimentele meetpunten en de modelvoorspellingen minimaal is.
+\end{conclusie}
 
 \subsection*{Theoretische afleiding van de methode}
 
@@ -160,7 +156,7 @@ y_j \neq \hat{y}_j
 
 Het model maakt dus voor elke meetwaarde een voorspelling, maar deze voorspelling
 wijkt door meetfouten en modelonnauwkeurigheden af van het experiment.
-
+ \begin{definition}
 Het verschil tussen de experimentele waarde en de modelwaarde noemen we het
 \textbf{residu}:
 
@@ -169,7 +165,7 @@ e_j
 =
 y_j-\hat{y}_j.
 \]
-
+ \end{definition}
 \begin{figure}[h!]
 \centering
 \begin{tikzpicture}
@@ -307,17 +303,6 @@ De grootte van deze residuen hangt dus af van de gekozen waarden van de paramete
 
 De optimale parameters zijn dus deze waarvoor de totale afwijking tussen het model en de experimentele gegevens zo klein mogelijk is.
 
-Het principe van de kleinste-kwadratenmethode kan daarom schematisch worden weergegeven als:
-\[
-(a_0,a_1,a_2)
-\longrightarrow
-\hat{y}_j
-\longrightarrow
-e_j=y_j-\hat{y}_j
-\longrightarrow
-S
-\]
-
 Omdat positieve en negatieve afwijkingen elkaar kunnen opheffen, wordt niet de som van de residuen gebruikt, maar de som van de gekwadrateerde residuen:
 
 \[
@@ -329,8 +314,35 @@ S
 Door de residuen te kwadrateren zijn alle bijdragen positief en krijgen grote
 afwijkingen bovendien een groter gewicht dan kleine afwijkingen.
 
+\begin{conclusie}
+De kleinste-kwadratenmethode verloopt steeds volgens hetzelfde principe:
 
-Invullen van de uitdrukking voor het residu levert
+\[
+\text{gekozen parameters}
+\longrightarrow
+\text{modelvoorspellingen}
+\longrightarrow
+\text{residuen}
+\longrightarrow
+\text{totale afwijking}
+\]
+
+Concreet betekent dit:
+\[
+(a_0,a_1,a_2)
+\longrightarrow
+\hat{y}_j=a_0+a_1x_{1,j}+a_2x_{2,j}
+\longrightarrow
+e_j=y_j-\hat{y}_j
+\longrightarrow
+S=\sum_{j=1}^{N}e_j^2
+\]
+
+De methode zoekt vervolgens de waarden van $a_0$, $a_1$ en $a_2$
+waarvoor deze totale afwijking $S$ minimaal is.
+\end{conclusie}
+
+Invullen van de uitdrukking voor het residu levert:
 
 \[
 S(a_0,a_1,a_2) =
@@ -356,7 +368,7 @@ S(a_0,a_1,a_2).
 }
 \]
 
-\begin{question}
+\begin{example}
 \title{Interactief onderzoeken van de kleinste-kwadratenmethode}
 
 In het kinetische model dat we hierboven bekeken, komen meerdere onafhankelijke
@@ -392,7 +404,7 @@ minimaal is.
 \geogebra{d7ejvvhp}{700}{700}
 \end{center}
 
-
+\begin{question}
 Vul de gevonden waarden van de parameters in.
 
 De waarde van de snijparameter $a_0$ is ongeveer:
@@ -426,12 +438,30 @@ De kleinste-kwadratenmethode zoekt niet naar een rechte die door alle punten
 gaat, maar naar de rechte waarvoor deze totale afwijking minimaal is.
 \end{feedback}
 \end{question}
+\end{example}
 
+In dit eenvoudige voorbeeld waren er slechts twee parameters: de snijparameter $a_0$ en de richtingscoëfficiënt $a_1$. De optimale waarden
+konden we benaderen door de parameters handmatig aan te passen.
 
-De functie $S$ is een functie van drie onbekende parameters. Elke keuze van
-$a_0$, $a_1$ en $a_2$ levert een andere waarde voor $S$. We zoeken dus de
-parametercombinatie waarvoor de som van de gekwadrateerde residuen zo klein
-mogelijk is.
+Bij complexe kinetische modellen is dit echter niet meer haalbaar. Het model
+\[
+y=a_0+a_1x_1+a_2x_2
+\]
+bevat bijvoorbeeld al drie onbekende parameters, en in meer algemene modellen
+kunnen dit er nog veel meer zijn.
+
+Daarom willen we nu een systematische methode afleiden om de optimale parameterwaarden te bepalen zonder deze handmatig te moeten zoeken.
+
+We vertrekken opnieuw van de functie
+\[
+S(a_0,a_1,a_2)
+=
+\sum_{j=1}^{N}
+\left(
+y_j-a_0-a_1x_{1,j}-a_2x_{2,j}
+\right)^2,
+\]
+en zoeken de waarden van $a_0$, $a_1$ en $a_2$ waarvoor deze functie minimaal is.
 
 Bij een functie van één variabele wordt een minimum gevonden door de afgeleide gelijk te stellen aan nul. Op het minimum verandert de functie immers niet meer wanneer de onafhankelijke variabele een kleine verandering ondergaat.
 
