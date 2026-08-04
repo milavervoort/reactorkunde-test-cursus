@@ -14,7 +14,7 @@
 \section*{Kleinste kwadraten benadering}
 \label{Kleinste kwadraten benadering}
 
-\subsubsection*{Algemeen principe}
+\subsection*{Algemeen principe}
 
 Bij de integrale en diffenrentiële analysemethode, de methode der beginsnelheden en de methode der halfwaardetijden worden de kinetische parameters op een eenvoudige sequentiële manier bepaald. Deze methoden zijn echter vooral geschikt wanneer slechts één of twee parameters moeten worden geschat. \\
 In de praktijk zijn reactiesnelheden vaak complexer van aard en afhankelijk van meerdere parameters. In dat geval is het vaak beter om de kinetische parameters gelijktijdig te bepalen aan de hand van een hele reeks experimenten. 
@@ -63,7 +63,7 @@ Welke parameterwaarden zorgen ervoor dat het kinetische model de experimentele m
 
 Om deze vraag te beantwoorden gebruikt men de \textbf{kleinste kwadraten benadering} (\textit{Least Squares Approximation}).
 
-\subsubsection*{Afledingen van de methode}
+\subsection*{Afledingen van de methode}
 
 Veronderstel dat we $N$ experimenten uitvoeren. Voor elk experiment $j$
 ($j=1,\ldots,N$) meten we de concentraties $C_A$ en $C_B$ en bepalen we de
@@ -218,7 +218,7 @@ een stelsel van drie lineaire vergelijkingen met de drie onbekenden
 $a_0$, $a_1$ en $a_2$. Door dit stelsel op te lossen verkrijgen we de
 regressiecoëfficiënten van het lineaire model.
 
-\subsubsection*{Praktische uitvoering}
+\subsection*{Praktische uitvoering}
 
 Hoewel de normaalvergelijkingen analytisch kunnen worden opgelost, gebeurt dit
 in de praktijk vrijwel nooit met de hand. Bij een groot aantal experimenten of
@@ -302,6 +302,7 @@ Hieruit volgt
 \[a_1 =0.662.\]
 \[a_0 = -0.052.\]
 
+
 De regressierechte wordt dus
 
 \[
@@ -311,6 +312,106 @@ y=-0.052+0.662\,t.
 \]
 
 Deze waarden komen (op afrondingsverschillen na) overeen met het resultaat berekend met \texttt{np.polyfit(x,y,1)}.
+
+\begin{figure}[h!]
+\centering
+\begin{tikzpicture}
+\begin{axis}[
+    width=11cm,
+    height=7cm,
+    xlabel={$t$},
+    ylabel={$y$},
+    xmin=-0.2,
+    xmax=4.5,
+    ymin=-0.2,
+    ymax=3,
+    grid=major,
+    legend style={
+        at={(0.03,0.97)},
+        anchor=north west,
+        font=\scriptsize
+    }
+]
+
+% Meetpunten
+\addplot[
+    only marks,
+    mark=*,
+    mark size=2pt,
+    blue
+]
+coordinates {
+    (0,0)
+    (1,0.60)
+    (2,1.20)
+    (3,1.90)
+    (4,2.66)
+};
+\addlegendentry{Experimentele data}
+
+% Regressierechte y=-0.052+0.662t
+\addplot[
+    red,
+    thick,
+    domain=0:4
+]
+{-0.052+0.662*x};
+
+\addlegendentry{
+    kleinste-kwadratenfit:
+    $y=-0.052+0.662t$
+}
+
+% Residuen tekenen
+\addplot[
+    dashed,
+    gray
+]
+coordinates {
+    (0,0) (0,-0.052)
+};
+
+\addplot[
+    dashed,
+    gray
+]
+coordinates {
+    (1,0.60) (1,0.610)
+};
+
+\addplot[
+    dashed,
+    gray
+]
+coordinates {
+    (2,1.20) (2,1.272)
+};
+
+\addplot[
+    dashed,
+    gray
+]
+coordinates {
+    (3,1.90) (3,1.934)
+};
+
+\addplot[
+    dashed,
+    gray
+]
+coordinates {
+    (4,2.66) (4,2.596)
+};
+\end{axis}
+\end{tikzpicture}
+\caption{Lineaire regressie van de meetgegevens met de kleinste-kwadratenmethode. 
+De verticale afstanden tussen de meetpunten en de regressierechte stellen de residuen voor.}
+\label{fig:kleinste_kwadraten_rechte}
+\end{figure}
+
+De figuur toont grafisch wat de kleinste-kwadratenmethode probeert te bereiken:
+niet noodzakelijk een rechte die door alle punten gaat, maar een rechte waarvoor
+de totale afwijking tussen model en experiment minimaal is.
 
 \end{example}
 
