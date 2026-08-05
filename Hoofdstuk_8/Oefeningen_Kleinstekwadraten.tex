@@ -98,11 +98,7 @@ C_B=C_{B,0}+\left(C_{A,0}-C_A\right).
 
 \end{feedback}
 
-Ga nu naar de Google Colab-notebook en vul de volgende regel aan:
-
-\begin{center}
-\verb |ds["CB"] = |
-\end{center}
+Ga nu naar de Google Colab-notebook en vul de volgende regel aan: \texttt{ds["CB"]}
 \end{question}
 
 \begin{question}
@@ -149,8 +145,8 @@ Voor de kleinste-kwadratenmethode is een eerste schatting van de onbekende param
 Geef hieronder een eerste schatting voor de reactiesnelheidsconstanten.
 
 
-\[k_1=\answer[tolerance=5]{5}\]
-\[k_2=\answer[tolerance=5]{5}\]
+\[k_1=\answer{}\]
+\[k_2=\answer{}\]
 
 \begin{feedback}
 Er bestaat geen unieke juiste initiële schatting. Belangrijk is dat de gekozen waarden fysisch realistisch zijn.
@@ -176,7 +172,7 @@ Vul nu stap 2 aan in de Google Colab-notebook en gebruik daar jouw gekozen initi
 \end{question}
 
 \begin{question}
-\textbf{Stap 3 \& 4: Berekenen van de modelvoorspellingen en residuen via de objective function}
+\textbf{Stap 3 \&  4: Berekenen van de modelvoorspellingen en residuen via de objective function}
 
 Om de onbekende parameters te bepalen, moet voor elke parametercombinatie eerst het kinetisch model worden gesimuleerd. Hiervoor worden de massabalansen opgelost met \verb|odeint()|.
 
@@ -207,7 +203,7 @@ Vul nu in de Google Colab-notebook de ontbrekende code aan: \verb|residuals = |
 \end{question}
 
 \begin{question}
-\textbf{Stap 5 \& 6: Optimaliseer de parameters met \texttt{least\_square()} en interpreteer resultaten}
+\textbf{Stap 5 \&  6: Optimaliseer de parameters met \texttt{least\_square()} en interpreteer resultaten}
 
 Voer de notebook volledig uit en noteer hieronder de gevonden waarden.
 
