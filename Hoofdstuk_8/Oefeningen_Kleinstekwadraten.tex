@@ -55,12 +55,58 @@ $t$ (min) & $C_A$ (mol/L)\\
 
 De experimentele gegevens zullen gebruikt worden om de onbekende kinetische parameters te bepalen.
 
+De berekeningen voer je uit in de bijhorende Google Colab-notebook. Open de notebook via onderstaande link en gebruik deze tijdens het oplossen van de oefening.
+
+\begin{center}
+\href{https://colab.research.google.com/drive/1XiDw3d7TNHpXzvnJET9ZXZ9ro5OCJlXt?usp=sharing}{\Large Open de Google Colab-notebook}
+\end{center}
+
 \textbf{Gevraagd}
 
 Bepaal de waarden van $k_1$ en $k_2$ door gebruik te maken van de kleinste-kwadratenmethode.
 
 \begin{question}
-\textbf{Opstellen van de massabalansen}
+\textbf{Stap 0: Verzamel de experimentele gegevens}
+
+Tijdens het experiment werd enkel de concentratie van component $A$ gemeten. De concentratie van component $B$ kan echter bepaald worden op basis van de stoichiometrie van de reactie
+
+\[
+A \rightleftharpoons B.
+\]
+
+Welke uitdrukking moet gebruikt worden om de concentratie van $B$ te berekenen?
+
+\begin{multipleChoice}
+    \choice{$C_B=C_A+C_{B,0}$}
+    \choice{$C_B=C_{B,0}-(C_{A,0}-C_A)$}
+    \choice[correct]{$C_B=C_{B,0}+(C_{A,0}-C_A)$}
+    \choice{$C_B=C_{A,0}+C_A-C_{B,0}$}
+\end{multipleChoice}
+
+\begin{feedback}
+Voor elke mol $A$ die verdwijnt, wordt één mol $B$ gevormd. De toename van de concentratie van $B$ is dus gelijk aan de afname van de concentratie van $A$:
+
+\[
+C_B-C_{B,0}=C_{A,0}-C_A.
+\]
+
+Hieruit volgt
+
+\[
+C_B=C_{B,0}+\left(C_{A,0}-C_A\right).
+\]
+
+\end{feedback}
+
+Ga nu naar de Google Colab-notebook en vul de volgende regel aan:
+
+\begin{center}
+\verb ds["CB"] = 
+\end{center}
+\end{question}
+
+\begin{question}
+\textbf{Stap 1: Opstellen van de massabalansen}
 
 Voor een batchreactor geldt dat de verandering van de concentratie gelijk is aan de reactiesnelheid.
 
@@ -89,13 +135,57 @@ Daarom zijn de reactiesnelheden voor beide componenten gelijk maar tegengesteld 
 
 \end{feedback}
 
-Ga nu naar de Google Colab-file en vul de functie de volgende functie \texttt{derivatives()} verder aan.
-
-\begin{center}
-\href{https://colab.research.google.com/drive/1XiDw3d7TNHpXzvnJET9ZXZ9ro5OCJlXt?usp=sharing}{\Large Open de Google Colab notebook}
-\end{center}
+Ga nu naar de Google Colab-file en vul de functie \texttt{derivatives()} verder aan waar nodig met de opgestelde massabalansen.
 
 \end{question}
+
+\begin{question}
+\textbf{Stap 2: Kies een eerste schatting van de parameters}
+
+Voor de kleinste-kwadratenmethode is een eerste schatting van de onbekende parameters nodig. Deze waarden hoeven niet exact te zijn, maar moeten wel fysisch realistisch zijn.
+
+Geef hieronder een eerste schatting voor de reactiesnelheidsconstanten.
+
+\[
+k_1=\answer[tolerance=2]{0.5}
+\qquad
+\]
+\[
+k_2=\answer[tolerance=2]{0.5}
+\]
+
+\[
+k_1=\answer[validator="0 < x && x < 10"]{}
+\]
+
+\[
+k_2=\answer[validator="0 < x && x < 10"]{}
+\]
+
+\begin{feedback}
+Er bestaat geen unieke juiste initiële schatting. Belangrijk is dat de gekozen waarden fysisch realistisch zijn.
+
+Enkele aandachtspunten:
+\begin{itemize}
+    \item Reactiesnelheidsconstanten zijn positief: negatieve waarden zijn niet fysisch mogelijk.
+    \item Omdat de reactie reversibel is, verwacht je dat zowel $k_1$ als $k_2$ een betekenisvolle waarde hebben. Wanneer één van beide veel groter is dan de andere, gedraagt het systeem zich bijna als een irreversibele reactie.
+    \item Waarden in de grootteorde van $10^{-1}$ tot $1\ \mathrm{min^{-1}}$ zijn voor deze oefening een redelijke eerste schatting.
+\end{itemize}
+
+Een mogelijke keuze is bijvoorbeeld
+
+\[
+k_1=1\ \mathrm{min^{-1}}, \qquad
+k_2=0.5\ \mathrm{min^{-1}}.
+\]
+
+Andere positieve waarden van dezelfde grootteorde zijn eveneens geschikte initiële schattingen.
+\end{feedback}
+
+Vul nu stap 2 aan in de Google Colab-notebook en gebruik daar jouw gekozen initiële schatting.
+\end{question}
+
+
 
 
 \end{document}
