@@ -17,25 +17,20 @@
 
 In een isotherme batchreactor verloopt de reactie:
 \[
-A+B \rightarrow P
+A \underset{k_2}{\overset{k_1}{\rightleftharpoons}} B
 \]
 
-De reactiesnelheid wordt beschreven door een algemene machtswet:
-\[
--R_A = kC_A^nC_B^m
-\]
 waarbij:
 \begin{itemize}
-    \item $k$ de reactiesnelheidsconstante is;
-    \item $n$ de reactieorde ten opzichte van component $A$ is;
-    \item $m$ de reactieorde ten opzichte van component $B$ is.
+    \item $k_1$ de reactiesnelheidsconstante is voor de heenwaartse reactie;
+    \item $k_2$ de reactiesnelheidsconstante is voor de terugwaartse reactie 
 \end{itemize}
 
-De waarden van $k$, $n$ en $m$ zijn onbekend en moeten bepaald worden op basis van experimentele gegevens.
+De waarden van $k_1$ en $k_2$ zijn onbekend en moeten bepaald worden op basis van experimentele gegevens.
 
 De beginconcentraties in de batchreactor zijn:
 \[C_A(0)=1.50 \ \mathrm{mol/L}\]
-\[C_B(0)=0.80 \ \mathrm{mol/L}\]
+\[C_B(0)=0.50 \ \mathrm{mol/L}\]
 
 Tijdens het experiment werd de concentratie van component $A$ gemeten als functie van de tijd:
 
@@ -44,20 +39,17 @@ Tijdens het experiment werd de concentratie van component $A$ gemeten als functi
 $t$ (min) & $C_A$ (mol/L)\\
 \hline
 0  & 1.500\\
-2  & 1.390\\
-4  & 1.292\\
-6  & 1.205\\
-8  & 1.127\\
-10 & 1.058\\
-12 & 0.997\\
-15 & 0.918\\
-18 & 0.855\\
-21 & 0.804\\
-24 & 0.760\\
-28 & 0.708\\
-32 & 0.666\\
-36 & 0.632\\
-40 & 0.603
+5  & 1.389\\
+10 & 1.278\\
+15 & 1.203\\
+20 & 1.118\\
+25 & 1.067\\
+30 & 0.999\\
+35 & 0.962\\
+40 & 0.910\\
+45 & 0.886\\
+50 & 0.848\\
+60 & 0.807
 \end{tabular}
 \end{center}
 
@@ -65,11 +57,7 @@ De experimentele gegevens zullen gebruikt worden om de onbekende kinetische para
 
 \textbf{Gevraagd}
 
-Bepaal de waarden van:
-\[
-k,\qquad n,\qquad m
-\]
-door gebruik te maken van de kleinste-kwadratenmethode.
+Bepaal de waarden van $k_1$ en $k_2$ door gebruik te maken van de kleinste-kwadratenmethode.
 
 \begin{question}
 \textbf{Opstellen van de massabalansen}
@@ -80,31 +68,31 @@ De differentiaalvergelijking voor component $A$ is gegeven:
 \[
 \frac{dC_A}{dt}
 =
--kC_A^nC_B^m
+\answer{-k_1C_A + k_2C_B}
 \]
 
 Schrijf nu ook de differentiaalvergelijking voor component $B$:
 \[
 \frac{dC_B}{dt}
 =
-\answer{-kC_A^nC_B^m}
+\answer{k_1C_A - k_2C_B}
 \]
 
 \begin{feedback}
 Omdat de reactie verloopt volgens:
 \[
-A+B\rightarrow P
+A \rightleftharpoons B
 \]
-wordt één mol $A$ verbruikt voor elke mol $B$.
+wordt 1 mol $A$ verbruikt voor productie van elke mol $B$.
 
-Daarom zijn de reactiesnelheden voor beide componenten gelijk.
+Daarom zijn de reactiesnelheden voor beide componenten gelijk maar tegengesteld van teken.
 
 \end{feedback}
 
 Ga nu naar de Google Colab-file en vul de functie de volgende functie \texttt{derivatives()} verder aan.
 
 \begin{center}
-\href{https://colab.research.google.com/drive/1KMbrIb-dhCVjYsc-zY4-dgeAz9XxMDmZ?usp=sharing}{\Large Open de Google Colab notebook}
+\href{https://colab.research.google.com/drive/1XiDw3d7TNHpXzvnJET9ZXZ9ro5OCJlXt?usp=sharing}{\Large Open de Google Colab notebook}
 \end{center}
 
 \end{question}
