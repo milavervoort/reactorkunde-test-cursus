@@ -13,4 +13,100 @@
 
 \section*{Oefening: reactie tussen twee reagentia}
 
+\textbf{Gegeven}
+
+In een isotherme batchreactor verloopt de reactie:
+\[
+A+B \rightarrow P
+\]
+
+De reactiesnelheid wordt beschreven door een algemene machtswet:
+\[
+-R_A = kC_A^nC_B^m
+\]
+waarbij:
+\begin{itemize}
+    \item $k$ de reactiesnelheidsconstante is;
+    \item $n$ de reactieorde ten opzichte van component $A$ is;
+    \item $m$ de reactieorde ten opzichte van component $B$ is.
+\end{itemize}
+
+De waarden van $k$, $n$ en $m$ zijn onbekend en moeten bepaald worden op basis van experimentele gegevens.
+
+De beginconcentraties in de batchreactor zijn:
+\[C_A(0)=1.50 \ \mathrm{mol/L}\]
+\[C_B(0)=0.80 \ \mathrm{mol/L}\]
+
+Tijdens het experiment werd de concentratie van component $A$ gemeten als functie van de tijd:
+
+\begin{center}
+\begin{tabular}{c|c}
+$t$ (min) & $C_A$ (mol/L)\\
+\hline
+0  & 1.500\\
+2  & 1.390\\
+4  & 1.292\\
+6  & 1.205\\
+8  & 1.127\\
+10 & 1.058\\
+12 & 0.997\\
+15 & 0.918\\
+18 & 0.855\\
+21 & 0.804\\
+24 & 0.760\\
+28 & 0.708\\
+32 & 0.666\\
+36 & 0.632\\
+40 & 0.603
+\end{tabular}
+\end{center}
+
+De experimentele gegevens zullen gebruikt worden om de onbekende kinetische parameters te bepalen.
+
+\textbf{Gevraagd}
+
+Bepaal de waarden van:
+\[
+k,\qquad n,\qquad m
+\]
+door gebruik te maken van de kleinste-kwadratenmethode.
+
+\begin{question}
+\textbf{Opstellen van de massabalansen}
+
+Voor een batchreactor geldt dat de verandering van de concentratie gelijk is aan de reactiesnelheid.
+
+De differentiaalvergelijking voor component $A$ is gegeven:
+\[
+\frac{dC_A}{dt}
+=
+-kC_A^nC_B^m
+\]
+
+Schrijf nu ook de differentiaalvergelijking voor component $B$:
+\[
+\frac{dC_B}{dt}
+=
+\answer{-kC_A^nC_B^m}
+\]
+
+\begin{feedback}
+Omdat de reactie verloopt volgens:
+\[
+A+B\rightarrow P
+\]
+wordt één mol $A$ verbruikt voor elke mol $B$.
+
+Daarom zijn de reactiesnelheden voor beide componenten gelijk.
+
+\end{feedback}
+
+Ga nu naar de Google Colab-file en vul de functie de volgende functie \texttt{derivatives(t,y,theta)} verder aan.
+
+\begin{center}
+\href{https://colab.research.google.com/drive/1KMbrIb-dhCVjYsc-zY4-dgeAz9XxMDmZ?usp=sharing}{\Large Open de Google Colab notebook}
+\end{center}
+
+
+\end{question}
 \end{document}
