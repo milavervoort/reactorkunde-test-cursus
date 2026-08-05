@@ -175,25 +175,65 @@ Vul nu stap 2 aan in de Google Colab-notebook en gebruik daar jouw gekozen initi
 \end{question}
 
 \begin{question}
-\textbf{Stap 3 \& 4: Berekenen van de modelvoorspellingen en residuen}
+\textbf{Stap 3 \& 4: Berekenen van de modelvoorspellingen en residuen via de objective function}
 
-De kleinste-kwadratenmethode vergelijkt de modelvoorspellingen met de experimentele gegevens.
+Om de onbekende parameters te bepalen, moet voor elke parametercombinatie eerst het kinetisch model worden gesimuleerd. Hiervoor worden de massabalansen opgelost met \verb|odeint()|.
 
-Hoe wordt het residu voor een meetpunt gedefinieerd?
+De bekomen modelvoorspellingen worden vervolgens vergeleken met de experimentele meetgegevens in de \texttt{objective\_function()}.
 
-\[
-r_i=
-\answer{C_{i,\mathrm{model}}-C_{i,\mathrm{exp}}}
-\]
+Welke bewerking wordt in deze functie uitgevoerd om de residuen te bepalen?
+
+\begin{multipleChoice}
+    \choice{De experimentele concentraties worden gedeeld door de modelconcentraties.}
+    \choice[correct]{Van elk meetpunt wordt het verschil tussen de modelvoorspelling en de experimentele concentratie berekend.}
+    \choice{De modelconcentraties worden opgeteld bij de experimentele concentraties.}
+    \choice{De afgeleiden van de concentraties worden opnieuw berekend.}
+\end{multipleChoice}
 
 \begin{feedback}
-Voor elk meetpunt wordt het verschil tussen model en experiment berekend.
+Voor elke parametercombinatie verloopt de objective function steeds volgens dezelfde stappen:
 
-De optimizer minimaliseert vervolgens de som van de gekwadrateerde residuen.
+\begin{enumerate}
+    \item Los de massabalansen op met \verb|odeint()|.
+    \item Bereken de modelconcentraties op de experimentele tijdstippen.
+    \item Bereken voor elk meetpunt het residu als het verschil tussen model en experiment.
+    \item Geef alle residuen terug aan \verb|least_squares()|, zodat de som van de gekwadrateerde residuen geminimaliseerd kan worden.
+\end{enumerate}
+
 \end{feedback}
 
-Vul nu in de notebook de berekening van de residuen aan in de functie
-\verb|objective_function()|.
+Vul nu in de Google Colab-notebook de ontbrekende code aan: \verb|residuals = |
+\end{question}
+
+\begin{question}
+\textbf{Stap 5 \& 6: Optimaliseer de parameters met \texttt{least\_square()} en interpreteer resultaten}
+
+Voer de notebook volledig uit en noteer hieronder de gevonden waarden.
+
+\[
+k_1=
+\answer{0.02}
+\qquad
+k_2=
+\answer{0.01}
+\]
+
+Bekijk vervolgens de grafiek waarin de experimentele gegevens en de modelvoorspellingen samen worden weergegeven.
+
+Hoe beoordeel je de kwaliteit van de fit?
+
+\begin{multipleChoice}
+    \choice{De modelvoorspellingen wijken sterk af van de experimentele gegevens.}
+    \choice[correct]{De modelvoorspellingen volgen de experimentele gegevens goed.}
+    \choice{Het model voorspelt enkel de concentratie van component $A$ correct.}
+    \choice{Het model voorspelt enkel de concentratie van component $B$ correct.}
+\end{multipleChoice}
+
+\begin{feedback}
+Na de optimalisatie liggen de modelvoorspellingen dicht bij de experimentele meetpunten. Dit wijst erop dat de gevonden waarden van $k_1$ en $k_2$ de experimentele gegevens goed beschrijven.
+
+Merk op dat de optimale parameterwaarden afhangen van de experimentele gegevens en het gekozen kinetisch model.
+\end{feedback}
 
 \end{question}
 
