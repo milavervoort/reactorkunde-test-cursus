@@ -101,7 +101,7 @@ C_B=C_{B,0}+\left(C_{A,0}-C_A\right).
 Ga nu naar de Google Colab-notebook en vul de volgende regel aan:
 
 \begin{center}
-\verb | ds["CB"] = |
+\verb |ds["CB"] = |
 \end{center}
 \end{question}
 
@@ -114,28 +114,30 @@ De differentiaalvergelijking voor component $A$ is gegeven:
 \[
 \frac{dC_A}{dt}
 =
-\answer{-k_1C_A + k_2C_B}
+\answer{-k1CA + k2CB}
 \]
 
 Schrijf nu ook de differentiaalvergelijking voor component $B$:
 \[
 \frac{dC_B}{dt}
 =
-\answer{k_1C_A - k_2C_B}
+\answer{k1CA - k2CB}
 \]
 
 \begin{feedback}
 Omdat de reactie verloopt volgens:
+\[A \rightleftharpoons B\]
+wordt 1 mol (A) verbruikt voor elke mol (B) die gevormd wordt. De reactiesnelheid is:
 \[
-A \rightleftharpoons B
+R = k_1C_A-k_2C_B
 \]
-wordt 1 mol $A$ verbruikt voor productie van elke mol $B$.
-
-Daarom zijn de reactiesnelheden voor beide componenten gelijk maar tegengesteld van teken.
-
+De massabalansen zijn daarom gelijk in grootte maar tegengesteld van teken:
+\[\frac{dC_A}{dt}=-R=-k_1C_A+k_2C_B\]
+\[\frac{dC_B}{dt}=R=k_1C_A-k_2C_B\]
 \end{feedback}
 
-Ga nu naar de Google Colab-file en vul de functie \texttt{derivatives()} verder aan waar nodig met de opgestelde massabalansen.
+Vul deze vergelijking in bij de functie \texttt{derivatives()} in de Google Colab-file.
+
 
 \end{question}
 
@@ -146,11 +148,9 @@ Voor de kleinste-kwadratenmethode is een eerste schatting van de onbekende param
 
 Geef hieronder een eerste schatting voor de reactiesnelheidsconstanten.
 
-%\[k_1=\answer[tolerance=2]{0.5}\]
-%\[k_2=\answer[tolerance=2]{0.5}\]
-
 \[k_1=\answer[validator="0 < x && x < 10"]{}\]
 \[k_2=\answer[validator="0 < x && x < 10"]{}\]
+
 \begin{feedback}
 Er bestaat geen unieke juiste initiële schatting. Belangrijk is dat de gekozen waarden fysisch realistisch zijn.
 
@@ -174,6 +174,28 @@ Andere positieve waarden van dezelfde grootteorde zijn eveneens geschikte initi�
 Vul nu stap 2 aan in de Google Colab-notebook en gebruik daar jouw gekozen initiële schatting.
 \end{question}
 
+\begin{question}
+\textbf{Stap 3 \& 4: Berekenen van de modelvoorspellingen en residuen}
+
+De kleinste-kwadratenmethode vergelijkt de modelvoorspellingen met de experimentele gegevens.
+
+Hoe wordt het residu voor een meetpunt gedefinieerd?
+
+\[
+r_i=
+\answer{C_{i,\mathrm{model}}-C_{i,\mathrm{exp}}}
+\]
+
+\begin{feedback}
+Voor elk meetpunt wordt het verschil tussen model en experiment berekend.
+
+De optimizer minimaliseert vervolgens de som van de gekwadrateerde residuen.
+\end{feedback}
+
+Vul nu in de notebook de berekening van de residuen aan in de functie
+\verb|objective_function()|.
+
+\end{question}
 
 
 
