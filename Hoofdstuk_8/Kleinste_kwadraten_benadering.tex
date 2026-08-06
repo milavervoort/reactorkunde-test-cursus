@@ -106,6 +106,7 @@ Een veelgebruikte methode om een lineaire regressie uit te voeren is de \textbf{
 In dit hoofdstuk passen we dezelfde methode toe op meer algemene kinetische modellen met meerdere onbekende parameters.
 \end{remark}
 
+
 Beschouw bijvoorbeeld de reactiesnelheidsvergelijking
 \[
 -\frac{dC_A}{dt}=kC_A^nC_B^m,
@@ -140,55 +141,53 @@ y=a_0+a_1x_1+a_2x_2.
 Hoewel dit model nog steeds lineair is in de onbekende parameters, bevat het nu meerdere onafhankelijke variabelen. Hierdoor kan de regressie niet langer eenvoudig worden voorgesteld als één rechte in het (x,y)
 -vlak. De parameters moeten gelijktijdig worden geschat uit een volledige reeks experimentele meetgegevens.
 
-\subsection*{Theoretische afleiding van de methode}
+\subsection*{Het wiskundig principe van de kleinste-kwadratenmethode}
 
-In de vorige paragraaf zagen we dat er meestal geen parameterwaarden bestaan
-waarvoor het model alle experimentele gegevens exact beschrijft. We zoeken daarom
-niet naar een perfecte oplossing, maar naar de parameterwaarden waarvoor de
-afwijking tussen model en experiment minimaal is.
+In deze sectie formuleren we de methode van de kleinste kwadraten wiskundig.
+De methode bepaalt de waarden van de onbekende modelparameters waarvoor de
+afwijking tussen de experimentele gegevens en de modelvoorspellingen minimaal
+is.
+
+Beschouw een algemeen model
+
+\[
+\hat{y}=f(x;\theta),
+\]
+
+waarbij $\theta$ de verzameling onbekende parameters van het model voorstelt.
+Voor een gegeven keuze van deze parameters berekent het model een voorspelde
+waarde $\hat{y}$.
 
 Veronderstel dat we $N$ experimenten uitvoeren. Voor elk experiment $j$
-($j=1,\ldots,N$) meten we de concentraties $C_A$ en $C_B$ en bepalen we de
-reactiesnelheid. Na de logaritmische transformatie beschikken we over de
-gegevens
+beschikken we over een experimentele waarde $y_j$. Het model voorspelt voor
+dezelfde experimentele omstandigheden de waarde
 
 \[
-(x_{1,j},x_{2,j},y_j),
-\qquad j=1,\ldots,N.
+\hat{y}_j=f(x_j;\theta).
 \]
 
-Voor een gegeven keuze van de parameters $a_0$, $a_1$ en $a_2$ voorspelt het
-lineaire model de waarde
+Omdat experimentele gegevens steeds een zekere meetonzekerheid bevatten, geldt
+in het algemeen
 
 \[
-\hat{y}_j
-=
-a_0+a_1x_{1,j}+a_2x_{2,j}.
+y_j\neq \hat{y}_j.
 \]
 
-\textit{(De notatie $\hat{y}$ wordt gebruikt om aan te geven dat dit de door het model voorspelde waarde is, in tegenstelling tot de experimenteel gemeten waarde $y$.)}
+Het verschil tussen de experimentele waarde en de modelvoorspelling noemen we
+het \textbf{residu}.
 
-Elke keuze van de parameters levert dus een andere modelvoorspelling op. De kleinste-kwadratenmethode zoekt de parametercombinatie waarvoor de afwijking tussen de modelvoorspellingen en de experimentele gegevens minimaal is.
-
-De experimentele waarde $y_j$ en de modelvoorspelling $\hat{y}_j$ zullen in het
-algemeen niet gelijk zijn:
+\begin{definition}
+Het residu van experiment $j$ wordt gedefinieerd als
 
 \[
-y_j \neq \hat{y}_j
+e_j=y_j-\hat{y}_j.
 \]
 
-Het model maakt dus voor elke meetwaarde een voorspelling, maar deze voorspelling
-wijkt door meetfouten en modelonnauwkeurigheden af van het experiment.
- \begin{definition}
-Het verschil tussen de experimentele waarde en de modelwaarde noemen we het
-\textbf{residu}:
+Het residu geeft dus aan hoe sterk de modelvoorspelling afwijkt van de
+experimentele waarde.
+\end{definition}
 
-\[
-e_j
-=
-y_j-\hat{y}_j.
-\]
- \end{definition}
+
 \begin{figure}[h!]
 \centering
 \begin{tikzpicture}
@@ -208,7 +207,7 @@ y_j-\hat{y}_j.
         font=\small
     }
 ]
-% Regressierechte
+
 \addplot[
     red,
     thick,
@@ -217,7 +216,7 @@ y_j-\hat{y}_j.
 {0.4+0.8*x};
 
 \addlegendentry{model $\hat{y}=a_0+a_1x$}
-% Experimentele punten
+
 \addplot[
     only marks,
     mark=*,
@@ -231,8 +230,9 @@ coordinates{
     (3.0,2.9)
     (4.1,4.0)
 };
+
 \addlegendentry{experimentele waarde $y_j$}
-% Voorspelde punten op de rechte
+
 \addplot[
     only marks,
     mark=square*,
@@ -246,182 +246,123 @@ coordinates{
     (3.0,2.80)
     (4.1,3.68)
 };
+
 \addlegendentry{modelwaarde $\hat{y}_j$}
-% Residuen (dik en zichtbaar)
-\addplot[
-    very thick,
-   green
-]
-coordinates{
-    (0.7,0.96)
-    (0.7,1.10)
-};
 
-
-\addplot[
-    very thick,
-    green
-]
-coordinates{
-    (1.5,1.60)
-    (1.5,1.40)
-};
-
-
+\foreach \x/\ya/\yb in {
+0.7/0.96/1.10,
+1.5/1.60/1.40,
+2.2/2.16/2.40,
+3.0/2.80/2.90,
+4.1/3.68/4.00
+}
+{
 \addplot[
     very thick,
     green
 ]
 coordinates{
-    (2.2,2.16)
-    (2.2,2.40)
+(\x,\ya)
+(\x,\yb)
 };
-\addplot[
-    very thick,
-    green
-]
-coordinates{
-    (3.0,2.80)
-    (3.0,2.90)
-};
+}
 
-\addplot[
-    very thick,
-    green
-]
-coordinates{
-    (4.1,3.68)
-    (4.1,4.00)
-};
-% Labels
 \node[
     green,
     right
 ]
 at (axis cs:2.5,2.25)
 {$e_j=y_j-\hat{y}_j$};
-\node[
-    blue,
-    above
-]
-at (axis cs:2.2,2.4)
-{$y_j$};
-\node[
-    orange,
-    below
-]
-at (axis cs:2.2,2.16)
-{$\hat{y}_j$};
+
 \end{axis}
 \end{tikzpicture}
+
 \caption{
-De verticale afstanden tussen de experimentele meetpunten en de regressierechte stellen de residuen voor. De kleinste-kwadratenmethode zoekt de parameters waarvoor de totale afwijking van deze residuen minimaal is.
+De verticale afstanden tussen de experimentele waarden en de modelvoorspellingen
+stellen de residuen voor.
 }
 \label{fig:residu_visueel}
 \end{figure}
 
-Voor een ideaal model dat de reactiesnelheidsvergelijking perfect beschrijft, zouden alle residuen gelijk zijn aan nul.
 
-De grootte van deze residuen hangt dus af van de gekozen waarden van de parameters. Door de parameters van het model te veranderen, verandert immers ook de voorspelde waarde $\hat{y}_j$ en bijgevolg ook het residu.
+De grootte van de residuen hangt af van de gekozen waarden van de
+modelparameters. Wanneer de parameters veranderen, veranderen immers ook de
+voorspellingen $\hat{y}_j$ en bijgevolg de residuen $e_j$.
 
-De optimale parameters zijn dus deze waarvoor de totale afwijking tussen het model en de experimentele gegevens zo klein mogelijk is.
+De optimale parameters zijn daarom deze waarvoor de totale afwijking tussen het
+model en de experimentele gegevens minimaal is.
 
-Omdat positieve en negatieve afwijkingen elkaar kunnen opheffen, wordt niet de som van de residuen gebruikt, maar de som van de gekwadrateerde residuen:
+Een eenvoudige mogelijkheid zou zijn om de residuen rechtstreeks op te tellen:
 
 \[
-S
-=
-\sum_{j=1}^{N}e_j^2.
+\sum_{j=1}^{N}e_j.
 \]
 
-Door de residuen te kwadrateren zijn alle bijdragen positief en krijgen grote
-afwijkingen bovendien een groter gewicht dan kleine afwijkingen.
+Dit is echter geen geschikte maat voor de totale afwijking, aangezien positieve
+en negatieve residuen elkaar kunnen opheffen.
 
-\begin{conclusion}
-De kleinste-kwadratenmethode verloopt steeds volgens hetzelfde principe:
+Daarom wordt gebruikgemaakt van de som van de gekwadrateerde residuen:
 
 \[
-\text{gekozen parameters}
+S=\sum_{j=1}^{N}e_j^2.
+\]
+
+Door de residuen te kwadrateren verdwijnen de tekens en krijgen grote afwijkingen
+bovendien een groter gewicht dan kleine afwijkingen.
+
+\begin{conclusion}
+De kleinste-kwadratenmethode zoekt de parameterwaarden waarvoor
+
+\[S=\sum_{j=1}^{N}e_j^2\]
+
+minimaal is.
+
+Het algemene principe kan worden samengevat als:
+\[
+\text{parameters}
 \longrightarrow
 \text{modelvoorspellingen}
 \longrightarrow
 \text{residuen}
 \longrightarrow
-\text{totale afwijking}
+\text{som van gekwadrateerde residuen}
 \]
-
-Concreet betekent dit:
-\[
-(a_0,a_1,a_2)
-\longrightarrow
-\hat{y}_j=a_0+a_1x_{1,j}+a_2x_{2,j}
-\longrightarrow
-e_j=y_j-\hat{y}_j
-\longrightarrow
-S=\sum_{j=1}^{N}e_j^2
-\]
-
-De methode zoekt vervolgens de waarden van $a_0$, $a_1$ en $a_2$
-waarvoor deze totale afwijking $S$ minimaal is.
-\end{conclusion}
-
-Invullen van de uitdrukking voor het residu levert:
-
-\[
-S(a_0,a_1,a_2) =
-\sum_{j=1}^{N}
-\left(
-y_j-\hat{y}_j
-\right)^2
-=
-\sum_{j=1}^{N}
-\left(
-y_j-a_0-a_1x_{1,j}-a_2x_{2,j}
-\right)^2.
-\]
-
-De methode van de kleinste kwadraten bestaat erin de waarden van $a_0$, $a_1$ en $a_2$ te bepalen waarvoor deze som minimaal is.
 
 Wiskundig schrijven we dit als
-
-\[
-\boxed{
-\min_{a_0,a_1,a_2}
-S(a_0,a_1,a_2).
-}
-\]
+\[\boxed{\min_{\theta}S(\theta)}\]
+\end{conclusion}
 
 \begin{example}
-Interactief onderzoeken van de kleinste-kwadratenmethode
-\\
-In het kinetische model dat we hierboven bekeken, komen meerdere onafhankelijke
-variabelen voor:
+\textbf{Interactief onderzoeken van de kleinste-kwadratenmethode}
+
+In het algemene model
 
 \[
-y=a_0+a_1x_1+a_2x_2.
+\hat{y}=f(x;\theta)
 \]
 
-Hierdoor kan het model niet meer eenvoudig als een rechte in een tweedimensionale
-grafiek worden voorgesteld.
+kan de relatie tussen de parameters en de modelvoorspellingen vaak niet eenvoudig
+grafisch worden voorgesteld.
 
 Om het principe van de kleinste-kwadratenmethode visueel te onderzoeken,
-bekijken we daarom eerst een eenvoudiger geval met slechts één onafhankelijke
+beschouwen we daarom eerst een eenvoudiger geval met slechts één onafhankelijke
 variabele:
+
 \[
 \hat{y}=a_0+a_1x.
 \]
-Dit model kan wel worden voorgesteld als een rechte in een tweedimensionale
-grafiek. De onderliggende methode is echter exact dezelfde: de parameters
-$a_0$ en $a_1$ worden gekozen zodat de afwijkingen tussen de experimentele
-waarden en de modelvoorspellingen zo klein mogelijk zijn.
 
-Pas in de onderstaande GeoGebra-applicatie de parameters $a_0$ en $a_1$ aan.
-Zoek de rechte waarvoor de waarde van
+Dit model stelt een rechte voor in een tweedimensionale grafiek. De parameters
+$a_0$ en $a_1$ bepalen respectievelijk de positie en de helling van de rechte.
+
+Pas de parameters hieronder aan en zoek de rechte waarvoor de som van de
+gekwadrateerde residuen
+
 \[
 S=\sum_j e_j^2
 \]
-minimaal is.
 
+minimaal is.
 
 \begin{center}
 \geogebra{d7ejvvhp}{700}{700}
@@ -435,10 +376,13 @@ De waarde van de snijparameter $a_0$ is ongeveer:
 \[
 a_0=\answer{0.5}
 \]
+
 \begin{feedback}
-Deze waarde komt overeen met de waarde waarbij de rechte de beste aansluiting
-geeft bij de experimentele punten.
+De optimale waarde van $a_0$ zorgt ervoor dat de rechte gemiddeld zo goed
+mogelijk aansluit bij de experimentele punten.
 \end{feedback}
+
+
 De waarde van de richtingscoëfficiënt $a_1$ is ongeveer:
 
 \[
@@ -446,9 +390,10 @@ a_1=\answer{0.8}
 \]
 
 \begin{feedback}
-Een grotere of kleinere helling zorgt ervoor dat de afwijkingen tussen de
-meetpunten en de rechte groter worden.
+Een verkeerde helling zorgt ervoor dat de afwijkingen tussen de meetpunten en
+het model groter worden.
 \end{feedback}
+
 
 De minimale waarde van de som van de gekwadrateerde residuen is ongeveer:
 
@@ -458,37 +403,46 @@ S=\answer{0.07}
 
 \begin{feedback}
 De kleinste-kwadratenmethode zoekt niet naar een rechte die door alle punten
-gaat, maar naar de rechte waarvoor deze totale afwijking minimaal is.
+gaat, maar naar de rechte waarvoor de totale afwijking minimaal is.
 \end{feedback}
+
 \end{question}
+
 \end{example}
 
-In dit eenvoudige voorbeeld waren er slechts twee parameters: de snijparameter $a_0$ en de richtingscoëfficiënt $a_1$. De optimale waarden
-konden we benaderen door de parameters handmatig aan te passen.
+\subsection*{Toepassing op kinetische modellen}
 
-Bij complexe kinetische modellen is dit echter niet meer haalbaar. Het model
-\[
-y=a_0+a_1x_1+a_2x_2
-\]
-bevat bijvoorbeeld al drie onbekende parameters, en in meer algemene modellen
-kunnen dit er nog veel meer zijn.
+Het interactieve voorbeeld beschouwde een eenvoudig model met slechts één
+onafhankelijke variabele. De methode van de kleinste kwadraten verandert echter
+niet wanneer meerdere parameters of meerdere onafhankelijke variabelen aanwezig
+zijn.
 
-Daarom willen we nu een systematische methode afleiden om de optimale parameterwaarden te bepalen zonder deze handmatig te moeten zoeken.
+In kinetische modellen leidt een geschikte transformatie bijvoorbeeld tot het
+lineaire model:
 
-We vertrekken opnieuw van de functie
-\[
-S(a_0,a_1,a_2)
-=
-\sum_{j=1}^{N}
-\left(
-y_j-a_0-a_1x_{1,j}-a_2x_{2,j}
-\right)^2,
-\]
-en zoeken de waarden van $a_0$, $a_1$ en $a_2$ waarvoor deze functie minimaal is.
+\[y=a_0+a_1x_1+a_2x_2.\]
 
-Bij een functie van één variabele wordt een minimum gevonden door de afgeleide gelijk te stellen aan nul. Op het minimum verandert de functie immers niet meer wanneer de onafhankelijke variabele een kleine verandering ondergaat.
+Voor experiment $j$ voorspelt het model de waarde
 
-Omdat $S$ afhankelijk is van drie parameters, moeten we controleren of er geen verbetering mogelijk is door één van deze parameters afzonderlijk te wijzigen. Daarom moet de helling van $S$ in elke mogelijke richting nul zijn:
+\[\hat{y}_j=a_0+a_1x_{1,j}+a_2x_{2,j}.\]
+
+Het residu wordt bijgevolg:
+
+\[e_j=y_j-a_0-a_1x_{1,j}-a_2x_{2,j}.\]
+
+De methode van de kleinste kwadraten zoekt de waarden van $a_0$, $a_1$ en
+$a_2$ waarvoor de som van de gekwadrateerde residuen minimaal is:
+
+\[ S(a_0,a_1,a_2) =\sum_{j=1}^{N}\left(y_j-a_0-a_1x_{1,j}-a_2x_{2,j}\right)^2.\]
+
+De optimale parameterwaarden voldoen dus aan:
+
+\[\boxed{\min_{a_0,a_1,a_2}S(a_0,a_1,a_2)}\]
+
+De functie $S$ is afhankelijk van drie variabelen: $a_0$, $a_1$ en $a_2$.
+Een minimum wordt bereikt wanneer er geen verbetering meer mogelijk is door één
+van deze parameters afzonderlijk te veranderen. Daarom moeten alle partiële
+afgeleiden gelijk zijn aan nul:
 
 \[
 \frac{\partial S}{\partial a_0}=0,
@@ -498,65 +452,23 @@ Omdat $S$ afhankelijk is van drie parameters, moeten we controleren of er geen v
 \frac{\partial S}{\partial a_2}=0.
 \]
 
-We werken deze partiële afgeleiden één voor één uit.
+Het uitwerken van deze vergelijkingen leidt tot het volgende stelsel:
 
-Voor de afgeleide naar $a_0$ bekomen we
-\[0 = \frac{\partial S}{\partial a_0} 
-= \sum_{j=1}^{N}2\left[y_j-(a_0+a_1x_{1,j}+a_2x_{2,j})\right](-1).
+\[\sum_{j=1}^{N} y_j = a_0N + a_1\sum_{j=1}^{N}x_{1,j} + a_2\sum_{j=1}^{N}x_{2,j},\]
+\[\sum_{j=1}^{N}y_jx_{1,j} = a_0\sum_{j=1}^{N}x_{1,j} + a_1\sum_{j=1}^{N}x_{1,j}^2 + a_2\sum_{j=1}^{N}x_{1,j}x_{2,j},\]
+\[\sum_{j=1}^{N}y_jx_{2,j} = a_0\sum_{j=1}^{N}x_{2,j} + a_1\sum_{j=1}^{N}x_{1,j}x_{2,j} + a_2\sum_{j=1}^{N}x_{2,j}^2.
 \]
+Deze vergelijkingen worden de \textbf{normaalvergelijkingen} genoemd. Door dit stelsel op te lossen verkrijgen we de waarden van $a_0$, $a_1$ en $a_2$ die de
+kleinste totale afwijking tussen het model en de experimentele gegevens geven.
 
-Analoog volgt voor de afgeleiden naar $a_1$ en $a_2$
+\subsection*{Numerieke toepassing: bepalen van een regressierechte}
 
-\[0 = \frac{\partial S}{\partial a_1} 
-= \sum_{j=1}^{N} 2\left[y_j-(a_0+a_1x_{1,j}+a_2x_{2,j})\right](-1)x_{1,j},\]
+\begin{example}
+\textbf{Een rechte fitten met de kleinste-kwadratenmethode}
 
-\[0 = \frac{\partial S}{\partial a_2} 
-= \sum_{j=1}^{N}2\left[y_j-(a_0+a_1x_{1,j}+a_2x_{2,j})\right](-1)x_{2,j}.
-\]
-
-
-De factoren $2$ en $-1$ zijn verschillend van nul en kunnen bijgevolg worden
-weggelaten. Na het uitwerken van de haakjes en het groeperen van gelijke termen
-bekomen we het volgende stelsel van drie lineaire vergelijkingen:
-
-\[
-\sum_{j=1}^{N} y_j
-=
-a_0N
-+
-a_1\sum_{j=1}^{N}x_{1,j}
-+
-a_2\sum_{j=1}^{N}x_{2,j},
-\]
-
-\[
-\sum_{j=1}^{N}y_jx_{1,j}
-=
-a_0\sum_{j=1}^{N}x_{1,j}
-+
-a_1\sum_{j=1}^{N}x_{1,j}^2
-+
-a_2\sum_{j=1}^{N}x_{1,j}x_{2,j},
-\]
-
-\[
-\sum_{j=1}^{N}y_jx_{2,j}
-=
-a_0\sum_{j=1}^{N}x_{2,j}
-+
-a_1\sum_{j=1}^{N}x_{1,j}x_{2,j}
-+
-a_2\sum_{j=1}^{N}x_{2,j}^2.
-\]
-
-Deze vergelijkingen worden de \textbf{normaalvergelijkingen} genoemd. Ze vormen
-een stelsel van drie lineaire vergelijkingen met de drie onbekenden $a_0$, $a_1$ en $a_2$. Door dit stelsel op te lossen verkrijgen we de regressiecoëfficiënten van het lineaire model.
-
-\begin{example} \textbf{Een rechte fitten met de kleinste-kwadratenmethode} 
-
-In de hoofdstukken over de integrale en differentiële analysemethode werd eenrechte door de experimentele meetpunten gefit met behulp van de Python-functie \texttt{polyfit}. 
-
-Deze functie gebruikt achterliggend de methode van de kleinste kwadraten om de coëfficiënten van de best passende rechte te bepalen. We bekijken nu hoe hetzelfde resultaat stap voor stap bekomen kan worden met de afleiding uit de vorige paragraaf.
+In de vorige hoofdstukken werd voor dergelijke lineaire verbanden
+\texttt{np.polyfit()} gebruikt. We berekenen hier dezelfde rechte expliciet
+met de kleinste-kwadratenmethode.
 
 Beschouw bijvoorbeeld de volgende meetgegevens (dit zijn de gegevens van oefening 2 op de integrale analysemethode):
 \[
@@ -735,20 +647,21 @@ De verticale afstanden tussen de meetpunten en de regressierechte stellen de res
 De figuur toont grafisch wat de kleinste-kwadratenmethode probeert te bereiken:
 niet noodzakelijk een rechte die door alle punten gaat, maar een rechte waarvoor
 de totale afwijking tussen model en experiment minimaal is.
-
 \end{example}
 
 \subsection*{Praktische uitvoering}
 
-Hoewel de normaalvergelijkingen voor eenvoudige lineaire problemen analytisch
-kunnen worden opgelost, is dit bij complexe kinetische modellen meestal niet
-meer praktisch mogelijk. De onbekende parameters zijn daar immers gekoppeld aan
-een systeem van differentiaalvergelijkingen.
+Hoewel de normaalvergelijkingen voor eenvoudige lineaire modellen analytisch
+kunnen worden opgelost, is dit voor complexe kinetische modellen meestal niet
+meer mogelijk. De modelvoorspellingen worden daar vaak verkregen door eerst een
+systeem van differentiaalvergelijkingen numeriek op te lossen. Bovendien zijn de
+parameters meestal niet-lineair aanwezig in het model, waardoor een analytische
+oplossing niet beschikbaar is.
 
 Daarom wordt de kleinste-kwadratenmethode in de praktijk numeriek uitgevoerd met
-behulp van software zoals Python, MATLAB of Excel. Hierbij wordt een
-optimalisatie-algoritme gebruikt dat de parameterwaarden automatisch aanpast
-tot de som van de gekwadrateerde residuen minimaal is.
+behulp van software zoals Python, MATLAB of Excel. Het optimalisatie-algoritme zoekt numeriek naar het minimum van dezelfde
+functie die eerder werd afgeleid:
+\[S(\theta)=\sum_i e_i^2\].
 
 In Python gebruiken we hiervoor de functie
 \texttt{least\_squares()} uit de bibliotheek
@@ -757,7 +670,7 @@ Deze functie bevat het optimalisatie-algoritme, maar kent zelf niets van het
 onderliggende kinetische model. De gebruiker moet daarom drie zaken definiëren:
 
 \begin{enumerate}
-    \item een model dat, voor een gegeven set parameters, voorspellingen maakt;
+    \item een kinetisch model dat, voor een gegeven set parameters, de concentraties of reactiesnelheden voorspelt;
     \item een functie die het verschil tussen model en experiment berekent
     (de residuen);
     \item een eerste schatting van de onbekende parameters.
@@ -846,19 +759,11 @@ Deze eerste schatting hoeft niet exact te zijn, maar moet wel fysisch realistisc
 Voor een gegeven parametervector lost Python de differentiaalvergelijkingen numeriek op. Hierdoor worden de voorspelde concentraties op de experimentele meettijdstippen berekend.
 
 Bijvoorbeeld met
-
-\begin{verbatim}
-solution = solve_ivp(...)
-\end{verbatim}
-
-of
-
 \begin{verbatim}
 concentrations_model = odeint(...)
 \end{verbatim}
 
 Het resultaat zijn de modelvoorspellingen
-
 \[
 C_{A,\mathrm{model}}(t),
 \qquad
@@ -875,11 +780,7 @@ Vergelijk de modelvoorspellingen met de experimentele meetgegevens.
 Voor elk meetpunt wordt een residu berekend:
 
 \[
-e_i
-=
-C_{i,\mathrm{model}}
--
-C_{i,\mathrm{exp}}.
+e_i = C_{i,\mathrm{exp}} - C_{i,\mathrm{model}}.
 \]
 
 In Python wordt hiervoor een zogenaamde \emph{objective function} geschreven.
@@ -890,13 +791,9 @@ def objective_function(theta):
     return residuals
 \end{verbatim}
 
-De residuen worden niet vooraf gekwadrateerd. De functie
-\texttt{least\_squares()} doet dit automatisch en minimaliseert
-
-\[
-S=
-\sum_{i=1}^{N}e_i^2.
-\]
+De residuen worden niet vooraf gekwadrateerd.  De functie
+\texttt{least\_squares()} verwacht de vector met residuen als invoer en minimaliseert vervolgens automatisch:
+\[S=\sum_{i=1}^{N}e_i^2.\]
 
 \bigskip
 
@@ -954,7 +851,7 @@ De volledige procedure kan schematisch worden samengevat als:
 \\[0.3cm]
 \downarrow
 \\[0.3cm]
-\text{Bereken de residuen $C_{model}$ - $C_{exp}$}
+\text{Bereken de residuen $C_{exp}$ - $C_{model}$}
 \\[0.3cm]
 \downarrow
 \\[0.3cm]
