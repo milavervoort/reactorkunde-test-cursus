@@ -318,49 +318,39 @@ Wiskundig schrijven we dit als
 
 Het algemene principe kan worden samengevat als:
 \[
-\text{parameters}
-\longrightarrow
-\text{modelvoorspellingen}
-\longrightarrow
-\text{residuen}
-\longrightarrow
-\text{som van gekwadrateerde residuen}
-\]
-
-\[
 \begin{array}{c}
 \text{Startwaarden van de parameters } \boldsymbol{\theta}_0
-\\[0.3cm]
+\\
 \downarrow
-\\[0.3cm]
+\\
 \text{Modelvoorspellingen berekenen}
 \\
 \hat{y}_j=f(x_j;\theta)
-\\[0.3cm]
+\\
 \downarrow
-\\[0.3cm]
+\\
 \text{Residuen bepalen}
 \\
 e_j=y_{j,\mathrm{exp}}-y_{j,\mathrm{model}}
-\\[0.3cm]
+\\
 \downarrow
-\\[0.3cm]
+\\
 \text{Som van de gekwadrateerde residuen berekenen}
 \\
 S(\theta)=\sum_{j=1}^{N}e_j^2
-\\[0.3cm]
+\\
 \downarrow
-\\[0.3cm]
+\\
 \text{Parameters aanpassen om }S(\theta)\text{ te verkleinen}
 \\
 \boldsymbol{\theta}_{i+1}\leftarrow\boldsymbol{\theta}_{i}
-\\[0.3cm]
+\\
 \circlearrowleft
 \\[-0.1cm]
 \text{Herhaal tot }S(\theta)\text{ niet verder vermindert}
-\\[0.3cm]
+\\
 \downarrow
-\\[0.3cm]
+\\
 \text{Optimale parameterwaarden}
 \\
 \boldsymbol{\theta}_{\mathrm{opt}}
