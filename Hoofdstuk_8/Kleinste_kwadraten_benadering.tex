@@ -681,7 +681,7 @@ iteratief en zoekt de combinatie waarvoor $S=\sum_i e_i^2$ minimaal wordt.
 
 De volledige werkwijze bestaat uit de volgende stappen:
 
-\textbf{Stap 1}: Verzamel de experimentele gegevens
+\textbf{Stap 1: Verzamel de experimentele gegevens}
 
 De experimentele meetgegevens vormen de referentie waarmee het model wordt
 vergeleken. Tijdens een experiment worden bijvoorbeeld concentraties gemeten op
@@ -701,8 +701,7 @@ In Python worden deze gegevens bijvoorbeeld opgeslagen als:
 
 \begin{verbatim}
 t_exp = [...]
-CA_exp = [...]
-CB_exp = [...]
+concentrations_exp = [...]
 \end{verbatim}
 
 \bigskip
@@ -738,7 +737,7 @@ Deze waarde vormt het startpunt van het optimalisatie-algoritme.
 
 \textbf{Stap 4: Definieer de residufunctie}
 
-Er wordt een functie ((\texttt{objective\_function})) opgesteld die, voor een gegeven parametercombinatie, de residuen berekent. Deze functie wordt door \texttt{least\_squares()} gebruikt tijdens de optimalisatie.
+Er wordt een functie (\texttt{objective\_function()}) opgesteld die, voor een gegeven parametercombinatie, de residuen berekent. Deze functie wordt door \texttt{least\_squares()} gebruikt tijdens de optimalisatie.
 
 Binnen deze functie worden de differentiaalvergelijkingen eerst numeriek opgelost en daarna worden de residuen berekend.
 
