@@ -103,43 +103,6 @@ Een veelgebruikte methode om een lineaire regressie uit te voeren is de methode 
 In dit hoofdstuk passen we dezelfde methode toe op meer algemene kinetische modellen met meerdere onbekende parameters.
 \end{remark}
 
-\begin{example} \text{ }
-
-Beschouw bijvoorbeeld de reactiesnelheidsvergelijking
-\[
--\frac{dC_A}{dt}=kC_A^nC_B^m,
-\]
-waarin de onbekende parameters de snelheidsconstante $k$ en de reactieordes $n$ en $m$ zijn.
-
-Door beide leden te logaritmeren bekomen we
-
-\[
-\underbrace{\ln\!\left(-\frac{dC_A}{dt}\right)}_{y}
-=
-\underbrace{\ln k}_{a_0}
-+
-\underbrace{n}_{a_1}\ln C_A
-+
-\underbrace{m}_{a_2}\ln C_B.
-\]
-
-Met
-\[
-x_1=\ln C_A,
-\qquad
-x_2=\ln C_B,
-\]
-
-kan dit geschreven worden als
-
-\[
-y=a_0+a_1x_1+a_2x_2.
-\]
-
-Hoewel dit model nog steeds lineair is in de onbekende parameters, bevat het nu meerdere onafhankelijke variabelen. Hierdoor kan de regressie niet langer eenvoudig worden voorgesteld als één rechte in het (x,y)
--vlak. De parameters moeten gelijktijdig worden geschat uit een volledige reeks experimentele meetgegevens.
-\end{example}
-
 \subsection*{Het wiskundig principe van de kleinste-kwadratenmethode}
 
 In deze sectie formuleren we de methode van de kleinste kwadraten wiskundig.
@@ -358,7 +321,7 @@ S(\theta)=\sum_{j=1}^{N}e_j^2
 \]
 \end{conclusion}
 
-\begin{example}
+\begin{question}
 \text{Interactief onderzoeken van de kleinste-kwadratenmethode}
 
 Om het principe van de kleinste-kwadratenmethode visueel te onderzoeken,
@@ -377,7 +340,6 @@ gekwadrateerde residuen $S=\sum_j e_j^2$ minimaal is.
 \geogebra{d7ejvvhp}{700}{700}
 \end{center}
 
-\begin{question}
 Vul de gevonden waarden van de parameters in.
 
 De waarde van de snijparameter $a_0$ is ongeveer:
@@ -388,60 +350,49 @@ De minimale waarde van de som van de gekwadrateerde residuen is ongeveer:
 \[S=\answer{0.07}\]
 \end{question}
 
-\end{example}
+\subsection*{Oplossen van het minimalisatieprobleem}
 
-\subsubsection*{Toepassing op kinetische modellen}
-
-Het interactieve voorbeeld beschouwde een eenvoudig model met slechts één
-onafhankelijke variabele. De methode van de kleinste kwadraten verandert echter
-niet wanneer meerdere parameters of meerdere onafhankelijke variabelen aanwezig
-zijn.
-
-In kinetische modellen leidt een geschikte transformatie bijvoorbeeld tot het
-lineaire model:
-
-\[y=a_0+a_1x_1+a_2x_2.\]
-
-Voor experiment $j$ voorspelt het model de waarde
-
-\[\hat{y}_j=a_0+a_1x_{1,j}+a_2x_{2,j}.\]
-
-Het residu wordt bijgevolg:
-
-\[e_j=y_j-a_0-a_1x_{1,j}-a_2x_{2,j}.\]
-
-De methode van de kleinste kwadraten zoekt de waarden van $a_0$, $a_1$ en
-$a_2$ waarvoor de som van de gekwadrateerde residuen minimaal is:
-
-\[ S(a_0,a_1,a_2) =\sum_{j=1}^{N}\left(y_j-a_0-a_1x_{1,j}-a_2x_{2,j}\right)^2.\]
-
-De optimale parameterwaarden voldoen dus aan:
-
-\[\boxed{\min_{a_0,a_1,a_2}S(a_0,a_1,a_2)}\]
-
-De functie $S$ is afhankelijk van drie variabelen: $a_0$, $a_1$ en $a_2$.
-Een minimum wordt bereikt wanneer er geen verbetering meer mogelijk is door één
-van deze parameters afzonderlijk te veranderen. Daarom moeten alle partiële
-afgeleiden gelijk zijn aan nul:
+De kleinste-kwadratenmethode leidt steeds tot hetzelfde
+minimalisatieprobleem:
 
 \[
-\frac{\partial S}{\partial a_0}=0,
-\qquad
-\frac{\partial S}{\partial a_1}=0,
-\qquad
-\frac{\partial S}{\partial a_2}=0.
+\min_{\theta}S(\theta)
+=
+\min_{\theta}\sum_{j=1}^{N}
+\left(y_{j,\mathrm{exp}}-y_{j,\mathrm{model}}(\theta)\right)^2.
 \]
 
-Het uitwerken van deze vergelijkingen leidt tot het volgende stelsel:
+De manier waarop dit minimum wordt bepaald hangt af van de vorm van het
+model.
 
-\[\sum_{j=1}^{N} y_j = a_0N + a_1\sum_{j=1}^{N}x_{1,j} + a_2\sum_{j=1}^{N}x_{2,j},\]
-\[\sum_{j=1}^{N}y_jx_{1,j} = a_0\sum_{j=1}^{N}x_{1,j} + a_1\sum_{j=1}^{N}x_{1,j}^2 + a_2\sum_{j=1}^{N}x_{1,j}x_{2,j},\]
-\[\sum_{j=1}^{N}y_jx_{2,j} = a_0\sum_{j=1}^{N}x_{2,j} + a_1\sum_{j=1}^{N}x_{1,j}x_{2,j} + a_2\sum_{j=1}^{N}x_{2,j}^2.
+Wanneer het model \textbf{lineair is in de onbekende parameters}, kan het
+minimum analytisch worden bepaald. De functie $S(\theta)$ wordt dan
+afgeleid naar elke onbekende parameter en deze afgeleiden worden gelijkgesteld
+aan nul:
+
+\[
+\frac{\partial S}{\partial \theta_i}=0.
 \]
-Deze vergelijkingen worden de \textbf{normaalvergelijkingen} genoemd. Door dit stelsel op te lossen verkrijgen we de waarden van $a_0$, $a_1$ en $a_2$ die de
-kleinste totale afwijking tussen het model en de experimentele gegevens geven.
 
-\subsection*{Numerieke toepassing: bepalen van een regressierechte}
+Hieruit ontstaat een stelsel vergelijkingen, de zogenaamde
+\textbf{normaalvergelijkingen}. Door dit stelsel op te lossen worden de
+parameterwaarden gevonden waarvoor de som van de gekwadrateerde residuen
+minimaal is.
+
+Voor meer algemene kinetische modellen is deze aanpak meestal niet meer
+mogelijk. De parameters kunnen niet-lineair in het model voorkomen en de
+modelvoorspellingen worden vaak verkregen door eerst een stelsel
+differentiaalvergelijkingen numeriek op te lossen.
+
+In dat geval wordt het minimum van $S(\theta)$ niet analytisch bepaald, maar
+gezocht met een numeriek optimalisatie-algoritme. Het algoritme probeert
+verschillende parameterwaarden uit en past deze iteratief aan totdat de som van
+de gekwadrateerde residuen niet verder kan worden verkleind.
+
+De methode van de kleinste kwadraten blijft dus hetzelfde, maar de manier waarop
+het minimum wordt gevonden verschilt.
+
+\subsection*{Toepassingen}
 
 \begin{example}
 \textbf{Een rechte fitten met de kleinste-kwadratenmethode}
@@ -629,17 +580,86 @@ niet noodzakelijk een rechte die door alle punten gaat, maar een rechte waarvoor
 de totale afwijking tussen model en experiment minimaal is.
 \end{example}
 
-\subsection*{Praktische uitvoering}
+\begin{example} \text{Parameters van een kinetisch model bepalen}
 
-Hoewel de normaalvergelijkingen voor eenvoudige lineaire modellen analytisch
-kunnen worden opgelost, is dit voor complexe kinetische modellen meestal niet
-meer mogelijk. De modelvoorspellingen worden daar vaak verkregen door eerst een
-systeem van differentiaalvergelijkingen numeriek op te lossen. Bovendien zijn de
-parameters meestal niet-lineair aanwezig in het model, waardoor een analytische
-oplossing niet beschikbaar is.
+In het vorige voorbeeld werd een eenvoudig lineair model beschouwd waarvoor de optimale parameters rechtstreeks konden worden berekend. In kinetische toepassingen zijn de modellen echter vaak complexer. De onbekende parameters beïnvloeden rechtstreeks de reactiesnelheid en daardoor de oplossing van de differentiaalvergelijkingen.
+Beschouw bijvoorbeeld de reactiesnelheidsvergelijking
+\[
+-\frac{dC_A}{dt}=kC_A^nC_B^m,
+\]
+waarin de onbekende parameters de snelheidsconstante $k$ en de reactieordes $n$ en $m$ zijn.
 
-Daarom wordt de kleinste-kwadratenmethode in de praktijk numeriek uitgevoerd met
-behulp van software zoals Python, MATLAB of Excel. Het optimalisatie-algoritme zoekt numeriek naar het minimum van dezelfde
+Door beide leden te logaritmeren bekomen we
+
+\[
+\underbrace{\ln\!\left(-\frac{dC_A}{dt}\right)}_{y}
+=
+\underbrace{\ln k}_{a_0}
++
+\underbrace{n}_{a_1}\ln C_A
++
+\underbrace{m}_{a_2}\ln C_B.
+\]
+
+Met
+\[
+x_1=\ln C_A,
+\qquad
+x_2=\ln C_B,
+\]
+
+kan dit geschreven worden als
+
+\[
+y=a_0+a_1x_1+a_2x_2.
+\]
+
+Hoewel dit model nog steeds lineair is in de onbekende parameters, bevat het nu meerdere onafhankelijke variabelen. Hierdoor kan de regressie niet langer eenvoudig worden voorgesteld als één rechte in het (x,y)
+-vlak. De parameters moeten gelijktijdig worden geschat uit een volledige reeks experimentele meetgegevens.
+
+
+Voor experiment $j$ voorspelt het model de waarde
+
+\[\hat{y}_j=a_0+a_1x_{1,j}+a_2x_{2,j}.\]
+
+Het residu wordt bijgevolg:
+
+\[e_j=y_j-a_0-a_1x_{1,j}-a_2x_{2,j}.\]
+
+De methode van de kleinste kwadraten zoekt de waarden van $a_0$, $a_1$ en
+$a_2$ waarvoor de som van de gekwadrateerde residuen minimaal is:
+
+\[ S(a_0,a_1,a_2) =\sum_{j=1}^{N}\left(y_j-a_0-a_1x_{1,j}-a_2x_{2,j}\right)^2.\]
+
+De optimale parameterwaarden voldoen dus aan:
+
+\[\boxed{\min_{a_0,a_1,a_2}S(a_0,a_1,a_2)}\]
+
+De functie $S$ is afhankelijk van drie variabelen: $a_0$, $a_1$ en $a_2$.
+Dit betekent dat alle partiële afgeleiden gelijk moeten zijn aan nul:
+\[
+\frac{\partial S}{\partial a_0}=0,
+\qquad
+\frac{\partial S}{\partial a_1}=0,
+\qquad
+\frac{\partial S}{\partial a_2}=0.
+\]
+
+Het uitwerken van deze vergelijkingen leidt tot het volgende stelsel:
+\[\sum_{j=1}^{N} y_j = a_0N + a_1\sum_{j=1}^{N}x_{1,j} + a_2\sum_{j=1}^{N}x_{2,j},\]
+\[\sum_{j=1}^{N}y_jx_{1,j} = a_0\sum_{j=1}^{N}x_{1,j} + a_1\sum_{j=1}^{N}x_{1,j}^2 + a_2\sum_{j=1}^{N}x_{1,j}x_{2,j},\]
+\[\sum_{j=1}^{N}y_jx_{2,j} = a_0\sum_{j=1}^{N}x_{2,j} + a_1\sum_{j=1}^{N}x_{1,j}x_{2,j} + a_2\sum_{j=1}^{N}x_{2,j}^2.
+\]
+Door dit stelsel op te lossen verkrijgen we de waarden van $a_0$, $a_1$ en $a_2$ die de
+kleinste totale afwijking tussen het model en de experimentele gegevens geven.
+\end{example}
+
+\subsection*{Numerieke parameterbepaling met \texttt{least\_squares()}}
+
+In de vorige voorbeelden werd getoond dat het kleinste-kwadratenprobleem voor eenvoudige lineaire modellen analytisch kan worden opgelost. Voor kinetische modellen is dit meestal niet mogelijk, omdat de parameters niet-lineair voorkomen en de modelvoorspellingen vaak afkomstig zijn uit numerieke oplossingen van differentiaalvergelijkingen.
+
+Daarom wordt het minimum numeriek gezocht met optimalisatie-algoritmen. De kleinste-kwadratenmethode wordt in de praktijk numeriek uitgevoerd met
+behulp van software zoals Python of MATLAB. Het optimalisatie-algoritme zoekt numeriek naar het minimum van dezelfde
 functie die eerder werd afgeleid:
 \[S(\theta)=\sum_i e_i^2\].
 
@@ -658,7 +678,6 @@ onderliggende kinetische model. De gebruiker moet daarom drie zaken definiëren:
 
 De functie \texttt{least\_squares()} verandert vervolgens de parameters
 iteratief en zoekt de combinatie waarvoor:
-
 \[
 S=\sum_i e_i^2
 \]
