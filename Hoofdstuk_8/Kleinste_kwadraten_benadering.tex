@@ -580,7 +580,7 @@ niet noodzakelijk een rechte die door alle punten gaat, maar een rechte waarvoor
 de totale afwijking tussen model en experiment minimaal is.
 \end{example}
 
-\begin{example} \text{Parameters van een kinetisch model bepalen}
+\begin{example} \textbf{Parameters van een kinetisch model bepalen}
 
 In het vorige voorbeeld werd een eenvoudig lineair model beschouwd waarvoor de optimale parameters rechtstreeks konden worden berekend. In kinetische toepassingen zijn de modellen echter vaak complexer. De onbekende parameters beïnvloeden rechtstreeks de reactiesnelheid en daardoor de oplossing van de differentiaalvergelijkingen.
 Beschouw bijvoorbeeld de reactiesnelheidsvergelijking
@@ -660,8 +660,7 @@ In de vorige voorbeelden werd getoond dat het kleinste-kwadratenprobleem voor ee
 
 Daarom wordt het minimum numeriek gezocht met optimalisatie-algoritmen. De kleinste-kwadratenmethode wordt in de praktijk numeriek uitgevoerd met
 behulp van software zoals Python of MATLAB. Het optimalisatie-algoritme zoekt numeriek naar het minimum van dezelfde
-functie die eerder werd afgeleid:
-\[S(\theta)=\sum_i e_i^2\].
+functie die eerder werd afgeleid: $S(\theta)=\sum_i e_i^2$.
 
 In Python gebruiken we hiervoor de functie
 \texttt{least\_squares()} uit de bibliotheek
@@ -677,13 +676,11 @@ onderliggende kinetische model. De gebruiker moet daarom drie zaken definiëren:
 \end{enumerate}
 
 De functie \texttt{least\_squares()} verandert vervolgens de parameters
-iteratief en zoekt de combinatie waarvoor:
-\[
-S=\sum_i e_i^2
-\]
-minimaal wordt.
+iteratief en zoekt de combinatie waarvoor $S=\sum_i e_i^2$minimaal wordt.
 
-\begin{procedure} Kinetische parameters bepalen met \texttt{least\_squares()}: stap voor stap uitgelegd
+\begin{procedure} \text{ }
+
+Kinetische parameters bepalen met \texttt{least\_squares()}: stap voor stap uitgelegd
 
 De volledige werkwijze bestaat uit de volgende stappen.
 
