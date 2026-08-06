@@ -1,59 +1,29 @@
 \documentclass{ximera}
 
-\title{Kleinste kwadraten benadering}
+\title{Methode van de kleinste kwadraten}
 \author{Mila Vervoort}
 \license{CC: 0}         % replace with an appropriate license, or set it in xmPreamble
 
 \begin{document}
 \begin{abstract}
-    Kleinste kwadraten benadering
+    Methode van de kleinste kwadraten
 \end{abstract}
 \maketitle
 \label{xim:Integrale analysemethode}
 
-\section*{Kleinste kwadraten benadering}
-\label{Kleinste kwadraten benadering}
+\section*{Methode van de kleinste kwadraten}
+\label{Methode van de kleinste kwadraten}
 
-\subsection*{Algemeen principe}
 
-In de vorige hoofdstukken werden de kinetische parameters bepaald met behulp van de integrale analysemethode, de differentiële analysemethode, de methode der beginsnelheden en de methode der halfwaardetijden. Na een geschikte transformatie konden de experimentele gegevens telkens worden beschreven door een lineair verband met één onafhankelijke variabele. De onbekende parameters werden vervolgens bepaald met behulp van een lineaire regressie.
+\subsection*{Introductie}
 
-\begin{remark}
-    In Python werd hiervoor de functie \texttt{np.polyfit()} gebruikt. Hoewel dit voor de gebruiker grotendeels verborgen blijft, bepaalt deze functie de best passende regressielijn met behulp van de methode van de kleinste kwadraten. In de vorige toepassingen bevatte het model slechts één onafhankelijke variabele, waardoor de regressie eenvoudig grafisch kon worden voorgesteld als een rechte.
-\end{remark}
+In de vorige hoofdstukken werden de kinetische parameters bepaald met behulp van de integrale analysemethode, de differentiële analysemethode, de methode der beginsnelheden en de methode der halfwaardetijden. Deze methoden zijn bijzonder geschikt voor eenvoudige reactiesnelheidsvergelijkingen, waarbij één of enkele onbekende parameters kunnen worden bepaald na een geschikte transformatie van de experimentele gegevens.
 
-In dit hoofdstuk bekijken we hoe de methode achter de lineaire regressie werkt en hoe hetzelfde principe kan worden uitgebreid naar complexere modellen waarbij meerdere onbekende parameters gelijktijdig moeten worden bepaald.
+Voor complexere reactiesnelheidsvergelijkingen wordt deze werkwijze echter minder geschikt. Vaak bevat het model meerdere onbekende kinetische parameters die de reactiesnelheid gelijktijdig beïnvloeden. Het afzonderlijk bepalen van deze parameters is dan moeilijk of zelfs onmogelijk.
 
-In de praktijk zijn reactiesnelheden immers vaak afhankelijk van meerdere parameters. Beschouw bijvoorbeeld de reactiesnelheidsvergelijking
-\[
--\frac{dC_A}{dt}=kC_A^nC_B^m,
-\]
-waarin de onbekende parameters de snelheidsconstante $k$ en de reactieordes $n$ en $m$ zijn.
+In plaats van de parameters één voor één te bepalen, gebruiken we daarom alle experimentele meetgegevens tegelijkertijd. We zoeken de parameterwaarden waarvoor de voorspellingen van het model zo goed mogelijk overeenkomen met de uitgevoerde experimenten. Dit is precies het doel van de \textbf{methode van de kleinste kwadraten} (\textit{Least Squares Approximation}).
 
-Door beide zijden te logaritmeren kan deze vergelijking herschreven worden als
-\[
-\underbrace{\ln\!\left(-\frac{dC_A}{dt}\right)}_{y}
-=
-\underbrace{\ln k}_{a_0}
-+
-\underbrace{n}_{a_1}\ln C_A
-+
-\underbrace{m}_{a_2}\ln C_B,
-\]
-of, met
-\[
-x_1=\ln C_A,
-\qquad
-x_2=\ln C_B,
-\]
-als
-\[
-y=a_0+a_1x_1+a_2x_2.
-\]
-
-Het bekomen model is nog steeds lineair in de onbekende parameters $a_0$, $a_1$ en $a_2$, maar bevat nu meerdere onafhankelijke variabelen. Hierdoor kan de regressie niet langer eenvoudig worden voorgesteld als één rechte in het $(x,y)$-vlak. De parameters moeten gelijktijdig worden geschat uit een volledige reeks experimentele meetgegevens.
-
-Zoals bij alle experimentele gegevens bevatten ook deze metingen een zekere meetfout. Hierdoor zullen de meetpunten in het algemeen niet allemaal exact op één modelvergelijking liggen.
+Bovendien bevatten experimentele metingen altijd een zekere meetonzekerheid. Daardoor zullen de gemeten waarden in het algemeen niet exact samenvallen met de waarden die het model voorspelt. Er bestaat dus meestal geen parametercombinatie waarvoor alle meetpunten perfect door het model worden beschreven.
 
 Om dit probleem beter te begrijpen bekijken we eerst een eenvoudig voorbeeld met experimentele meetpunten.
 
@@ -106,16 +76,69 @@ Kan één rechte exact door alle meetpunten worden getrokken?
 \end{question}
 
 \begin{conclusion}
-Omdat experimentele meetpunten niet perfect op één rechte of modelvergelijking liggen, bestaat er meestal geen parametercombinatie die alle meetgegevens exact beschrijft.
+Omdat experimentele meetpunten altijd een zekere spreiding vertonen, bestaat er meestal geen parametercombinatie die alle meetgegevens exact beschrijft.
 
-De vraag is daarom niet hoe we een perfecte beschrijving vinden, maar wel hoe we de best mogelijke beschrijving kunnen bepalen:
-
+De vraag is daarom niet
 \begin{center}
-\textit{Welke parameterwaarden zorgen ervoor dat het model de experimentele gegevens zo goed mogelijk beschrijft?}
+\emph{"Welke parameterwaarden beschrijven alle meetpunten exact?"}
 \end{center}
 
-Om deze vraag objectief te beantwoorden gebruikt men de \textbf{kleinste-kwadratenbenadering} (\textit{Least Squares Approximation}). Deze methode zoekt de parameterwaarden waarvoor de afwijking tussen de experimentele meetpunten en de modelvoorspellingen minimaal is.
+maar wel
+
+\begin{center}
+\emph{"Welke parameterwaarden zorgen ervoor dat het model de experimentele gegevens zo goed mogelijk beschrijft?"}
+\end{center}
+
+Om deze vraag objectief te beantwoorden gebruikt men de \textbf{methode van de kleinste kwadraten} (\textit{Least Squares Approximation}). Deze methode bepaalt de parameterwaarden waarvoor de totale afwijking tussen de experimentele meetwaarden en de modelvoorspellingen minimaal is.
 \end{conclusion}
+
+\begin{remark}
+Eigenlijk werd dit principe in de vorige hoofdstukken al impliciet gebruikt. Nadat de kinetische vergelijkingen waren omgevormd tot een lineair verband, bijvoorbeeld
+
+\[
+y=a_0+a_1x,
+\]
+
+werd uit meerdere experimentele meetpunten een best passend lineair model bepaald. Dit proces noemt men een \textbf{lineaire regressie}.
+
+Een veelgebruikte methode om een lineaire regressie uit te voeren is de \textbf{methode van de kleinste kwadraten}. Hierbij worden de onbekende parameters zo gekozen dat de totale afwijking tussen de meetpunten en het model zo klein mogelijk is. Ook de Python-functie \texttt{np.polyfit()}, die eerder in deze cursus werd gebruikt, bepaalt de coëfficiënten volgens dit principe.
+
+In dit hoofdstuk passen we dezelfde methode toe op meer algemene kinetische modellen met meerdere onbekende parameters.
+\end{remark}
+
+Beschouw bijvoorbeeld de reactiesnelheidsvergelijking
+\[
+-\frac{dC_A}{dt}=kC_A^nC_B^m,
+\]
+waarin de onbekende parameters de snelheidsconstante $k$ en de reactieordes $n$ en $m$ zijn.
+
+Door beide leden te logaritmeren bekomen we
+
+\[
+\underbrace{\ln\!\left(-\frac{dC_A}{dt}\right)}_{y}
+=
+\underbrace{\ln k}_{a_0}
++
+\underbrace{n}_{a_1}\ln C_A
++
+\underbrace{m}_{a_2}\ln C_B.
+\]
+
+Met
+\[
+x_1=\ln C_A,
+\qquad
+x_2=\ln C_B,
+\]
+
+kan dit geschreven worden als
+
+\[
+y=a_0+a_1x_1+a_2x_2.
+\]
+
+Hoewel dit model nog steeds lineair is in de onbekende parameters, bevat het nu meerdere onafhankelijke variabelen. Hierdoor kan de regressie niet langer eenvoudig worden voorgesteld als één rechte in het (x,y)
+-vlak. De parameters moeten gelijktijdig worden geschat uit een volledige reeks experimentele meetgegevens.
 
 \subsection*{Theoretische afleiding van de methode}
 
