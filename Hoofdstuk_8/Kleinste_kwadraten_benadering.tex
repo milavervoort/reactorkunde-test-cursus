@@ -17,8 +17,6 @@
 
 \subsection*{Introductie}
 
-\begin{problem} \text{  }
-
 In de vorige hoofdstukken werden de kinetische parameters bepaald met behulp van de integrale analysemethode, de differentiële analysemethode, de methode der beginsnelheden en de methode der halfwaardetijden. Deze methoden zijn bijzonder geschikt voor eenvoudige reactiesnelheidsvergelijkingen, waarbij één of enkele onbekende parameters kunnen worden bepaald na een geschikte transformatie van de experimentele gegevens.
 
 Voor complexere reactiesnelheidsvergelijkingen wordt deze werkwijze echter minder geschikt. Vaak bevat het model meerdere onbekende kinetische parameters die de reactiesnelheid gelijktijdig beïnvloeden. Het afzonderlijk bepalen van deze parameters is dan moeilijk of zelfs onmogelijk.
@@ -27,8 +25,7 @@ In plaats van de parameters één voor één te bepalen, gebruiken we daarom all
 
 Bovendien bevatten experimentele metingen altijd een zekere meetonzekerheid. Daardoor zullen de gemeten waarden in het algemeen niet exact samenvallen met de waarden die het model voorspelt. Er bestaat dus meestal geen parametercombinatie waarvoor alle meetpunten perfect door het model worden beschreven.
 
-Om dit probleem beter te begrijpen bekijken we eerst een eenvoudig voorbeeld met experimentele meetpunten.
-\end{problem}
+Om dit probleem beter te begrijpen bekijken we eerst een eenvoudig voorbeeld met experimentele 
 
 \begin{question} \text{ }
 
@@ -79,7 +76,8 @@ Kan één rechte exact door alle meetpunten worden getrokken?
 
 \end{question}
 
-\begin{conclusion}
+\begin{conclusion} \text{ }
+
 Omdat experimentele meetpunten altijd een zekere spreiding vertonen, bestaat er meestal geen parametercombinatie die alle meetgegevens exact beschrijft.
 
 De vraag is daarom niet
@@ -96,20 +94,18 @@ maar wel
 Om deze vraag objectief te beantwoorden gebruikt men de \textbf{methode van de kleinste kwadraten} (\textit{Least Squares Approximation}). Deze methode bepaalt de parameterwaarden waarvoor de totale afwijking tussen de experimentele meetwaarden en de modelvoorspellingen minimaal is.
 \end{conclusion}
 
-\begin{remark}
+\begin{remark}  \text{ }
+
 Eigenlijk werd dit principe in de vorige hoofdstukken al impliciet gebruikt. Nadat de kinetische vergelijkingen waren omgevormd tot een lineair verband, bijvoorbeeld
-
-\[
-y=a_0+a_1x,
-\]
-
+\[y=a_0+a_1x,\]
 werd uit meerdere experimentele meetpunten een best passend lineair model bepaald. Dit proces noemt men een \textbf{lineaire regressie}.
 
-Een veelgebruikte methode om een lineaire regressie uit te voeren is de \textbf{methode van de kleinste kwadraten}. Hierbij worden de onbekende parameters zo gekozen dat de totale afwijking tussen de meetpunten en het model zo klein mogelijk is. Ook de Python-functie \texttt{np.polyfit()}, die eerder in deze cursus werd gebruikt, bepaalt de coëfficiënten volgens dit principe.
+Een veelgebruikte methode om een lineaire regressie uit te voeren is de methode van de kleinste kwadraten. Hierbij worden de onbekende parameters zo gekozen dat de totale afwijking tussen de meetpunten en het model zo klein mogelijk is. Ook de Python-functie \texttt{np.polyfit()}, die eerder in deze cursus werd gebruikt, bepaalt de coëfficiënten volgens dit principe.
 
 In dit hoofdstuk passen we dezelfde methode toe op meer algemene kinetische modellen met meerdere onbekende parameters.
 \end{remark}
 
+\begin{example} \text{ }
 
 Beschouw bijvoorbeeld de reactiesnelheidsvergelijking
 \[
@@ -144,6 +140,7 @@ y=a_0+a_1x_1+a_2x_2.
 
 Hoewel dit model nog steeds lineair is in de onbekende parameters, bevat het nu meerdere onafhankelijke variabelen. Hierdoor kan de regressie niet langer eenvoudig worden voorgesteld als één rechte in het (x,y)
 -vlak. De parameters moeten gelijktijdig worden geschat uit een volledige reeks experimentele meetgegevens.
+\end{example}
 
 \subsection*{Het wiskundig principe van de kleinste-kwadratenmethode}
 
@@ -180,7 +177,8 @@ y_j\neq \hat{y}_j.
 Het verschil tussen de experimentele waarde en de modelvoorspelling noemen we
 het \textbf{residu}.
 
-\begin{definition}
+\begin{definition} \textbf{Resiudu}
+
 Het residu van experiment $j$ wordt gedefinieerd als
 
 \[
@@ -189,7 +187,6 @@ e_j=y_j-\hat{y}_j.
 
 Het residu geeft dus aan hoe sterk de modelvoorspelling afwijkt van de
 experimentele waarde.
-\end{definition}
 
 
 \begin{figure}[h!]
@@ -213,8 +210,7 @@ experimentele waarde.
 ]
 
 \addplot[
-    red,
-    thick,
+    black,
     domain=0.5:4.5
 ]
 {0.4+0.8*x};
@@ -229,7 +225,7 @@ experimentele waarde.
 ]
 coordinates{
     (0.7,1.1)
-    (1.5,1.4)
+    (1.5,1.25)
     (2.2,2.4)
     (3.0,2.9)
     (4.1,4.0)
@@ -245,7 +241,7 @@ coordinates{
 ]
 coordinates{
     (0.7,0.96)
-    (1.5,1.60)
+    (1.5,1.6)
     (2.2,2.16)
     (3.0,2.80)
     (4.1,3.68)
@@ -255,7 +251,7 @@ coordinates{
 
 \foreach \x/\ya/\yb in {
 0.7/0.96/1.10,
-1.5/1.60/1.40,
+1.5/1.60/1.30,
 2.2/2.16/2.40,
 3.0/2.80/2.90,
 4.1/3.68/4.00
@@ -263,7 +259,7 @@ coordinates{
 {
 \addplot[
     very thick,
-    green
+    red
 ]
 coordinates{
 (\x,\ya)
@@ -272,7 +268,7 @@ coordinates{
 }
 
 \node[
-    green,
+    red,
     right
 ]
 at (axis cs:2.5,2.25)
@@ -288,6 +284,7 @@ stellen de residuen voor.
 \label{fig:residu_visueel}
 \end{figure}
 
+\end{definition}
 
 De grootte van de residuen hangt af van de gekozen waarden van de
 modelparameters. Wanneer de parameters veranderen, veranderen immers ook de
