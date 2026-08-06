@@ -259,7 +259,7 @@ Een eenvoudige mogelijkheid zou zijn om de residuen rechtstreeks op te tellen:
 Dit is echter geen geschikte maat voor de totale afwijking, aangezien positieve
 en negatieve residuen elkaar kunnen opheffen.
 
-Daarom wordt gebruikgemaakt van de som van de gekwadrateerde residuen:
+Daarom wordt gebruik gemaakt van de som van de gekwadrateerde residuen:
 
 \[
 S=\sum_{j=1}^{N}e_j^2.
@@ -658,15 +658,14 @@ kleinste totale afwijking tussen het model en de experimentele gegevens geven.
 
 In de vorige voorbeelden werd getoond dat het kleinste-kwadratenprobleem voor eenvoudige lineaire modellen analytisch kan worden opgelost. Voor kinetische modellen is dit meestal niet mogelijk, omdat de parameters niet-lineair voorkomen en de modelvoorspellingen vaak afkomstig zijn uit numerieke oplossingen van differentiaalvergelijkingen.
 
-Daarom wordt het minimum numeriek gezocht met optimalisatie-algoritmen. De kleinste-kwadratenmethode wordt in de praktijk numeriek uitgevoerd met
-behulp van software zoals Python of MATLAB. Het optimalisatie-algoritme zoekt numeriek naar het minimum van dezelfde
+Daarom wordt het minimum van $S(\theta)$ voor complexe kinetische modellen
+meestal numeriek gezocht met behulp van optimalisatie-algoritmen. Hiervoor wordt in de praktijk software zoals Python of MATLAB gebruikt. Het optimalisatie-algoritme zoekt numeriek naar het minimum van dezelfde
 functie die eerder werd afgeleid: $S(\theta)=\sum_i e_i^2$.
 
 In Python gebruiken we hiervoor de functie
 \texttt{least\_squares()} uit de bibliotheek
 \texttt{scipy.optimize}.
-Deze functie bevat het optimalisatie-algoritme, maar kent zelf niets van het
-onderliggende kinetische model. De gebruiker moet daarom drie zaken definiëren:
+Deze functie bevat het optimalisatie-algoritme, maar heeft zelf geen kennis van het onderliggende kinetisch model. De gebruiker moet daarom drie zaken definiëren:
 
 \begin{enumerate}
     \item een kinetisch model dat, voor een gegeven set parameters, de concentraties of reactiesnelheden voorspelt;
@@ -676,189 +675,125 @@ onderliggende kinetische model. De gebruiker moet daarom drie zaken definiëren:
 \end{enumerate}
 
 De functie \texttt{least\_squares()} verandert vervolgens de parameters
-iteratief en zoekt de combinatie waarvoor $S=\sum_i e_i^2$minimaal wordt.
+iteratief en zoekt de combinatie waarvoor $S=\sum_i e_i^2$ minimaal wordt.
 
-\begin{procedure} \text{ }
+\begin{procedure} Kinetische parameters bepalen met \texttt{least\_squares()}
 
-Kinetische parameters bepalen met \texttt{least\_squares()}: stap voor stap uitgelegd
+De volledige werkwijze bestaat uit de volgende stappen:
 
-De volledige werkwijze bestaat uit de volgende stappen.
+\textbf{Stap 1}: Verzamel de experimentele gegevens
 
-\textbf{Stap 0: Verzamel de experimentele gegevens}
-
-Voor het bepalen van kinetische parameters zijn experimentele gegevens nodig.
-Deze gegevens worden verkregen door metingen uit te voeren in een reactor.
-
-Tijdens het experiment worden één of meerdere concentraties gemeten op verschillende tijdstippen:
+De experimentele meetgegevens vormen de referentie waarmee het model wordt
+vergeleken. Tijdens een experiment worden bijvoorbeeld concentraties gemeten op
+verschillende tijdstippen:
 
 \[
 t_1,t_2,\ldots,t_N
 \]
 
-met overeenkomstige experimentele concentraties:
+met overeenkomstige experimentele waarden:
 
 \[
-C_{A,\mathrm{exp}}(t_1),
-C_{A,\mathrm{exp}}(t_2),
-\ldots,
-C_{A,\mathrm{exp}}(t_N).
+C_{A,\mathrm{exp}}(t_i),\quad C_{B,\mathrm{exp}}(t_i),\ldots
 \]
-
-Deze meetgegevens vormen de referentie waarmee het kinetische model wordt vergeleken.
 
 In Python worden deze gegevens bijvoorbeeld opgeslagen als:
 
 \begin{verbatim}
-t_exp = [t1, t2, ..., tN]
-
-CA_exp = [CA1, CA2, ..., CAN]
+t_exp = [...]
+CA_exp = [...]
+CB_exp = [...]
 \end{verbatim}
 
-\textbf{Stap 1: Stel het kinetische model op}
+\bigskip
 
-Beschrijf eerst het reactiesysteem aan de hand van de massabalansen. Deze leiden tot een stelsel van gewone differentiaalvergelijkingen (ODE's) dat de evolutie van de concentraties beschrijft.
+\textbf{Stap 2: Kinetisch model opstellen}
 
-In Python wordt hiervoor een functie geschreven die, voor een gegeven tijdstip en een gegeven parametercombinatie, de afgeleiden van de concentraties berekent.
+Het kinetisch model wordt opgesteld aan de hand van de massabalansen.
+Deze leiden tot een stelsel differentiaalvergelijkingen:
+\[\frac{d\mathbf{C}}{dt}=f(t,\mathbf{C},\boldsymbol{\theta})\]
+waarbij $\boldsymbol{\theta}$ de onbekende kinetische parameters bevat.
 
+In Python wordt hiervoor een functie geschreven die de afgeleiden berekent:
 \begin{verbatim}
-def derivatives(t, y, theta):
+def derivatives(y, t, theta):
     ...
-    return [dCA_dt, dCB_dt, ...]
+    return derivatives
 \end{verbatim}
-
-Hierbij bevat \texttt{theta} alle onbekende kinetische parameters.
 
 \bigskip
 
-\textbf{Stap 2: Kies een eerste schatting van de parameters}
+\textbf{Stap 3: Kies een eerste parameterschatting}
 
-Verzamel alle onbekende parameters in één parametervector
+Verzamel alle onbekende parameters in één parametervector:
+\[\boldsymbol{\theta}= (\theta_1,\theta_2,\ldots,\theta_n)\]
 
-\[
-\boldsymbol{\theta}
-=
-(k,n,m,\ldots).
-\]
+Omdat de optimale waarden nog onbekend zijn, wordt een eerste schatting gekozen:
+\begin{verbatim}
+initial_guess = [...]
+\end{verbatim}
+Deze waarde vormt het startpunt van het optimalisatie-algoritme.
 
-Omdat deze waarden nog niet gekend zijn, wordt een eerste schatting gekozen.
+\bigskip
+
+\textbf{Stap 4: Definieer de residufunctie}
+
+Er wordt een functie ((\texttt{objective\_function})) opgesteld die, voor een gegeven parametercombinatie, de residuen berekent. Deze functie wordt door \texttt{least\_squares()} gebruikt tijdens de optimalisatie.
+
+Binnen deze functie worden de differentiaalvergelijkingen eerst numeriek opgelost en daarna worden de residuen berekend.
 
 \begin{verbatim}
-initial_guess = [k0, n0, m0]
+def objective_function(...):
+    concentrations_model = odeint(
+        derivatives,
+        y0,
+        t_exp,
+        args=(theta,))
+    residuals = concentrations_model - concentrations_exp
+    return residuals.flatten()
 \end{verbatim}
-
-Deze eerste schatting hoeft niet exact te zijn, maar moet wel fysisch realistisch zijn. Ze vormt het startpunt van het optimalisatie-algoritme.
 
 \bigskip
 
-\textbf{Stap 3: Bereken de modelvoorspellingen}
+\textbf{Stap 5: Uitvoeren van de optimalisatie}
 
-Voor een gegeven parametervector lost Python de differentiaalvergelijkingen numeriek op. Hierdoor worden de voorspelde concentraties op de experimentele meettijdstippen berekend.
-
-Bijvoorbeeld met
-\begin{verbatim}
-concentrations_model = odeint(...)
-\end{verbatim}
-
-Het resultaat zijn de modelvoorspellingen
-\[
-C_{A,\mathrm{model}}(t),
-\qquad
-C_{B,\mathrm{model}}(t),
-\qquad \ldots
-\]
-
-\bigskip
-
-\textbf{Stap 4: Bereken de residuen}
-
-Vergelijk de modelvoorspellingen met de experimentele meetgegevens.
-
-Voor elk meetpunt wordt een residu berekend:
-
-\[
-e_i = C_{i,\mathrm{exp}} - C_{i,\mathrm{model}}.
-\]
-
-In Python wordt hiervoor een zogenaamde \emph{objective function} geschreven.
-
-\begin{verbatim}
-def objective_function(theta):
-    ...
-    return residuals
-\end{verbatim}
-
-De residuen worden niet vooraf gekwadrateerd.  De functie
-\texttt{least\_squares()} verwacht de vector met residuen als invoer en minimaliseert vervolgens automatisch:
-\[S=\sum_{i=1}^{N}e_i^2.\]
-
-\bigskip
-
-\textbf{Stap 5: Optimaliseer de parameters}
-
-De functie \texttt{least\_squares()} probeert verschillende parametercombinaties uit.
-
-Voor elke parametercombinatie wordt steeds dezelfde cyclus uitgevoerd:
+De functie \texttt{least\_squares()} verandert de parameters iteratief.
+Voor elke nieuwe parametercombinatie wordt:
 
 \begin{enumerate}
-\item Los de differentiaalvergelijkingen numeriek op.
-\item Bereken de modelvoorspellingen.
-\item Bepaal de residuen.
-\item Bereken de som van de gekwadrateerde residuen.
+\item het kinetisch model opgelost;
+\item de modelvoorspelling berekend;
+\item het residu bepaald;
+\item de afwijking $S(\theta)$ geëvalueerd.
 \end{enumerate}
 
-Daarna kiest de optimizer een nieuwe parametercombinatie en wordt deze cyclus herhaald totdat geen verdere verbetering meer mogelijk is.
+Dit proces wordt herhaald totdat een minimum van de som van de gekwadrateerde
+residuen wordt gevonden.
 
-In Python gebeurt dit met
-
+In Python:
 \begin{verbatim}
 result = least_squares(
     objective_function,
     initial_guess,
-    args=(...)
+    args=(t_exp, concentrations_exp)
 )
 \end{verbatim}
 
-De optimale kinetische parameters worden vervolgens gevonden via
-
+De optimale parameters worden verkregen met:
 \begin{verbatim}
 result.x
 \end{verbatim}
 
 \bigskip
 
-De volledige procedure kan schematisch worden samengevat als:
+\textbf{Stap 6: Controleer het resultaat}
 
-\[
-\boxed{
-\begin{array}{c}
-\text{Experimentele concentraties $C_{exp}(t)$ verzamelen}
-\\[0.3cm]
-\downarrow
-\\[0.3cm]
-\text{Kinetisch model met parameters } \boldsymbol{\theta} \text{ opstellen}
-\\[0.3cm]
-\downarrow
-\\[0.3cm]
-\text{Differentiaalvergelijkingen oplossen}
-\\[0.3cm]
-\downarrow
-\\[0.3cm]
-\text{Bereken de modelvoorspellingen $C_{model}(t)$}
-\\[0.3cm]
-\downarrow
-\\[0.3cm]
-\text{Bereken de residuen $C_{exp}$ - $C_{model}$}
-\\[0.3cm]
-\downarrow
-\\[0.3cm]
-\texttt{least\_squares()}
-\\[0.3cm]
-\downarrow
-\\[0.3cm]
-\text{Optimale kinetische parameters}
-\end{array}
-}
-\]
+Met de gevonden parameters wordt het model opnieuw gesimuleerd.
+De voorspelde concentraties worden vervolgens vergeleken met de experimentele
+gegevens.
+
+Een goede fit betekent dat de modelvoorspellingen de experimentele trend goed
+volgen en dat de residuen klein zijn.
 
 \end{procedure}
 
