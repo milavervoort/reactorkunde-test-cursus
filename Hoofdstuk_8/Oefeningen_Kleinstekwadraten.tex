@@ -66,7 +66,7 @@ De berekeningen voer je uit in de bijhorende Google Colab-notebook. Open de note
 Bepaal de waarden van $k_1$ en $k_2$ door gebruik te maken van de kleinste-kwadratenmethode.
 
 \begin{question}
-\textbf{Stap 0: Verzamel de experimentele gegevens}
+\textbf{Stap 1: Verzamel de experimentele gegevens}
 
 Tijdens het experiment werd enkel de concentratie van component $A$ gemeten. De concentratie van component $B$ kan echter bepaald worden op basis van de stoichiometrie van de reactie
 
@@ -83,7 +83,8 @@ Welke uitdrukking moet gebruikt worden om de concentratie van $B$ te berekenen?
     \choice{$C_B=C_{A,0}+C_A-C_{B,0}$}
 \end{multipleChoice}
 
-\begin{feedback}
+\begin{feedback} \text{ }
+
 Voor elke mol $A$ die verdwijnt, wordt één mol $B$ gevormd. De toename van de concentratie van $B$ is dus gelijk aan de afname van de concentratie van $A$:
 
 \[
@@ -98,32 +99,28 @@ C_B=C_{B,0}+\left(C_{A,0}-C_A\right).
 
 \end{feedback}
 
-Ga nu naar de Google Colab-notebook en vul de volgende regel aan: \texttt{ds["CB"]}
+Ga naar de Google Colab-notebook en vul de volgende regel aan: \texttt{ds["CB"] = }
 \end{question}
 
 \begin{question}
-\textbf{Stap 1: Opstellen van de massabalansen}
+\textbf{Stap 2: Kinetisch model opstellen}
 
 Voor een batchreactor geldt dat de verandering van de concentratie gelijk is aan de reactiesnelheid.
 
-De differentiaalvergelijking voor component $A$ is gegeven:
+Schrijf de massabalansen voor componenten $A$ en $B$:
 \[
 \frac{dC_A}{dt}
-=
-\answer{-k1CA + k2CB}
+=\answer{-k1CA + k2CB}
 \]
 
-Schrijf nu ook de differentiaalvergelijking voor component $B$:
 \[
 \frac{dC_B}{dt}
-=
-\answer{k1CA - k2CB}
+=\answer{k1CA - k2CB}
 \]
 
-\begin{feedback}
-Omdat de reactie verloopt volgens:
-\[A \rightleftharpoons B\]
-wordt 1 mol (A) verbruikt voor elke mol (B) die gevormd wordt. De reactiesnelheid is:
+\begin{feedback} \text{ }
+
+De reactiesnelheid is:
 \[
 R = k_1C_A-k_2C_B
 \]
@@ -138,7 +135,7 @@ Vul deze vergelijking in bij de functie \texttt{derivatives()} in de Google Cola
 \end{question}
 
 \begin{question}
-\textbf{Stap 2: Kies een eerste schatting van de parameters}
+\textbf{Stap 3: Kies een eerste parameterschatting}
 
 Voor de kleinste-kwadratenmethode is een eerste schatting van de onbekende parameters nodig. Deze waarden hoeven niet exact te zijn, maar moeten wel fysisch realistisch zijn.
 
@@ -148,7 +145,8 @@ Geef hieronder een eerste schatting voor de reactiesnelheidsconstanten.
 \[k_1=\answer{}\]
 \[k_2=\answer{}\]
 
-\begin{feedback}
+\begin{feedback} \text{ }
+
 Er bestaat geen unieke juiste initiële schatting. Belangrijk is dat de gekozen waarden fysisch realistisch zijn.
 
 Enkele aandachtspunten:
@@ -168,42 +166,30 @@ k_2=0.5\ \mathrm{min^{-1}}.
 Andere positieve waarden van dezelfde grootteorde zijn eveneens geschikte initiële schattingen.
 \end{feedback}
 
-Vul nu stap 2 aan in de Google Colab-notebook en gebruik daar jouw gekozen initiële schatting.
+Vul nu deze stap aan in de Google Colab-notebook en gebruik daar jouw gekozen initiële schatting.
 \end{question}
 
 \begin{question}
-\textbf{Stap 3 \&  4: Berekenen van de modelvoorspellingen en residuen via de objective function}
+\textbf{Stap 4: Definieer de residufunctie}
 
-Om de onbekende parameters te bepalen, moet voor elke parametercombinatie eerst het kinetisch model worden gesimuleerd. Hiervoor worden de massabalansen opgelost met \verb|odeint()|.
+De functie \texttt{least\_squares()} kan de kinetische parameters alleen optimaliseren als voor elke parametercombinatie wordt aangegeven hoe goed het model overeenkomt met de experimentele gegevens.
 
-De bekomen modelvoorspellingen worden vervolgens vergeleken met de experimentele meetgegevens in de \texttt{objective\_function()}.
+Daarom wordt een \texttt{objective\_function()} opgesteld. Deze functie lost eerst de differentiaalvergelijkingen op om de modelvoorspellingen te berekenen en bepaalt vervolgens de residuen.
 
-Welke bewerking wordt in deze functie uitgevoerd om de residuen te bepalen?
+Welke grootheid geeft de \texttt{objective\_function()} uiteindelijk terug?
 
 \begin{multipleChoice}
-    \choice{De experimentele concentraties worden gedeeld door de modelconcentraties.}
-    \choice[correct]{Van elk meetpunt wordt het verschil tussen de modelvoorspelling en de experimentele concentratie berekend.}
-    \choice{De modelconcentraties worden opgeteld bij de experimentele concentraties.}
-    \choice{De afgeleiden van de concentraties worden opnieuw berekend.}
+    \choice{De berekende modelconcentraties.}
+    \choice[correct]{Het verschil tussen de modelvoorspellingen en de experimentele meetgegevens.}
+    \choice{De som van de gekwadrateerde residuen $S$.}
+    \choice{De afgeleiden van de concentraties.}
 \end{multipleChoice}
 
-\begin{feedback}
-Voor elke parametercombinatie verloopt de objective function steeds volgens dezelfde stappen:
-
-\begin{enumerate}
-    \item Los de massabalansen op met \verb|odeint()|.
-    \item Bereken de modelconcentraties op de experimentele tijdstippen.
-    \item Bereken voor elk meetpunt het residu als het verschil tussen model en experiment.
-    \item Geef alle residuen terug aan \verb|least_squares()|, zodat de som van de gekwadrateerde residuen geminimaliseerd kan worden.
-\end{enumerate}
-
-\end{feedback}
-
-Vul nu in de Google Colab-notebook de ontbrekende code aan: \verb|residuals = |
+Vul in de Google Colab-notebook de ontbrekende code aan: \verb|residuals = |
 \end{question}
 
 \begin{question}
-\textbf{Stap 5 \&  6: Optimaliseer de parameters met \texttt{least\_square()} en interpreteer resultaten}
+\textbf{Stap 5 \& 6: Uitvoeren van de optimalisatie met \texttt{least\_square()} en controleren van ht resultaat}
 
 Voer de notebook volledig uit en noteer hieronder de gevonden waarden.
 
@@ -226,14 +212,14 @@ Hoe beoordeel je de kwaliteit van de fit?
     \choice{Het model voorspelt enkel de concentratie van component $B$ correct.}
 \end{multipleChoice}
 
-\begin{feedback}
+\begin{feedback} \text{ }
+
 Na de optimalisatie liggen de modelvoorspellingen dicht bij de experimentele meetpunten. Dit wijst erop dat de gevonden waarden van $k_1$ en $k_2$ de experimentele gegevens goed beschrijven.
 
 Merk op dat de optimale parameterwaarden afhangen van de experimentele gegevens en het gekozen kinetisch model.
 \end{feedback}
 
 \end{question}
-
 
 
 \end{document}
