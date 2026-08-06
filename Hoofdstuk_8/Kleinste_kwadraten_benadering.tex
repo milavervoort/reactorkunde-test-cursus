@@ -159,11 +159,7 @@ waarde $\hat{y}$.
 
 Veronderstel dat we $N$ experimenten uitvoeren. Voor elk experiment $j$
 beschikken we over een experimentele waarde $y_j$. Het model voorspelt voor
-dezelfde experimentele omstandigheden de waarde
-
-\[
-\hat{y}_j=f(x_j;\theta).
-\]
+dezelfde experimentele omstandigheden de waarde $\hat{y}_j=f(x_j;\theta)$.
 
 Omdat experimentele gegevens steeds een zekere meetonzekerheid bevatten, geldt
 in het algemeen
@@ -175,7 +171,7 @@ y_j\neq \hat{y}_j.
 Het verschil tussen de experimentele waarde en de modelvoorspelling noemen we
 het \textbf{residu}.
 
-\begin{definition} \textbf{Resiudu}
+\begin{definition} \textbf{Residu}
 
 Het residu van experiment $j$ wordt gedefinieerd als
 
@@ -282,8 +278,8 @@ stellen de residuen voor.
 \label{fig:residu_visueel}
 \end{figure}
 
-\end{definition}
-
+\end{definition} 
+\text{ }\\
 De grootte van de residuen hangt af van de gekozen waarden van de
 modelparameters. Wanneer de parameters veranderen, veranderen immers ook de
 voorspellingen $\hat{y}_j$ en bijgevolg de residuen $e_j$.
@@ -309,12 +305,16 @@ S=\sum_{j=1}^{N}e_j^2.
 Door de residuen te kwadrateren verdwijnen de tekens en krijgen grote afwijkingen
 bovendien een groter gewicht dan kleine afwijkingen.
 
-\begin{conclusion}
+\begin{conclusion} \text{ }
+
 De kleinste-kwadratenmethode zoekt de parameterwaarden waarvoor
-
 \[S=\sum_{j=1}^{N}e_j^2\]
-
 minimaal is.
+
+Wiskundig schrijven we dit als
+\[\boxed{\min_{\theta}S(\theta) =
+\min_{\theta} \sum_{j=1}^{N}
+\left(y_{j,\mathrm{exp}} - y_{j,\mathrm{model}}(\theta)\right)^2}\]
 
 Het algemene principe kan worden samengevat als:
 \[
@@ -327,41 +327,61 @@ Het algemene principe kan worden samengevat als:
 \text{som van gekwadrateerde residuen}
 \]
 
-Wiskundig schrijven we dit als
-\[\boxed{\min_{\theta}S(\theta)}\]
+\[
+\begin{array}{c}
+\text{Startwaarden van de parameters } \boldsymbol{\theta}_0
+\\[0.3cm]
+\downarrow
+\\[0.3cm]
+\text{Modelvoorspellingen berekenen}
+\\
+\hat{y}_j=f(x_j;\theta)
+\\[0.3cm]
+\downarrow
+\\[0.3cm]
+\text{Residuen bepalen}
+\\
+e_j=y_{j,\mathrm{exp}}-y_{j,\mathrm{model}}
+\\[0.3cm]
+\downarrow
+\\[0.3cm]
+\text{Som van de gekwadrateerde residuen berekenen}
+\\
+S(\theta)=\sum_{j=1}^{N}e_j^2
+\\[0.3cm]
+\downarrow
+\\[0.3cm]
+\text{Parameters aanpassen om }S(\theta)\text{ te verkleinen}
+\\
+\boldsymbol{\theta}_{i+1}\leftarrow\boldsymbol{\theta}_{i}
+\\[0.3cm]
+\circlearrowleft
+\\[-0.1cm]
+\text{Herhaal tot }S(\theta)\text{ niet verder vermindert}
+\\[0.3cm]
+\downarrow
+\\[0.3cm]
+\text{Optimale parameterwaarden}
+\\
+\boldsymbol{\theta}_{\mathrm{opt}}
+\end{array}
+\]
 \end{conclusion}
 
 \begin{example}
-\textbf{Interactief onderzoeken van de kleinste-kwadratenmethode}
-
-In het algemene model
-
-\[
-\hat{y}=f(x;\theta)
-\]
-
-kan de relatie tussen de parameters en de modelvoorspellingen vaak niet eenvoudig
-grafisch worden voorgesteld.
+\text{Interactief onderzoeken van de kleinste-kwadratenmethode}
 
 Om het principe van de kleinste-kwadratenmethode visueel te onderzoeken,
-beschouwen we daarom eerst een eenvoudiger geval met slechts één onafhankelijke
+beschouwen we een eenvoudig geval met slechts één onafhankelijke
 variabele:
 
-\[
-\hat{y}=a_0+a_1x.
-\]
+\[\hat{y}=a_0+a_1x.\]
 
 Dit model stelt een rechte voor in een tweedimensionale grafiek. De parameters
 $a_0$ en $a_1$ bepalen respectievelijk de positie en de helling van de rechte.
 
 Pas de parameters hieronder aan en zoek de rechte waarvoor de som van de
-gekwadrateerde residuen
-
-\[
-S=\sum_j e_j^2
-\]
-
-minimaal is.
+gekwadrateerde residuen $S=\sum_j e_j^2$ minimaal is.
 
 \begin{center}
 \geogebra{d7ejvvhp}{700}{700}
@@ -371,45 +391,16 @@ minimaal is.
 Vul de gevonden waarden van de parameters in.
 
 De waarde van de snijparameter $a_0$ is ongeveer:
-
-\[
-a_0=\answer{0.5}
-\]
-
-\begin{feedback}
-De optimale waarde van $a_0$ zorgt ervoor dat de rechte gemiddeld zo goed
-mogelijk aansluit bij de experimentele punten.
-\end{feedback}
-
-
+\[a_0=\answer{0.5}\]
 De waarde van de richtingscoëfficiënt $a_1$ is ongeveer:
-
-\[
-a_1=\answer{0.8}
-\]
-
-\begin{feedback}
-Een verkeerde helling zorgt ervoor dat de afwijkingen tussen de meetpunten en
-het model groter worden.
-\end{feedback}
-
-
+\[a_1=\answer{0.8}\]
 De minimale waarde van de som van de gekwadrateerde residuen is ongeveer:
-
-\[
-S=\answer{0.07}
-\]
-
-\begin{feedback}
-De kleinste-kwadratenmethode zoekt niet naar een rechte die door alle punten
-gaat, maar naar de rechte waarvoor de totale afwijking minimaal is.
-\end{feedback}
-
+\[S=\answer{0.07}\]
 \end{question}
 
 \end{example}
 
-\subsection*{Toepassing op kinetische modellen}
+\subsubsection*{Toepassing op kinetische modellen}
 
 Het interactieve voorbeeld beschouwde een eenvoudig model met slechts één
 onafhankelijke variabele. De methode van de kleinste kwadraten verandert echter
