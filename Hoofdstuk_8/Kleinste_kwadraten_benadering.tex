@@ -396,7 +396,7 @@ het minimum wordt gevonden verschilt.
 \subsection*{Toepassingen}
 
 \begin{example}
-\textbf{De parameters van een regressierechte bepalen met de kleinste-kwadratenmethode}
+\textbf{De parameters van een regressierechte bepalen}
 
 In deze oefening bepalen we de parameters van een regressierechte op basis van een reeks meetgegevens. We zoeken dus de waarden van \(a_0\) en \(a_1\) waarvoor de rechte $y=a_0+a_1x$ de gegeven meetpunten zo goed mogelijk benadert.
 
@@ -593,8 +593,8 @@ de totale afwijking tussen model en experiment minimaal is.
 
 \begin{example} \textbf{Parameters van een kinetisch model bepalen}
 
-In het vorige voorbeeld werd een eenvoudig lineair model beschouwd waarvoor de optimale parameters rechtstreeks konden worden berekend. In kinetische toepassingen zijn de modellen echter vaak complexer. De onbekende parameters beïnvloeden rechtstreeks de reactiesnelheid en daardoor de oplossing van de differentiaalvergelijkingen.
-Beschouw bijvoorbeeld de reactiesnelheidsvergelijking
+In het vorige voorbeeld werd een eenvoudig lineair model beschouwd met 2 onbekende parameters. In kinetische toepassingen zijn de modellen echter vaak complexer.\\
+Beschouw bijvoorbeeld de reactiesnelheidsvergelijking:
 \[
 -\frac{dC_A}{dt}=kC_A^nC_B^m,
 \]
@@ -633,18 +633,12 @@ Voor experiment $j$ voorspelt het model de waarde
 
 \[\hat{y}_j=a_0+a_1x_{1,j}+a_2x_{2,j}.\]
 
-Het residu wordt bijgevolg:
-
-\[e_j=y_j-a_0-a_1x_{1,j}-a_2x_{2,j}.\]
-
 De methode van de kleinste kwadraten zoekt de waarden van $a_0$, $a_1$ en
 $a_2$ waarvoor de som van de gekwadrateerde residuen minimaal is:
 
 \[ S(a_0,a_1,a_2) =\sum_{j=1}^{N}\left(y_j-a_0-a_1x_{1,j}-a_2x_{2,j}\right)^2.\]
 
-De optimale parameterwaarden voldoen dus aan:
-
-\[\boxed{\min_{a_0,a_1,a_2}S(a_0,a_1,a_2)}\]
+De optimale parameterwaarden voldoen dus aan $\min_{a_0,a_1,a_2}S(a_0,a_1,a_2)$.
 
 De functie $S$ is afhankelijk van drie variabelen: $a_0$, $a_1$ en $a_2$.
 Dit betekent dat alle partiële afgeleiden gelijk moeten zijn aan nul:
