@@ -325,12 +325,12 @@ Er worden experimentele metingen gedaan waaruit volgende data wordt gehaald:
 \begin{tabular}{c|c}
 $t$ (h) & $C_A$ (mol/L) \\
 \hline
-0 & 1.00 \\
-1 & 0.83 \\
-2 & 0.71 \\
-3 & 0.62 \\
-4 & 0.55 \\
-5 & 0.50 \\
+0 & 10.0 \\
+1 & 8.85 \\
+2 & 7.59 \\
+3 & 6.19 \\
+4 & 4.61 \\
+5 & 2.80 \\
 \end{tabular}
 \end{center}
 
@@ -392,40 +392,54 @@ Vul de volgende tabellen  verder aan met behulp van je bekomen resultaten:
 \begin{table}[h!]
 \centering
 \begin{tabular}{c|c||c|c|c}
-$t$ (h) & $C_A$ (mol/L) & $t$ (h) & $C_A$ (mol/L) & $R_A$ (mol/L$\cdot$h) \\
+$t$ (h) & $C_A$ (mol/L) & $t$ (h) & $C_A$ (mol/L) & $R_A$ (mol/L$\cdot$h)\\
 \hline
-0.0  & 1.00  &  &  &  \\
-     &       & 0.5  & 0.92 & 0.17  \\
-1.0  & 0.83  &  &  &  \\
-     &       & 1.5  & 0.77  & a  \\
-2.0  & 0.71  &  &  &  \\
-     &       & 2.5  & 0.66 & 0.09  \\
-3.0  & 0.62  &  &  &  \\
-     &       & 3.5  & b & 0.07  \\
-4.0  & 0.55  &  &  &  \\
-     &       & 4.5  & 0.52 & c  \\
-5.0  & 0.50  &  &  &  \\
+0.0 & 10.00 & & &\\
+& & 0.5 & 9.42 & -1.15\\
+1.0 & 8.85 & & &\\
+& & 1.5 & 8.22 & -a\\
+2.0 & 7.59 & & &\\
+& & 2.5 & 6.89 & -1.40\\
+3.0 & 6.19 & & &\\
+& & 3.5 & b & -1.58\\
+4.0 & 4.61 & & &\\
+& & 4.5 & 3.70 & -c\\
+5.0 & 2.80 & & &
 \end{tabular}
 \end{table}
 
 \begin{table}[h!]
 \centering
 \begin{tabular}{c||c|c}
-$t$ (h) & $x$ & $y$ \\
+$t$ (h) & $x=C_A$ & $y=\sqrt{\dfrac{C_A}{-R_A}}$\\
 \hline
-0.5 & 0.92 & 2.32 \\
-1.5 & 0.77  & d \\
-2.5 & 0.66 & 2.72 \\
-3.5 & b & e \\
-4.5 & 0.52 & 3.24 \\
+0.5 & 9.42 & 2.86\\
+1.5 & 8.22 & d\\
+2.5 & 6.89 & 2.22\\
+3.5 & b & e\\
+4.5 & 3.70 & 1.43
 \end{tabular}
 \end{table}
 
-\[a = \answer{0.12}\]
-\[b = \answer{0.58}\]
-\[c = \answer{0.05}\]
-\[d = \answer{2.53}\]
-\[e = \answer{2.89}\]
+\[
+a=\answer{1.26}
+\]
+
+\[
+b=\answer{5.40}
+\]
+
+\[
+c=\answer{1.81}
+\]
+
+\[
+d=\answer{2.56}
+\]
+
+\[
+e=\answer{1.85}
+\]
 
 \end{question}
 
@@ -473,14 +487,14 @@ Maak in de Google Colab-file vervolgens een plot van de de berekende waarden en 
 \end{figure}
 \fi
 Hiermee kunnen we $k_1$ en $k_2$ bepalen.
-\[k_1 = \answer{0.055}\]
-\[k_2 = \answer{-0.513}\]
+\[k_1 = \answer{4}\]
+\[k_2 = \answer{0.5}\]
 \begin{feedback} .
 \newline
-    Het intercept van de rechte: $\frac{1}{\sqrt{k_1}} = 4.25$.
-    \[k_1 = 0.055\]
-    De helling van de rechte: $\frac{k_2}{\sqrt{k_1}} = -2.18$. \\
-    \[k_2 = -0.51\]
+    Het intercept van de rechte: $\frac{1}{\sqrt{k_1}} = 0.50$.
+    \[k_1 = 4\]
+    De helling van de rechte: $\frac{k_2}{\sqrt{k_1}} = 0.25$. \\
+    \[k_2 = 0.5\]
 \end{feedback}
 \end{question}
 
