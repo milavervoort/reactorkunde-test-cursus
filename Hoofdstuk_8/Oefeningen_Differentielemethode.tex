@@ -126,8 +126,7 @@ Deze berekende snelheden worden vervolgens gebruikt in de gelineariseerde kineti
 
 \begin{question} \textbf{Bepalen van de reactiesnelheid uit de experimentele data}\\
 
-Gebruik de Python-code in de volgende Google Colab-file om de berekeningen uit te
-voeren en de ontbrekende regels aan te vullen.
+Gebruik de Python-code in de volgende Google Colab-file. Vul de ontbrekende regels aan om de berekeningen uit te voeren.
 
 \begin{center}
 \href{https://colab.research.google.com/drive/1dWckfscjsUmQ97Mw7P00nvdMTTST00n3?usp=sharing}{\Large Open de Google Colab notebook}
@@ -192,9 +191,8 @@ Controleer of de methode correct wordt toegepast door het eerste tijdsinterval t
     \end{feedback}
 \end{enumerate}
 
-Dezelfde berekening wordt vervolgens automatisch uitgevoerd voor alle
+Dezelfde berekening kan vervolgens automatisch worden uitgevoerd voor alle
 tijdintervallen in de Google Colab-file.
-
 
 \iffalse
 \begin{table}[h!]
@@ -232,38 +230,39 @@ Welke tabel komt overeen met de resultaten die je uit de berekeningen hebt verkr
 
 \begin{multipleChoice}
     \choice[correct]{\begin{tabular}{c|c}
-    $\ln\!\left(\frac{dp}{dt}\right)$ & $\ln(3p_0 - p)$ \\
+    $\ln(3p_0 - p)$ & $\ln\!\left(\frac{dp}{dt}\right)$ \\
     \hline
-    0.00 & 2.53 \\
-    -0.42 & 2.12 \\
-    -0.87 & 1.73 \\
-    -1.20 & 1.35 \\
+    2.53 & 0.00 \\
+    2.12 & -0.42 \\
+    1.73 & -0.87 \\
+    1.35 & -1.20 \\
     \end{tabular}} 
 
     \choice{\begin{tabular}{c|c}
-    $\ln\!\left(\frac{dp}{dt}\right)$ & $\ln(3p_0 - p)$ \\
+    $\ln(3p_0 - p)$ & $\ln\!\left(\frac{dp}{dt}\right)$ \\
     \hline
-    0.00 & 2.53 \\
-    -0.34 & 2.12 \\
-    -0.90 & 1.73 \\
-    -1.35 & 1.35 \\
+    2.53 & 0.00 \\
+    2.12 & -0.34 \\
+    1.73 & -0.90 \\
+    1.35 & -1.35 \\
     \end{tabular}} 
     
     \choice{\begin{tabular}{c|c}
-    $\ln\!\left(\frac{dp}{dt}\right)$ & $\ln(3p_0 - p)$ \\
+    $\ln(3p_0 - p)$ & $\ln\!\left(\frac{dp}{dt}\right)$ \\
     \hline
-    0.00 & 2.40 \\
-    -0.42 & 2.00 \\
-    -0.87 & 1.60 \\
-    -1.20 & 1.20 \\
+    2.40 & 0.00 \\
+    2.00 & -0.42 \\
+    1.60 & -0.87 \\
+    1.20 & -1.20 \\
     \end{tabular}} 
 \end{multipleChoice}
+
 
 \end{question}
 
 \begin{question} \textbf{Interpreteren van de plot }\\
 
-Maak in de Google Colab-file vervolgens een plot van de de berekende waarden en maak een lineaire fit doorheen de punten.
+Maak in de Google Colab-file vervolgens een plot van de de berekende waarden en maak een lineaire fit doorheen de punten. De code is al volledig geschreven, voer deze enkel nog uit en los de volgende vraag op.
 
 \iffalse
     De verzamelde data kan nu geplot worden in een $\ln(\frac{dp}{dt})$ versus $\ln(3p_0-p)$ plot.
@@ -300,7 +299,7 @@ Maak in de Google Colab-file vervolgens een plot van de de berekende waarden en 
 \end{figure}
 \fi
 
-Met behulp van de lineaire fit kunnen $k$ en $n$ bepaald worden:
+Welke waarde hebben $n$ en $k$ volgens deze plot?
 \[n = \answer{1.04}\]
 \[k = \answer{0.073}\]
 \begin{feedback} .
