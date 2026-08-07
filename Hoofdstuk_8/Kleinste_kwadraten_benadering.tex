@@ -27,7 +27,8 @@ In plaats van de parameters één voor één te bepalen, gebruiken we daarom all
 
 \begin{question} \text{ }
 
-Om dit probleem beter te begrijpen bekijken we eerst een eenvoudig voorbeeld met experimentelemeetpunten.
+Om dit probleem beter te begrijpen bekijken we eerst een eenvoudig voorbeeld met experimentele meetpunten.
+
 Beschouw de onderstaande meetpunten:
 \begin{center}
 \begin{tikzpicture}
@@ -98,7 +99,7 @@ Eigenlijk werd dit principe in de vorige hoofdstukken al impliciet gebruikt. Nad
 \[y=a_0+a_1x,\]
 werd uit meerdere experimentele meetpunten een best passend lineair model bepaald. Dit proces noemt men een \textbf{lineaire regressie}.
 
-Een veelgebruikte methode om een lineaire regressie uit te voeren is de methode van de kleinste kwadraten. Hierbij worden de onbekende parameters zo gekozen dat de totale afwijking tussen de meetpunten en het model zo klein mogelijk is. Ook de Python-functie \texttt{np.polyfit()}, die eerder in deze cursus werd gebruikt, bepaalt de coëfficiënten volgens dit principe.
+Een veelgebruikte methode om een lineaire regressie uit te voeren is de methode van de kleinste kwadraten. Hierbij worden de onbekende parameters zo gekozen dat de totale afwijking tussen de meetpunten en het model zo klein mogelijk is. Ook de Python-functie \texttt{np.polyfit()}, die hiervoor in deze cursus werd gebruikt, bepaalt de coëfficiënten volgens dit principe.
 
 In dit hoofdstuk passen we dezelfde methode toe op meer algemene kinetische modellen met meerdere onbekende parameters.
 \end{remark}
@@ -395,13 +396,17 @@ het minimum wordt gevonden verschilt.
 \subsection*{Toepassingen}
 
 \begin{example}
-\textbf{Een rechte fitten met de kleinste-kwadratenmethode}
+\textbf{De parameters van een regressierechte bepalen met de kleinste-kwadratenmethode}
 
-In de vorige hoofdstukken werd voor dergelijke lineaire verbanden
-\texttt{np.polyfit()} gebruikt. We berekenen hier dezelfde rechte expliciet
-met de kleinste-kwadratenmethode.
+In deze oefening bepalen we de parameters van een regressierechte op basis van een reeks meetgegevens. We zoeken dus de waarden van \(a_0\) en \(a_1\) waarvoor de rechte $y=a_0+a_1x$ de gegeven meetpunten zo goed mogelijk benadert.
 
-Beschouw bijvoorbeeld de volgende meetgegevens (dit zijn de gegevens van oefening 2 op de integrale analysemethode):
+In een vorige oefening werd deze regressierechte reeds berekend met Python
+via de functie \texttt{np.polyfit()}. Deze functie bepaalt de parameters
+\(a_0\) en \(a_1\) automatisch. We bekijken nu hoe deze waarden rechtstreeks
+uit de meetgegevens kunnen worden afgeleid met de kleinste-kwadratenmethode.
+
+Beschouw bijvoorbeeld de volgende meetgegevens (dit zijn de gegevens van
+oefening 2 op de integrale analysemethode):
 \[
 \begin{array}{c|ccccc}
 x = t~(\mathrm{min}) &0&1&2&3&4\\
@@ -410,29 +415,35 @@ y = -\ln\left(\frac{C_A-C_{A,eq}}{C_{A0}-C_{A,eq}}\right)&0.00&0.60&1.20&1.90&2.
 \end{array}
 \]
 
-In Python werd de regressierechte bepaald met
-\begin{verbatim}
-a, b = np.polyfit(x, y, 1)
-y_fit = a*np.array(x) + b
-\end{verbatim}
-
-We bekijken nu hoe dezelfde rechte bekomen wordt met de methode van de
-kleinste kwadraten.\\
 
 Omdat we slechts één onafhankelijke variabele hebben, schrijven we het model als
 \[
-y=a_0+a_1x,
+y=a_0+a_1x.
 \]
-waarbij
-\[x=t.\]
 
-De som van de gekwadrateerde residuen wordt
+De som van de gekwadrateerde residuen wordt:
 \[
 S(a_0,a_1) = \sum_{j=1}^{N}\left(y_j-a_0-a_1x_j\right)^2.
 \]
+Om het minimum van deze functie te bepalen, moeten de partiële afgeleiden naar \(a_0\) en \(a_1\) gelijk zijn aan nul:
 
-Om het minimum van deze functie te bepalen stellen we de partiële afgeleiden gelijk aan nul.\\
-Dit leidt tot de twee normaalvergelijkingen
+\[\frac{\partial S}{\partial a_0}=0, \quad \frac{\partial S}{\partial a_1}=0. \]
+
+Dit geeft respectievelijk
+\[
+\frac{\partial S}{\partial a_0}
+=
+-2\sum_{j=1}^{N}(y_j-a_0-a_1x_j)=0,
+\]
+
+\[
+\frac{\partial S}{\partial a_1}
+=
+-2\sum_{j=1}^{N}x_j(y_j-a_0-a_1x_j)=0.
+\]
+
+Na herschikken bekomen we de twee normaalvergelijkingen:
+\\
 \[\sum y_j = Na_0 + a_1\sum x_j,\]
 \[\sum x_jy_j = a_0\sum x_j + a_1\sum x_j^2. \]
 
