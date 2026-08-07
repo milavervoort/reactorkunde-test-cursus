@@ -194,7 +194,7 @@ Controleer dit door na te gaan of de data overeenkomt met een nulde-orde, eerste
 
 \begin{question} \textbf{Data verwerken} 
 
-    We kunnen nu de plots maken met behulp van de experimentele data. Gebruik de python code in volgende Google Colab-file om de oefening verder op te lossen. Vul de lege regels in waar nodig om de berkeningen uit te voeren.\\ 
+    We kunnen nu de plots maken met behulp van de experimentele data. Gebruik de python code in volgende Google Colab-file om de oefening verder op te lossen. Vul de code aan waar nodig om de berekeningen uit te voeren.\\ 
     \begin{center}
 \href{https://colab.research.google.com/drive/17OgikG5AMJrcq17wvrM8fH6I01i4wifi?usp=sharing}{\Large Open de Google Colab notebook}
     \end{center}
@@ -221,7 +221,10 @@ Controleer dit door na te gaan of de data overeenkomt met een nulde-orde, eerste
 
 \begin{question}\textbf{Interpreteren van de plot}
 
-Maak in de Google Colab-file vervolgens een plot van de de berekende waarden en maak een lineaire fit doorheen de punten.
+Maak in de Google Colab-file vervolgens grafieken van de berekende waarden. Zet hierbij de y-waarden uit als functie van de tijd voor elke reactie-orde en voer een lineaire fit uit doorheen de bekomen punten.
+
+Voor de nulde-orde reactie is de code reeds gegeven. Schrijf zelf de code voor de eerste- en tweede-orde reactie.
+
 \iffalse 
     \pgfplotsset{compat=1.18}
     % --- 0de orde ---
@@ -276,8 +279,8 @@ Maak in de Google Colab-file vervolgens een plot van de de berekende waarden en 
     \end{tikzpicture}
     \end{figure}
 \fi
-\\
-    Welke reactie-orde past het best bij deze reactie?
+
+Welke reactie-orde past het best bij deze reactie?
     \begin{multipleChoice}
             \choice{0de orde}
             \choice[correct]{1ste orde}
@@ -287,6 +290,11 @@ Maak in de Google Colab-file vervolgens een plot van de de berekende waarden en 
     \[
     k = \answer{0.079}
     \]
+    \begin{feedback} \text{ }
+    
+    De helling van de regressielijn bedraagt $0.079$. 
+    Hieruit volgt dat k = 0.079.
+    \end{feedback}
 \end{question}
 
 \text{  }\\
