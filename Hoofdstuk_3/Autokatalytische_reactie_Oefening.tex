@@ -1,6 +1,6 @@
 \documentclass{ximera}
 
-\title{Autokatalytische reactie: Oefening}
+\title{Oefening: Autokatalytische reactie}
 \author{Mila Vervoort}
 \license{CC: 0}         % replace with an appropriate license, or set it in xmPreamble
 
@@ -12,6 +12,12 @@
 
 \section*{Autokatalytische Reacties}
 
+In de theorie werden de ontwerpvergelijkingen voorgesteld en bekeken voor reacties met een \textbf{monotoon stijgende kinetiek}. Voor dergelijke reacties neemt de reactiesnelheid af naarmate de concentratie van het reagens afneemt. Hieruit volgde bijvoorbeeld dat een PFR voor eenzelfde conversie steeds een kleiner reactorvolume vereist dan een CSTR.
+
+Niet alle reacties volgen echter een monotoon stijgende kinetiek. Bij sommige reacties, zoals een \textbf{autokatalytische reactie}, neemt de reactiesnelheid aanvankelijk toe doordat één van de reactieproducten zelf als katalysator optreedt. De grafiek van $1/(-R_A)$ als functie van de concentratie krijgt hierdoor een andere vorm.
+
+In deze oefening onderzoeken we hoe de kinetiek de keuze van het reactortype beïnvloedt. 
+
 \begin{definition} \textbf{Autokatalytische reactie}
     
 Een autokatalytische reactie is een chemische reactie waarbij één van de producten de reactie versnelt door als katalysator te fungeren. Met andere woorden, de reactie “katalyseert zichzelf”.  
@@ -19,7 +25,7 @@ Een typisch voorbeeld van een autokatalytische reactie is:
 
 \[A \rightarrow B\]
 
-Hierbij is \(B\) zowel een product als een katalysator voor de reactie. De reactiesnelheid neemt toe naarmate er meer \(B\) gevormd wordt. \\
+Hierbij is \(B\) zowel een product als een katalysator voor de reactie. De aanwezigheid van product B versnelt de reactie. De reactiesnelheid neemt daardoor aanvankelijk toe, bereikt een maximum en neemt vervolgens opnieuw af doordat de concentratie van A steeds kleiner wordt.
 
 De snelheidsvergelijking van deze reactie is:
 \[
@@ -34,7 +40,8 @@ waarbij:
 \end{definition}
 \textbf{ }\\
 
-De concentratie van B kan herschreven worden als:
+Bij constante densiteit blijft de totale molaire concentratie in de reactor constant. Er geldt dus: $C_{tot} = C_{A0} + C_{B0} = C_A + C_B$.
+Hieruit volgt dat de concentratie van component $B$ kan worden uitgedrukt als:
 \[
 C_B = C_{B0} + C_{A0} - C_A
 \]
@@ -59,9 +66,7 @@ Dit kan ook verder uitgeschreven worden in functie van conversie met $C_A = C_{A
      \[-R_A = k C_A (\varepsilon + C_{A0}-C_A)= k C_{A0}(1-X_A)(\varepsilon + C_{A0}X_A) \]
  \end{itemize}
 
-Een autokatalytische reactie vertoont geen monotoon stijgende kinetiek. De reactiesnelheid bereikt een maximum bij een intermediaire waarde van de concentratie (of conversie).\\
-
-Wanneer $\frac{1}{-R_A}$ wordt uitgezet tegen $C_A$, zal de resulterende reactiecurve een ander verloop vertonen dan bij een monotoon stijgende reactiekinetiek. De curve ziet er als volgt uit:
+Wanneer $\frac{1}{-R_A}$ wordt uitgezet tegen $C_A$, ziet de curve er als volgt uit:
 
 \begin{image}
 \begin{tikzpicture}
@@ -84,25 +89,17 @@ Wanneer $\frac{1}{-R_A}$ wordt uitgezet tegen $C_A$, zal de resulterende reactie
 \end{tikzpicture}
 \end{image} 
 
-Hierdoor verandert de performantie van de verschillende reactoren ten opzichte van elkaar.
+De kromme van $1/(-R_A)$ als functie van $C_A$ verschilt duidelijk van deze bij een monotoon stijgende kinetiek. De reactiesnelheid bereikt een maximum bij een intermediaire waarde van de concentratie (of conversie). 
+Hierdoor verandert ook de relatieve performantie van de verschillende reactortypes.
 
-Bij een isotherme reactie met monotoon stijgende kinetiek hebben we gezien dat er steeds geldt:
+Bij een isotherme reactie met monotoon stijgende kinetiek geldt:
 \[
-\tau_{\text{CSTR}} > \tau_{\text{PFR}}
+\tau_{\text{CSTR}}>\tau_{\text{PFR}}
 \]
-Een PFR is dan altijd volume-efficiënter. \\
+Bij een autokatalytische reactie is dit echter niet langer gegarandeerd.
 
-Bij een autokatalytische reactie is dit echter
-niet langer gegarandeerd. Omdat de reactiesnelheid
-bij lage conversie zeer klein is (weinig product aanwezig),
-werkt een PFR in het begin van zijn lengte in een
-ongunstig kinetisch gebied.
-Een CSTR daarentegen opereert volledig aan de
-uitlaatconcentratie. Indien deze zich dichter bij
-het snelheidsmaximum bevindt dan de lage
-inlaatconcentratie van een PFR, kan de CSTR
-bij lage conversies een kleinere verblijftijd
-vereisen dan de PFR.\\
+Omdat de reactiesnelheid bij lage conversie zeer klein is (weinig product aanwezig), werkt een PFR in het begin van zijn lengte in een
+ongunstig kinetisch gebied. Een CSTR daarentegen opereert volledig aan de uitlaatconcentratie. Indien deze zich dichter bij het snelheidsmaximum bevindt dan de lage inlaatconcentratie van een PFR, kan de CSTR bij lage conversies een kleinere verblijftijd vereisen dan de PFR.\\
 
 Dit kan eenvoudig geverifieerd worden door in de
 interactieve figuur de gewenste conversie te variëren
@@ -123,7 +120,7 @@ rangorde waarbij een PFR altijd efficiënter is dan een CSTR.
 Ook andere reactorconfiguraties kunnen performanter zijn.
 \end{conclusion}
 \vspace{1cm}
-De performantie van verschillende reactorconfiguraties bekijken we nu aan de hand van de volgende oefening.
+In de volgende oefening wordt deze invloed van de kinetiek op het reactorontwerp kwantitatief onderzocht. Verschillende reactorconfiguraties worden met elkaar vergeleken en geoptimaliseerd.
 
 \subsection*{Oefening}
 
