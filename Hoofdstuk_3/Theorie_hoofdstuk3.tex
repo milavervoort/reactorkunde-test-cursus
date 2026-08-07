@@ -15,7 +15,7 @@ In hoofdstuk 3 'Ontwerp van homogene reaktoren onder isotherme werkingsvoorwaard
 
 In dit hoofdstuk wordt verondersteld dat de reactor onder \textbf{isotherme omstandigheden} werkt, bij een vooraf gekende of eenvoudig te bepalen temperatuur. Hierdoor is een enthalpiebalans niet nodig voor het ontwerp van de reactorinstallatie. Bovendien kan de uitdrukking voor de reactiesnelheid worden vereenvoudigd, aangezien er geen expliciete temperatuurafhankelijkheid meer in rekening hoeft te worden gebracht. 
 
-\section{Stofbalansen}
+\section*{Stofbalansen}
 \begin{formula} \textbf{Stofbalans}
 
 Een stofbalans is van de volgende vorm: 
@@ -28,15 +28,15 @@ In formulevorm:
 \]
 waar:
 \begin{itemize}
-\item $N_A$ = aantal mol van component A in de reactor
-\item $F_{A,in}$ = molstroom van A naar binnen
-\item $F_{A,out}$ = molstroom van A naar buiten
-\item $R_A$ = reactiesnelheid van A (mol/(m$^3$s))
-\item $V$ = reactorvolume
+\item $N_A$ = aantal mol van component A in de reactor [$mol$]
+\item $F_{A,in}$ = molstroom van A naar binnen 5 [$\frac{mol}{s}$]
+\item $F_{A,out}$ = molstroom van A naar buiten [$\frac{mol}{s}$]
+\item $R_A$ = reactiesnelheid van A [$\frac{mol}{m^3s}$]
+\item $V$ = reactorvolume [$m^3$]
 \end{itemize}
 \end{formula} 
  
-\section{Batch Reactor}
+\section*{Batch Reactor}
 
 In een batch reactor is er geen in- of uitstroom (\(F_{A,in} = F_{A,out} = 0\)):
 
@@ -92,11 +92,9 @@ t = N_{A0} \int_0^{X_{Ae}} \frac{dX_A}{(-R_A)V}\
 \end{tikzpicture}
 \end{image} 
 
-Bij de aanname van constante densiteit en dus een constant controlevolume, kan de molaire hoeveelheid omgevormd worden naar de concentratie van reagens A.
+Onder de aanname van een constante densiteit en bijgevolg een constant controlevolume, kan de molaire hoeveelheid worden uitgedrukt in termen van de concentratie van reagens A. Aangezien ($N_A = C_A V$), kan de massabalans worden herschreven als:
 
-\[
-\frac{dC_A}{dt} = R_A
-\]
+\[\frac{dC_A}{dt} = R_A\]
 
 Om de tijd \(t\) te berekenen die nodig is om van een initiële concentratie \(C_{A0}\) naar \(C_A\) te gaan, integreren we:
 \[
@@ -174,7 +172,7 @@ Hieruit volgt:
 
 De grafische interpretaties in de $\frac{1}{-R_A}$- versus $X_A$- en $C_A$-curven zijn gebaseerd op een monotoon stijgende kinetiek.\\
 
-In het geval van een monotoom stijgende kinetica geldt:
+In het geval van een monotoon stijgende kinetica geldt:
 
 \[
 R_A = \frac{dC_A}{dt} = -k C_A^n
@@ -236,7 +234,7 @@ Bij een andere kinetica kan de reactiecurve dus een andere vorm aannemen.
 \end{remark}
 
 
-\section{CSTR (Continuous Stirred Tank Reactor)}
+\section*{CSTR (Continuous Stirred Tank Reactor)}
 
 In een CSTR met constante in- en uitstroom geldt bij stationaire toestand:
 
@@ -286,13 +284,28 @@ F_{A0}X_A = -R_A V
 \end{tikzpicture}
 \end{image} 
 
-Bij de aanname van constante densiteit:
+
+Bij constante densiteit blijft het volumetrisch debiet $q$ constant.
+De molaire stroom kan dan worden uitgedrukt als $F_A = q\,C_A.$ De ontwerpvergelijking wordt dan:
 
 \[
 \boxed{
 \tau = \frac{C_{A0}-C_{Ae}}{-R_A(C_{Ae})}
 }
 \]
+
+\begin{remark} \textbf{Verblijftijd}
+
+De grootheid
+\[
+\tau=\frac{V}{q}
+\]
+wordt de verblijftijd genoemd. 
+
+De verblijftijd $\tau$ geeft aan hoe lang een fluïdelement gemiddeld in een continue reactor verblijft.
+
+Hoewel zowel $t$ als $\tau$ een tijd voorstellen, hebben ze een verschillende betekenis. De tijd $t$ beschrijft de evolutie van een reactie in een batchreactor, terwijl $\tau$ de gemiddelde verblijftijd van een fluïdelement in een continue reactor weergeeft. Beide worden uitgedrukt in de dimensie van tijd (s, min of h).
+\end{remark}
 
 
 \begin{image}
@@ -331,15 +344,21 @@ Bij de aanname van constante densiteit:
 \end{image}
 
 
-\section{PFR (Plug Flow Reactor)}
+
+
+
+\section*{PFR (Plug Flow Reactor)}
 
 In een PFR verandert de concentratie langs de reactorlengte. De stofbalans over een klein segment \(dV\) is:
 
+\[
+0 = F_A - (F_A +dF_A) + R_AdV 
+\]
 
 \[
 \frac{dF_A}{dV} = R_A
 \]
-
+Stel $F_{A} = F_{A0}(1- X_A)$ 
 \[
 \frac{dX_A}{dV} = \frac{-R_A}{F_{A0}}
 \]
@@ -429,8 +448,8 @@ Bij de aanname van constante densiteit:
 \end{tikzpicture}
 \end{image}
 
-\section{Vergelijking van ideale reactoren}
-\subsection{Vergelijking: CSTR vs PFR}
+\section*{Vergelijking van ideale reactoren}
+\subsection*{Vergelijking: CSTR vs PFR}
 
 We vergelijken de verblijftijd voor eenzelfde uitgangsconcentratie $C_{Ae}$.
 
@@ -501,7 +520,7 @@ Dit kan je ook zelf even uittesten:
 \geogebra{m4v7cs3y}{700}{500}
 \end{center}
 
-\subsection{Vergelijking: Batch vs PFR}
+\subsection*{Vergelijking: Batch vs PFR}
 
 Voor constante densiteit hebben Batch en PFR dezelfde
 integraalvorm.
@@ -561,7 +580,7 @@ t_{Batch} = \tau_{PFR}
 De tijd dat een fluidumelement verblijft in een propstroom reactor en in een batch reactor zijn equivalent.
 \end{conclusion}
 
-\section{PFR met recyclestroom}
+\section*{PFR met recyclestroom}
 We beschouwen een plug flow reactor (PFR) met een externe recyclestroom.
 De verse voeding heeft volumestroom $q$ en concentratie $C_{A0}$.
 Een deel van de uitstroom wordt teruggevoerd naar de ingang van de reactor. \\
@@ -570,13 +589,13 @@ Een deel van de uitstroom wordt teruggevoerd naar de ingang van de reactor. \\
 \end{image} 
 
 \begin{itemize}
-\item $q$ = volumestroom van de verse voeding
-\item $R$ = recycleverhouding (dimensionloos)
-\item $R q$ = Recycledebiet
-\item $q (R+1)$ = Totaal debiet door de reactor 
-\item $C_{A,in}$ = concentratie aan de reactorinlaat
-\item $C_{A,uit}$ = concentratie aan de reactoruitlaat
-\item $V$ = reactorvolume
+\item $q$ = volumestroom van de verse voeding [$\frac{m^3}{s}$]
+\item $R$ = recycleverhouding [$/$]
+\item $R q$ = Recycledebiet [$\frac{m^3}{s}$]
+\item $q (R+1)$ = Totaal debiet door de reactor  [$\frac{m^3}{s}$]
+\item $C_{A,in}$ = concentratie aan de reactorinlaat [$\frac{mol}{m^3}$]
+\item $C_{A,uit}$ = concentratie aan de reactoruitlaat [$\frac{mol}{m^3}$]
+\item $V$ = reactorvolume [$m^3$]
 \item Constante densiteit $\rho$
 \end{itemize} 
 
@@ -609,10 +628,10 @@ Er treedt sterke menging op en het gedrag benadert dat van een CSTR.
 
 Vervolgens kunnen we voor deze reactor ook de stofbalans opstellen. 
 \[
-\text{Accumulation} = \text{In} - \text{Uit} + \text{Reaactie}
+\text{Accumulation} = \text{In} - \text{Uit} + \text{Reactie}
 \]
 \[
-q(R+1)C_A - q(R+1)(C_A + dC_A) + R_A dV = 0
+0 = q(R+1)C_A - q(R+1)(C_A + dC_A) + R_A dV 
 \]
 
 Vereenvoudigen geeft:
@@ -621,17 +640,60 @@ q(R+1)\, dC_A = R_A \, dV
 \]
 of
 \[
-\frac{dV}{q} = (R+1)\frac{dC_A}{-R_A}
+\frac{dV}{q} = -(R+1)\frac{dC_A}{-R_A}
 \]
 Integreren van $C_{A,in}$ tot $C_{A,uit}$ levert:
 \[
 \tau = \frac{V}{q} 
-= (R+1)\int_{C_{A,uit}}^{C_{A,in}} \frac{dC_A}{-R_A}
+= -(R+1)\int_{C_{A,in}}^{C_{A,uit}} \frac{dC_A}{-R_A}
 \]
+
+De verblijftijd kan opnieuw grafisch worden geïnterpreteerd.
+De integraal stelt de oppervlakte voor onder de curve
+$\frac{1}{-R_A}$ tussen de concentratie aan de reactorinlaat
+$C_{A,in}$ en de reactoruitlaat $C_{A,uit}$.
+Omdat het totale debiet door de reactor gelijk is aan
+$(R+1)q$, wordt deze oppervlakte vermenigvuldigd met de factor
+$(R+1)$.
+
+\begin{image}
+\begin{tikzpicture}
+\begin{axis}[
+    domain=0.05:1,
+    samples=200,
+    xmin=0, xmax=1,
+    ymin=0, ymax=12,
+    axis lines=left,
+    xlabel={$C_A$},
+    ylabel={$\frac{1}{(-R_A)}$},
+    xtick={0.2,0.7,0.9},
+    xticklabels={$C_{A,uit}$,$C_{A,in}$,$C_{A0}$},
+    ytick=\empty
+]
+
+% plot de kinetiek
+\addplot[ultra thick, blue] {1/x};
+
+% gearceerde integraal
+\addplot[
+    thick,
+    fill=blue!20,
+    domain=0.2:0.7,
+    samples=100
+] {1/x} \closedcycle;
+
+% label
+\node at (axis cs:0.6,4.5)
+{$\displaystyle \text{Oppervlakte}*(R+1)=\tau$};
+
+\end{axis}
+\end{tikzpicture}
+\end{image}
+
 
 \begin{conclusion} \textbf{ }
 
-Het toevoegen van een recyclestroom verhoogt het totale debiet door de reactor met een factor $(R+1)$ en verlaagt de inlaatconcentratie. Hierdoor wordt de gemiddelde reactiesnelheid kleiner en neemt het benodigde volume om dezelfde conversie te behalen toe. In de limiet $R \rightarrow \infty$ wordt het vereiste volume gelijk aan dat van een CSTR.\\
+Het toevoegen van een recyclestroom verhoogt het totale debiet door de reactor met een factor $(R+1)$ en verlaagt de inlaatconcentratie. Hierdoor neemt de gemiddelde reactiesnelheid af, waardoor de vereiste verblijftijd $\tau$ en dus ook het benodigde reactorvolume toenemen om dezelfde conversie te bereiken. In de limiet $R \rightarrow \infty$ wordt het vereiste volume gelijk aan dat van een CSTR.\\
 
 \begin{image}
 \includegraphics[width=5cm]{Volume_recycle.png}
