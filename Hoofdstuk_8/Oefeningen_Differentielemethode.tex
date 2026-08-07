@@ -13,7 +13,7 @@
 
 \section*{Oefening 1: $n^{de}$ orde reactie}
 
-Dit is dezelfde oefening als bij de integrale analyse methode. We gaan deze nu proberen op te lossen met de differentiële analysemethode.
+Dit is dezelfde oefening als bij de integrale analysemethode. We gaan deze nu proberen op te lossen met de differentiële analysemethode.
 
 \textbf{Gegeven}
 
@@ -94,48 +94,107 @@ Herschrijf deze vergelijking zodanig dat zowel $k'$ als $n$ gelijktijdig kunnen 
 
 \end{question}
 
-\begin{remark} \textbf{Centrale differentiebenadering}
+\begin{remark} \textbf{Bepalen van de reactiesnelheid met centrale differentie}
 
-    De centrale differentiebenadering benadert de afgeleide door gebruik te maken van punten aan beide zijden:
-    \[
-    f'(t) \approx \frac{f(t+h) - f(t-h)}{2h}.
-    \]
-     In dit voorbeeld bepalen we de afgeleide in het middenpunt $t_{n+\frac{1}{2}}$:
-    \[
-    f'\bigl(t_{n+\frac{1}{2}}\bigr) \approx \frac{f(t_{n+1}) - f(t_n)}{\Delta t}.
-    \]
+De experimentele gegevens bestaan uit discrete metingen van de druk als
+functie van de tijd. Om de reactiesnelheid te bepalen, moet de afgeleide
+$\frac{dp}{dt}$ berekend worden.
+
+Omdat de druk enkel op discrete tijdstippen gekend is, wordt de afgeleide
+benaderd met een centrale differentiebenadering. Hierbij wordt de helling
+tussen twee opeenvolgende meetpunten gebruikt als een schatting van de
+afgeleide in het tussenliggende tijdstip:
+
+\[
+f'\left(t_{n+\frac{1}{2}}\right)
+\approx
+\frac{f(t_{n+1})-f(t_n)}
+{t_{n+1}-t_n}
+\]
+
+Er ontstaan hierdoor nieuwe intermediaire tijdstippen tussen de oorspronkelijke metingen. Op deze tijdstippen wordt de reactiesnelheid bepaald als:
+
+\[
+\left(\frac{dp}{dt}\right)_{n+\frac{1}{2}}
+\approx
+\frac{p_{n+1}-p_n}{t_{n+1}-t_n}
+\]
+
+Deze berekende snelheden worden vervolgens gebruikt in de gelineariseerde kinetische vergelijking.
 \end{remark}
 
-\begin{question} \textbf{Data verwerken}\\
-We kunnen nu de plots maken met behulp van de experimentele data. Gebruik de python code in volgende Google Colab-file om de oefening verder op te lossen. Vul de lege regels in waar nodig om de berkeningen uit te voeren.
+
+\begin{question} \textbf{Bepalen van de reactiesnelheid uit de experimentele data}\\
+
+Gebruik de Python-code in de volgende Google Colab-file om de berekeningen uit te
+voeren en de ontbrekende regels aan te vullen.
 
 \begin{center}
 \href{https://colab.research.google.com/drive/1dWckfscjsUmQ97Mw7P00nvdMTTST00n3?usp=sharing}{\Large Open de Google Colab notebook}
-    \end{center}
+\end{center}
 
-Om een plot te kunnen maken, hebben we de afgeleide $\frac{dp}{dt}$ nodig op elk tijdspunt. 
-Voor het berekenen van de afgeleide $\frac{dp}{dt}$ gebruiken we een eenvoudige centrale differentiebenadering. \\
+De code berekent voor alle meetpunten de intermediaire tijdstippen en de bijhorende waarden van $\frac{dp}{dt}$ met behulp van de differentiebenadering.
 
-
-Beschouw het eerste tijdsinterval tussen $t=0$ min en $t=5$ min:
+Controleer of de methode correct wordt toegepast door het eerste tijdsinterval tussen $t=0$ min en $t=5$ min handmatig te analyseren.
 \begin{enumerate}
     \item Wat is het intermediaire tijdstip?
     \[
     t = \answer{2.5}\ \text{min}
     \]
+    \begin{feedback}
+    Het intermediaire tijdstip ligt halverwege de twee meetpunten:
+    \[
+    t_{n+\frac{1}{2}}=\frac{t_n+t_{n+1}}{2}
+    \]
+    Voor het eerste interval:
+    \[
+    t_{1/2}=\frac{0+5}{2}=2.5\ \text{min}
+    \]
+    \end{feedback}
 
     \item Wat is de druk op dit intermediaire tijdstip?
     \[
     p = \answer{10.0}\ \text{mmHg}
     \]
+       \begin{feedback}
+    De druk op het intermediaire tijdstip wordt benaderd als het gemiddelde van
+    de twee omliggende meetpunten:
+    \[
+    p_{n+\frac{1}{2}}=\frac{p_n+p_{n+1}}{2}
+    \]
+    Dus:
+    \[
+    p_{1/2}=\frac{7.5+12.5}{2}=10.0\ \text{mmHg}
+    \]
+    \end{feedback}
 
     \item Bereken de afgeleide $\dfrac{dp}{dt}$ op dit intermediaire tijdstip met de centrale differentiebenadering.
     \[
     \frac{dp}{dt}=\answer{1.00}\ \text{mmHg/min}
     \]
+    \begin{feedback}
+    De reactiesnelheid wordt benaderd als de helling tussen de twee
+    opeenvolgende meetpunten:
+    \[
+    \left(\frac{dp}{dt}\right)_{n+\frac{1}{2}}
+    \approx
+    \frac{p_{n+1}-p_n}{t_{n+1}-t_n}
+    \]
+
+    Voor het eerste interval:
+    \[
+    \frac{dp}{dt}
+    =
+    \frac{12.5-7.5}{5-0}
+    =
+    1.00\ \text{mmHg/min}
+    \]
+    \end{feedback}
 \end{enumerate}
 
-Gebruik de Google Colab-file om de afgeleide te bepalen voor alle opgemeten tijdsintverallen.
+Dezelfde berekening wordt vervolgens automatisch uitgevoerd voor alle
+tijdintervallen in de Google Colab-file.
+
 
 \iffalse
 \begin{table}[h!]
@@ -159,10 +218,17 @@ Vul de tabel  verder aan:
 \[a = \answer{14.15}\]
 \[b = \answer{0.42}\]
 \fi 
+\end{question}
 
-Om de plot te kunnen maken, moeten de waarde voor x en y nog bepaald worden met behulp van de gelineariseerde uitdrukking. 
+\begin{question} \textbf{Data verwerken}\\
 
-Vul de Google-Colab file verder aan en duid de correcte tabel aan met behulp van de bekomen resultaten.
+De waarden van $\frac{dp}{dt}$ zijn nu bepaald. Om de reactieorde en
+reactieconstante te bepalen, worden deze waarden verwerkt volgens de
+gelineariseerde kinetische vergelijking.
+
+Bepaal in de Google Colab-file de overeenkomstige $x$- en $y$-waarden en controleer de bekomen resultaten aan de hand van onderstaande tabellen.
+
+Welke tabel komt overeen met de resultaten die je uit de berekeningen hebt verkregen?
 
 \begin{multipleChoice}
     \choice[correct]{\begin{tabular}{c|c}
