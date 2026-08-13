@@ -1,0 +1,388 @@
+\documentclass{ximera}
+
+\title{Machine Learning}
+\author{Mila Vervoort}
+\license{CC: 0}         % replace with an appropriate license, or set it in xmPreamble
+
+\begin{document}
+\begin{abstract}
+    Een introductie over Machine Learning en Neurale Netwerken voor het toepassen op reactorkunde
+\end{abstract}
+\maketitle
+\label{xim:Machine Learning}
+
+\section*{Waarom Machine Learning?}
+
+In de reactorkunde worden reactoren doorgaans beschreven met wiskundige modellen die gebaseerd zijn op de fysische en chemische processen die in het systeem plaatsvinden. Wanneer de onderliggende processen goed gekend zijn, kunnen bijvoorbeeld massabalansen en reactiesnelheidsvergelijkingen worden opgesteld om het gedrag van de reactor te beschrijven.
+
+Deze aanpak is bijzonder krachtig wanneer de fysische en chemische processen voldoende gekend zijn. Zo kunnen we op basis van een gekend reactiemechanisme een geschikte reactiesnelheidsvergelijking opstellen en vervolgens de bijbehorende kinetische parameters bepalen uit experimentele gegevens.
+
+In de praktijk is onze kennis van een reactiesysteem echter niet altijd volledig. Een systeem kan bijvoorbeeld meerdere gelijktijdige reacties, tussenproducten en nevenreacties bevatten. Ook kunnen bepaalde reactiemechanismen onvoldoende gekend zijn of kunnen niet alle relevante variabelen experimenteel worden gemeten. Het kan dan moeilijk zijn om vooraf een wiskundig model op te stellen dat het volledige gedrag van het systeem correct beschrijft.
+
+We beschikken in dergelijke situaties vaak wel over experimentele gegevens. Deze gegevens bevatten informatie over hoe het systeem zich gedraagt, ook wanneer de onderliggende mechanismen niet volledig gekend zijn. Dit maakt het interessant om niet alleen vanuit onze fysische kennis te vertrekken, maar ook gebruik te maken van de informatie die in de gegevens aanwezig is.
+
+Dit vormt het uitgangspunt van \textbf{Machine Learning}. Bij Machine Learning wordt een model gebruikt waarvan de parameters worden geleerd uit beschikbare gegevens. Het model probeert hierbij verbanden en patronen in de gegevens te leren, zodat het vervolgens voorspellingen kan maken voor nieuwe situaties. 
+
+\begin{center}
+\begin{tikzpicture}[
+    >=stealth,
+    font=\small,
+    box/.style={
+        draw,
+        rounded corners=3pt,
+        minimum width=3.4cm,
+        minimum height=0.9cm,
+        align=center
+    },
+    classic/.style={
+        box,
+        fill=blue!7,
+        draw=blue!55!black
+    },
+    machine/.style={
+        box,
+        fill=orange!8,
+        draw=orange!65!black
+    },
+    arrow/.style={
+        ->,
+        thick
+    }]
+
+% Titels
+\node[
+    font=\bfseries\large,
+    text=blue!55!black
+] at (-3.2,4.6)
+{Klassieke aanpak};
+
+\node[
+    font=\bfseries\large,
+    text=orange!65!black
+] at (3.2,4.6)
+{Machine Learning};
+
+
+% Input
+\node[classic] (physics) at (-3.2,3.6)
+{Fysische kennis};
+
+\node[machine] (data) at (3.2,3.6)
+{Experimentele data};
+
+
+% Tweede blok
+\node[classic] (mechanism) at (-3.2,2.35)
+{\textbf{Reactiemechanisme}\\
+$A\rightarrow B\rightarrow C$};
+
+\node[machine] (ml) at (3.2,2.35)
+{\textbf{ML-model}};
+
+
+% Derde blok
+\node[classic] (kinetics) at (-3.2,1.0)
+{\textbf{Kinetische vergelijkingen}\\
+$r=kC_A^n$};
+
+\node[machine] (dynamics) at (3.2,1.0)
+{\textbf{Geleerde dynamica}\\
+$f_\theta(\mathbf C)$};
+
+
+% Pijlen
+\draw[arrow, blue!55!black]
+(physics) -- (mechanism);
+
+\draw[arrow, blue!55!black]
+(mechanism) -- (kinetics);
+
+\draw[arrow, orange!65!black]
+(data) -- (ml);
+
+\draw[arrow, orange!65!black]
+(ml) -- (dynamics);
+
+
+% Output
+\node[
+    draw=green!50!black,
+    fill=green!7,
+    rounded corners=3pt,
+    minimum width=4.0cm,
+    minimum height=0.75cm,
+    align=center,
+    font=\small
+] (output) at (0,-0.35)
+{\textbf{Reactordynamica}\\
+$C_A(t),C_B(t),\ldots$};
+
+
+% Pijlen naar gezamenlijke output
+\draw[arrow, blue!55!black]
+(kinetics.south)
+-- ++(0,-0.45)
+-- (output.west);
+
+\draw[arrow, orange!65!black]
+(dynamics.south)
+-- ++(0,-0.45)
+-- (output.east);
+
+\end{tikzpicture}
+\end{center}
+
+\begin{remark}
+    Machine Learning hoeft hierbij geen vervanging te zijn voor de klassieke fysische modellen. In veel toepassingen kunnen fysische kennis en Machine Learning juist worden gecombineerd. Zo kan de fysische structuur van een probleem vooraf worden vastgelegd, terwijl een Machine Learning-model wordt gebruikt om een onbekend of moeilijk te beschrijven onderdeel uit de experimentele gegevens te leren.
+\end{remark}
+
+\section*{Wat is Machine Learning?}
+
+achine Learning is een verzameling technieken waarmee een model uit
+gegevens kan worden geleerd. In plaats van een model volledig vooraf vast te
+leggen, worden de parameters van het model bepaald op basis van beschikbare
+gegevens. Het doel is om een model te verkrijgen dat verbanden in de gegevens
+kan beschrijven en vervolgens voorspellingen kan maken voor nieuwe situaties.
+
+Een eenvoudig Machine Learning-probleem kan schematisch worden voorgesteld
+als
+
+\[
+x
+\quad\longrightarrow\quad
+\boxed{f_\theta}
+\quad\longrightarrow\quad
+\hat{y},
+\]
+
+waarbij $x$ de invoer van het model is, $\hat{y}$ de voorspelling van het
+model en $f_\theta$ het model zelf voorstelt. De index $\theta$ geeft aan dat
+het model afhankelijk is van een verzameling parameters $\theta$.
+
+De voorspelling kan daarom worden geschreven als
+
+\[
+\hat{y}=f_\theta(x).
+\]
+
+De letter $y$ wordt gebruikt voor de werkelijke of gewenste uitvoer. Het
+hoedje in $\hat{y}$ geeft aan dat het om een voorspelling gaat.
+
+
+\subsection*{Verschillende vormen van Machine Learning}
+
+Machine Learning kan op verschillende manieren worden toegepast, afhankelijk
+van de beschikbare gegevens en het doel van het model. Een belangrijk
+onderscheid wordt gemaakt tussen \textbf{supervised learning},
+\textbf{unsupervised learning} en \textbf{reinforcement learning}.
+
+Bij \textbf{supervised learning} beschikt men over voorbeelden waarbij zowel
+de invoer $x$ als de bijbehorende gewenste uitvoer $y$ gekend zijn. Het model
+leert op basis van deze voorbeelden een verband tussen de invoer en de
+uitvoer.
+
+Binnen supervised learning wordt een onderscheid gemaakt tussen
+\textbf{regressie} en \textbf{classificatie}.
+
+Bij \textbf{regressie} probeert het model een \textbf{continue grootheid} te
+voorspellen. De uitvoer kan bijvoorbeeld een temperatuur, concentratie of
+reactiesnelheid zijn. Het model leert dan bijvoorbeeld een verband van de
+vorm
+
+\[
+\hat{y}=f_\theta(x).
+\]
+
+Bij \textbf{classificatie} probeert het model een observatie toe te wijzen aan
+één van een aantal \textbf{categorieën of klassen}. De uitvoer is dan geen
+continue grootheid, maar bijvoorbeeld ``A'', ``B'' of ``C'', of een binaire
+klasse zoals ``ja'' of ``nee''.
+
+Bij \textbf{unsupervised learning} zijn er geen vooraf gegeven doelwaarden
+$y$. Het model krijgt enkel de beschikbare gegevens en probeert hierin zelf
+structuren of patronen te vinden. Een voorbeeld hiervan is
+\textbf{clustering}, waarbij gelijkaardige gegevenspunten automatisch in
+groepen worden verdeeld.
+
+Bij \textbf{reinforcement learning} leert een model door interactie met een
+omgeving. Het model voert acties uit en ontvangt hiervoor een beloning of
+straf. Op basis van deze ervaringen leert het model welke acties tot een
+gewenst resultaat leiden.
+
+In deze cursus richten we ons voornamelijk op
+\textbf{supervised learning}, en meer specifiek op
+\textbf{regressie}. We beschikken immers over experimentele gegevens en
+willen daaruit continue grootheden, zoals reactiesnelheden en
+concentraties, leren voorspellen.
+
+
+\subsection*{Trainingsvoorbeelden en trainingsset}
+
+Bij supervised learning leert het model uit voorbeelden waarvoor zowel de
+invoer als de gewenste uitvoer gekend zijn. Eén voorbeeld bestaat uit een
+invoer $x$ en de bijbehorende gewenste uitvoer $y$:
+
+\[
+(x,y).
+\]
+
+Dit wordt een \textbf{trainingsvoorbeeld} genoemd.
+
+Wanneer meerdere trainingsvoorbeelden beschikbaar zijn, vormen deze samen de
+\textbf{trainingsset}. Een trainingsset met $m$ voorbeelden kan worden
+geschreven als
+
+\[
+\mathcal{D}
+=
+\left\{
+(x^{(1)},y^{(1)}),
+(x^{(2)},y^{(2)}),
+\ldots,
+(x^{(m)},y^{(m)})
+\right\}.
+\]
+
+Hierbij stelt $i$ het nummer van een trainingsvoorbeeld voor en is $m$ het
+totale aantal voorbeelden in de trainingsset.
+
+De grootheden in $x$ worden de \textbf{features} of
+\textbf{inputvariabelen} genoemd. De bijbehorende waarde $y$ wordt de
+\textbf{target} of \textbf{doelwaarde} genoemd.
+
+\begin{example} \textbf{Reactiesnelheid voorspellen}
+
+Een eenvoudig voorbeeld uit de reactorkunde is het voorspellen van een
+reactiesnelheid op basis van concentraties. Stel dat voor verschillende
+toestanden van een reactiesysteem de concentraties $C_A$, $C_B$ en $C_C$ en de
+bijbehorende reactiesnelheid $r$ gekend zijn. Eén trainingsvoorbeeld kan dan
+worden geschreven als
+
+\[
+x=
+\begin{bmatrix}
+C_A\\
+C_B\\
+C_C
+\end{bmatrix},
+\qquad
+y=r.
+\]
+
+De concentraties zijn hierbij de \textbf{features} van het voorbeeld en de
+reactiesnelheid is de \textbf{target}. Voor meerdere experimentele
+toestanden ontstaat een trainingsset met verschillende combinaties van
+concentraties en bijbehorende reactiesnelheden.
+
+Het Machine Learning-model probeert op basis van deze voorbeelden een functie
+te leren van de vorm
+
+\[
+\hat{r}=f_\theta(C_A,C_B,C_C).
+\]
+
+Wanneer het model vervolgens een nieuwe combinatie van concentraties krijgt,
+kan het met behulp van deze geleerde relatie een reactiesnelheid voorspellen.
+    
+\end{example}
+
+\subsection*{Het trainen van een model}
+
+Tijdens het trainen beschikt het model over trainingsvoorbeelden
+$(x^{(i)},y^{(i)})$. Voor ieder voorbeeld maakt het model op basis van zijn
+huidige parameters een voorspelling:
+
+\[
+\hat{y}^{(i)}
+=
+f_\theta(x^{(i)}).
+\]
+
+Deze voorspelling wordt vergeleken met de bijbehorende target
+$y^{(i)}$. Het verschil tussen de voorspelling en de target wordt beschreven
+met een \textbf{lossfunctie}. De lossfunctie geeft dus aan hoe goed het model
+de beschikbare gegevens beschrijft.
+
+Een veelgebruikte lossfunctie voor regressie is de Mean Squared Error (MSE).
+Voor één trainingsvoorbeeld wordt de fout gegeven door
+
+\[
+L^{(i)}
+=
+\left(
+y^{(i)}-\hat{y}^{(i)}
+\right)^2.
+\]
+
+Over de volledige trainingsset van $m$ voorbeelden kunnen we vervolgens de
+gemiddelde kostfunctie definiëren als
+
+\[
+J(\theta)
+=
+\frac{1}{m}
+\sum_{i=1}^{m}
+\left(
+y^{(i)}-\hat{y}^{(i)}
+\right)^2.
+\]
+
+Het doel van de training is om de parameters $\theta$ zo te kiezen dat deze
+kostfunctie zo klein mogelijk wordt:
+
+\[
+\boxed{
+\theta^*
+=
+\underset{\theta}{\operatorname{arg\,min}}\;J(\theta)
+}
+\]
+
+Dit is vergelijkbaar met het principe van de
+\textbf{kleinste-kwadratenmethode}, waarbij parameters worden gekozen om
+gekwadrateerde afwijkingen tussen voorspellingen en metingen te
+minimaliseren.
+
+Bij Machine Learning kan het aantal parameters echter groot zijn. Daarom
+worden de parameters meestal \textbf{iteratief aangepast} met behulp van een
+optimalisatiemethode. Een veelgebruikte methode is
+\textbf{gradient descent}. Hierbij wordt de gradiënt van de kostfunctie
+gebruikt om de parameters aan te passen:
+
+\[
+\boxed{
+\theta_{k+1}
+=
+\theta_k
+-
+\eta
+\nabla_\theta J(\theta_k)
+}
+\]
+
+Hierbij is $\eta$ de \textbf{learning rate}, die bepaalt hoe groot de
+parameterstap is. De parameters worden dus steeds aangepast in de richting
+waarin de kostfunctie afneemt.
+
+In de praktijk wordt vaak een variant van gradient descent gebruikt, zoals
+\textbf{Adam}. Adam houdt naast de huidige gradiënt ook informatie bij over
+eerdere gradiënten, waardoor de grootte van de parameterupdates automatisch
+kan worden aangepast. Hierdoor kan de optimalisatie efficiënter verlopen.
+
+Het leerproces kan schematisch worden samengevat als
+
+\[
+\boxed{
+\text{voorspelling}
+\rightarrow
+\text{loss berekenen}
+\rightarrow
+\text{gradiënt bepalen}
+\rightarrow
+\text{parameters aanpassen}
+}
+\]
+
+Dit proces wordt herhaald totdat de kostfunctie voldoende klein is.
+
+\end{document}
