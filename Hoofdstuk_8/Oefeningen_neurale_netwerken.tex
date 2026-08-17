@@ -1,0 +1,443 @@
+\documentclass{ximera}
+
+\title{Oefeningen op neutrale netwerken}
+\author{Mila Vervoort}
+\license{CC: 0}         % replace with an appropriate license, or set it in xmPreamble
+
+\begin{document}
+\begin{abstract}
+    Oefeningen op neurale netwerken 
+\end{abstract}
+\maketitle
+\label{xim:Oefeningen op neurale netwerken}
+
+\section*{Oefening 1: Eenvoudig neuraal netwerk}
+
+In de theorie zagen we dat Machine Learning kan worden gebruikt om een verband uit gegevens te leren.
+
+In deze oefening gaan we dit principe zelf implementeren met
+\texttt{PyTorch}.
+
+We beginnen bewust met een eenvoudig voorbeeld dat eigenlijk nog niets te maken heeft met reactorkunde. 
+
+We beschikken over gegevens
+van de vorm $x \longrightarrow y$ en willen een neuraal netwerk leren dat op basis van $x$ een voorspelling
+$\hat y$ kan maken.
+
+
+We zullen de oefening opbouwen volgens vier grote stappen:
+
+\[
+\boxed{
+\begin{array}{c}
+\text{1. Data voorbereiden}\\
+\downarrow\\
+\text{2. Neuraal netwerk bouwen}\\
+\downarrow\\
+\text{3. Netwerk trainen}\\
+\downarrow\\
+\text{4. Netwerk testen}
+\end{array}
+}
+\]
+
+Open de bijbehorende Google Colab-notebook en voer de code stap voor stap uit.
+
+\begin{center}
+\href{https://colab.research.google.com/drive/1XiDw3d7TNHpXzvnJET9ZXZ9ro5OCJlXt?usp=sharing}{\Large Open de Google Colab-notebook}
+\end{center}
+
+\textbf{Gegeven}
+
+Een Machine-Learningmodel leert uit gegevens.
+
+We doen alsof we een experiment hebben uitgevoerd waarbij we voor
+verschillende waarden van $x$ een waarde van $y$ hebben bepaald.
+
+Voor deze oefening gebruiken we gegevens die afkomstig zijn van $y=x^2+1.$
+
+We gebruiken bijvoorbeeld de volgende waarden van $x$:
+\[
+-10,-8,-6,-5,-4,-2,-1,0,1,2,4,5,6,8,10.
+\]
+
+Voor iedere waarde van $x$ berekenen we de overeenkomstige waarde van $y$.
+
+\subsection*{Stap 1: Data voorbereiden}
+
+Voer de eerste stap uit in de Google Colab-notebook. Je hoeft de code niet aan te passen.
+
+Eerst worden de trainingsgegevens gegenereerd. Vervolgens worden deze gegevens omgezet naar PyTorch-tensors, zodat ze door het neurale netwerk kunnen worden gebruikt.
+
+\begin{question}
+Welke uitspraak is correct?
+
+\begin{multipleChoice}
+    \choice{Het neurale netwerk krijgt de vergelijking $y=x^2+1$ als input.}
+    \choice{Het neurale netwerk krijgt enkel de waarden van $x$ en $y$ uit de dataset.}
+    \choice[correct]{Het neurale netwerk krijgt de trainingsvoorbeelden $(x,y)$ en leert daaruit een verband.}
+    \choice{Het neurale netwerk krijgt alleen de exacte waarde van $y$ voor $x=0$.}
+\end{multipleChoice}
+
+
+\end{question}
+
+
+\subsection*{Stap 2: Een neuraal netwerk bouwen}
+
+We willen een model dat één waarde $x$ als input krijgt en één waarde
+$\hat y$ als output geeft:
+
+\[
+x
+\longrightarrow
+f_\theta
+\longrightarrow
+\hat y.
+\]
+
+We gebruiken een klein neuraal netwerk met de structuur
+
+\[
+\boxed{1\rightarrow8\rightarrow8\rightarrow1}.
+\]
+
+Dit betekent:
+
+\begin{itemize}
+    \item één inputneuron;
+    \item twee hidden layers met telkens acht neuronen;
+    \item één outputneuron.
+\end{itemize}
+
+De hidden layers gebruiken de activatiefunctie \texttt{Tanh}.
+
+\begin{remark} \text{ }
+    
+De keuze voor twee hidden layers met telkens acht neuronen is hier vooral
+een praktische keuze. Het verband $y=x^2+1$ is relatief eenvoudig, waardoor
+een klein netwerk voldoende is om het verband te leren. Er bestaat geen
+algemene regel die zegt dat voor dit probleem precies acht neuronen of twee
+hidden layers nodig zijn.
+
+Bij andere problemen kan de optimale structuur van een neuraal netwerk
+anders zijn. Het aantal lagen en neuronen moet dan vaak worden getest en geoptimaliseerd. Een te klein netwerk kan onvoldoende
+complexe verbanden leren, terwijl een onnodig groot netwerk meer parameters
+heeft en moeilijker te trainen kan zijn.
+
+\end{remark}
+
+De structuur van het netwerk is al voorgeprogrammeerd in de Google Colab-notebook. Kijk kort naar de code en probeer de verschillende lagen
+te herkennen:
+
+\begin{verbatim}
+nn.Linear(1, 8)
+nn.Tanh()
+nn.Linear(8, 8)
+nn.Tanh()
+nn.Linear(8, 1)
+\end{verbatim}
+
+De eerste \texttt{Linear}-laag zet één inputwaarde om naar acht waarden. De laatste \texttt{Linear}-laag zet de acht waarden opnieuw om naar één outputwaarde.
+
+Voer het codeblok uit om het netwerk op te bouwen.
+
+We kunnen het netwerk nu al een voorspelling laten maken: $\hat y=f_\theta(x).$
+
+Vul de code in Google Colab-file aan om een eerste voorspelling maken voor de
+trainingsgegevens.
+
+\begin{question}
+Zijn de voorspellingen van het netwerk vóór de training al goed?
+
+\begin{multipleChoice}
+    \choice{Ja, want het netwerk kent de vergelijking $y=x^2+1$.}
+    \choice[correct]{Nee, de voorspellingen zijn nog niet afgestemd op de gegeven data.}
+    \choice{Ja, want PyTorch berekent automatisch de exacte vergelijking.}
+    \choice{Nee, omdat een neuraal netwerk geen verbanden kan leren.}
+\end{multipleChoice}
+
+\begin{feedback} \text{ }
+
+Het netwerk kent de onderliggende relatie $y=x^2+1$
+nog niet. Wanneer het netwerk wordt aangemaakt, krijgen de parameters
+zoals de gewichten en biases beginwaarden. Deze waarden zijn nog niet
+afgestemd op onze trainingsgegevens.
+
+Het netwerk kan dus al wel een voorspelling maken: $\hat y= f_\theta(x),$ maar deze voorspelling zal in het begin nog niet goed overeenkomen met de werkelijke waarden.
+
+Tijdens het trainen zullen we de parameters $\theta$ aanpassen zodat de voorspellingen steeds beter worden.
+
+\end{feedback}
+
+\end{question}
+
+\subsection*{Stap 3: Het netwerk trainen}
+
+Zoals we in de vorige stap hebben gezien, zijn de voorspellingen van het
+ongetrainde netwerk nog geen goede benadering van onze gegevens.
+
+We willen nu de parameters van het netwerk aanpassen zodat de voorspellingen
+steeds beter worden.
+
+Hiervoor hebben we twee dingen nodig:
+
+\begin{enumerate}
+    \item een manier om te bepalen \textbf{hoe groot de fout} van het netwerk
+    is;
+    \item een methode om de \textbf{parameters van het netwerk aan te passen}.
+\end{enumerate}
+
+De eerste stap gebeurt met behulp van een \textbf{lossfunctie}. De tweede
+stap gebeurt met behulp van een \textbf{optimizer}.
+
+De \textbf{loss} geeft aan hoe goed het model de gegeven gegevens
+beschrijft. Een kleine loss betekent dat de voorspellingen gemiddeld dicht bij de werkelijke waarden liggen. Tijdens het trainen proberen we de loss dus kleiner te maken.
+
+Voor dit probleem gebruiken we de \textit{Mean Squared Error (MSE)}. In PyTorch kunnen we de MSE-loss aanmaken met:
+\begin{verbatim}
+criterion = nn.MSELoss()
+\end{verbatim}
+
+Een lage loss krijgen we niet vanzelf. We moeten de parameters van het
+netwerk aanpassen. Hiervoor gebruiken we een \textbf{optimizer}. De optimizer bepaalt op basis
+van de berekende gradiënten hoe de parameters van het netwerk moeten worden
+aangepast.
+
+We gebruiken hier het \textit{Adam-algoritme}. In PyTorch maken we de optimizer als volgt aan:
+
+\begin{verbatim}
+optimizer = torch.optim.Adam(
+    model.parameters(),
+    lr=0.01
+)
+\end{verbatim}
+
+\begin{remark} \text{ }
+
+\texttt{lr} is de \textbf{learning rate}. Deze bepaalt hoe groot de parameterupdates
+mogen zijn. De learning rate is een belangrijke trainingsinstelling. Een te grote learning rate kan ervoor zorgen dat de training instabiel wordt, terwijl
+een te kleine learning rate ervoor kan zorgen dat het leren erg traag verloopt.
+
+De optimale waarde van de learning rate hangt af van het probleem en het gebruikte netwerk. In de praktijk wordt deze waarde daarom vaak
+uitgetest en aangepast om een goede trainingssnelheid en
+stabiele training te verkrijgen.
+\end{remark}
+
+Voer de code voor de loss-functie en optimizer uit in de Google Colab-notebook.
+
+We hebben nu alles wat nodig is om het netwerk te trainen.
+
+Tijdens één volledige trainingsstap, ook wel een \textbf{epoch} genoemd,
+gebeurt het volgende:
+
+\[
+\boxed{
+\begin{array}{c}
+\text{oude gradiënten verwijderen}\\
+\downarrow\\
+\text{nieuwe voorspelling maken}\\
+\downarrow\\
+\text{loss berekenen}\\
+\downarrow\\
+\text{backpropagation}\\
+\downarrow\\
+\text{parameters aanpassen}
+\end{array}}
+\]
+
+Dit proces wordt vervolgens vele malen herhaald.
+
+In de Google Colab-notebook is de trainingsloop grotendeels
+voorgeprogrammeerd. Bekijk eerst de verschillende stappen in de code.
+
+Vul in de trainingsloop de regels aan waarmee de voorspelde waarde en de loss worden berekend:
+
+\begin{verbatim}
+y_pred = ...
+
+loss = ...
+\end{verbatim}
+
+Voer daarna de volledige trainingsloop uit. De training wordt hier $10000$ keer herhaald. Na iedere epoch worden de nieuwe voorspellingen en de bijbehorende loss berekend.
+
+
+\begin{question} \textbf{De evolutie van de loss}
+
+Tijdens de training wordt de loss van iedere epoch opgeslagen in
+\texttt{loss\_history}. We kunnen deze waarden gebruiken om te bekijken hoe
+de loss verandert tijdens het trainen.
+
+Schrijf in de Google Colab-notebook code die de \texttt{loss\_history} uitzet
+tegen het aantal epochs.
+
+Bekijk vervolgens de bekomen grafiek. Wat kan je uit de grafiek besluiten over het leerproces?
+
+\begin{multipleChoice}
+    \choice{De loss stijgt in het algemeen, wat betekent dat de gemiddelde
+    kwadratische fout tijdens de training groter wordt en het netwerk de
+    trainingsdata steeds beter benadert.}
+    \choice{De loss daalt, dus de voorspellingen van het netwerk worden bij
+    elke epoch voor alle afzonderlijke trainingspunten beter.}
+    \choice[correct]{De loss daalt in het algemeen, wat erop wijst dat de
+    gemiddelde kwadratische fout op de trainingsdata kleiner wordt tijdens
+    het trainen.}
+    \choice{De loss daalt, dus het netwerk heeft na de laatste epoch de
+    exacte relatie $y=x^2+1$ geleerd en zal deze ook voor elke nieuwe input
+    exact voorspellen.}
+\end{multipleChoice}
+
+\begin{feedback} \text{ }
+
+Een mogelijke code is:
+
+\begin{verbatim}
+plt.plot(loss_history)
+plt.xlabel("Epoch")
+plt.ylabel("Loss")
+plt.title("Loss tijdens de training")
+plt.show()
+\end{verbatim}
+
+De grafiek toont hoe de loss verandert terwijl het netwerk wordt getraind.
+
+Tijdens het trainen daalt de loss in het algemeen. Dit betekent dat de
+voorspellingen van het netwerk steeds beter overeenkomen met de trainingsdata.
+
+De loss hoeft daarbij niet exact nul te worden. Een kleine loss betekent
+dat de voorspellingen dicht bij de trainingsdata liggen.
+\end{feedback}
+\end{question}
+
+\section*{Stap 4: Het netwerk testen}
+
+Het netwerk is nu getraind. We willen nagaan of het geleerde model het verband tussen $x$ en $y$ inderdaad goed benadert.
+
+Tot nu toe hebben we vooral gekeken naar de loss. De loss vertelt ons hoe groot de gemiddelde fout op de trainingsdata is, maar laat niet rechtstreeks zien welke functie het netwerk heeft geleerd.
+
+Daarom laten we het getrainde netwerk nu voorspellingen maken voor een hele reeks waarden van $x$.
+
+We gebruiken hiervoor 300 gelijkmatig verdeelde waarden tussen $-10$ en
+$10$.  In de Google Colab wordt hiervoor de volgende code gebruikt:
+
+\begin{verbatim}
+x_plot = torch.linspace(-10, 10, 300).reshape(-1, 1)
+\end{verbatim}
+
+We willen nu voor elk van deze $x$-waarden een voorspelling van het getrainde netwerk berekenen. Vul in de Google Colab de ontbrekende code aan zodat het netwerk voor alle
+waarden van $x_{\text{plot}}$ een voorspelling $y_{\text{plot}}$ maakt.
+
+Daarna wordt in de Google Colab een grafiek gemaakt waarin de oorspronkelijke
+trainingsdata wordt vergeleken met de voorspellingen van het neurale netwerk.
+Bekijk de bekomen grafiek.
+
+\begin{question}
+Welke conclusie past het best bij een grafiek waarin de rode curve de trainingspunten goed volgt?
+
+\begin{multipleChoice}
+
+\choice{Het netwerk heeft de trainingsdata opgeslagen, maar heeft geen
+verband tussen $x$ en $y$ geleerd.}
+
+\choice[correct]{Het netwerk heeft een functie geleerd die de relatie tussen
+$x$ en $y$ in het bereik van de trainingsdata goed benadert.}
+
+\choice{Omdat de rode curve de trainingsdata goed volgt, is bewezen dat het
+netwerk voor elke mogelijke waarde van $x$ exact $x^2+1$ zal voorspellen.}
+
+\choice{De rode curve toont de oorspronkelijke experimentele data en de
+blauwe punten zijn de voorspellingen van het netwerk.}
+
+\end{multipleChoice}
+
+\begin{feedback} \text{ }
+
+Wanneer de rode curve de trainingspunten goed volgt, betekent dit dat het
+getrainde netwerk een functie heeft geleerd die de relatie tussen $x$ en $y$
+in dit gebied goed benadert.
+
+Het netwerk probeert dus niet letterlijk de tabel met waarden te onthouden,
+maar leert een functie
+
+\[
+\hat y=f_\theta(x)
+\]
+
+waarmee het ook voorspellingen kan maken voor waarden van $x$ die niet letterlijk in de trainingsdata stonden.
+
+We moeten hierbij wel voorzichtig zijn met onze conclusie. Een goede
+overeenkomst met de trainingsdata betekent niet automatisch dat het netwerk
+voor iedere mogelijke nieuwe waarde van $x$ een perfecte voorspelling zal
+geven. Vooral buiten het bereik van de trainingsdata kan een neuraal netwerk
+slecht extrapoleren.
+\end{feedback}
+
+\end{question}
+
+\section*{Stap 5: Een nieuwe waarde voorspellen}
+
+Een belangrijk doel van Machine Learning is dat een getraind model ook
+voorspellingen kan maken voor nieuwe input.
+
+Tijdens de training heeft het netwerk geleerd om een verband te benaderen
+tussen $x$ en $y$. We kunnen het getrainde model nu gebruiken om voor een
+nieuwe waarde van $x$ een voorspelling te maken.
+
+We kiezen bijvoorbeeld een waarde die ook binnen het bereik van onze
+trainingsdata ligt:
+
+\[
+x_{\text{new}}=7.
+\]
+
+In de Google Colab maken we eerst een tensor met deze nieuwe input:
+
+\begin{verbatim}
+x_new = torch.tensor([7.0])
+\end{verbatim}
+
+Vul vervolgens de code aan zodat het getrainde netwerk een voorspelling
+maakt voor deze nieuwe waarde. Voer de code uit en vergelijk de voorspelling met de exacte waarde van $y=x^2+1.$
+
+\begin{question}
+De exacte waarde voor $x=7$ is
+\[
+y=7^2+1=50.
+\]
+
+Stel dat het netwerk bijvoorbeeld een waarde van $49.2$ voorspelt. Welke
+conclusie is dan het meest correct?
+
+\begin{multipleChoice}
+
+\choice{Het netwerk heeft niet geleerd, want een neuraal netwerk moet altijd
+de exacte waarde voorspellen.}
+
+\choice{Het netwerk heeft de trainingsdata fout opgeslagen, want de
+voorspelling moet exact gelijk zijn aan $50$.}
+
+\choice[correct]{Het netwerk heeft de relatie goed benaderd, maar de
+voorspelling wijkt nog enigszins af van de exacte waarde.}
+
+\choice{De voorspelling is correct, want $49.2$ en $50$ zijn dezelfde waarde
+binnen een neuraal netwerk.}
+
+\end{multipleChoice}
+
+\begin{feedback} \text{ }
+
+De exacte waarde is $y=7^2+1=50,$
+terwijl het netwerk bijvoorbeeld $49.2$ voorspelt. De voorspelling is dus
+niet exact, maar ligt wel dicht bij de werkelijke waarde.
+
+Een neuraal netwerk leert de relatie uit de beschikbare trainingsdata. Het
+doel van de training is daarom niet noodzakelijk om voor elk punt exact de
+juiste waarde te verkrijgen, maar om een functie te vinden die de gegevens
+zo goed mogelijk benadert.
+\end{feedback}
+
+\end{question}
+
+
+
+\end{document}

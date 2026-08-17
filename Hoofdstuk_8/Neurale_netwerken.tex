@@ -594,41 +594,157 @@ Bij iedere trainingsstap worden de weights en biases dus aangepast op basis van 
 
 \subsubsection*{Neurale netwerken in de reactorkunde}
 
-In de volgende oefening gebruiken we een neuraal netwerk om de dynamica van een batchreactor te leren. De invoer van het netwerk bestaat hierbij uit de concentraties van de verschillende componenten:
+In de vorige secties werd besproken hoe machine learning en neurale netwerken kunnen worden gebruikt om verbanden uit experimentele gegevens te leren. We kunnen dit principe nu toepassen op een reactiesysteem in een batchreactor.
 
+Stel dat we een batchreactor onderzoeken waarin verschillende componenten met elkaar reageren. Tijdens een experiment meten we op verschillende tijdstippen de concentraties van de aanwezige componenten. We verkrijgen bijvoorbeeld concentratieprofielen van de vorm: $C_A(t), C_B(t), C_C(t)$. 
+
+Bij de eerder besproken methodes (integrale analysemethode, ...) probeerden we telkens een geschikte kinetische vergelijking te vinden en vervolgens bepaalden we de onbekende kinetische parameters. Bij een data-driven benadering hoeven we echter niet vooraf een specifieke vorm voor de reactiesnelheid te kiezen. In plaats daarvan laten we een neuraal netwerk leren hoe de toestand van het reactiesysteem verandert.
+
+De toestand van het reactiesysteem kan worden beschreven met de concentratievector
 \[
-X=
-\begin{bmatrix}
-C_A & C_B & C_C
-\end{bmatrix}.
+\mathbf{C} =
+\begin{pmatrix}
+C_A \\
+C_B \\
+C_C
+\end{pmatrix}.
 \]
 
-Het netwerk geeft vervolgens een schatting van de verandering van deze concentraties:
-
+Het neurale netwerk krijgt deze concentraties als invoer. De uitvoer van het netwerk bestaat uit de overeenkomstige veranderingen van de concentraties:
 \[
-\hat{Y}
+\frac{d\mathbf{C}}{dt}
 =
-\begin{bmatrix}
-\widehat{dC_A/dt} &
-\widehat{dC_B/dt} &
-\widehat{dC_C/dt}
-\end{bmatrix}.
+\text{neuraal netwerk}(\mathbf{C}).
 \]
 
-Het netwerk leert dus niet rechtstreeks een klassieke kinetische vergelijking zoals
+
+Het netwerk leert dus een functie
+\[
+\frac{d\mathbf{C}}{dt} = f_\theta(\mathbf{C}),
+\]
+waarbij \(f_\theta\) de functie is die door het neurale netwerk wordt voorgesteld en \(\theta\) de trainbare parameters van het netwerk bevat.
+
+Voor drie componenten betekent dit concreet:
+\[
+f_\theta
+\begin{pmatrix}
+C_A \\
+C_B \\
+C_C
+\end{pmatrix}
+=
+\begin{pmatrix}
+\dfrac{dC_A}{dt} \\
+\dfrac{dC_B}{dt} \\
+\dfrac{dC_C}{dt}
+\end{pmatrix}.
+\]
+
+Het netwerk probeert dus te leren hoe snel de verschillende concentraties veranderen wanneer het systeem zich in een bepaalde toestand bevindt. Deze informatie over de lokale concentratieveranderingen kunnen we vervolgens gebruiken om te bepalen hoe het volledige reactiesysteem zich in de tijd ontwikkelt. 
+
+Uiteindelijk willen we opnieuw een concentratieprofiel verkrijgen, $\mathbf{C}(t)$, omdat dit de grootheid is die we experimenteel hebben gemeten en waarmee we de voorspelling van het model kunnen vergelijken. Om dit profiel te verkrijgen, moeten de door het neurale netwerk voorspelde afgeleiden $\frac{d\mathbf{C}}{dt}$ over de tijd worden geïntegreerd.
+
+Om dit te doen, moeten we de differentiaalvergelijking
 
 \[
-r_A=kC_A^n.
+\frac{d\mathbf{C}}{dt} = f_\theta(\mathbf{C})
 \]
+oplossen met een gekende beginconditie
+$\mathbf{C}(t_0) = \mathbf{C}_0$.
 
-In plaats daarvan leert het een algemene relatie tussen de toestand van het reactiesysteem en de verandering ervan:
+Hiervoor gebruiken we een ODE-oplosser. Deze gebruikt de door het neurale netwerk voorspelde concentratieveranderingen om stap voor stap te berekenen hoe de concentraties in de tijd evolueren.
+
+We verkrijgen zo een voorspeld concentratieprofiel $\mathbf{C}_{\mathrm{pred}}(t)$, dat we kunnen vergelijken met het experimenteel gemeten concentratieprofiel
+$\mathbf{C}_{\mathrm{exp}}(t).$
+
+Uit het verschil tussen deze twee profielen wordt de loss berekend.  Vaak wordt hiervoor de Mean Squared Error (MSE) gebruikt: 
 
 \[
-\frac{dC}{dt}=f_\theta(C).
+\mathcal{L}
+=
+\frac{1}{N}
+\sum_{i=1}^{N}
+\left\|
+\mathbf{C}_{\mathrm{pred}}(t_i)
+-
+\mathbf{C}_{\mathrm{exp}}(t_i)
+\right\|^2.
 \]
 
-Deze relatie wordt vervolgens gecombineerd met de bekende structuur van een differentiaalvergelijking om de concentratieprofielen van de reactor te simuleren.
+Vervolgens worden via backpropagation de gradiënten van deze loss ten opzichte van de netwerkparameters berekend. De optimizer past de parameters van het netwerk vervolgens aan.
 
+Het volledige leerproces kan daarom als volgt worden weergegeven:
+
+\[
+\begin{array}{c}
+\text{Experimentele concentratieprofielen}
+\\
+\downarrow
+\\
+\text{Neuraal netwerk}
+\\
+\downarrow
+\\
+\text{Voorspelde } \dfrac{d\mathbf{C}}{dt}
+\\
+\downarrow
+\\
+\text{ODE-oplosser}
+\\
+\downarrow
+\\
+\text{Voorspelde concentratieprofielen}
+\\
+\downarrow
+\\
+\text{Vergelijking met experiment}
+\\
+\downarrow
+\\
+\text{Loss}
+\\
+\downarrow
+\\
+\text{Backpropagation + Optimizer}
+\\
+\downarrow
+\\
+\text{Nieuwe netwerkparameters}
+\end{array}
+\]
+
+Dit proces wordt vervolgens vele malen herhaald. Na elke iteratie worden de netwerkparameters aangepast, zodat het voorspelde concentratieprofiel steeds beter overeenkomt met de experimentele gegevens.
+
+
+Na het trainen hebben we dus geen klassieke kinetische vergelijking zoals $r = k C_A^n$ met een beperkt aantal interpreteerbare parameters \(k\) en \(n\). In plaats daarvan hebben we een neuraal netwerk dat voor een gegeven toestand van het reactiesysteem een voorspelling maakt van de lokale verandering van de concentraties.
+
+Bijvoorbeeld:
+
+\[
+\begin{pmatrix}
+C_A \\
+C_B \\
+C_C
+\end{pmatrix}
+=
+\begin{pmatrix}
+0.8 \\
+0.1 \\
+0.1
+\end{pmatrix}
+\quad
+\xrightarrow{\text{NN}}
+\quad
+\begin{pmatrix}
+\dfrac{dC_A}{dt} \\
+\dfrac{dC_B}{dt} \\
+\dfrac{dC_C}{dt}
+\end{pmatrix}.
+\]
+
+Het netwerk kan dus worden gebruikt om te voorspellen hoe het systeem vanuit die toestand verder evolueert.
+
+Dit betekent echter niet dat het netwerk automatisch een universeel kinetisch model van de reactie heeft gevonden. Het heeft geleerd van de toestanden die in de beschikbare experimentele gegevens voorkomen. Voorspellingen buiten het gebied waarin het netwerk werd getraind, kunnen daarom onbetrouwbaar zijn.
 
 
 
