@@ -128,19 +128,7 @@ heeft en moeilijker te trainen kan zijn.
 \end{remark}
 
 De structuur van het netwerk is al voorgeprogrammeerd in de Google Colab-notebook. Kijk kort naar de code en probeer de verschillende lagen
-te herkennen:
-
-\begin{verbatim}
-nn.Linear(1, 8)
-nn.Tanh()
-nn.Linear(8, 8)
-nn.Tanh()
-nn.Linear(8, 1)
-\end{verbatim}
-
-De eerste \texttt{Linear}-laag zet één inputwaarde om naar acht waarden. De laatste \texttt{Linear}-laag zet de acht waarden opnieuw om naar één outputwaarde.
-
-Voer het codeblok uit om het netwerk op te bouwen.
+te herkennen. Voer het codeblok uit om het netwerk op te bouwen.
 
 We kunnen het netwerk nu al een voorspelling laten maken: $\hat y=f_\theta(x).$
 
