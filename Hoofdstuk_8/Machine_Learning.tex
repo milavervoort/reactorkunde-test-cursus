@@ -142,8 +142,11 @@ $C_A(t),C_B(t),\ldots$};
 
 \section*{Wat is Machine Learning?}
 
-Machine Learning is een verzameling technieken waarmee een model uit
-gegevens kan worden geleerd. In plaats van een model volledig vooraf vast te leggen, worden de parameters van het model bepaald op basis van beschikbare gegevens. Het doel is om een model te verkrijgen dat verbanden in de gegevens kan beschrijven en vervolgens voorspellingen kan maken voor nieuwe situaties.
+Machine Learning is een verzameling technieken waarmee een model uit gegevens
+kan worden geleerd. In plaats van een model volledig vooraf vast te leggen,
+worden de parameters van het model bepaald op basis van beschikbare gegevens.
+Het doel is om een model te verkrijgen dat verbanden in de gegevens kan
+beschrijven en vervolgens voorspellingen kan maken voor nieuwe situaties.
 
 Een eenvoudig Machine Learning-probleem kan schematisch worden voorgesteld
 als
@@ -157,8 +160,8 @@ x
 \]
 
 waarbij $x$ de invoer van het model is, $\hat{y}$ de voorspelling van het
-model en $f_\theta$ het model zelf voorstelt. De index $\theta$ geeft aan dat
-het model afhankelijk is van een verzameling parameters $\theta$.
+model en $f_\theta$ het model voorstelt. De index $\theta$ geeft aan dat het
+model afhankelijk is van een verzameling parameters $\theta$.
 
 De voorspelling kan daarom worden geschreven als
 
@@ -191,42 +194,6 @@ unsupervised learning en reinforcement learning.
 In deze cursus richten we ons voornamelijk op supervised learning, en meer specifiek op regressie. We beschikken immers over experimentele gegevens en willen daaruit continue grootheden, zoals reactiesnelheden en
 concentraties, leren voorspellen.
 \end{remark}
-
-\section*{Trainen van een model via Supervised Learning}
-
-Bij supervised learning leert het model uit voorbeelden waarvoor zowel de invoer als de gewenste uitvoer gekend zijn. Eén voorbeeld bestaat uit een invoer $x$ en de bijbehorende gewenste uitvoer $y$:
-
-\[
-(x,y).
-\]
-
-Dit wordt een trainingsvoorbeeld genoemd.
-
-Wanneer meerdere trainingsvoorbeelden beschikbaar zijn, vormen deze samen de trainingsset. 
-
-\begin{definition} \textbf{Trainingsset}
-    
-Een trainingsset met $m$ voorbeelden kan worden
-geschreven als
-
-\[
-\mathcal{D}
-=
-\left\{
-(x^{(1)},y^{(1)}),
-(x^{(2)},y^{(2)}),
-\ldots,
-(x^{(m)},y^{(m)})
-\right\}.
-\]
-
-Hierbij stelt $i$ het nummer van een trainingsvoorbeeld voor en is $m$ het
-totale aantal voorbeelden in de trainingsset.
-
-De grootheden in $x$ worden de \textbf{features} of
-\textbf{inputvariabelen} genoemd. De bijbehorende waarde $y$ wordt de
-\textbf{target} of \textbf{doelwaarde} genoemd.
-\end{definition}
 
 \begin{example} \textbf{Reactiesnelheid voorspellen}
 
@@ -263,226 +230,6 @@ Wanneer het model vervolgens een nieuwe combinatie van concentraties krijgt,
 kan het met behulp van deze geleerde relatie een reactiesnelheid voorspellen.
 
 \end{example} \text{ }
-
-\subsection{Het trainingsproces}
-
-Het doel van het trainen van een supervised-learningmodel is om de parameters $\theta$ zo te bepalen dat het model goede voorspellingen maakt voor de beschikbare trainingsgegevens. Dit gebeurt door de voorspellingen van het
-model systematisch te vergelijken met de bekende targetwaarden.
-
-Het trainingsproces kan schematisch worden weergegeven als
-\[
-\boxed{
-\text{invoer}
-\rightarrow
-\text{voorspelling}
-\rightarrow
-\text{loss}
-\rightarrow
-\text{kostfunctie}
-\rightarrow
-\text{gradiënt}
-\rightarrow
-\text{parameterupdate}
-}
-\]
-
-Deze stappen worden herhaald totdat de optimalisatie een geschikt resultaat oplevert.
-
-Tijdens het trainen beschikt het model dus over trainingsvoorbeelden
-$(x^{(i)},y^{(i)})$. Voor ieder voorbeeld maakt het model op basis van zijn
-huidige parameters een voorspelling:
-
-\[
-\hat{y}^{(i)}
-=
-f_\theta(x^{(i)}).
-\]
-
-Deze voorspelling wordt vergeleken met de bijbehorende target $y^{(i)}$. \\
-Het verschil tussen de voorspellingen en de targetwaarden wordt beschreven
-met een lossfunctie en kostfunctie.
-
-\begin{definition} \textbf{Lossfunctie en Kostfunctie}
-
-\textbf{De lossfunctie} geeft aan hoe goed het model
-de beschikbare gegevens beschrijft.
-
-Een veelgebruikte lossfunctie voor regressie is de Mean Squared Error (MSE).
-Voor één trainingsvoorbeeld wordt de fout gegeven door
-
-\[
-L^{(i)}
-=
-\left(
-y^{(i)}-\hat{y}^{(i)}
-\right)^2.
-\]
-
-Om de prestaties van het model over de volledige trainingsset van $m$ voorbeelden te beoordelen, nemen we het gemiddelde van deze fouten. Dit resulteert in de \textbf{kostfunctie}
-
-\[
-J(\theta)
-=
-\frac{1}{m}
-\sum_{i=1}^{m}
-\left(
-y^{(i)}-\hat{y}^{(i)}
-\right)^2.
-\]
-
-De kostfunctie geeft dus de gemiddelde fout van het model over alle trainingsvoorbeelden weer.
-\end{definition}
-
-Het doel van de training is om de parameters $\theta$ zo te kiezen dat de
-kostfunctie zo klein mogelijk wordt:
-
-\[
-\boxed{
-\theta^*
-=
-\underset{\theta}{\operatorname{arg\,min}}\;J(\theta)
-}
-\]
-
-Dit is vergelijkbaar met het principe van de kleinste-kwadratenmethode, waarbij parameters worden gekozen om
-gekwadrateerde afwijkingen tussen voorspellingen en metingen te
-minimaliseren.
-
-Bij Machine Learning kan het aantal parameters echter groot zijn. Daarom worden de parameters meestal iteratief aangepast met behulp van een optimalisatiemethode. Een veelgebruikte methode is
-\textbf{gradient descent}. Hierbij wordt de gradiënt van de kostfunctie
-gebruikt om de parameters aan te passen:
-
-\[
-\theta_{k+1}
-=
-\theta_k
--
-\eta
-\nabla_\theta J(\theta_k)
-\]
-
-Hierbij is $\eta$ de \textbf{learning rate}, die bepaalt hoe groot de
-parameterstap is. De parameters worden dus steeds aangepast in de richting
-waarin de kostfunctie afneemt.
-
-In de praktijk wordt vaak een variant van gradient descent gebruikt, zoals
-\textbf{Adam}. Adam houdt naast de huidige gradiënt ook informatie bij over
-eerdere gradiënten, waardoor de grootte van de parameterupdates automatisch
-kan worden aangepast. Hierdoor kan de optimalisatie efficiënter verlopen.
-
-\begin{conclusion} \text{ }
-
-Het leerproces kan schematisch worden samengevat als
-
-\[
-\boxed{
-\text{voorspelling}
-\rightarrow
-\text{loss berekenen}
-\rightarrow
-\text{gradiënt bepalen}
-\rightarrow
-\text{parameters aanpassen}
-}
-\]
-
-Dit proces wordt herhaald totdat de kostfunctie voldoende klein is.
-
-\end{conclusion}
-
-\section*{Wat is Machine Learning?}
-
-Machine Learning is een verzameling technieken waarmee een model uit gegevens
-kan worden geleerd. In plaats van een model volledig vooraf vast te leggen,
-worden de parameters van het model bepaald op basis van beschikbare gegevens.
-Het doel is om een model te verkrijgen dat verbanden in de gegevens kan
-beschrijven en vervolgens voorspellingen kan maken voor nieuwe situaties.
-
-Een eenvoudig Machine Learning-probleem kan schematisch worden voorgesteld
-als
-
-\[
-x
-\quad\longrightarrow\quad
-\boxed{f_\theta}
-\quad\longrightarrow\quad
-\hat{y},
-\]
-
-waarbij $x$ de invoer van het model is, $\hat{y}$ de voorspelling van het
-model en $f_\theta$ het model voorstelt. De index $\theta$ geeft aan dat het
-model afhankelijk is van een verzameling parameters $\theta$.
-
-De voorspelling kan daarom worden geschreven als
-
-\[
-\hat{y}=f_\theta(x).
-\]
-
-De letter $y$ wordt gebruikt voor de werkelijke of gewenste uitvoer. Het
-hoedje in $\hat{y}$ geeft aan dat het om een voorspelling gaat.
-
-\begin{remark} \textbf{Verschillende vormen van Machine Learning}
-
-Machine Learning kan op verschillende manieren worden toegepast, afhankelijk
-van de beschikbare gegevens en het doel van het model.
-
-Bij \textbf{supervised learning} beschikt men over voorbeelden waarbij zowel
-de invoer $x$ als de bijbehorende gewenste uitvoer $y$ gekend zijn. Het model
-leert op basis van deze voorbeelden een verband tussen de invoer en de
-uitvoer. Bij \textbf{regressie} is de gewenste uitvoer een continue
-grootheid, terwijl bij \textbf{classificatie} de uitvoer bestaat uit één van
-een aantal categorieën.
-
-Bij \textbf{unsupervised learning} zijn er geen vooraf gegeven doelwaarden
-$y$. Het model probeert zelf structuren of patronen in de gegevens te vinden.
-Een voorbeeld hiervan is clustering, waarbij gelijkaardige gegevenspunten in
-groepen worden verdeeld.
-
-Bij \textbf{reinforcement learning} leert een model door interactie met een
-omgeving. Het model voert acties uit en ontvangt hiervoor een beloning of
-straf. Op basis hiervan leert het model welke acties tot een gewenst resultaat
-leiden.
-
-In deze cursus richten we ons voornamelijk op problemen waarbij we uit
-experimentele gegevens continue grootheden willen voorspellen. We behandelen
-daarmee voornamelijk regressieproblemen.
-\end{remark}
-
-\begin{example} \textbf{Reactiesnelheid voorspellen}
-
-Een voorbeeld uit de reactorkunde is het voorspellen van een reactiesnelheid
-op basis van concentraties. Stel dat voor verschillende toestanden van een
-reactiesysteem de concentraties $C_A$, $C_B$ en $C_C$ en de bijbehorende
-reactiesnelheid $r$ gekend zijn.
-
-Eén voorbeeld kan dan worden voorgesteld als
-
-\[
-x=
-\begin{bmatrix}
-C_A\
-C_B\
-C_C
-\end{bmatrix},
-\qquad
-y=r.
-\]
-
-De concentraties zijn hierbij de \textbf{features} of inputvariabelen en de
-reactiesnelheid is de \textbf{target} of doelwaarde.
-
-Voor meerdere experimentele toestanden ontstaat een verzameling van dergelijke
-voorbeelden. Het model probeert op basis hiervan een verband te leren van de
-vorm
-
-\[
-\hat{r} = f_\theta(C_A,C_B,C_C).
-\]
-
-Wanneer het model vervolgens een nieuwe combinatie van concentraties krijgt,
-kan het met behulp van deze geleerde relatie een reactiesnelheid voorspellen.
-\end{example}
 
 \section*{Het Machine Learning-proces}
 
@@ -582,7 +329,7 @@ f_\theta(x^{(i)}).
 \]
 
 De voorspelling wordt vervolgens vergeleken met de gekende target
-$y^{(i)}$. De fout wordt beschreven met een lossfunctie.
+$y^{(i)}$. De fout wordt beschreven met een \textbf{lossfunctie}.
 
 Voor regressie kan bijvoorbeeld de kwadratische fout worden gebruikt:
 
@@ -595,7 +342,7 @@ y^{(i)}-\hat{y}^{(i)}
 \]
 
 Om de prestaties over de volledige trainingsset te beschrijven, worden
-de individuele losses gecombineerd tot een kostfunctie. Bij gebruik van
+de individuele losses gecombineerd tot een \textbf{kostfunctie}. Bij gebruik van
 de Mean Squared Error (MSE) is dit
 
 \[
