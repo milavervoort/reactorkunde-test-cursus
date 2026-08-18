@@ -290,13 +290,11 @@ Een belangrijk doel van Machine Learning is dat een getraind model ook voorspell
 
 Tijdens de training heeft het netwerk geleerd om een verband te benaderen tussen $x$ en $y$. We kunnen het getrainde model nu gebruiken om voor een nieuwe waarde van $x$ een voorspelling te maken.
 
-We kiezen bijvoorbeeld een waarde die ook binnen het bereik van onze trainingsdata $[-10, 10]$ ligt: $x_{\text{new}}=7.$ 
-
+We kiezen bijvoorbeeld een waarde die ook binnen het bereik van onze trainingsdata $[-10, 10]$ ligt: $x_{\text{new}}=7.$ \\
 (Je zou ook een andere waarde kunnen controleren die binnen het bereik van onze trainingsdata ligt.)
 
 Vul vervolgens de code aan zodat het getrainde netwerk een voorspelling maakt voor deze nieuwe waarde. \\
-V
-ergelijk de voorspelling met de exacte waarde van $y=x^2+1.$ Welke conclusie is dan het meest correct?
+Vergelijk de voorspelling met de exacte waarde van $y=x^2+1.$ Welke conclusie is dan het meest correct?
 
 \begin{multipleChoice}
 
@@ -315,11 +313,14 @@ binnen een neuraal netwerk.}
 \end{multipleChoice}
 
 \begin{feedback} \text{ }
+
 De exacte waarde is $y=7^2+1=50,$
 terwijl het netwerk bijvoorbeeld $49.2$ voorspelt. De voorspelling is dus niet exact, maar ligt wel dicht bij de werkelijke waarde.
 
-Een neuraal netwerk leert de relatie uit de beschikbare trainingsdata. Het doel van de training is daarom niet noodzakelijk om voor elk punt exact de
-juiste waarde te verkrijgen, maar om een functie te vinden die de gegevens zo goed mogelijk benadert.
+Een neuraal netwerk leert de relatie uit de beschikbare trainingsdata. Het doel van de training is daarom niet noodzakelijk om voor elk punt exact de juiste waarde te verkrijgen, maar om een functie te vinden die de gegevens zo goed mogelijk benadert.
+
+De nauwkeurigheid van het netwerk kan verder worden verbeterd door het model te optimaliseren. Dit kan bijvoorbeeld door meer of betere trainingsdata te gebruiken, de structuur van het netwerk aan te passen (zoals het aantal lagen of neuronen), of de trainingsinstellingen, zoals de learning rate en het aantal trainingsrondes (epochs), te wijzigen.
+
 \end{feedback}
 
 \end{question}
