@@ -19,9 +19,11 @@ Deze aanpak is bijzonder krachtig wanneer de fysische en chemische processen vol
 
 In de praktijk is onze kennis van een reactiesysteem echter niet altijd volledig. Een systeem kan bijvoorbeeld meerdere gelijktijdige reacties, tussenproducten en nevenreacties bevatten. Ook kunnen bepaalde reactiemechanismen onvoldoende gekend zijn of kunnen niet alle relevante variabelen experimenteel worden gemeten. Het kan dan moeilijk zijn om vooraf een wiskundig model op te stellen dat het volledige gedrag van het systeem correct beschrijft.
 
-We beschikken in dergelijke situaties vaak wel over experimentele gegevens. Deze gegevens bevatten informatie over hoe het systeem zich gedraagt, ook wanneer de onderliggende mechanismen niet volledig gekend zijn. Dit maakt het interessant om niet alleen vanuit onze fysische kennis te vertrekken, maar ook gebruik te maken van de informatie die in de gegevens aanwezig is.
+We beschikken in dergelijke situaties vaak wel over experimentele gegevens. Deze gegevens bevatten informatie over hoe het systeem zich gedraagt, ook wanneer de onderliggende mechanismen niet volledig gekend zijn. Dit maakt het interessant om niet alleen vanuit onze fysische kennis te vertrekken, maar ook gebruik te maken van de informatie die in de gegevens aanwezig is. Dit vormt het uitgangspunt van \textbf{Machine Learning}. 
 
-Dit vormt het uitgangspunt van \textbf{Machine Learning}. Bij Machine Learning wordt een model gebruikt waarvan de parameters worden geleerd uit beschikbare gegevens. Het model probeert hierbij verbanden en patronen in de gegevens te leren, zodat het vervolgens voorspellingen kan maken voor nieuwe situaties. 
+\begin{conclusion} \text{ }
+
+Bij Machine Learning wordt een model gebruikt waarvan de parameters worden geleerd uit beschikbare gegevens. Het model probeert hierbij verbanden en patronen in de gegevens te leren, zodat het vervolgens voorspellingen kan maken voor nieuwe situaties. 
 
 \begin{center}
 \begin{tikzpicture}[
@@ -131,14 +133,16 @@ $C_A(t),C_B(t),\ldots$};
 
 \end{tikzpicture}
 \end{center}
+\end{conclusion}
 
-\begin{remark}
+\begin{remark} \text{ }
+
     Machine Learning hoeft hierbij geen vervanging te zijn voor de klassieke fysische modellen. In veel toepassingen kunnen fysische kennis en Machine Learning juist worden gecombineerd. Zo kan de fysische structuur van een probleem vooraf worden vastgelegd, terwijl een Machine Learning-model wordt gebruikt om een onbekend of moeilijk te beschrijven onderdeel uit de experimentele gegevens te leren.
-\end{remark}
+\end{remark} \text{ }
 
 \section*{Wat is Machine Learning?}
 
-achine Learning is een verzameling technieken waarmee een model uit
+Machine Learning is een verzameling technieken waarmee een model uit
 gegevens kan worden geleerd. In plaats van een model volledig vooraf vast te
 leggen, worden de parameters van het model bepaald op basis van beschikbare
 gegevens. Het doel is om een model te verkrijgen dat verbanden in de gegevens
@@ -168,55 +172,32 @@ De voorspelling kan daarom worden geschreven als
 De letter $y$ wordt gebruikt voor de werkelijke of gewenste uitvoer. Het
 hoedje in $\hat{y}$ geeft aan dat het om een voorspelling gaat.
 
-
-\subsection*{Verschillende vormen van Machine Learning}
+\begin{remark} \textbf{Verschillende vormen van Machine Learning}
 
 Machine Learning kan op verschillende manieren worden toegepast, afhankelijk
 van de beschikbare gegevens en het doel van het model. Een belangrijk
-onderscheid wordt gemaakt tussen \textbf{supervised learning},
-\textbf{unsupervised learning} en \textbf{reinforcement learning}.
+onderscheid wordt gemaakt tussen supervised learning,
+unsupervised learning en reinforcement learning.
 
-Bij \textbf{supervised learning} beschikt men over voorbeelden waarbij zowel
-de invoer $x$ als de bijbehorende gewenste uitvoer $y$ gekend zijn. Het model
-leert op basis van deze voorbeelden een verband tussen de invoer en de
-uitvoer.
+\begin{itemize}
+    \item Bij \textbf{supervised learning} beschikt men over voorbeelden waarbij zowel de invoer $x$ als de bijbehorende gewenste uitvoer $y$ gekend zijn. Het model leert op basis van deze voorbeelden een verband tussen de invoer en de uitvoer.
+    Binnen supervised learning wordt een onderscheid gemaakt tussen regressie en classificatie. \\
+    Bij \textbf{regressie} probeert het model een \textbf{continue grootheid} te
+    voorspellen. De uitvoer kan bijvoorbeeld een temperatuur, concentratie of reactiesnelheid zijn. Het model leert dan bijvoorbeeld een verband van de vorm $\hat{y}=f_\theta(x).$ \\
+    Bij \textbf{classificatie} probeert het model een observatie toe te wijzen aan één van een aantal categorieën of klassen. De uitvoer is dan geen continue grootheid, maar bijvoorbeeld "A", "B" of "C", of een binaire klasse zoals "ja" of "nee".
 
-Binnen supervised learning wordt een onderscheid gemaakt tussen
-\textbf{regressie} en \textbf{classificatie}.
+    \item Bij \textbf{unsupervised learning} zijn er geen vooraf gegeven doelwaarden $y$. Het model krijgt enkel de beschikbare gegevens en probeert hierin zelf structuren of patronen te vinden. Een voorbeeld hiervan is \textbf{clustering}, waarbij gelijkaardige gegevenspunten automatisch in groepen worden verdeeld.
 
-Bij \textbf{regressie} probeert het model een \textbf{continue grootheid} te
-voorspellen. De uitvoer kan bijvoorbeeld een temperatuur, concentratie of
-reactiesnelheid zijn. Het model leert dan bijvoorbeeld een verband van de
-vorm
-
-\[
-\hat{y}=f_\theta(x).
-\]
-
-Bij \textbf{classificatie} probeert het model een observatie toe te wijzen aan
-één van een aantal \textbf{categorieën of klassen}. De uitvoer is dan geen
-continue grootheid, maar bijvoorbeeld ``A'', ``B'' of ``C'', of een binaire
-klasse zoals ``ja'' of ``nee''.
-
-Bij \textbf{unsupervised learning} zijn er geen vooraf gegeven doelwaarden
-$y$. Het model krijgt enkel de beschikbare gegevens en probeert hierin zelf
-structuren of patronen te vinden. Een voorbeeld hiervan is
-\textbf{clustering}, waarbij gelijkaardige gegevenspunten automatisch in
-groepen worden verdeeld.
-
-Bij \textbf{reinforcement learning} leert een model door interactie met een
-omgeving. Het model voert acties uit en ontvangt hiervoor een beloning of
-straf. Op basis van deze ervaringen leert het model welke acties tot een
-gewenst resultaat leiden.
+    \item Bij \textbf{reinforcement learning} leert een model door interactie met een omgeving. Het model voert acties uit en ontvangt hiervoor een beloning of straf. Op basis van deze ervaringen leert het model welke acties tot een gewenst resultaat leiden.
+\end{itemize}
 
 In deze cursus richten we ons voornamelijk op
-\textbf{supervised learning}, en meer specifiek op
-\textbf{regressie}. We beschikken immers over experimentele gegevens en
+supervised learning, en meer specifiek op regressie. We beschikken immers over experimentele gegevens en
 willen daaruit continue grootheden, zoals reactiesnelheden en
 concentraties, leren voorspellen.
+\end{remark}
 
-
-\subsection*{Trainingsvoorbeelden en trainingsset}
+\section*{Trainen van een model}
 
 Bij supervised learning leert het model uit voorbeelden waarvoor zowel de
 invoer als de gewenste uitvoer gekend zijn. Eén voorbeeld bestaat uit een
@@ -226,10 +207,14 @@ invoer $x$ en de bijbehorende gewenste uitvoer $y$:
 (x,y).
 \]
 
-Dit wordt een \textbf{trainingsvoorbeeld} genoemd.
+Dit wordt een trainingsvoorbeeld genoemd.
 
 Wanneer meerdere trainingsvoorbeelden beschikbaar zijn, vormen deze samen de
-\textbf{trainingsset}. Een trainingsset met $m$ voorbeelden kan worden
+trainingsset. 
+
+\begin{definition} \textbf{Trainingsset}
+    
+Een trainingsset met $m$ voorbeelden kan worden
 geschreven als
 
 \[
@@ -246,9 +231,10 @@ geschreven als
 Hierbij stelt $i$ het nummer van een trainingsvoorbeeld voor en is $m$ het
 totale aantal voorbeelden in de trainingsset.
 
-De grootheden in $x$ worden de \textbf{features} of
+De grootheden in $x$ worden de features of
 \textbf{inputvariabelen} genoemd. De bijbehorende waarde $y$ wordt de
-\textbf{target} of \textbf{doelwaarde} genoemd.
+target of \textbf{doelwaarde} genoemd.
+\end{definition}
 
 \begin{example} \textbf{Reactiesnelheid voorspellen}
 
@@ -283,12 +269,10 @@ te leren van de vorm
 
 Wanneer het model vervolgens een nieuwe combinatie van concentraties krijgt,
 kan het met behulp van deze geleerde relatie een reactiesnelheid voorspellen.
-    
-\end{example}
 
-\subsection*{Het trainen van een model}
+\end{example} \text{ }
 
-Tijdens het trainen beschikt het model over trainingsvoorbeelden
+Tijdens het trainen beschikt het model dus over trainingsvoorbeelden
 $(x^{(i)},y^{(i)})$. Voor ieder voorbeeld maakt het model op basis van zijn
 huidige parameters een voorspelling:
 
@@ -298,9 +282,13 @@ huidige parameters een voorspelling:
 f_\theta(x^{(i)}).
 \]
 
-Deze voorspelling wordt vergeleken met de bijbehorende target
-$y^{(i)}$. Het verschil tussen de voorspelling en de target wordt beschreven
-met een \textbf{lossfunctie}. De lossfunctie geeft dus aan hoe goed het model
+Deze voorspelling wordt vergeleken met de bijbehorende target $y^{(i)}$. \\
+Het verschil tussen de voorspellingen en de targetwaarden wordt beschreven
+met een lossfunctie en kostfunctie.
+
+\begin{definition} \textbf{Lossfunctie en Kostfunctie}
+
+\textbf{De lossfunctie} geeft aan hoe goed het model
 de beschikbare gegevens beschrijft.
 
 Een veelgebruikte lossfunctie voor regressie is de Mean Squared Error (MSE).
@@ -314,8 +302,7 @@ y^{(i)}-\hat{y}^{(i)}
 \right)^2.
 \]
 
-Over de volledige trainingsset van $m$ voorbeelden kunnen we vervolgens de
-gemiddelde kostfunctie definiëren als
+Om de prestaties van het model over de volledige trainingsset van $m$ voorbeelden te beoordelen, nemen we het gemiddelde van deze fouten. Dit resulteert in de \textbf{kostfunctie}
 
 \[
 J(\theta)
@@ -327,7 +314,10 @@ y^{(i)}-\hat{y}^{(i)}
 \right)^2.
 \]
 
-Het doel van de training is om de parameters $\theta$ zo te kiezen dat deze
+De kostfunctie geeft dus de gemiddelde fout van het model over alle trainingsvoorbeelden weer.
+\end{definition}
+
+Het doel van de training is om de parameters $\theta$ zo te kiezen dat de
 kostfunctie zo klein mogelijk wordt:
 
 \[
@@ -343,9 +333,7 @@ Dit is vergelijkbaar met het principe van de
 gekwadrateerde afwijkingen tussen voorspellingen en metingen te
 minimaliseren.
 
-Bij Machine Learning kan het aantal parameters echter groot zijn. Daarom
-worden de parameters meestal \textbf{iteratief aangepast} met behulp van een
-optimalisatiemethode. Een veelgebruikte methode is
+Bij Machine Learning kan het aantal parameters echter groot zijn. Daarom worden de parameters meestal iteratief aangepast met behulp van een optimalisatiemethode. Een veelgebruikte methode is
 \textbf{gradient descent}. Hierbij wordt de gradiënt van de kostfunctie
 gebruikt om de parameters aan te passen:
 
@@ -369,6 +357,8 @@ In de praktijk wordt vaak een variant van gradient descent gebruikt, zoals
 eerdere gradiënten, waardoor de grootte van de parameterupdates automatisch
 kan worden aangepast. Hierdoor kan de optimalisatie efficiënter verlopen.
 
+\begin{conclusion} \text{ }
+
 Het leerproces kan schematisch worden samengevat als
 
 \[
@@ -384,5 +374,7 @@ Het leerproces kan schematisch worden samengevat als
 \]
 
 Dit proces wordt herhaald totdat de kostfunctie voldoende klein is.
+
+\end{conclusion}
 
 \end{document}
