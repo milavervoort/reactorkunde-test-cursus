@@ -13,30 +13,46 @@
 
 \section*{Wat is een neuraal netwerk?}
 
-Een \textbf{neuraal netwerk} is een type Machine Learning-model waarmee complexe verbanden tussen invoer- en uitvoergegevens kunnen worden geleerd. Het model is opgebouwd uit verschillende lagen van eenvoudige rekenelementen, die \textbf{neuronen} worden genoemd.
+Een \textbf{neuraal netwerk} is een Machine Learning-model dat een verband
+tussen invoer- en uitvoergegevens kan leren. Het netwerk bestaat uit
+verschillende lagen waarin eenvoudige berekeningen worden uitgevoerd.
 
-Een neuraal netwerk kan bijvoorbeeld worden gebruikt om een verband van de vorm
+We kunnen een neuraal netwerk algemeen voorstellen als
+\[
+x\quad\longrightarrow\quad
+f_\theta
+\quad\longrightarrow\quad\hat{y}
+\]
+waarbij $\theta$ de trainbare parameters van het netwerk bevat.
+
+In tegenstelling tot een klassieke kinetische vergelijking leggen we de
+vorm van $f_\theta$ niet vooraf vast. Het netwerk leert deze relatie uit de
+beschikbare gegevens.
+
+
+\begin{remark} \textbf{Neuraal netwerk als black-boxmodel}
+
+Bij een klassieke kinetische vergelijking kiezen we vooraf een fysische vorm,
+bijvoorbeeld
 
 \[
-\hat{Y}=f_\theta(X)
+r=kC_A^n.
 \]
+Het doel is vervolgens om de parameters $k$ en $n$ te bepalen.
 
-te leren. Hierbij vormen $X$ de invoergegevens, $\hat{Y}$ de voorspelling van het model en $\theta$ de parameters van het netwerk. Deze parameters worden tijdens het trainen aangepast op basis van de beschikbare gegevens.
+Bij een neuraal netwerk wordt de functionele vorm daarentegen niet vooraf
+opgelegd. Het netwerk leert zelf een geschikte relatie tussen de invoer en
+uitvoer.
 
-In tegenstelling tot een klassieke kinetische vergelijking wordt de exacte vorm van het verband $f_\theta$ niet vooraf opgelegd. Het netwerk krijgt bijvoorbeeld niet de instructie dat een reactiesnelheid van de vorm
-
-\[
-r=kC_A^n
-\]
-
-moet zijn. In plaats daarvan wordt een voldoende flexibel netwerk gebruikt dat zelf een geschikte relatie tussen de invoer en de uitvoer kan leren.
-
-Een neuraal netwerk wordt daarom vaak beschouwd als een \textbf{black-boxmodel}. We kennen de invoer van het netwerk en kunnen de uiteindelijke uitvoer bekijken, maar de relatie die het netwerk tijdens het trainen leert, is doorgaans veel moeilijker fysisch te interpreteren dan een klassieke vergelijking. De term black box betekent hierbij niet dat er geen model aanwezig is, maar dat de interne werking van het geleerde model moeilijk rechtstreeks te interpreteren is.
+Een neuraal netwerk wordt daarom vaak een \textbf{black-boxmodel} genoemd:
+de invoer en uitvoer zijn bekend, maar de volledige geleerde relatie is
+doorgaans moeilijk fysisch te interpreteren.
+\end{remark}
 
 
 \subsection*{Opbouw van een neuraal netwerk}
 
-Een eenvoudig neuraal netwerk bestaat uit een \textbf{inputlaag}, één of meerdere \textbf{hidden layers} en een \textbf{outputlaag}.
+Een neuraal netwerk bestaat uit een \textbf{inputlaag}, één of meerdere \textbf{hidden layers} en een \textbf{outputlaag}.
 
 \[
 \boxed{
@@ -47,9 +63,6 @@ Een eenvoudig neuraal netwerk bestaat uit een \textbf{inputlaag}, één of meerd
 \text{Outputlaag}
 }
 \]
-
-De inputlaag ontvangt de gegevens die aan het model worden aangeboden. De hidden layers verwerken deze gegevens en de outputlaag geeft de uiteindelijke voorspelling van het netwerk. Een netwerk met meerdere hidden layers wordt een \textbf{deep neural network} genoemd. 
-
 \begin{figure}[ht]
 \centering
 
@@ -131,41 +144,32 @@ De inputlaag ontvangt de gegevens die aan het model worden aangeboden. De hidden
 \label{fig:neural_network}
 \end{figure}
 
+De inputlaag bevat de variabelen die aan het netwerk worden aangeboden.
+De hidden layers voeren berekeningen uit en de outputlaag produceert de
+uiteindelijke voorspelling.
 
-De structuur van een neuraal netwerk bepaalt dus hoe de informatie door het model stroomt. De exacte relatie die het netwerk leert, wordt echter bepaald door de parameters van de neuronen.
+De structuur van een neuraal netwerk bepaalt dus hoe de informatie door het model stroomt. De exacte relatie die het netwerk leert, wordt echter bepaald door de parameters van de neuronen in elke laag. 
 
-\subsection*{Neuronen}
+\begin{definition}\textbf{Neuronen}
 
-Een neuraal netwerk is opgebouwd uit neuronen. Een neuron ontvangt één of
-meerdere invoerwaarden en combineert deze tot één uitvoerwaarde.
+Een neuraal netwerk is opgebouwd uit neuronen. Een neuron ontvangt één of meerdere invoerwaarden en combineert deze tot één uitvoerwaarde.
 
-Stel dat een neuron de invoerwaarden $x_1,x_2,\ldots,x_n$ ontvangt. Elke
-invoer wordt vermenigvuldigd met een \textbf{weight} en vervolgens wordt een
-\textbf{bias} opgeteld. Eerst wordt de waarde
-
-\[
-z=w_1x_1+w_2x_2+\ldots+w_nx_n+b
-\]
-
-berekend. Dit kan compacter worden geschreven als
+Voor invoerwaarden $x_1,\ldots,x_n$ berekent een neuron eerst
 
 \[
-z=\mathbf{w}^{T}\mathbf{x}+b.
+z=\mathbf{w}^T\mathbf{x}+b,
 \]
 
-Hierbij zijn $\mathbf{x}$ de invoerwaarden, $\mathbf{w}$ de bijbehorende
-weights en $b$ de bias.
+waarbij $\mathbf{w}$ de \textbf{weights} en $b$ de \textbf{bias} zijn.
 
-De waarde $z$ wordt vervolgens door een \textbf{activatiefunctie} gestuurd.
-De uiteindelijke uitvoer van het neuron wordt daarom gegeven door
+Vervolgens wordt een \textbf{activatiefunctie} $g$ toegepast:
 
 \[
-a=\sigma(z),
+a=g\left(\mathbf{w}^T\mathbf{x}+b\right)
 \]
+De weights en biases zijn de trainbare parameters van het neuron. De weights bepalen hoe sterk de verschillende invoerwaarden bijdragen aan z, terwijl de bias de waarde van z verschuift. Tijdens het trainen worden deze parameters aangepast om de voorspellingen van het netwerk te verbeteren.
+\end{definition}
 
-waarbij $\sigma$ de activatiefunctie voorstelt.
-
-Een neuron voert dus in essentie twee stappen uit:
 \begin{figure}[ht]
 \centering
 \begin{tikzpicture}[
@@ -223,47 +227,31 @@ Een neuron voert dus in essentie twee stappen uit:
 
 \end{tikzpicture}
 
-\caption{Schematische voorstelling van één neuron. De invoerwaarden worden
+\caption{Werking van één neuron; de invoerwaarden worden
 gewogen en opgeteld met een bias, waarna een activatiefunctie wordt toegepast.}
 \label{fig:single_neuron}
 \end{figure}
 
 
-De activatiefunctie bepaalt hoe de waarde $z$ wordt omgezet naar de uitvoer
-$a$. Enkele veelgebruikte activatiefuncties zijn de sigmoidfunctie, de
-hyperbolische tangens en de ReLU-functie:
+\begin{remark} \textbf{Waarom een activatiefunctie?}
+
+Deze activatiefuncties zorgen voor niet-lineariteit in het netwerk. Zonder activatiefuncties zouden meerdere opeenvolgende lineaire lagen uiteindelijk samen slechts één lineaire transformatie vormen. Door niet-lineaire activatiefuncties te gebruiken, kan een neuraal netwerk complexere, niet-lineaire verbanden leren.
+
+Veelgebruikte activatiefuncties zijn bijvoorbeeld
 
 \[
 \begin{aligned}
-\text{sigmoid:}\qquad
-&\sigma(z)=\frac{1}{1+e^{-z}},
-&&0<\sigma(z)<1,\\[2mm]
-\text{tanh:}\qquad
-&\tanh(z)=\frac{e^z-e^{-z}}{e^z+e^{-z}},
-&&-1<\tanh(z)<1,\\[2mm]
-\text{ReLU:}\qquad
-&\operatorname{ReLU}(z)=\max(0,z),
-&&\operatorname{ReLU}(z)\geq0.
+\text{sigmoid:}\quad
+&g(z)=\frac{1}{1+e^{-z}},\\[2mm]
+\text{tanh:}\quad
+&g(z)=\frac{e^z-e^{-z}}{e^z+e^{-z}},\\[2mm]
+\text{ReLU:}\quad
+&g(z)=\max(0,z).
 \end{aligned}
 \]
 
-De sigmoidfunctie zet de waarde $z$ dus om naar een waarde tussen $0$ en
-$1$, terwijl tanh waarden tussen $-1$ en $1$ geeft. De ReLU zet negatieve
-waarden op nul en laat positieve waarden ongewijzigd.
-
-Deze activatiefuncties zorgen voor \textbf{niet-lineariteit} in het netwerk.
-Zonder activatiefuncties zouden meerdere opeenvolgende lineaire lagen
-uiteindelijk samen slechts één lineaire transformatie vormen. Door
-niet-lineaire activatiefuncties te gebruiken, kan een neuraal netwerk
-complexere, niet-lineaire verbanden leren.
-
-De \textbf{weights} en \textbf{biases} zijn de trainbare parameters van het
-neuron. De weights bepalen hoe sterk de verschillende invoerwaarden
-bijdragen aan $z$, terwijl de bias de waarde van $z$ verschuift. Tijdens het
-trainen worden deze parameters aangepast om de voorspellingen van het
-netwerk te verbeteren.
-
-
+De sigmoidfunctie zet de waarde z om naar een waarde tussen 0 en 1, terwijl tanh waarden tussen $ -1$ en $1$ geeft. De ReLU zet negatieve waarden op nul en laat positieve waarden ongewijzigd.
+\end{remark}
 
 
 \begin{question}
@@ -323,8 +311,7 @@ Beschouw het onderstaande neurale netwerk:
 \end{tikzpicture}
 \end{center}
 
-Elk neuron in de hidden layers en de outputlaag heeft één bias. Elke
-verbinding tussen twee neuronen heeft één weight.
+Elk neuron in de hidden layers en de outputlaag heeft één bias en iedere verbinding heeft één weight.
 
 Hoeveel \textbf{trainbare parameters} heeft dit netwerk in totaal?
 
@@ -338,13 +325,9 @@ N_{\mathrm{parameters}}
 
 De parameters bestaan uit de \textbf{weights} en de \textbf{biases}.
 
-Om het aantal weights te bepalen, kijken we naar de verbindingen tussen
-opeenvolgende lagen. Elk neuron in een volgende laag ontvangt een weight
-van elk neuron in de vorige laag.
+Om het aantal weights te bepalen, kijken we naar de verbindingen tussen opeenvolgende lagen. Elk neuron in een volgende laag ontvangt een weight van elk neuron in de vorige laag.
 
-Tussen de inputlaag met $3$ neuronen en de eerste hidden layer met $4$
-neuronen zijn er daarom $3\times4=12$ weights. Elk van de $4$ neuronen in de eerste hidden layer is immers
-verbonden met alle $3$ inputneuronen.
+Tussen de inputlaag met $3$ neuronen en de eerste hidden layer met $4$ neuronen zijn er daarom $3\times4=12$ weights. Elk van de $4$ neuronen in de eerste hidden layer is immers verbonden met alle $3$ inputneuronen.
 Tussen de eerste hidden layer en de tweede hidden layer zijn er $4\times3=12$ weights en tussen de tweede hidden layer zijn er $3\times1=3$ weights.
 
 Er zijn in totaal dus \[3\times4+4\times3+3\times1=33\]
@@ -374,14 +357,12 @@ N_{\mathrm{parameters}}
 \end{feedback}
 \end{question}
 
-\subsection*{Forward propagation}
+\subsection*{Hoe berekent een neuraal netwerk een voorspelling?}
 
-Wanneer gegevens aan een neuraal netwerk worden aangeboden, worden deze
-stap voor stap door de verschillende lagen verwerkt. Dit proces noemen we
+Wanneer een invoer aan het netwerk wordt gegeven, wordt deze achtereenvolgens door de verschillende lagen verwerkt. Dit noemen we
 \textbf{forward propagation}.
 
-Voor een netwerk met $L$ lagen wordt de uitvoer van iedere laag berekend op
-basis van de uitvoer van de vorige laag. Voor laag $l$ geldt:
+Voor een netwerk met $L$ lagen wordt de uitvoer van iedere laag berekend op basis van de uitvoer van de vorige laag. Voor laag $l$ geldt:
 
 \[
 z^{[l]}
@@ -394,11 +375,9 @@ a^{[l]}
 g^{[l]}\left(z^{[l]}\right).
 \]
 
-waarbij $W^{[l]}$ de weights van laag $l$ bevat, $b^{[l]}$ de biases zijn en
-$a^{[l-1]}$ de uitvoer van de vorige laag is.
+waarbij $W^{[l]}$ de weights van laag $l$ bevat, $b^{[l]}$ de biases zijn en $a^{[l-1]}$ de uitvoer van de vorige laag is.
 
-Voor een netwerk met bijvoorbeeld twee hidden layers en een outputlaag
-verloopt de berekening dus als volgt:
+Voor een netwerk met twee hidden layers wordt dit bijvoorbeeld:
 \[
 \boxed{
 \begin{aligned}
@@ -411,8 +390,6 @@ z^{[3]} &= W^{[3]}a^{[2]}+b^{[3]}, &
 \end{aligned}
 }
 \]
-
-Op deze manier wordt de informatie achtereenvolgens door het netwerk verwerkt totdat de uiteindelijke voorspelling $\hat{y}$ wordt verkregen.
 
 Schematisch kan dit worden voorgesteld als
 
@@ -461,136 +438,116 @@ netwerk.}
 \label{fig:forward_propagation}
 \end{figure}
 
+Op deze manier wordt de informatie achtereenvolgens door het netwerk verwerkt totdat de uiteindelijke voorspelling $\hat{y}$ wordt verkregen.
 
 \subsection*{Het trainen van een neuraal netwerk}
 
-Om een neuraal netwerk bruikbaar te maken, moeten de weights en biases van het
-netwerk worden geleerd uit beschikbare gegevens. Tijdens het trainen worden
-deze parameters zo aangepast dat de voorspellingen van het netwerk steeds
-beter overeenkomen met de gewenste uitvoer.
+Bij het trainen van een neuraal netwerk worden de weights en biases aangepast zodat de voorspellingen van het netwerk beter overeenkomen met de gewenste uitvoer. De algemene principes van de training en het gebruik van een lossfunctie en optimizer werden reeds besproken bij \textit{'Het Machine Learning-proces'} in de vorige sectie.
 
-\subsubsection*{De lossfunctie}
-
-Om te bepalen hoe goed het netwerk voorspelt, vergelijken we de voorspelling
-$\hat{Y}$ met de gewenste waarde $Y$. Hiervoor gebruiken we een
-\textbf{lossfunctie} of \textbf{kostfunctie}. De loss geeft aan hoe groot de
-fout van het netwerk is.
-
-Een veelgebruikte lossfunctie voor regressie is de
-\textbf{Mean Squared Error} (MSE):
+Voor een neuraal netwerk kunnen we het leerproces schematisch voorstellen als
 
 \[
-\mathrm{MSE}
-=
-\frac{1}{N}
-\sum_{i=1}^{N}
-\left(
-Y_i-\hat{Y}_i
-\right)^2.
+\boxed{
+\text{forward propagation}
+\rightarrow
+\text{loss}
+\rightarrow
+\text{backpropagation}
+\rightarrow
+\text{optimizer}
+}
 \]
 
-Een kleine waarde van de loss betekent dat de voorspellingen gemiddeld dicht bij de gewenste waarden liggen. Het doel van het trainen is daarom om de parameters van het netwerk zo aan te passen dat de loss zo klein mogelijk wordt.
+De eerste twee stappen zijn eenvoudig: het netwerk maakt een voorspelling via forward propagation en deze voorspelling wordt vergeleken met de gewenste uitvoer via de loss functie. Het bijzondere aan neurale netwerken is dat er vaak zeer veel trainbare parameters zijn.
+We moeten daarom bepalen hoe de loss verandert wanneer elk van deze
+parameters wordt aangepast.
 
-\subsubsection*{Backpropagation}
+\begin{definition} \textbf{Backpropagation}
 
-Tijdens het trainen wordt eerst via \textbf{forward propagation} een
-voorspelling $\hat{Y}$ gemaakt. Vervolgens wordt de loss berekend. Om de
-parameters van het netwerk aan te kunnen passen, moeten we bepalen hoe sterk
-iedere parameter bijdraagt aan de loss.
+Backpropagation is een methode om de gradiënten van de loss ten opzichte van de weights en biases van een neuraal netwerk efficiënt te berekenen.
 
-Dit gebeurt met \textbf{backpropagation}. Backpropagation berekent de
-gradiënten van de loss naar de verschillende weights en biases. Voor de
-parameters van laag $l$ zijn dit bijvoorbeeld
+Voor een parameter $\theta$ willen we bijvoorbeeld de partiële afgeleide
 
 \[
-\frac{\partial L}{\partial W^{[l]}}
-\qquad\text{en}\qquad
-\frac{\partial L}{\partial b^{[l]}}.
+\frac{\partial L}{\partial\theta}
 \]
 
-Deze gradiënten geven aan hoe sterk de loss verandert wanneer de
-desbetreffende parameters worden aangepast.
+bepalen. Deze geeft aan hoe de loss verandert wanneer $\theta$ wordt
+aangepast.
 
-Een belangrijk onderdeel van backpropagation is de \textbf{kettingregel}.
-Omdat de uitvoer van een laag de invoer van de volgende laag vormt, kan de
-invloed van een parameter op de uiteindelijke loss worden bepaald door de
-invloeden door de opeenvolgende lagen heen te combineren.
-
-Voor één parameter $\theta$ kan dit schematisch worden voorgesteld als
+De berekening kan worden begrepen aan de hand van de opeenvolgende
+bewerkingen die tijdens de forward propagation plaatsvinden. Beschouw bijvoorbeeld de keten
 
 \[
 \theta
-\rightarrow
+\longrightarrow
 z
-\rightarrow
+\longrightarrow
 a
-\rightarrow
+\longrightarrow
 \hat{y}
-\rightarrow
+\longrightarrow
 L.
 \]
 
-Met de kettingregel wordt dan
+Omdat iedere grootheid afhankelijk is van de vorige, kunnen we met de \textbf{kettingregel} de invloed van $\theta$ op de loss bepalen:
 
 \[
 \boxed{
-\frac{\partial L}{\partial \theta}
+\frac{\partial L}{\partial\theta}
 =
-\frac{\partial L}{\partial \hat{y}}
-\frac{\partial \hat{y}}{\partial a}
+\frac{\partial L}{\partial\hat{y}}
+\frac{\partial\hat{y}}{\partial a}
 \frac{\partial a}{\partial z}
-\frac{\partial z}{\partial \theta}
+\frac{\partial z}{\partial\theta}
 }
 \]
+Bij een neuraal netwerk wordt dit principe toegepast op alle weights en biases. De berekening begint daarbij bij de loss en wordt vervolgens
+achterwaarts door het netwerk uitgevoerd. Vandaar de naam
+\textbf{backpropagation}.
+\end{definition}
 
-Backpropagation voert deze berekening efficiënt uit voor de verschillende
-parameters van het netwerk.
 
-\subsubsection*{Aanpassen van de parameters}
 
-De berekende gradiënten worden vervolgens gebruikt om de weights en biases aan te passen. Een eenvoudige methode hiervoor is \textbf{gradient descent}. Hierbij worden de parameters aangepast volgens
+De berekende gradiënten worden vervolgens door een optimizer gebruikt om de parameters aan te passen. Conceptueel gebeurt bijvoorbeeld bij gradient descent:
 
-\[
-\boxed{
-\theta
-\leftarrow
+\[\theta
+=
 \theta-\eta\nabla_\theta L
-}
 \]
+waarbij $\eta$ de learning rate is.
 
-waarbij $\theta$ de netwerkparameters zijn, $L$ de lossfunctie en $\eta$ de \textbf{learning rate}. De learning rate bepaalt hoe groot de stap is waarmee de parameters worden aangepast.
-
-Het minteken zorgt ervoor dat de parameters worden aangepast in de richting waarin de loss afneemt.
-
-In de praktijk wordt vaak een variant van gradient descent gebruikt, zoals de \textbf{Adam}-optimizer. Adam gebruikt naast de huidige gradiënten ook informatie uit eerdere gradiënten om de parameterupdates aan te passen.
+In de praktijk kan hiervoor bijvoorbeeld de Adam-optimizer worden gebruikt. De precieze werking van de optimizer is voor het begrijpen van neurale netwerken niet essentieel; belangrijk is dat de optimizer de met backpropagation berekende gradiënten gebruikt om de weights en biases aan te passen.
 
 
-\subsubsection*{Het volledige trainingsproces}
+\begin{conclusion} \text{ }
 
-Het trainen van een neuraal netwerk bestaat dus uit een herhaald proces:
+Het trainen van een neuraal netwerk kan compact worden samengevat als
 
 \[
 \boxed{
 \begin{array}{c}
+\text{Invoer}\\
+\downarrow\\
 \text{Forward propagation}\\
 \downarrow\\
-\text{Voorspelling } \hat{Y}\\
+\text{Voorspelling }\hat{y}\\
 \downarrow\\
-\text{Loss berekenen}\\
+\text{Loss}\\
 \downarrow\\
 \text{Backpropagation}\\
 \downarrow\\
-\text{Gradiënten berekenen}\\
+\text{Gradiënten}\\
 \downarrow\\
-\text{Parameters aanpassen}\\
-\downarrow
-\\[-1mm]
-\text{opnieuw}
+\text{Optimizer}\\
+\downarrow\\
+\text{Nieuwe weights en biases}
 \end{array}
 }
 \]
 
-Bij iedere trainingsstap worden de weights en biases dus aangepast op basis van de berekende loss en gradiënten. Door dit proces herhaald uit te voeren, kan het netwerk een steeds betere relatie tussen de invoer en de gewenste uitvoer leren.
+Deze cyclus wordt herhaald voor de trainingsgegevens. Op die manier worden de parameters van het netwerk geleidelijk aangepast.
+\end{conclusion}
 
 \subsubsection*{Neurale netwerken in de reactorkunde}
 

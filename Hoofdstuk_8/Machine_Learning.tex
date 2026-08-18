@@ -142,14 +142,10 @@ $C_A(t),C_B(t),\ldots$};
 
 \section*{Wat is Machine Learning?}
 
-Machine Learning is een verzameling technieken waarmee een model uit gegevens
-kan worden geleerd. In plaats van een model volledig vooraf vast te leggen,
-worden de parameters van het model bepaald op basis van beschikbare gegevens.
-Het doel is om een model te verkrijgen dat verbanden in de gegevens kan
-beschrijven en vervolgens voorspellingen kan maken voor nieuwe situaties.
+Machine Learning is een verzameling technieken waarmee een model uit gegevens kan worden geleerd. In plaats van een model volledig vooraf vast te leggen, worden de parameters van het model bepaald op basis van beschikbare gegevens.
+Het doel is om een model te verkrijgen dat verbanden in de gegevens kan beschrijven en vervolgens voorspellingen kan maken voor nieuwe situaties.
 
-Een eenvoudig Machine Learning-probleem kan schematisch worden voorgesteld
-als
+Een eenvoudig Machine Learning-probleem kan schematisch worden voorgesteld als
 
 \[
 x
@@ -159,9 +155,7 @@ x
 \hat{y},
 \]
 
-waarbij $x$ de invoer van het model is, $\hat{y}$ de voorspelling van het
-model en $f_\theta$ het model voorstelt. De index $\theta$ geeft aan dat het
-model afhankelijk is van een verzameling parameters $\theta$.
+waarbij $x$ de invoer van het model is, $\hat{y}$ de voorspelling van het model en $f_\theta$ het model voorstelt. De index $\theta$ geeft aan dat het model afhankelijk is van een verzameling parameters $\theta$.
 
 De voorspelling kan daarom worden geschreven als
 
@@ -169,14 +163,11 @@ De voorspelling kan daarom worden geschreven als
 \hat{y}=f_\theta(x).
 \]
 
-De letter $y$ wordt gebruikt voor de werkelijke of gewenste uitvoer. Het
-hoedje in $\hat{y}$ geeft aan dat het om een voorspelling gaat.
+De letter $y$ wordt gebruikt voor de werkelijke of gewenste uitvoer. Het hoedje in $\hat{y}$ geeft aan dat het om een voorspelling gaat.
 
 \begin{remark} \textbf{Verschillende vormen van Machine Learning}
 
-Machine Learning kan op verschillende manieren worden toegepast, afhankelijk
-van de beschikbare gegevens en het doel van het model. Een belangrijk
-onderscheid wordt gemaakt tussen supervised learning,
+Machine Learning kan op verschillende manieren worden toegepast, afhankelijk van de beschikbare gegevens en het doel van het model. Een belangrijk onderscheid wordt gemaakt tussen supervised learning,
 unsupervised learning en reinforcement learning.
 
 \begin{itemize}
@@ -197,11 +188,7 @@ concentraties, leren voorspellen.
 
 \begin{example} \textbf{Reactiesnelheid voorspellen}
 
-Een eenvoudig voorbeeld uit de reactorkunde is het voorspellen van een
-reactiesnelheid op basis van concentraties. Stel dat voor verschillende
-toestanden van een reactiesysteem de concentraties $C_A$, $C_B$ en $C_C$ en de
-bijbehorende reactiesnelheid $r$ gekend zijn. Eén trainingsvoorbeeld kan dan
-worden geschreven als
+Een eenvoudig voorbeeld uit de reactorkunde is het voorspellen van een reactiesnelheid op basis van concentraties. Stel dat voor verschillende toestanden van een reactiesysteem de concentraties $C_A$, $C_B$ en $C_C$ en de bijbehorende reactiesnelheid $r$ gekend zijn. Eén trainingsvoorbeeld kan dan worden geschreven als
 
 \[
 x=
@@ -216,22 +203,20 @@ y=r.
 
 De concentraties zijn hierbij de features van het voorbeeld en de
 reactiesnelheid is de target. Voor meerdere experimentele
-toestanden ontstaat een trainingsset met verschillende combinaties van
-concentraties en bijbehorende reactiesnelheden.
+toestanden ontstaat een trainingsset met verschillende combinaties van concentraties en bijbehorende reactiesnelheden.
 
-Het Machine Learning-model probeert op basis van deze voorbeelden een functie
-te leren van de vorm
+Het Machine Learning-model probeert op basis van deze voorbeelden een functie te leren van de vorm
 
 \[
 \hat{r}=f_\theta(C_A,C_B,C_C).
 \]
 
-Wanneer het model vervolgens een nieuwe combinatie van concentraties krijgt,
-kan het met behulp van deze geleerde relatie een reactiesnelheid voorspellen.
+Wanneer het model vervolgens een nieuwe combinatie van concentraties krijgt, kan het met behulp van deze geleerde relatie een reactiesnelheid voorspellen.
 
 \end{example} \text{ }
 
 \section*{Het Machine Learning-proces}
+\label{Het Machine Learning-proces}
 
 Om van beschikbare gegevens tot een bruikbaar model te komen, worden
 verschillende stappen doorlopen:
