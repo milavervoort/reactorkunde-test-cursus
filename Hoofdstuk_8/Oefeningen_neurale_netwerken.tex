@@ -230,7 +230,7 @@ De volledige trainingsloop kan nu worden uitgevoerd. De training wordt hier $100
 
 Tijdens de training wordt de loss van iedere epoch opgeslagen in \texttt{loss\_history}. We kunnen deze waarden gebruiken om te bekijken hoe de loss verandert tijdens het trainen.
 
-Schrijf in de Google Colab-notebook code die de \texttt{loss\_history} uitzet tegen het aantal epochs.
+Schrijf in de Google Colab-notebook een code die de \texttt{loss\_history} uitzet tegen het aantal epochs.
 
 Bekijk vervolgens de bekomen grafiek. Wat kan je uit de grafiek besluiten over het leerproces?
 
@@ -262,11 +262,7 @@ plt.show()
 
 De grafiek toont hoe de loss verandert terwijl het netwerk wordt getraind.
 
-Tijdens het trainen daalt de loss in het algemeen. Dit betekent dat de
-voorspellingen van het netwerk steeds beter overeenkomen met de trainingsdata.
-
-De loss hoeft daarbij niet exact nul te worden. Een kleine loss betekent
-dat de voorspellingen dicht bij de trainingsdata liggen.
+Tijdens het trainen daalt de loss in het algemeen. Dit betekent dat de voorspellingen van het netwerk steeds beter overeenkomen met de trainingsdata.
 \end{feedback}
 \end{question}
 
@@ -274,23 +270,15 @@ dat de voorspellingen dicht bij de trainingsdata liggen.
 
 Het netwerk is nu getraind. We willen nagaan of het geleerde model het verband tussen $x$ en $y$ inderdaad goed benadert.
 
-Tot nu toe hebben we vooral gekeken naar de loss. De loss vertelt ons hoe groot de gemiddelde fout op de trainingsdata is, maar laat niet rechtstreeks zien welke functie het netwerk heeft geleerd.
+Tot nu toe hebben we vooral gekeken naar de loss. De loss vertelt ons hoe groot de gemiddelde fout op de trainingsdata is, maar laat niet rechtstreeks zien welke functie het netwerk heeft geleerd. Daarom laten we het getrainde netwerk nu voorspellingen maken voor een hele reeks waarden van $x$.
 
-Daarom laten we het getrainde netwerk nu voorspellingen maken voor een hele reeks waarden van $x$.
-
-We gebruiken hiervoor 300 gelijkmatig verdeelde waarden tussen $-10$ en
-$10$.  In de Google Colab wordt hiervoor de volgende code gebruikt:
+We gebruiken hiervoor 300 gelijkmatig verdeelde waarden tussen $-10$ en $10$.  In de Google Colab wordt hiervoor de volgende code gebruikt:
 
 \begin{verbatim}
 x_plot = torch.linspace(-10, 10, 300).reshape(-1, 1)
 \end{verbatim}
 
-We willen nu voor elk van deze $x$-waarden een voorspelling van het getrainde netwerk berekenen. Vul in de Google Colab de ontbrekende code aan zodat het netwerk voor alle
-waarden van $x_{\text{plot}}$ een voorspelling $y_{\text{plot}}$ maakt.
-
-Daarna wordt in de Google Colab een grafiek gemaakt waarin de oorspronkelijke
-trainingsdata wordt vergeleken met de voorspellingen van het neurale netwerk.
-Bekijk de bekomen grafiek.
+We willen nu voor elke $x$-waarde een voorspelling van het getrainde netwerk berekenen. Vul in Google Colab de ontbrekende code aan, zodat het netwerk voor alle waarden in x\_plot een voorspelling y\_plot genereert. Maak vervolgens een grafiek waarin de oorspronkelijke trainingsdata wordt weergegeven en vergeleken met de voorspellingen van het neurale netwerk.
 
 \begin{question}
 Welke conclusie past het best bij een grafiek waarin de rode curve de trainingspunten goed volgt?
@@ -306,8 +294,7 @@ $x$ en $y$ in het bereik van de trainingsdata goed benadert.}
 \choice{Omdat de rode curve de trainingsdata goed volgt, is bewezen dat het
 netwerk voor elke mogelijke waarde van $x$ exact $x^2+1$ zal voorspellen.}
 
-\choice{De rode curve toont de oorspronkelijke experimentele data en de
-blauwe punten zijn de voorspellingen van het netwerk.}
+\choice{Het netwerk voorspelt alleen de trainingspunten en kan geen waarden voor $x$ voorspellen die niet in de trainingsdata voorkomen.}
 
 \end{multipleChoice}
 
