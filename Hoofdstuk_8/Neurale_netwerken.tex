@@ -474,7 +474,7 @@ Omdat iedere grootheid afhankelijk is van de vorige, kunnen we met de \textbf{ke
 }
 \]
 Bij een neuraal netwerk wordt dit principe toegepast op alle weights en biases. De berekening begint daarbij bij de loss en wordt vervolgens achterwaarts door het netwerk uitgevoerd. Vandaar de naam backpropagation.
-\end{definition} \text{ }
+\end{definition} \text{ } \\
 
 De berekende gradiënten worden vervolgens door een optimizer gebruikt om de parameters aan te passen. In de praktijk kan hiervoor bijvoorbeeld de Adam-optimizer worden gebruikt. De precieze werking van de optimizer is voor het begrijpen van neurale netwerken niet essentieel; belangrijk is dat de optimizer de met backpropagation berekende gradiënten gebruikt om de weights en biases aan te passen.
 
@@ -508,55 +508,67 @@ Het trainen van een neuraal netwerk kan compact worden samengevat als
 Deze cyclus wordt herhaald voor de trainingsgegevens. Op die manier worden de parameters van het netwerk geleidelijk aangepast.
 \end{conclusion} \text{ }
 
+
 \section*{Neurale netwerken in de reactorkunde}
 
-In de vorige secties werd besproken hoe machine learning en neurale netwerken kunnen worden gebruikt om verbanden uit experimentele gegevens te leren. We kunnen dit principe nu toepassen op een reactiesysteem in een batchreactor.
+We kunnen de principes van neurale netwerken nu toepassen op een
+reactiesysteem in een batchreactor. Stel dat tijdens een experiment de concentraties van verschillende componenten op verschillende tijdstippen worden gemeten. 
+We beschikken bijvoorbeeld over concentratieprofielen: $C_A(t), C_B(t), C_C(t)$. 
 
-Stel dat we een batchreactor onderzoeken waarin verschillende componenten met elkaar reageren. Tijdens een experiment meten we op verschillende tijdstippen de concentraties van de aanwezige componenten. We verkrijgen bijvoorbeeld concentratieprofielen van de vorm: $C_A(t), C_B(t), C_C(t)$. 
+Bij een klassieke kinetische analyses wordt eerst een geschikte kinetische vergelijking gekozen, waarna de onbekende kinetische parameters uit experimentele gegevens worden bepaald. 
 
-Bij de eerder besproken methodes (integrale analysemethode, ...) probeerden we telkens een geschikte kinetische vergelijking te vinden en vervolgens bepaalden we de onbekende kinetische parameters. Bij een data-driven benadering hoeven we echter niet vooraf een specifieke vorm voor de reactiesnelheid te kiezen. In plaats daarvan laten we een neuraal netwerk leren hoe de toestand van het reactiesysteem verandert.
+Bij een data-driven benadering hoeven we echter niet vooraf een specifieke vorm voor de reactiesnelheid te kiezen. In plaats daarvan gebruiken we een neuraal netwerk om te leren hoe de toestand van het reactiesysteem verandert.
 
-De toestand van het reactiesysteem kan worden beschreven met de concentratievector
+\begin{remark} \text{ }
+
+Het neurale netwerk probeert niet rechtstreeks het volledige
+concentratieprofiel te voorspellen. Het leert de lokale verandering van de toestand van het reactiesysteem:
+
 \[
-\mathbf{C} =
+\boxed{
+\frac{d\mathbf C}{dt}=f_\theta(\mathbf C)
+}
+\]
+
+waarbij $\mathbf C$ de toestand van het systeem is en $f_\theta$ het
+neurale netwerk voorstelt.
+
+De parameters $\theta$ zijn de weights en biases van het netwerk.
+\end{remark}
+
+De toestand van het reactiesysteem kan bijvoorbeeld worden beschreven met de concentratievector
+
+\[
+\mathbf C=
 \begin{pmatrix}
-C_A \\
-C_B \\
+C_A\\
+C_B\\
 C_C
 \end{pmatrix}.
 \]
 
-Het neurale netwerk krijgt deze concentraties als invoer. De uitvoer van het netwerk bestaat uit de overeenkomstige veranderingen van de concentraties:
-\[
-\frac{d\mathbf{C}}{dt}
-=
-\text{neuraal netwerk}(\mathbf{C}).
-\]
+Deze vector wordt als invoer aan het netwerk gegeven. De uitvoer bestaat uit de overeenkomstige veranderingen van de concentraties:
 
-
-Het netwerk leert dus een functie
 \[
-\frac{d\mathbf{C}}{dt} = f_\theta(\mathbf{C}),
-\]
-waarbij \(f_\theta\) de functie is die door het neurale netwerk wordt voorgesteld en \(\theta\) de trainbare parameters van het netwerk bevat.
-
-Voor drie componenten betekent dit concreet:
-\[
+\boxed{
 f_\theta
 \begin{pmatrix}
-C_A \\
-C_B \\
+C_A\\
+C_B\\
 C_C
 \end{pmatrix}
 =
 \begin{pmatrix}
-\dfrac{dC_A}{dt} \\
-\dfrac{dC_B}{dt} \\
+\dfrac{dC_A}{dt}\\[1mm]
+\dfrac{dC_B}{dt}\\[1mm]
 \dfrac{dC_C}{dt}
-\end{pmatrix}.
+\end{pmatrix}
+}
 \]
 
-Het netwerk probeert dus te leren hoe snel de verschillende concentraties veranderen wanneer het systeem zich in een bepaalde toestand bevindt. Deze informatie over de lokale concentratieveranderingen kunnen we vervolgens gebruiken om te bepalen hoe het volledige reactiesysteem zich in de tijd ontwikkelt. 
+Het netwerk leert dus welke concentratieveranderingen horen bij een
+bepaalde toestand van het reactiesysteem.
+
 
 Uiteindelijk willen we opnieuw een concentratieprofiel verkrijgen, $\mathbf{C}(t)$, omdat dit de grootheid is die we experimenteel hebben gemeten en waarmee we de voorspelling van het model kunnen vergelijken. Om dit profiel te verkrijgen, moeten de door het neurale netwerk voorspelde afgeleiden $\frac{d\mathbf{C}}{dt}$ over de tijd worden geïntegreerd.
 
@@ -573,23 +585,11 @@ Hiervoor gebruiken we een ODE-oplosser. Deze gebruikt de door het neurale netwer
 We verkrijgen zo een voorspeld concentratieprofiel $\mathbf{C}_{\mathrm{pred}}(t)$, dat we kunnen vergelijken met het experimenteel gemeten concentratieprofiel
 $\mathbf{C}_{\mathrm{exp}}(t).$
 
-Uit het verschil tussen deze twee profielen wordt de loss berekend.  Vaak wordt hiervoor de Mean Squared Error (MSE) gebruikt: 
+Uit het verschil tussen deze twee profielen wordt dan de loss berekend. Vervolgens worden via backpropagation de gradiënten van deze loss ten opzichte van de netwerkparameters berekend. De optimizer past de parameters van het netwerk vervolgens aan.
 
-\[
-\mathcal{L}
-=
-\frac{1}{N}
-\sum_{i=1}^{N}
-\left\|
-\mathbf{C}_{\mathrm{pred}}(t_i)
--
-\mathbf{C}_{\mathrm{exp}}(t_i)
-\right\|^2.
-\]
+\begin{procedure} \text{ }
 
-Vervolgens worden via backpropagation de gradiënten van deze loss ten opzichte van de netwerkparameters berekend. De optimizer past de parameters van het netwerk vervolgens aan.
-
-Het volledige leerproces kan daarom als volgt worden weergegeven:
+Het volledige leerproces kan als volgt worden weergegeven:
 
 \[
 \begin{array}{c}
@@ -630,9 +630,11 @@ Het volledige leerproces kan daarom als volgt worden weergegeven:
 \]
 
 Dit proces wordt vervolgens vele malen herhaald. Na elke iteratie worden de netwerkparameters aangepast, zodat het voorspelde concentratieprofiel steeds beter overeenkomt met de experimentele gegevens.
+\end{procedure}
 
+\begin{conclusion} \text{ }
 
-Na het trainen hebben we dus geen klassieke kinetische vergelijking zoals $r = k C_A^n$ met een beperkt aantal interpreteerbare parameters \(k\) en \(n\). In plaats daarvan hebben we een neuraal netwerk dat voor een gegeven toestand van het reactiesysteem een voorspelling maakt van de lokale verandering van de concentraties.
+Na het trainen hebben we geen klassieke kinetische vergelijking zoals $r = k C_A^n$ met een beperkt aantal interpreteerbare parameters \(k\) en \(n\). In plaats daarvan hebben we een neuraal netwerk dat voor een gegeven toestand van het reactiesysteem een voorspelling maakt van de lokale verandering van de concentraties.
 
 Bijvoorbeeld:
 
@@ -657,10 +659,17 @@ C_C
 \dfrac{dC_C}{dt}
 \end{pmatrix}.
 \]
+\end{conclusion}
 
-Het netwerk kan dus worden gebruikt om te voorspellen hoe het systeem vanuit die toestand verder evolueert.
 
-Dit betekent echter niet dat het netwerk automatisch een universeel kinetisch model van de reactie heeft gevonden. Het heeft geleerd van de toestanden die in de beschikbare experimentele gegevens voorkomen. Voorspellingen buiten het gebied waarin het netwerk werd getraind, kunnen daarom onbetrouwbaar zijn.
+\begin{remark} \textbf{Beperking}
+
+Het netwerk leert de dynamiek op basis van de toestanden die in de
+beschikbare experimentele gegevens voorkomen. Het heeft daarmee niet automatisch een universeel kinetisch model van de reactie gevonden.
+
+Voorspellingen voor toestanden die sterk buiten het bereik van de
+trainingsgegevens liggen, kunnen daarom onbetrouwbaar zijn.
+\end{remark}
 
 
 
