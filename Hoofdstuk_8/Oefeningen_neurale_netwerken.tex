@@ -326,5 +326,64 @@ De nauwkeurigheid van het netwerk kan verder worden verbeterd door het model te 
 \end{question}
 
 
+\section*{Oefening 2: Opeenvolgende reacties met een neuraal netwerk}
+
+\textbf{Gegeven}
+
+In een isotherme batchreactor verloopt een opeenvolgende reactie:
+
+\[
+A \longrightarrow B \longrightarrow C
+\]
+
+Tijdens het experiment werden de concentraties van de drie componenten gemeten als functie van de tijd.
+
+De experimentele gegevens zijn:
+
+\begin{center}
+\begin{tabular}{c|c|c|c}
+$t$ (min) & $C_A$ (mol/L) & $C_B$ (mol/L) & $C_C$ (mol/L)\\
+\hline
+0.0  & 1.0025 & 0.0000 & 0.0032\\
+0.5  & 0.9588 & 0.0425 & 0.0040\\
+1.0  & 0.9127 & 0.0802 & 0.0165\\
+1.5  & 0.8634 & 0.0981 & 0.0365\\
+2.0  & 0.8199 & 0.1082 & 0.0549\\
+2.5  & 0.7760 & 0.1247 & 0.0930\\
+3.0  & 0.7363 & 0.1306 & 0.1289\\
+3.5  & 0.7036 & 0.1425 & 0.1460\\
+4.0  & 0.6676 & 0.1448 & 0.1796\\
+4.5  & 0.6395 & 0.1415 & 0.2164\\
+5.0  & 0.6035 & 0.1525 & 0.2502\\
+5.5  & 0.5717 & 0.1449 & 0.2761\\
+6.0  & 0.5499 & 0.1278 & 0.3070\\
+6.5  & 0.5230 & 0.1375 & 0.3450\\
+7.0  & 0.4960 & 0.1281 & 0.3664\\
+7.5  & 0.4688 & 0.1229 & 0.4077\\
+8.0  & 0.4510 & 0.1118 & 0.4317\\
+8.5  & 0.4255 & 0.1125 & 0.4598\\
+9.0  & 0.4117 & 0.1158 & 0.4781\\
+9.5  & 0.3852 & 0.1082 & 0.5116\\
+10.0 & 0.3655 & 0.1010 & 0.5247
+\end{tabular}
+\end{center}
+
+In deze oefening kennen we de exacte kinetische vergelijkingen niet. In plaats daarvan gebruiken we een neuraal netwerk om de kinetiek
+rechtstreeks uit de experimentele gegevens te leren.
+
+De berekeningen voer je uit in dezelfde Google Colab-notebook als bij oefening 1. Open de notebook via onderstaande link en gebruik deze tijdens het oplossen van de oefening.
+
+\begin{center}
+\href{https://colab.research.google.com/drive/17OMMkgFNeBZeORY04bA9OUqVQtMOB594?usp=sharing}
+{\Large Open de Google Colab-notebook}
+\end{center}
+
+\textbf{Gevraagd}
+
+Gebruik een neuraal netwerk om de dynamiek van de opeenvolgende reactie
+te leren. Het netwerk moet de concentraties als functie van de tijd
+kunnen voorspellen.
+
+...
 
 \end{document}
