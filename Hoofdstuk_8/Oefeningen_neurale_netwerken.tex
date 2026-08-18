@@ -44,7 +44,7 @@ We zullen de oefening opbouwen volgens vier grote stappen:
 Open de bijbehorende Google Colab-notebook en voer de code stap voor stap uit.
 
 \begin{center}
-\href{https://colab.research.google.com/drive/1XiDw3d7TNHpXzvnJET9ZXZ9ro5OCJlXt?usp=sharing}{\Large Open de Google Colab-notebook}
+\href{https://colab.research.google.com/drive/17OMMkgFNeBZeORY04bA9OUqVQtMOB594?usp=sharing}{\Large Open de Google Colab-notebook}
 \end{center}
 
 \textbf{Gegeven}
@@ -114,21 +114,15 @@ De hidden layers gebruiken de activatiefunctie \texttt{Tanh}.
 
 \begin{remark} \text{ }
     
-De keuze voor twee hidden layers met telkens acht neuronen is hier vooral
-een praktische keuze. Het verband $y=x^2+1$ is relatief eenvoudig, waardoor
-een klein netwerk voldoende is om het verband te leren. Er bestaat geen
-algemene regel die zegt dat voor dit probleem precies acht neuronen of twee
+De keuze voor twee hidden layers met telkens acht neuronen is hier vooral een praktische keuze. Het verband $y=x^2+1$ is relatief eenvoudig, waardoor een klein netwerk voldoende is om het verband te leren. Er bestaat geen algemene regel die zegt dat voor dit probleem precies acht neuronen of twee
 hidden layers nodig zijn.
 
-Bij andere problemen kan de optimale structuur van een neuraal netwerk
-anders zijn. Het aantal lagen en neuronen moet dan vaak worden getest en geoptimaliseerd. Een te klein netwerk kan onvoldoende
-complexe verbanden leren, terwijl een onnodig groot netwerk meer parameters
+Bij andere problemen kan de optimale structuur van een neuraal netwerk anders zijn. Het aantal lagen en neuronen moet dan vaak worden getest en geoptimaliseerd. Een te klein netwerk kan onvoldoende complexe verbanden leren, terwijl een onnodig groot netwerk meer parameters
 heeft en moeilijker te trainen kan zijn.
 
 \end{remark}
 
-De structuur van het netwerk is al voorgeprogrammeerd in de Google Colab-notebook. Kijk kort naar de code en probeer de verschillende lagen
-te herkennen. Voer het codeblok uit om het netwerk op te bouwen.
+De structuur van het netwerk is al voorgeprogrammeerd in de Google Colab-notebook. Kijk kort naar de code en probeer de verschillende lagen te herkennen. Voer het codeblok uit om het netwerk op te bouwen.
 
 We kunnen het netwerk nu al een voorspelling laten maken: $\hat y=f_\theta(x).$
 
@@ -148,9 +142,7 @@ Zijn de voorspellingen van het netwerk vóór de training al goed?
 \begin{feedback} \text{ }
 
 Het netwerk kent de onderliggende relatie $y=x^2+1$
-nog niet. Wanneer het netwerk wordt aangemaakt, krijgen de parameters
-zoals de gewichten en biases beginwaarden. Deze waarden zijn nog niet
-afgestemd op onze trainingsgegevens.
+nog niet. Wanneer het netwerk wordt aangemaakt, krijgen de parameters zoals de gewichten en biases beginwaarden. Deze waarden zijn nog niet afgestemd op onze trainingsgegevens.
 
 Het netwerk kan dus al wel een voorspelling maken: $\hat y= f_\theta(x),$ maar deze voorspelling zal in het begin nog niet goed overeenkomen met de werkelijke waarden.
 
@@ -162,37 +154,26 @@ Tijdens het trainen zullen we de parameters $\theta$ aanpassen zodat de voorspel
 
 \subsection*{Stap 3: Het netwerk trainen}
 
-Zoals we in de vorige stap hebben gezien, zijn de voorspellingen van het
-ongetrainde netwerk nog geen goede benadering van onze gegevens.
+Zoals we in de vorige stap hebben gezien, zijn de voorspellingen van het ongetrainde netwerk nog geen goede benadering van onze gegevens.
 
-We willen nu de parameters van het netwerk aanpassen zodat de voorspellingen
-steeds beter worden.
+We willen nu de parameters van het netwerk aanpassen zodat de voorspellingen steeds beter worden.
 
 Hiervoor hebben we twee dingen nodig:
 
 \begin{enumerate}
-    \item een manier om te bepalen \textbf{hoe groot de fout} van het netwerk
+    \item een manier om te bepalen hoe groot de fout van het netwerk
     is;
-    \item een methode om de \textbf{parameters van het netwerk aan te passen}.
+    \item een methode om de parameters van het netwerk aan te passen.
 \end{enumerate}
 
-De eerste stap gebeurt met behulp van een \textbf{lossfunctie}. De tweede
-stap gebeurt met behulp van een \textbf{optimizer}.
+De eerste stap gebeurt met behulp van een \textbf{lossfunctie}. De tweede stap gebeurt met behulp van een \textbf{optimizer}.
 
-De \textbf{loss} geeft aan hoe goed het model de gegeven gegevens
-beschrijft. Een kleine loss betekent dat de voorspellingen gemiddeld dicht bij de werkelijke waarden liggen. Tijdens het trainen proberen we de loss dus kleiner te maken.
-
-Voor dit probleem gebruiken we de \textit{Mean Squared Error (MSE)}. In PyTorch kunnen we de MSE-loss aanmaken met:
+Voor dit probleem gebruiken we de \textit{Mean Squared Error (MSE)} asl lossfunctie. In PyTorch kunnen we de MSE-loss aanmaken met:
 \begin{verbatim}
 criterion = nn.MSELoss()
 \end{verbatim}
 
-Een lage loss krijgen we niet vanzelf. We moeten de parameters van het
-netwerk aanpassen. Hiervoor gebruiken we een \textbf{optimizer}. De optimizer bepaalt op basis
-van de berekende gradiënten hoe de parameters van het netwerk moeten worden
-aangepast.
-
-We gebruiken hier het \textit{Adam-algoritme}. In PyTorch maken we de optimizer als volgt aan:
+Als optimizer gebruiken we hier het \textit{Adam-algoritme}. In PyTorch maken we de optimizer als volgt aan:
 
 \begin{verbatim}
 optimizer = torch.optim.Adam(
@@ -207,16 +188,13 @@ optimizer = torch.optim.Adam(
 mogen zijn. De learning rate is een belangrijke trainingsinstelling. Een te grote learning rate kan ervoor zorgen dat de training instabiel wordt, terwijl
 een te kleine learning rate ervoor kan zorgen dat het leren erg traag verloopt.
 
-De optimale waarde van de learning rate hangt af van het probleem en het gebruikte netwerk. In de praktijk wordt deze waarde daarom vaak
-uitgetest en aangepast om een goede trainingssnelheid en
+De optimale waarde van de learning rate hangt af van het probleem en het gebruikte netwerk. In de praktijk wordt deze waarde daarom vaak uitgetest en aangepast om een goede trainingssnelheid en
 stabiele training te verkrijgen.
 \end{remark}
 
-Voer de code voor de loss-functie en optimizer uit in de Google Colab-notebook.
+Voer de code voor de loss-functie en optimizer uit in de Google Colab-notebook. 
 
-We hebben nu alles wat nodig is om het netwerk te trainen.
-
-Tijdens één volledige trainingsstap, ook wel een \textbf{epoch} genoemd,
+We hebben nu alles wat nodig is om het netwerk te trainen. Tijdens één volledige trainingsstap, ook wel een \textbf{epoch} genoemd,
 gebeurt het volgende:
 
 \[
@@ -237,9 +215,7 @@ gebeurt het volgende:
 Dit proces wordt vervolgens vele malen herhaald.
 
 In de Google Colab-notebook is de trainingsloop grotendeels
-voorgeprogrammeerd. Bekijk eerst de verschillende stappen in de code.
-
-Vul in de trainingsloop de regels aan waarmee de voorspelde waarde en de loss worden berekend:
+voorgeprogrammeerd. Bekijk eerst de verschillende stappen in de code. Vul daarna de lege regels in de trainingsloop aan:
 
 \begin{verbatim}
 y_pred = ...
@@ -247,17 +223,14 @@ y_pred = ...
 loss = ...
 \end{verbatim}
 
-Voer daarna de volledige trainingsloop uit. De training wordt hier $10000$ keer herhaald. Na iedere epoch worden de nieuwe voorspellingen en de bijbehorende loss berekend.
+De volledige trainingsloop kan nu worden uitgevoerd. De training wordt hier $10000$ keer herhaald. Na iedere epoch worden de nieuwe voorspellingen en de bijbehorende loss berekend.
 
 
 \begin{question} \textbf{De evolutie van de loss}
 
-Tijdens de training wordt de loss van iedere epoch opgeslagen in
-\texttt{loss\_history}. We kunnen deze waarden gebruiken om te bekijken hoe
-de loss verandert tijdens het trainen.
+Tijdens de training wordt de loss van iedere epoch opgeslagen in \texttt{loss\_history}. We kunnen deze waarden gebruiken om te bekijken hoe de loss verandert tijdens het trainen.
 
-Schrijf in de Google Colab-notebook code die de \texttt{loss\_history} uitzet
-tegen het aantal epochs.
+Schrijf in de Google Colab-notebook code die de \texttt{loss\_history} uitzet tegen het aantal epochs.
 
 Bekijk vervolgens de bekomen grafiek. Wat kan je uit de grafiek besluiten over het leerproces?
 
