@@ -173,32 +173,9 @@ Hiervoor hebben we twee dingen nodig:
 
 De eerste stap gebeurt met behulp van een \textbf{lossfunctie}. De tweede stap gebeurt met behulp van een \textbf{optimizer}.
 
-Voor dit probleem gebruiken we de \textit{Mean Squared Error (MSE)} als lossfunctie. In PyTorch kunnen we de MSE-loss aanmaken met:
-\begin{verbatim}
-criterion = nn.MSELoss()
-\end{verbatim}
+Voor dit probleem gebruiken we de \textit{Mean Squared Error (MSE)} als lossfunctie en het \textit{Adam-algoritme} als optimizer.
 
-Als optimizer gebruiken we hier het \textit{Adam-algoritme}. In PyTorch maken we de optimizer als volgt aan:
-
-\begin{verbatim}
-optimizer = torch.optim.Adam(
-    model.parameters(),
-    lr=0.01)
-\end{verbatim}
-
-\begin{remark} \text{ }
-
-\texttt{lr} is de \textbf{learning rate}. Deze bepaalt hoe groot de parameterupdates
-mogen zijn. De learning rate is een belangrijke trainingsinstelling. 
-
-Een te grote learning rate kan ervoor zorgen dat de training instabiel wordt, terwijl
-een te kleine learning rate ervoor kan zorgen dat het leren erg traag verloopt.
-
-De optimale waarde van de learning rate hangt af van het probleem en het gebruikte netwerk. In de praktijk wordt deze waarde daarom vaak uitgetest en aangepast om een goede trainingssnelheid en
-stabiele training te verkrijgen.
-\end{remark}
-
-Voer de code voor de loss-functie en optimizer uit in de Google Colab-notebook. 
+Voer de code voor het definiëren van de loss-functie en optimizer uit in de Google Colab-notebook. 
 
 We hebben nu alles wat nodig is om het netwerk te trainen. Tijdens één volledige trainingsstap, ook wel een \textbf{epoch} genoemd, gebeurt het volgende:
 
@@ -219,15 +196,13 @@ We hebben nu alles wat nodig is om het netwerk te trainen. Tijdens één volledi
 
 Dit proces wordt vervolgens vele malen herhaald.
 
-In de Google Colab-notebook is de trainingsloop grotendeels voorgeprogrammeerd. Bekijk eerst de verschillende stappen in de code. Vul daarna de lege regels in de trainingsloop aan.
-
-De volledige trainingsloop kan nu worden uitgevoerd. 
+In de Google Colab-notebook is de trainingsloop al voorgeprogrammeerd. Bekijk de verschillende stappen in de code en voer de volledige trainingsloop uit.
 
 De training wordt hier $10000$ keer herhaald. Tijdens de training wordt de loss van iedere epoch opgeslagen in \texttt{loss\_history}. We kunnen deze waarden gebruiken om te bekijken hoe de loss verandert tijdens het trainen.
 
-Schrijf in de Google Colab-notebook een code die de \texttt{loss\_history} uitzet tegen het aantal epochs.
+Schrijf in de Google Colab-notebook een code die de \texttt{loss\_history} uitzet tegen het aantal epochs. Bekijk vervolgens de bekomen grafiek. 
 
-Bekijk vervolgens de bekomen grafiek. Wat kan je uit de grafiek besluiten over het leerproces?
+Wat kan je uit de grafiek besluiten over het leerproces?
 
 \begin{multipleChoice}
     \choice{De loss stijgt in het algemeen, \\
@@ -261,23 +236,15 @@ Tijdens het trainen daalt de loss in het algemeen. Dit betekent dat de voorspell
 \end{feedback}
 \end{question}
 
+
 \begin{question} \textbf{Stap 4: Het netwerk testen}
 
-Het netwerk is nu getraind. We willen nagaan of het geleerde model het verband tussen $x$ en $y$ inderdaad goed benadert.
+Het netwerk is nu getraind. We willen nagaan of het geleerde model het verband tussen $x$ en $y$ inderdaad goed benadert. Daarom laten we het getrainde netwerk nu voorspellingen maken voor een hele reeks waarden van $x$.
 
-Tot nu toe hebben we vooral gekeken naar de loss. De loss vertelt ons hoe groot de gemiddelde fout op de trainingsdata is, maar laat niet rechtstreeks zien welke functie het netwerk heeft geleerd. 
+We gebruiken hiervoor 300 gelijkmatig verdeelde waarden tussen $-10$ en $10$.  
 
-Daarom laten we het getrainde netwerk nu voorspellingen maken voor een hele reeks waarden van $x$.
-
-We gebruiken hiervoor 300 gelijkmatig verdeelde waarden tussen $-10$ en $10$.  In de Google Colab wordt hiervoor de volgende code gebruikt:
-\begin{verbatim}
-x_plot = torch.linspace(-10, 10, 300).reshape(-1, 1)
-\end{verbatim}
-
-We willen nu voor elke $x$-waarde een voorspelling van het getrainde netwerk berekenen. 
-
-Vul in Google Colab de ontbrekende code aan, zodat het netwerk voor alle waarden in \texttt{x\_plot} een voorspelling \texttt{y\_plot} genereert. \\
-Maak vervolgens een grafiek waarin de oorspronkelijke trainingsdata wordt weergegeven en vergeleken met de voorspellingen van het neurale netwerk.
+We willen nu voor elke $x$-waarde een voorspelling van het getrainde netwerk berekenen. Vul in Google Colab de ontbrekende code aan, zodat het netwerk voor alle waarden in \texttt{x\_plot} een voorspelling \texttt{y\_plot} genereert. \\
+Bekijk vervolgens de plot waarin de oorspronkelijke trainingsdata wordt weergegeven samen met de voorspellingen van het neurale netwerk en vergelijk.
 
 Welke conclusie past het best bij een grafiek waarin de rode curve de trainingspunten goed volgt?
 
@@ -298,12 +265,10 @@ netwerk voor elke mogelijke waarde van $x$ exact $x^2+1$ zal voorspellen.}
 
 \begin{feedback} \text{ }
 
-Wanneer de rode curve de trainingspunten goed volgt, betekent dit dat het
-getrainde netwerk een functie heeft geleerd die de relatie tussen $x$ en $y$
+Wanneer de rode curve de trainingspunten goed volgt, betekent dit dat het getrainde netwerk een functie heeft geleerd die de relatie tussen $x$ en $y$
 in dit gebied goed benadert.
 
-Het netwerk probeert dus niet letterlijk de tabel met waarden te onthouden,
-maar leert een functie
+Het netwerk probeert dus niet letterlijk de tabel met waarden te onthouden, maar leert een functie
 
 \[
 \hat y=f_\theta(x)
@@ -325,28 +290,13 @@ Een belangrijk doel van Machine Learning is dat een getraind model ook voorspell
 
 Tijdens de training heeft het netwerk geleerd om een verband te benaderen tussen $x$ en $y$. We kunnen het getrainde model nu gebruiken om voor een nieuwe waarde van $x$ een voorspelling te maken.
 
-We kiezen bijvoorbeeld een waarde die ook binnen het bereik van onze trainingsdata ligt:
+We kiezen bijvoorbeeld een waarde die ook binnen het bereik van onze trainingsdata $[-10, 10]$ ligt: $x_{\text{new}}=7.$ 
 
-\[
-x_{\text{new}}=7.
-\]
-
-In de Google Colab maken we eerst een tensor met deze nieuwe input:
-
-\begin{verbatim}
-x_new = torch.tensor([7.0])
-\end{verbatim}
+(Je zou ook een andere waarde kunnen controleren die binnen het bereik van onze trainingsdata ligt.)
 
 Vul vervolgens de code aan zodat het getrainde netwerk een voorspelling maakt voor deze nieuwe waarde. \\
-Vergelijk de voorspelling met de exacte waarde van $y=x^2+1.$
-
-\[
-y=7^2+1=50
-\]
-
-Stel dat het netwerk bijvoorbeeld een waarde van $49.2$ voorspelt. 
-
-Welke conclusie is dan het meest correct?
+V
+ergelijk de voorspelling met de exacte waarde van $y=x^2+1.$ Welke conclusie is dan het meest correct?
 
 \begin{multipleChoice}
 
@@ -365,15 +315,11 @@ binnen een neuraal netwerk.}
 \end{multipleChoice}
 
 \begin{feedback} \text{ }
-
 De exacte waarde is $y=7^2+1=50,$
-terwijl het netwerk bijvoorbeeld $49.2$ voorspelt. De voorspelling is dus
-niet exact, maar ligt wel dicht bij de werkelijke waarde.
+terwijl het netwerk bijvoorbeeld $49.2$ voorspelt. De voorspelling is dus niet exact, maar ligt wel dicht bij de werkelijke waarde.
 
-Een neuraal netwerk leert de relatie uit de beschikbare trainingsdata. Het
-doel van de training is daarom niet noodzakelijk om voor elk punt exact de
-juiste waarde te verkrijgen, maar om een functie te vinden die de gegevens
-zo goed mogelijk benadert.
+Een neuraal netwerk leert de relatie uit de beschikbare trainingsdata. Het doel van de training is daarom niet noodzakelijk om voor elk punt exact de
+juiste waarde te verkrijgen, maar om een functie te vinden die de gegevens zo goed mogelijk benadert.
 \end{feedback}
 
 \end{question}
