@@ -335,53 +335,23 @@ In deze oefening passen we deze kennis toe op een reactiesysteem.
 
 \textbf{Gegeven}
 
-In een isotherme batchreactor verloopt een opeenvolgende reactie:
+In een isotherme batchreactor zijn de componenten $A$, $B$ en $C$ aanwezig. Tijdens een experiment werden de concentraties van deze componenten gemeten
+als functie van de tijd. De experimentele gegevens zijn opgenomen in de bijbehorende Google Colab-notebook.
 
-\[
-A \longrightarrow B \longrightarrow C
-\]
+Op basis van de gemeten concentratieprofielen vermoeden we dat er een reactie plaatsvindt waarbij de componenten met elkaar in verband staan.
+De exacte kinetische vergelijkingen en reactiesnelheden zijn echter niet gekend.
 
-Tijdens het experiment werden de concentraties van de drie componenten gemeten als functie van de tijd.
+Tijdens het experiment werden de concentraties van de drie componenten gemeten als functie van de tijd. De experimentele concentratiegegevens zijn opgenomen in de bijbehorende Google Colab-notebook.
 
-De experimentele gegevens zijn:
-
-\begin{center}
-\begin{tabular}{c|c|c|c}
-$t$ (min) & $C_A$ (mol/L) & $C_B$ (mol/L) & $C_C$ (mol/L)\\
-\hline
-0.0  & 1.0025 & 0.0000 & 0.0032\\
-0.5  & 0.9588 & 0.0425 & 0.0040\\
-1.0  & 0.9127 & 0.0802 & 0.0165\\
-1.5  & 0.8634 & 0.0981 & 0.0365\\
-2.0  & 0.8199 & 0.1082 & 0.0549\\
-2.5  & 0.7760 & 0.1247 & 0.0930\\
-3.0  & 0.7363 & 0.1306 & 0.1289\\
-3.5  & 0.7036 & 0.1425 & 0.1460\\
-4.0  & 0.6676 & 0.1448 & 0.1796\\
-4.5  & 0.6395 & 0.1415 & 0.2164\\
-5.0  & 0.6035 & 0.1525 & 0.2502\\
-5.5  & 0.5717 & 0.1449 & 0.2761\\
-6.0  & 0.5499 & 0.1278 & 0.3070\\
-6.5  & 0.5230 & 0.1375 & 0.3450\\
-7.0  & 0.4960 & 0.1281 & 0.3664\\
-7.5  & 0.4688 & 0.1229 & 0.4077\\
-8.0  & 0.4510 & 0.1118 & 0.4317\\
-8.5  & 0.4255 & 0.1125 & 0.4598\\
-9.0  & 0.4117 & 0.1158 & 0.4781\\
-9.5  & 0.3852 & 0.1082 & 0.5116\\
-10.0 & 0.3655 & 0.1010 & 0.5247
-\end{tabular}
-\end{center}
-
-In deze oefening kennen we de exacte kinetische vergelijkingen niet. In plaats daarvan gebruiken we een neuraal netwerk om de kinetiek
-rechtstreeks uit de experimentele gegevens te leren.
-
-De berekeningen voer je uit in dezelfde Google Colab-notebook als bij oefening 1. Open de notebook via onderstaande link en gebruik deze tijdens het oplossen van de oefening.
+De berekeningen en visualisaties in deze oefening voer je uit in dezelfde Google Colab-notebook als bij oefening 1. Open de notebook via onderstaande link en gebruik deze tijdens het oplossen van de oefening.
 
 \begin{center}
 \href{https://colab.research.google.com/drive/17OMMkgFNeBZeORY04bA9OUqVQtMOB594?usp=sharing}
 {\Large Open de Google Colab-notebook}
 \end{center}
+
+In deze oefening kennen we de exacte kinetische vergelijkingen niet. In plaats daarvan gebruiken we een neuraal netwerk om de dynamica van het
+reactiesysteem rechtstreeks uit de experimentele gegevens te leren.
 
 \textbf{Gevraagd}
 
@@ -395,10 +365,8 @@ De code om de gegevens om te zetten naar tensors waarmee PyTorch kan werken,
 is al uitgeschreven. Deze code kan je dus gewoon uitvoeren.
 
 Vul vervolgens de code in de Google Colab aan om de experimentele concentraties als functie van de tijd te plotten en bekijk de grafiek.
-Kan je op basis van de concentratieprofielen al een idee krijgen van hoe het reactiesysteem verloopt? Zou je zelf een wiskundig verband
-kunnen voorstellen dat de concentratieveranderingen beschrijft?
 
-\vspace{2mm}
+Kan je op basis van de concentratieprofielen al een idee krijgen van hoe het reactiesysteem verloopt? Zou je zelf een wiskundig verband kunnen voorstellen dat de concentratieveranderingen beschrijft?
 
 We willen de kinetiek van het reactiesysteem nu laten leren door een neuraal netwerk. Het netwerk moet daarbij leren hoe de verandering van de concentraties afhangt van de huidige concentraties.
 
@@ -414,19 +382,20 @@ Welke grootheden moeten daarom als input en output van het netwerk worden gebrui
 
 \begin{feedback} \text{ }
 
-De huidige toestand van het reactiesysteem wordt beschreven door de concentratievector
+Uit de grafiek kunnen we bijvoorbeeld zien dat $A$ geleidelijk wordt verbruikt, terwijl $C$ wordt gevormd. De concentratie van $B$ neemt eerst
+toe en daalt later weer. Dit kan erop wijzen dat $B$ een tussenproduct is en dat het reactiesysteem bijvoorbeeld de volgende vorm heeft:
 
 \[
-\mathbf C=
-\begin{pmatrix}
-C_A\\
-C_B\\
-C_C
-\end{pmatrix}.
+A \longrightarrow B \longrightarrow C.
 \]
 
-Deze toestand geven we als input aan het neurale netwerk. De output beschrijft
-hoe de toestand op dat moment verandert:
+
+Dit is echter slechts een mogelijke interpretatie van de experimentele gegevens. De bijbehorende reactiesnelheden en kinetische vergelijkingen
+kennen we niet. In plaats van zelf een kinetische vergelijking te kiezen, willen we de dynamica rechtstreeks uit de gegevens laten leren.
+
+Daarom geven we de huidige toestand van het systeem, beschreven door de concentraties, aan het netwerk. Het netwerk voorspelt vervolgens hoe deze
+concentraties op dat moment veranderen:
+
 \[
 \boxed{
 \mathbf C
@@ -434,6 +403,7 @@ hoe de toestand op dat moment verandert:
 \frac{d\mathbf C}{dt}
 }
 \]
+
 Het netwerk leert dus een relatie van de vorm
 
 \[
