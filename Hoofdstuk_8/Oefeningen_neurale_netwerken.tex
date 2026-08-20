@@ -738,14 +738,37 @@ De training gebeurt door telkens dezelfde cyclus te doorlopen:
 Deze cyclus wordt vele malen herhaald. Het doel is dat de loss tijdens de training steeds kleiner wordt, zodat het voorspelde concentratieprofiel steeds beter overeenkomt met de experimentele gegevens.
 
 Bekijk nu de trainingslus in de Google Colab en probeer te herkennen welke regels overeenkomen met de verschillende stappen uit bovenstaande cyclus. Vul de ontbrekende onderdelen van de code aan.
-
-
-
-
-
 \end{question}
 
+\begin{question} \textbf{Stap 4: Het netwerk testen}
 
+Het netwerk is nu getraind. We willen nagaan of het geleerde model de experimentele concentratieprofielen goed kan beschrijven.
 
+Vul de code in de Google Colab aan zodat je in één figuur de experimentele waarden van $C_A$, $C_B$ en $C_C$ en de overeenkomstige modelvoorspellingen
+kan vergelijken.
+
+Bekijk de grafiek die je hebt verkregen. Wat vertelt de vergelijking tussen de experimentele gegevens en de modelvoorspellingen ons over het getrainde neurale netwerk?
+
+Duid alle keuzes aan die correct zijn.
+\begin{multipleChoice}
+\choice{Het netwerk heeft de experimentele gegevens gebruikt om een klassieke kinetische vergelijking met een vaste vorm te bepalen.}
+
+\choice[correct]{Het netwerk heeft een relatie geleerd die de dynamica van het reactiesysteem over het onderzochte bereik goed kan reproduceren.}
+
+\choice{Het model voorspelt de concentraties exact.}
+
+\choice{Het model is ook buiten de trainingsdata betrouwbaar.}
+\end{multipleChoice}
+
+\begin{feedback}
+De modelvoorspellingen komen goed overeen met de experimentele gegevens. Dit betekent dat het getrainde neurale netwerk een relatie heeft geleerd waarmee de dynamica van het reactiesysteem binnen het onderzochte bereik goed kan worden beschreven.
+
+Een goede overeenkomst betekent echter niet dat het netwerk een klassieke kinetische vergelijking zoals $r=kC_A^n$ heeft gevonden. De relatie zit opgesloten in de weights en biases van het neurale netwerk.
+
+Ook voorspelt het model de experimentele gegevens niet noodzakelijk exact: het doel van de training is om de afwijking tussen model en experiment zo klein mogelijk te maken. 
+
+Ten slotte betekent een goede overeenkomst binnen het trainingsbereik niet automatisch dat het model betrouwbare voorspellingen maakt voor toestanden die sterk buiten dit bereik liggen.
+\end{feedback}
+\end{question}
 
 \end{document}
