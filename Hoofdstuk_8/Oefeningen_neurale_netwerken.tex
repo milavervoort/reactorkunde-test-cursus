@@ -298,16 +298,17 @@ Vergelijk de voorspelling met de exacte waarde van $y=x^2+1.$ Welke conclusie is
 
 \begin{multipleChoice}
 
-\choice{Het netwerk heeft niet geleerd, want een neuraal netwerk moet altijd
-de exacte waarde voorspellen.}
+\choice{Het netwerk heeft niet geleerd, \\
+want een neuraal netwerk moet altijd de exacte waarde voorspellen.}
 
-\choice{Het netwerk heeft de trainingsdata fout opgeslagen, want de
-voorspelling moet exact gelijk zijn aan $50$.}
+\choice{Het netwerk heeft de trainingsdata fout opgeslagen, \\
+want de voorspelling moet exact gelijk zijn aan $50$.}
 
-\choice[correct]{Het netwerk heeft de relatie goed benaderd, maar de
-voorspelling wijkt nog enigszins af van de exacte waarde.}
+\choice[correct]{Het netwerk heeft de relatie goed benaderd,\\
+maar de voorspelling wijkt nog enigszins af van de exacte waarde.}
 
-\choice{De voorspelling is correct, want $49.2$ en $50$ zijn dezelfde waarde
+\choice{De voorspelling is correct, \\
+want $49.2$ en $50$ zijn dezelfde waarde
 binnen een neuraal netwerk.}
 
 \end{multipleChoice}
@@ -325,6 +326,7 @@ De nauwkeurigheid van het netwerk kan verder worden verbeterd door het model te 
 
 \end{question}
 
+\vspace{1 cm}
 
 \section*{Oefening 2: Opeenvolgende reacties met een neuraal netwerk}
 
@@ -455,19 +457,20 @@ Voor deze oefening kiezen we voor \textbf{twee hidden layers met elk 16 neuronen
 
 We weten uit de vorige stap welke grootheden het netwerk als input en output gebruikt. Welke van de onderstaande netwerken stelt daarom de architectuur voor die we in deze oefening willen gebruiken?
 
+\begin{center}
+\begin{tabular}{cc}
 
 % ============================================================
 % Netwerk A: 1 - 16 - 16 - 3
 % ============================================================
-\begin{center}
 \begin{tikzpicture}[
-    scale=0.6,
+    scale=0.45,
     transform shape,
     neuron/.style={
         circle,
         draw=gray!70!black,
         fill=gray!10,
-        minimum size=4mm,
+        minimum size=3.5mm,
         inner sep=0pt
     }
 ]
@@ -475,18 +478,18 @@ We weten uit de vorige stap welke grootheden het netwerk als input en output geb
 % Input
 \node[neuron] (x1) at (0,0) {};
 
-% Hidden layer 1: 16 neuronen
+% Hidden layer 1
 \foreach \i in {1,...,16}
-    \node[neuron] (h1\i) at (2,{4.0-\i*0.5}) {};
+    \node[neuron] (h1\i) at (2,{3.0-\i*0.4}) {};
 
-% Hidden layer 2: 16 neuronen
+% Hidden layer 2
 \foreach \i in {1,...,16}
-    \node[neuron] (h2\i) at (4,{4.0-\i*0.5}) {};
+    \node[neuron] (h2\i) at (4,{3.0-\i*0.4}) {};
 
 % Output
-\node[neuron] (y1) at (6,0.8) {};
+\node[neuron] (y1) at (6,0.6) {};
 \node[neuron] (y2) at (6,0) {};
-\node[neuron] (y3) at (6,-0.8) {};
+\node[neuron] (y3) at (6,-0.6) {};
 
 % Connections
 \foreach \j in {1,...,16}
@@ -501,44 +504,39 @@ We weten uit de vorige stap welke grootheden het netwerk als input en output geb
         \draw[gray!50] (h2\i)--(\j);
 
 \end{tikzpicture}
-
-\textbf{A}
-\end{center}
-
-
+&
 % ============================================================
 % Netwerk B: 3 - 16 - 16 - 3
 % ============================================================
-\begin{center}
 \begin{tikzpicture}[
-    scale=0.6,
+    scale=0.45,
     transform shape,
     neuron/.style={
         circle,
         draw=gray!70!black,
         fill=gray!10,
-        minimum size=4mm,
+        minimum size=3.5mm,
         inner sep=0pt
     }
 ]
 
 % Input
-\node[neuron] (x1) at (0,0.8) {};
+\node[neuron] (x1) at (0,0.6) {};
 \node[neuron] (x2) at (0,0) {};
-\node[neuron] (x3) at (0,-0.8) {};
+\node[neuron] (x3) at (0,-0.6) {};
 
 % Hidden layer 1
 \foreach \i in {1,...,16}
-    \node[neuron] (h1\i) at (2,{4.0-\i*0.5}) {};
+    \node[neuron] (h1\i) at (2,{3.0-\i*0.4}) {};
 
 % Hidden layer 2
 \foreach \i in {1,...,16}
-    \node[neuron] (h2\i) at (4,{4.0-\i*0.5}) {};
+    \node[neuron] (h2\i) at (4,{3.0-\i*0.4}) {};
 
 % Output
-\node[neuron] (y1) at (6,0.8) {};
+\node[neuron] (y1) at (6,0.6) {};
 \node[neuron] (y2) at (6,0) {};
-\node[neuron] (y3) at (6,-0.8) {};
+\node[neuron] (y3) at (6,-0.6) {};
 
 % Connections
 \foreach \i in {x1,x2,x3}
@@ -554,39 +552,39 @@ We weten uit de vorige stap welke grootheden het netwerk als input en output geb
         \draw[gray!50] (h2\i)--(\j);
 
 \end{tikzpicture}
+\\[-1mm]
 
-\textbf{B}
-\end{center}
+\textbf{A} & \textbf{B}
 
+\\[5mm]
 
 % ============================================================
 % Netwerk C: 3 - 16 - 16 - 1
 % ============================================================
-\begin{center}
 \begin{tikzpicture}[
-    scale=0.6,
+    scale=0.45,
     transform shape,
     neuron/.style={
         circle,
         draw=gray!70!black,
         fill=gray!10,
-        minimum size=4mm,
+        minimum size=3.5mm,
         inner sep=0pt
     }
 ]
 
 % Input
-\node[neuron] (x1) at (0,0.8) {};
+\node[neuron] (x1) at (0,0.6) {};
 \node[neuron] (x2) at (0,0) {};
-\node[neuron] (x3) at (0,-0.8) {};
+\node[neuron] (x3) at (0,-0.6) {};
 
 % Hidden layer 1
 \foreach \i in {1,...,16}
-    \node[neuron] (h1\i) at (2,{4.0-\i*0.5}) {};
+    \node[neuron] (h1\i) at (2,{3.0-\i*0.4}) {};
 
 % Hidden layer 2
 \foreach \i in {1,...,16}
-    \node[neuron] (h2\i) at (4,{4.0-\i*0.5}) {};
+    \node[neuron] (h2\i) at (4,{3.0-\i*0.4}) {};
 
 % Output
 \node[neuron] (y) at (6,0) {};
@@ -604,23 +602,18 @@ We weten uit de vorige stap welke grootheden het netwerk als input en output geb
     \draw[gray!50] (h2\i)--(y);
 
 \end{tikzpicture}
-
-\textbf{C}
-\end{center}
-
-
+&
 % ============================================================
 % Netwerk D: 1 - 16 - 16 - 1
 % ============================================================
-\begin{center}
 \begin{tikzpicture}[
-    scale=0.6,
+    scale=0.45,
     transform shape,
     neuron/.style={
         circle,
         draw=gray!70!black,
         fill=gray!10,
-        minimum size=4mm,
+        minimum size=3.5mm,
         inner sep=0pt
     }
 ]
@@ -630,11 +623,11 @@ We weten uit de vorige stap welke grootheden het netwerk als input en output geb
 
 % Hidden layer 1
 \foreach \i in {1,...,16}
-    \node[neuron] (h1\i) at (2,{4.0-\i*0.5}) {};
+    \node[neuron] (h1\i) at (2,{3.0-\i*0.4}) {};
 
 % Hidden layer 2
 \foreach \i in {1,...,16}
-    \node[neuron] (h2\i) at (4,{4.0-\i*0.5}) {};
+    \node[neuron] (h2\i) at (4,{3.0-\i*0.4}) {};
 
 % Output
 \node[neuron] (y) at (6,0) {};
@@ -651,8 +644,11 @@ We weten uit de vorige stap welke grootheden het netwerk als input en output geb
     \draw[gray!50] (h2\i)--(y);
 
 \end{tikzpicture}
+\\[-1mm]
 
-\textbf{D}
+\textbf{C} & \textbf{D}
+
+\end{tabular}
 \end{center}
 
 \begin{multipleChoice}
@@ -751,16 +747,19 @@ Bekijk de grafiek die je hebt verkregen. Wat vertelt de vergelijking tussen de e
 
 Duid alle keuzes aan die correct zijn.
 \begin{multipleChoice}
-\choice{Het netwerk heeft de experimentele gegevens gebruikt om een klassieke kinetische vergelijking met een vaste vorm te bepalen.}
+\choice{Het netwerk heeft de experimentele gegevens gebruikt om een klassieke \\
+kinetische vergelijking met een vaste vorm te bepalen.}
 
-\choice[correct]{Het netwerk heeft een relatie geleerd die de dynamica van het reactiesysteem over het onderzochte bereik goed kan reproduceren.}
+\choice[correct]{Het netwerk heeft een relatie geleerd die de dynamica van het reactiesysteem \\
+over het onderzochte bereik goed kan reproduceren.}
 
 \choice{Het model voorspelt de concentraties exact.}
 
 \choice{Het model is ook buiten de trainingsdata betrouwbaar.}
 \end{multipleChoice}
 
-\begin{feedback}
+\begin{feedback} \text{ }
+
 De modelvoorspellingen komen goed overeen met de experimentele gegevens. Dit betekent dat het getrainde neurale netwerk een relatie heeft geleerd waarmee de dynamica van het reactiesysteem binnen het onderzochte bereik goed kan worden beschreven.
 
 Een goede overeenkomst betekent echter niet dat het netwerk een klassieke kinetische vergelijking zoals $r=kC_A^n$ heeft gevonden. De relatie zit opgesloten in de weights en biases van het neurale netwerk.
