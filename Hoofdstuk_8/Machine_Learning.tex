@@ -138,14 +138,35 @@ $C_A(t),C_B(t),\ldots$};
 \begin{remark} \text{ }
 
     Machine Learning hoeft hierbij geen vervanging te zijn voor de klassieke fysische modellen. In veel toepassingen kunnen fysische kennis en Machine Learning juist worden gecombineerd. Zo kan de fysische structuur van een probleem vooraf worden vastgelegd, terwijl een Machine Learning-model wordt gebruikt om een onbekend of moeilijk te beschrijven onderdeel uit de experimentele gegevens te leren.
-\end{remark} \text{ }
+\end{remark} 
+\text{ } \\ 
 
 \section*{Wat is Machine Learning?}
 
 Machine Learning is een verzameling technieken waarmee een model uit gegevens kan worden geleerd. In plaats van een model volledig vooraf vast te leggen, worden de parameters van het model bepaald op basis van beschikbare gegevens.
 Het doel is om een model te verkrijgen dat verbanden in de gegevens kan beschrijven en vervolgens voorspellingen kan maken voor nieuwe situaties.
 
-Een eenvoudig Machine Learning-probleem kan schematisch worden voorgesteld als
+\begin{remark} \textbf{Verschillende vormen van Machine Learning}
+
+Machine Learning kan op verschillende manieren worden toegepast, afhankelijk van de beschikbare gegevens en het doel van het model. Een belangrijk onderscheid wordt gemaakt tussen supervised learning, unsupervised learning en reinforcement learning.
+
+\begin{itemize}
+    \item Bij \textbf{supervised learning} beschikt men over voorbeelden waarbij zowel de invoer $x$ als de bijbehorende gewenste uitvoer $y$ gekend zijn. Het model leert op basis van deze voorbeelden een verband tussen de invoer en de uitvoer.
+    Binnen supervised learning wordt een onderscheid gemaakt tussen regressie en classificatie. \\
+    Bij \textbf{regressie} probeert het model een continue grootheid te
+    voorspellen. De uitvoer kan bijvoorbeeld een temperatuur, concentratie of reactiesnelheid zijn. Het model leert dan bijvoorbeeld een verband van de vorm $\hat{y}=f_\theta(x).$ \\
+    Bij \textbf{classificatie} probeert het model een observatie toe te wijzen aan één van een aantal categorieën of klassen. De uitvoer is dan geen continue grootheid, maar bijvoorbeeld "A", "B" of "C", of een binaire klasse zoals "ja" of "nee".
+
+    \item Bij \textbf{unsupervised learning} zijn er geen vooraf gegeven doelwaarden $y$. Het model krijgt enkel de beschikbare gegevens en probeert hierin zelf structuren of patronen te vinden. Een voorbeeld hiervan is clustering, waarbij gelijkaardige gegevenspunten automatisch in groepen worden verdeeld.
+
+    \item Bij \textbf{reinforcement learning} leert een model door interactie met een omgeving. Het model voert acties uit en ontvangt hiervoor een beloning of straf. Op basis van deze ervaringen leert het model welke acties tot een gewenst resultaat leiden.
+\end{itemize}
+\end{remark}
+
+In deze cursus richten we ons voornamelijk op supervised learning, en meer specifiek op regressie. We beschikken immers over experimentele gegevens en willen daaruit continue grootheden, zoals reactiesnelheden en
+concentraties, leren voorspellen.
+
+Een supervised-learningprobleem kan schematisch worden voorgesteld als
 
 \[
 x
@@ -165,30 +186,13 @@ De voorspelling kan daarom worden geschreven als
 
 De letter $y$ wordt gebruikt voor de werkelijke of gewenste uitvoer. Het hoedje in $\hat{y}$ geeft aan dat het om een voorspelling gaat.
 
-\begin{remark} \textbf{Verschillende vormen van Machine Learning}
-
-Machine Learning kan op verschillende manieren worden toegepast, afhankelijk van de beschikbare gegevens en het doel van het model. Een belangrijk onderscheid wordt gemaakt tussen supervised learning,
-unsupervised learning en reinforcement learning.
-
-\begin{itemize}
-    \item Bij \textbf{supervised learning} beschikt men over voorbeelden waarbij zowel de invoer $x$ als de bijbehorende gewenste uitvoer $y$ gekend zijn. Het model leert op basis van deze voorbeelden een verband tussen de invoer en de uitvoer.
-    Binnen supervised learning wordt een onderscheid gemaakt tussen regressie en classificatie. \\
-    Bij \textbf{regressie} probeert het model een continue grootheid te
-    voorspellen. De uitvoer kan bijvoorbeeld een temperatuur, concentratie of reactiesnelheid zijn. Het model leert dan bijvoorbeeld een verband van de vorm $\hat{y}=f_\theta(x).$ \\
-    Bij \textbf{classificatie} probeert het model een observatie toe te wijzen aan één van een aantal categorieën of klassen. De uitvoer is dan geen continue grootheid, maar bijvoorbeeld "A", "B" of "C", of een binaire klasse zoals "ja" of "nee".
-
-    \item Bij \textbf{unsupervised learning} zijn er geen vooraf gegeven doelwaarden $y$. Het model krijgt enkel de beschikbare gegevens en probeert hierin zelf structuren of patronen te vinden. Een voorbeeld hiervan is clustering, waarbij gelijkaardige gegevenspunten automatisch in groepen worden verdeeld.
-
-    \item Bij \textbf{reinforcement learning} leert een model door interactie met een omgeving. Het model voert acties uit en ontvangt hiervoor een beloning of straf. Op basis van deze ervaringen leert het model welke acties tot een gewenst resultaat leiden.
-\end{itemize}
-
-In deze cursus richten we ons voornamelijk op supervised learning, en meer specifiek op regressie. We beschikken immers over experimentele gegevens en willen daaruit continue grootheden, zoals reactiesnelheden en
-concentraties, leren voorspellen.
-\end{remark}
-
 \begin{example} \textbf{Reactiesnelheid voorspellen}
 
-Een eenvoudig voorbeeld uit de reactorkunde is het voorspellen van een reactiesnelheid op basis van concentraties. Stel dat voor verschillende toestanden van een reactiesysteem de concentraties $C_A$, $C_B$ en $C_C$ en de bijbehorende reactiesnelheid $r$ gekend zijn. Eén trainingsvoorbeeld kan dan worden geschreven als
+We bekijken een eenvoudig voorbeeld uit de reactorkunde. Stel dat we een reactiesysteem bestuderen waarin de concentraties van verschillende componenten kunnen worden gemeten. Voor een bepaalde toestand van het
+systeem meten we bijvoorbeeld de concentraties $C_A$, $C_B$ en $C_C$.
+Daarnaast meten we voor dezelfde toestand ook de bijbehorende reactiesnelheid $r$.
+
+We willen een Machine Learning-model gebruiken om de reactiesnelheid te voorspellen op basis van de concentraties. De concentraties vormen dan de invoer van het model:
 
 \[
 x=
@@ -196,30 +200,37 @@ x=
 C_A\\
 C_B\\
 C_C
-\end{bmatrix},
-\qquad
+\end{bmatrix}.
+\]
+
+De reactiesnelheid is de grootheid die we willen voorspellen. We schrijven daarom
+
+\[
 y=r.
 \]
 
-De concentraties zijn hierbij de features van het voorbeeld en de
-reactiesnelheid is de target. Voor meerdere experimentele
-toestanden ontstaat een trainingsset met verschillende combinaties van concentraties en bijbehorende reactiesnelheden.
-
-Het Machine Learning-model probeert op basis van deze voorbeelden een functie te leren van de vorm
+Het Machine Learning-model probeert vervolgens een verband te leren tussen de concentraties en de reactiesnelheid. Dit kunnen we schrijven
+als
 
 \[
-\hat{r}=f_\theta(C_A,C_B,C_C).
+\hat{r}
+=
+f_\theta(C_A,C_B,C_C),
 \]
 
-Wanneer het model vervolgens een nieuwe combinatie van concentraties krijgt, kan het met behulp van deze geleerde relatie een reactiesnelheid voorspellen.
+waarbij $\hat{r}$ de door het model voorspelde reactiesnelheid is.
 
-\end{example} \text{ }
+Wanneer we het model een nieuwe combinatie van concentraties geven, kan het op basis van het geleerde verband een voorspelling voor de
+reactiesnelheid maken.
+
+Het doel is dus om uit experimentele gegevens een model te leren dat bij nieuwe omstandigheden een zo goed mogelijke voorspelling van de reactiesnelheid kan geven.
+\end{example}
+\text{ } \\
 
 \section*{Het Machine Learning-proces}
 \label{Het Machine Learning-proces}
 
-Om van beschikbare gegevens tot een bruikbaar model te komen, worden
-verschillende stappen doorlopen:
+Het opbouwen van een Machine Learning-model bestaat uit verschillende stappen. In grote lijnen kunnen we het proces als volgt voorstellen:
 
 \[
 \boxed{
@@ -242,15 +253,17 @@ Deze stappen worden hieronder verder toegelicht.
 \begin{itemize}
 \item \textbf{Gegevens verzamelen en voorbereiden}
 
-Het model leert uit beschikbare gegevens. Voor een regressieprobleem
-bestaat ieder voorbeeld uit een invoer $x$ en een bijbehorende target $y$:
+Een Machine Learning-model leert uit gegevens. Bij supervised learning bestaat ieder voorbeeld uit een invoer $x$ en een bijbehorende gewenste
+uitvoer $y$:
 
 \[
 (x,y).
 \]
+De verschillende variabelen waaruit de invoer $x$ bestaat, noemen we de \textbf{features}. De grootheid die we met het model willen voorspellen, noemen we de \textbf{target}.
 
-Wanneer er $m$ voorbeelden beschikbaar zijn, vormen deze samen de
-dataset
+
+Wanneer we meerdere voorbeelden verzamelen, ontstaat een dataset. Als er $m$ voorbeelden beschikbaar zijn, kunnen we deze dataset
+schrijven als
 
 \[
 \mathcal{D}
@@ -263,9 +276,11 @@ dataset
 \right\}.
 \]
 
-De beschikbare gegevens moeten vaak eerst worden gecontroleerd en
-voorbereid. Zo kunnen ontbrekende of foutieve waarden worden behandeld en
-kunnen de features bijvoorbeeld worden geschaald of genormaliseerd.
+De kwaliteit van de gegevens is belangrijk, omdat een Machine Learning-model alleen kan leren uit de informatie die in de dataset aanwezig is. Daarom worden de gegevens meestal eerst gecontroleerd en voorbereid.
+
+Zo kunnen ontbrekende of foutieve waarden worden behandeld en kunnen features bijvoorbeeld worden geschaald of genormaliseerd. Welke voorbereidingen nodig zijn, hangt af van de gegevens en het gekozen
+Machine Learning-model.
+
 
 \item \textbf{Gegevens opsplitsen}
 
@@ -292,52 +307,66 @@ gebruikt om de prestaties van het gekozen model te beoordelen.
 
 \item \textbf{Een model kiezen}
 
-Er bestaan verschillende modellen die een verband tussen $x$ en $y$
-kunnen beschrijven. Voorbeelden zijn lineaire regressie,
-beslissingsbomen, random forests en neurale netwerken.
+Er bestaan verschillende soorten Machine Learning-modellen. Elk model
+probeert op een bepaalde manier een verband te beschrijven tussen de
+invoer $x$ en de gewenste uitvoer $y$.
 
-De keuze van het model hangt onder andere af van de beschikbare gegevens,
-het gewenste type voorspelling en de complexiteit van het verband dat men
-wil beschrijven. Elk model heeft bovendien een eigen verzameling
-parameters $\theta$ die tijdens het trainen moet worden bepaald.
+Voorbeelden van modellen zijn:
+
+\begin{itemize}
+    \item lineaire regressie;
+    \item beslissingsbomen;
+    \item random forests;
+    \item neurale netwerken.
+\end{itemize}
+
+De keuze van het model hangt onder andere af van het soort probleem, de
+beschikbare gegevens en de complexiteit van het verband dat we willen
+leren.
+
+We kunnen het gekozen model algemeen voorstellen als
+
+\[
+\hat{y}=f_\theta(x),
+\]
+
+waarbij $\theta$ de parameters van het model voorstelt.
+
+De parameters bepalen het precieze gedrag van het model. Tijdens het
+trainen worden deze parameters aangepast op basis van de beschikbare
+trainingsgegevens.
 
 \item \textbf{Het model trainen}
 
 Tijdens het trainen krijgt het model voorbeelden uit de trainingsset.
-Voor ieder voorbeeld maakt het model met zijn huidige parameters een
-voorspelling:
+Voor ieder voorbeeld kent het model de invoer $x^{(i)}$ en de
+bijbehorende target $y^{(i)}$.
 
-\[
-\hat{y}^{(i)}
-=
-f_\theta(x^{(i)}).
+Met zijn huidige parameters maakt het model eerst een voorspelling:
+
+\[\hat{y}^{(i)} = f_\theta(x^{(i)}).\]
+
+De voorspelling wordt vervolgens vergeleken met de gekende target $y^{(i)}$. 
+
+Wanneer de voorspelling afwijkt van de gewenste uitvoer, willen we de parameters van het model aanpassen zodat het model betere voorspellingen
+kan maken.
+
+Om te beschrijven hoe groot de fout van een voorspelling is, gebruiken we een \textbf{lossfunctie}.
+
+Voor een regressieprobleem kunnen we bijvoorbeeld de kwadratische fout
+gebruiken:
+
+\[L^{(i)} =\left(y^{(i)}-\hat{y}^{(i)}\right)^2.
 \]
+Deze waarde noemen we de \textbf{loss} van het $i$-de voorbeeld.
 
-De voorspelling wordt vervolgens vergeleken met de gekende target
-$y^{(i)}$. De fout wordt beschreven met een \textbf{lossfunctie}.
-
-Voor regressie kan bijvoorbeeld de kwadratische fout worden gebruikt:
-
-\[
-L^{(i)}
-=
-\left(
-y^{(i)}-\hat{y}^{(i)}
-\right)^2.
-\]
-
-Om de prestaties over de volledige trainingsset te beschrijven, worden
-de individuele losses gecombineerd tot een \textbf{kostfunctie}. Bij gebruik van
-de Mean Squared Error (MSE) is dit
+Om de prestaties over de volledige trainingsset te beschrijven, worden de individuele losses gecombineerd tot een \textbf{kostfunctie}. 
+Een veelgebruikte kostfunctie voor regressie is de \textbf{Mean Squared Error (MSE)}:
 
 \[
 J(\theta)
-=
-\frac{1}{m}
-\sum_{i=1}^{m}
-\left(
-y^{(i)}-\hat{y}^{(i)}
-\right)^2.
+=\frac{1}{m}
+\sum_{i=1}^{m}\left(y^{(i)}-\hat{y}^{(i)}\right)^2.
 \]
 
 Het doel van de training is om de parameters $\theta$ zo te kiezen dat
@@ -351,45 +380,44 @@ deze kostfunctie zo klein mogelijk wordt:
 }
 \]
 
-Dit optimalisatieprobleem wordt doorgaans numeriek opgelost. Een
-veelgebruikte methode is \textbf{gradient descent}. Hierbij worden de
-parameters iteratief aangepast volgens
+De vraag is nu hoe we de parameters van het model daadwerkelijk aanpassen.
 
+Een eenvoudige en veelgebruikte optimalisatiemethode is \textbf{gradient descent}. Hierbij worden de parameters stap voor stap aangepast volgens
 \[
 \theta_{k+1}
-=
-\theta_k
--
-\eta
-\nabla_\theta J(\theta_k),
+=\theta_k - \eta\nabla_\theta J(\theta_k),
 \]
+waarbij
+\begin{itemize}
+    \item $\theta_k$ de huidige parameterwaarden zijn;
+    \item $\theta_{k+1}$ de nieuwe parameterwaarden zijn;
+    \item $\eta$ de \textbf{learning rate} is. Dit is een instelling van het
+    trainingsproces en geen parameter die het model tijdens de training zelf leert;
+    \item $\nabla_\theta J(\theta_k)$ de gradiënt van de kostfunctie naar
+    de parameters is.
+\end{itemize}
 
-waarbij $\eta$ de \textbf{learning rate} is. De gradiënt geeft aan in
-welke richting de kostfunctie toeneemt. Door in de tegengestelde richting
-te bewegen, wordt de kostfunctie verlaagd.
+De gradiënt geeft aan in welke richting de kostfunctie toeneemt. Door in de tegengestelde richting te bewegen, proberen we de kostfunctie te verlagen.
 
-In de praktijk worden hiervoor ook geavanceerdere optimalisatiemethoden
-gebruikt, zoals \textbf{Adam}.
+Dit proces wordt herhaald. Bij iedere stap worden de parameters aangepast en wordt opnieuw berekend hoe groot de kostfunctie is.
+
+In de praktijk worden ook andere optimalisatiemethoden gebruikt, zoals
+\textbf{Adam}. Het basisidee blijft echter hetzelfde: de parameters worden aangepast zodat de kostfunctie kleiner wordt.
+
 
 \item \textbf{Het model evalueren}
 
-Nadat het model is getraind, wordt nagegaan hoe goed het voorspellingen
-maakt op gegevens die niet zijn gebruikt om de parameters te bepalen.
-Hiervoor kan de validatieset worden gebruikt tijdens het ontwikkelen van
-het model. De testset wordt gebruikt voor de uiteindelijke beoordeling
-van het gekozen model.
+Nadat het model is getraind, wordt nagegaan hoe goed het voorspellingen maakt op gegevens die niet zijn gebruikt om de parameters te bepalen.
+Hiervoor kan een validatieset worden gebruikt tijdens het ontwikkelen van het model. De testset wordt gebruikt voor de uiteindelijke beoordeling van het gekozen model.
 
 \end{itemize}
 
 \begin{conclusion} \textbf{ }
 
 Het centrale idee van Machine Learning is dat een model uit voorbeelden een
-verband leert tussen invoervariabelen en een gewenste uitvoer. Tijdens het
-trainen worden de modelparameters aangepast zodat de voorspellingen zo goed
-mogelijk overeenkomen met de bekende targetwaarden.
+verband leert tussen invoervariabelen en een gewenste uitvoer. 
 
-Het trainingsproces kan compact worden samengevat als
-
+Voor supervised learning kunnen we het trainingsproces als volgt samenvatten:
 \[
 \boxed{
 \text{Voorspelling}
@@ -398,15 +426,15 @@ Het trainingsproces kan compact worden samengevat als
 \rightarrow
 \text{Kostfunctie}
 \rightarrow
-\text{Gradiënt}
-\rightarrow
 \text{Parameterupdate}
+\rightarrow
+\text{Nieuwe Voorspelling}
 }
 \]
 
-Door deze stappen herhaaldelijk uit te voeren, wordt een parameterverzameling
-$\theta$ gevonden waarmee het model voorspellingen kan maken voor nieuwe
-invoerwaarden.
+Tijdens de training worden deze stappen herhaaldelijk uitgevoerd. De parameters $\theta$ worden aangepast zodat de voorspellingen van het model steeds beter overeenkomen met de bekende targetwaarden.
+
+Na de training wordt het model geëvalueerd op gegevens die niet zijn gebruikt om de parameters te bepalen. Zo kunnen we nagaan of het model ook goede voorspellingen kan maken voor nieuwe situaties.
 \end{conclusion}
 
 
