@@ -328,6 +328,10 @@ De nauwkeurigheid van het netwerk kan verder worden verbeterd door het model te 
 
 \section*{Oefening 2: Opeenvolgende reacties met een neuraal netwerk}
 
+In de vorige oefening hebben we een eenvoudig neuraal netwerk gebouwd en getraind. We hebben gezien hoe een netwerk een verband tussen invoer en uitvoer kan leren door middel van forward propagation, een lossfunctie, backpropagation en een optimizer.
+
+In deze oefening passen we deze kennis toe op een reactiesysteem.
+
 \textbf{Gegeven}
 
 In een isotherme batchreactor verloopt een opeenvolgende reactie:
@@ -380,10 +384,339 @@ De berekeningen voer je uit in dezelfde Google Colab-notebook als bij oefening 1
 
 \textbf{Gevraagd}
 
-Gebruik een neuraal netwerk om de dynamiek van de opeenvolgende reactie
-te leren. Het netwerk moet de concentraties als functie van de tijd
-kunnen voorspellen.
+Gebruik een neuraal netwerk om de dynamiek van het reactiesysteem te leren en te voorspellen.
 
-...
+\begin{question} \textbf{Stap 1: Data voorbereiden}
+
+Voor verschillende tijdstippen kennen we de concentraties $C_A(t), C_B(t), C_C(t).$ Deze experimentele gegevens vormen de basis waarmee we de dynamica van het reactiesysteem willen leren.
+
+De code om de gegevens om te zetten naar tensors waarmee PyTorch kan werken,
+is al uitgeschreven. Deze code kan je dus gewoon uitvoeren.
+
+Vul vervolgens de code in de Google Colab aan om de experimentele concentraties als functie van de tijd te plotten en bekijk de grafiek.
+Kan je op basis van de concentratieprofielen al een idee krijgen van hoe het reactiesysteem verloopt? Zou je zelf een wiskundig verband
+kunnen voorstellen dat de concentratieveranderingen beschrijft?
+
+\vspace{2mm}
+
+We willen nu een neuraal netwerk gebruiken om dit verband data-driven te leren. Denk hierbij aan de huidige toestand van het reactiesysteem:
+de concentratievector
+\[
+\mathbf C=
+\begin{pmatrix}
+C_A\\
+C_B\\
+C_C
+\end{pmatrix}.
+\]
+
+Als we deze toestand aan het netwerk geven, willen we dat het netwerk voorspelt hoe het systeem op dat moment verder verandert.
+
+Welke combinatie van input en output past hier het best bij?
+
+\begin{multipleChoice}
+\choice{Input: tijd $t$, Output: concentraties $\mathbf C$}
+\choice[correct]{Input: concentraties $\mathbf C$, Output: verandering van de concentraties $\dfrac{d\mathbf C}{dt}$}
+\choice{Input: verandering van de concentraties $\dfrac{d\mathbf C}{dt}$, Output: concentraties $\mathbf C$}
+\choice{Input: tijd $t$ en concentraties $\mathbf C$, Output: beginconcentratie $\mathbf C_0$}
+\end{multipleChoice}
+
+
+\begin{feedback} \text{ }
+
+De huidige toestand van het reactiesysteem wordt beschreven door de concentratievector
+
+\[
+\mathbf C=
+\begin{pmatrix}
+C_A\\
+C_B\\
+C_C
+\end{pmatrix}.
+\]
+
+Deze toestand geven we als input aan het neurale netwerk. De output beschrijft
+hoe de toestand op dat moment verandert:
+\[
+\boxed{
+\mathbf C
+\quad\xrightarrow{\text{NN}}\quad
+\frac{d\mathbf C}{dt}
+}
+\]
+Het netwerk leert dus een relatie van de vorm
+
+\[
+\frac{d\mathbf C}{dt}=f_\theta(\mathbf C).
+\]
+
+De tijd is hierbij niet de input van het neurale netwerk. De tijd komt later terug wanneer we de door  het netwerk geleerde differentiaalvergelijking oplossen.
+
+\end{feedback}
+\end{question}
+
+\begin{question} \textbf{Stap 2: Het neurale netwerk bouwen}
+
+We hebben nu onze trainingsdata voorbereid. In deze stap kiezen we de architectuur van het neurale netwerk.
+
+De architectuur bepaalt hoeveel hidden layers het netwerk heeft en hoeveel neuronen er in iedere laag zitten. Dit is geen vaste keuze: afhankelijk van de toepassing kan je de architectuur later aanpassen wanneer het netwerk
+bijvoorbeeld te weinig complexe verbanden kan leren of juist onnodig complex wordt.
+
+Voor deze oefening kiezen we voor \textbf{twee hidden layers met elk 16 neuronen}.
+
+We weten uit de vorige stap welke grootheden het netwerk als input en output gebruikt. Welke van de onderstaande netwerken stelt daarom de architectuur voor die we in deze oefening willen gebruiken?
+
+
+% ============================================================
+% Netwerk A: 1 - 16 - 16 - 3
+% ============================================================
+\begin{center}
+\begin{tikzpicture}[
+    neuron/.style={
+        circle,
+        draw=gray!70!black,
+        fill=gray!10,
+        minimum size=4mm,
+        inner sep=0pt
+    }
+]
+
+% Input
+\node[neuron] (x1) at (0,0) {};
+
+% Hidden layer 1: 16 neuronen
+\foreach \i in {1,...,16}
+    \node[neuron] (h1\i) at (2,{4.0-\i*0.5}) {};
+
+% Hidden layer 2: 16 neuronen
+\foreach \i in {1,...,16}
+    \node[neuron] (h2\i) at (4,{4.0-\i*0.5}) {};
+
+% Output
+\node[neuron] (y1) at (6,0.8) {};
+\node[neuron] (y2) at (6,0) {};
+\node[neuron] (y3) at (6,-0.8) {};
+
+% Connections
+\foreach \j in {1,...,16}
+    \draw[gray!50] (x1)--(h1\j);
+
+\foreach \i in {1,...,16}
+    \foreach \j in {1,...,16}
+        \draw[gray!35] (h1\i)--(h2\j);
+
+\foreach \i in {1,...,16}
+    \foreach \j in {y1,y2,y3}
+        \draw[gray!50] (h2\i)--(\j);
+
+\end{tikzpicture}
+
+\textbf{A}
+\end{center}
+
+
+% ============================================================
+% Netwerk B: 3 - 16 - 16 - 3
+% ============================================================
+\begin{center}
+\begin{tikzpicture}[
+    neuron/.style={
+        circle,
+        draw=gray!70!black,
+        fill=gray!10,
+        minimum size=4mm,
+        inner sep=0pt
+    }
+]
+
+% Input
+\node[neuron] (x1) at (0,0.8) {};
+\node[neuron] (x2) at (0,0) {};
+\node[neuron] (x3) at (0,-0.8) {};
+
+% Hidden layer 1
+\foreach \i in {1,...,16}
+    \node[neuron] (h1\i) at (2,{4.0-\i*0.5}) {};
+
+% Hidden layer 2
+\foreach \i in {1,...,16}
+    \node[neuron] (h2\i) at (4,{4.0-\i*0.5}) {};
+
+% Output
+\node[neuron] (y1) at (6,0.8) {};
+\node[neuron] (y2) at (6,0) {};
+\node[neuron] (y3) at (6,-0.8) {};
+
+% Connections
+\foreach \i in {x1,x2,x3}
+    \foreach \j in {1,...,16}
+        \draw[gray!50] (\i)--(h1\j);
+
+\foreach \i in {1,...,16}
+    \foreach \j in {1,...,16}
+        \draw[gray!35] (h1\i)--(h2\j);
+
+\foreach \i in {1,...,16}
+    \foreach \j in {y1,y2,y3}
+        \draw[gray!50] (h2\i)--(\j);
+
+\end{tikzpicture}
+
+\textbf{B}
+\end{center}
+
+
+% ============================================================
+% Netwerk C: 3 - 16 - 16 - 1
+% ============================================================
+\begin{center}
+\begin{tikzpicture}[
+    neuron/.style={
+        circle,
+        draw=gray!70!black,
+        fill=gray!10,
+        minimum size=4mm,
+        inner sep=0pt
+    }
+]
+
+% Input
+\node[neuron] (x1) at (0,0.8) {};
+\node[neuron] (x2) at (0,0) {};
+\node[neuron] (x3) at (0,-0.8) {};
+
+% Hidden layer 1
+\foreach \i in {1,...,16}
+    \node[neuron] (h1\i) at (2,{4.0-\i*0.5}) {};
+
+% Hidden layer 2
+\foreach \i in {1,...,16}
+    \node[neuron] (h2\i) at (4,{4.0-\i*0.5}) {};
+
+% Output
+\node[neuron] (y) at (6,0) {};
+
+% Connections
+\foreach \i in {x1,x2,x3}
+    \foreach \j in {1,...,16}
+        \draw[gray!50] (\i)--(h1\j);
+
+\foreach \i in {1,...,16}
+    \foreach \j in {1,...,16}
+        \draw[gray!35] (h1\i)--(h2\j);
+
+\foreach \i in {1,...,16}
+    \draw[gray!50] (h2\i)--(y);
+
+\end{tikzpicture}
+
+\textbf{C}
+\end{center}
+
+
+% ============================================================
+% Netwerk D: 1 - 16 - 16 - 1
+% ============================================================
+\begin{center}
+\begin{tikzpicture}[
+    neuron/.style={
+        circle,
+        draw=gray!70!black,
+        fill=gray!10,
+        minimum size=4mm,
+        inner sep=0pt
+    }
+]
+
+% Input
+\node[neuron] (x) at (0,0) {};
+
+% Hidden layer 1
+\foreach \i in {1,...,16}
+    \node[neuron] (h1\i) at (2,{4.0-\i*0.5}) {};
+
+% Hidden layer 2
+\foreach \i in {1,...,16}
+    \node[neuron] (h2\i) at (4,{4.0-\i*0.5}) {};
+
+% Output
+\node[neuron] (y) at (6,0) {};
+
+% Connections
+\foreach \j in {1,...,16}
+    \draw[gray!50] (x)--(h1\j);
+
+\foreach \i in {1,...,16}
+    \foreach \j in {1,...,16}
+        \draw[gray!35] (h1\i)--(h2\j);
+
+\foreach \i in {1,...,16}
+    \draw[gray!50] (h2\i)--(y);
+
+\end{tikzpicture}
+
+\textbf{D}
+\end{center}
+
+\begin{multipleChoice}
+\choice{Netwerk A}
+\choice[correct]{Netwerk B}
+\choice{Netwerk C}
+\choice{Netwerk D}
+\end{multipleChoice}
+
+\begin{feedback} \text{ }
+
+De inputlaag bestaat uit drie neuronen, omdat het netwerk de drie huidige
+concentraties $C_A, C_B, C_C$ als input krijgt.
+
+De outputlaag bestaat eveneens uit drie neuronen, omdat het netwerk voor
+elk van deze componenten de verandering in concentratie moet voorspellen:
+$\frac{dC_A}{dt}, \frac{dC_B}{dt}, \frac{dC_C}{dt}.$
+
+De twee tussenliggende lagen zijn de hidden layers, die we voor deze oefening elk 16 neuronen geven.
+
+\end{feedback}
+\vspace{2mm}
+
+We kunnen deze architectuur nu in PyTorch opbouwen.
+
+Vul in de Google Colab de ontbrekende waarden aan in de drie \texttt{Linear}-lagen.
+
+Hoeveel trainbare parameters bevat dit netwerk nu?
+
+\[
+N_{\mathrm{parameters}}
+=
+\answer{387}
+\]
+
+\begin{feedback} \text{ }
+
+We tellen eerst de weights.
+Tussen de inputlaag en de eerste hidden layer zijn er $3\times16=48$ weights.
+Tussen de twee hidden layers zijn  er $16\times16=256$ weights.
+Ten slotte zijn er tussen de tweede hidden layer en de outputlaag $16\times3=48$ weights.
+Het totale aantal weights is dus $48+256+48=352.$
+
+Daarnaast heeft elk neuron in de hidden layers en de outputlaag één bias.
+Er zijn $16+16+3=35$ biases.
+
+Het totale aantal trainbare parameters is daarom
+\[
+N_{\mathrm{parameters}}
+=
+352+35
+=
+\boxed{387}.
+\]
+\end{feedback}
+
+
+
+\end{question}
+
+
+
 
 \end{document}
