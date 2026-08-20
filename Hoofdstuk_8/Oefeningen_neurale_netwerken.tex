@@ -672,17 +672,17 @@ elk van deze componenten de verandering in concentratie moet voorspellen:
 $\frac{dC_A}{dt}, \frac{dC_B}{dt}, \frac{dC_C}{dt}.$
 
 De twee tussenliggende lagen zijn de hidden layers, die we voor deze oefening elk 16 neuronen geven.
-
 \end{feedback}
 \vspace{2mm}
 
+We kunnen deze architectuur nu in PyTorch opbouwen. \\
+Vul in de Google Colab de ontbrekende waarden aan in de drie \texttt{Linear}-lagen.
 \end{question}
 
-\begin{question} \textbf{Stap 2: Het neurale netwerk bouwen}
+\begin{question} \textbf{Stap 3: Het netwerk trainen}
 
-We kunnen deze architectuur nu in PyTorch opbouwen.
-
-Vul in de Google Colab de ontbrekende waarden aan in de drie \texttt{Linear}-lagen.
+We hebben nu een netwerk gebouwd dat voor een gegeven toestand van het reactiesysteem een voorspelling maakt van de verandering van de concentraties. Het netwerk bevat echter nog willekeurige parameters en
+moet dus nog worden getraind.
 
 Hoeveel trainbare parameters bevat dit netwerk nu?
 
@@ -712,6 +712,34 @@ N_{\mathrm{parameters}}
 \boxed{387}.
 \]
 \end{feedback}
+
+De training gebeurt door telkens dezelfde cyclus te doorlopen:
+
+\[
+\boxed{
+\begin{array}{c}
+\text{huidige netwerkparameters}\\
+\downarrow\\
+\text{NN voorspelt }d\mathbf C/dt\\
+\downarrow\\
+\text{ODE oplossen}\\
+\downarrow\\
+\text{voorspeld concentratieprofiel}\\
+\downarrow\\
+\text{loss berekenen}\\
+\downarrow\\
+\text{backpropagation}\\
+\downarrow\\
+\text{parameters aanpassen}
+\end{array}
+}
+\]
+
+Deze cyclus wordt vele malen herhaald. Het doel is dat de loss tijdens de training steeds kleiner wordt, zodat het voorspelde concentratieprofiel steeds beter overeenkomt met de experimentele gegevens.
+
+Bekijk nu de trainingslus in de Google Colab en probeer te herkennen welke regels overeenkomen met de verschillende stappen uit bovenstaande cyclus. Vul de ontbrekende onderdelen van de code aan.
+
+
 
 
 
