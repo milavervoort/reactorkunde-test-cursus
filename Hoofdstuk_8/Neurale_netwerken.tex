@@ -139,9 +139,7 @@ Een neuraal netwerk is opgebouwd uit neuronen. Een neuron ontvangt één of meer
 
 De invoerwaarden $x_1,\ldots,x_n$ zijn de waarden die het neuron op dat moment ontvangt. Dit kunnen bijvoorbeeld de features van een gegeven voorbeeld zijn. 
 
-Het neuron gebruikt vervolgens \textbf{weights} en een \textbf{bias} als trainbare parameters. Deze parameters bepalen hoe de invoerwaarden worden gebruikt om de uitvoer van het neuron te berekenen. 
-
-Dit gebeurt in twee stappen.
+Het neuron gebruikt vervolgens \textbf{weights} en een \textbf{bias} als trainbare parameters. Deze parameters bepalen hoe de invoerwaarden worden gebruikt om de uitvoer van het neuron te berekenen. Dit gebeurt in twee stappen.
 
 Eerst worden de invoerwaarden gecombineerd met de weights en de bias:
 \[
@@ -319,11 +317,10 @@ Om het aantal weights te bepalen, kijken we naar de verbindingen tussen opeenvol
 Tussen de inputlaag met $3$ neuronen en de eerste hidden layer met $4$ neuronen zijn er daarom $3\times4=12$ weights. Elk van de $4$ neuronen in de eerste hidden layer is immers verbonden met alle $3$ inputneuronen.
 Tussen de eerste hidden layer en de tweede hidden layer zijn er $4\times3=12$ weights en tussen de tweede hidden layer zijn er $3\times1=3$ weights.
 
-Er zijn in totaal dus \[3\times4+4\times3+3\times1=33\]
-weights.
+Er zijn in totaal dus \[N_{\mathrm{weights}} = 3\times4+4\times3+3\times1=33\]
+weights. 
 
-Daarnaast heeft elk neuron in de hidden layers en de outputlaag één bias.
-Er zijn dus
+Daarnaast heeft elk neuron in de hidden layers en de outputlaag één bias. Er zijn dus
 \[
 N_{\mathrm{biases}}
 =
@@ -432,17 +429,15 @@ Op deze manier wordt de informatie achtereenvolgens door het netwerk verwerkt to
 \subsection*{Het trainen van een neuraal netwerk}
 
 Zoals we op de vorige pagina zagen, worden tijdens het trainen de parameters van een Machine Learning-model aangepast om de voorspellingen te verbeteren. Bij een neuraal netwerk bestaan deze parameters uit de
-\textbf{weights} en \textbf{biases}.
+weights en biases.
 
-Voordat het trainen begint, krijgen alle weights en biases een \textbf{beginwaarde}. Deze waarden worden meestal automatisch
+Voordat het trainen begint, krijgen alle weights en biases een beginwaarde. Deze waarden worden meestal automatisch
 geïnitialiseerd. De precieze initialisatiemethode hangt af van het gekozen
-netwerk en de gebruikte software.
+netwerk en de gebruikte software. 
 
 De beginwaarden vormen het startpunt van de training. Tijdens het trainen worden de weights en biases vervolgens stap voor stap aangepast, zodat de voorspellingen van het netwerk steeds beter overeenkomen met de gewenste uitvoer.
 
-De algemene principes van de training, zoals de lossfunctie en de optimizer, werden reeds besproken bij \textit{Het Machine Learning-proces} op de vorige pagina.
-
-Voor een neuraal netwerk kunnen we het leerproces schematisch voorstellen als
+De algemene principes van de training, zoals de lossfunctie en de optimizer, werden reeds besproken bij \textit{Het Machine Learning-proces} op de vorige pagina. Voor een neuraal netwerk kunnen we het leerproces schematisch voorstellen als
 
 \[
 \boxed{
@@ -456,7 +451,8 @@ Voor een neuraal netwerk kunnen we het leerproces schematisch voorstellen als
 }
 \]
 
-De eerste twee stappen zijn eenvoudig: het netwerk maakt een voorspelling via forward propagation en deze voorspelling wordt vergeleken met de gewenste uitvoer via de loss functie. Het bijzondere aan neurale netwerken is dat er vaak zeer veel trainbare parameters zijn. We moeten daarom bepalen hoe de loss verandert wanneer elk van deze parameters wordt aangepast.
+De eerste twee stappen zijn eenvoudig: het netwerk maakt een voorspelling via forward propagation en deze voorspelling wordt vergeleken met de gewenste uitvoer via de loss functie. \\
+Het bijzondere aan neurale netwerken is dat er vaak zeer veel trainbare parameters zijn. We moeten daarom bepalen hoe de loss verandert wanneer elk van deze parameters wordt aangepast.
 
 \begin{definition} \textbf{Backpropagation}
 
