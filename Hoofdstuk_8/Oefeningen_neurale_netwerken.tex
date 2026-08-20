@@ -399,20 +399,9 @@ kunnen voorstellen dat de concentratieveranderingen beschrijft?
 
 \vspace{2mm}
 
-We willen nu een neuraal netwerk gebruiken om dit verband data-driven te leren. Denk hierbij aan de huidige toestand van het reactiesysteem:
-de concentratievector
-\[
-\mathbf C=
-\begin{pmatrix}
-C_A\\
-C_B\\
-C_C
-\end{pmatrix}.
-\]
+We willen de kinetiek van het reactiesysteem nu laten leren door een neuraal netwerk. Het netwerk moet daarbij leren hoe de verandering van de concentraties afhangt van de huidige concentraties.
 
-Als we deze toestand aan het netwerk geven, willen we dat het netwerk voorspelt hoe het systeem op dat moment verder verandert.
-
-Welke combinatie van input en output past hier het best bij?
+Welke grootheden moeten daarom als input en output van het netwerk worden gebruikt?
 
 \begin{multipleChoice}
 \choice{Input: tijd $t$, Output: concentraties $\mathbf C$}
@@ -472,6 +461,8 @@ We weten uit de vorige stap welke grootheden het netwerk als input en output geb
 % ============================================================
 \begin{center}
 \begin{tikzpicture}[
+    scale=0.6,
+    transform shape,
     neuron/.style={
         circle,
         draw=gray!70!black,
@@ -520,6 +511,8 @@ We weten uit de vorige stap welke grootheden het netwerk als input en output geb
 % ============================================================
 \begin{center}
 \begin{tikzpicture}[
+    scale=0.6,
+    transform shape,
     neuron/.style={
         circle,
         draw=gray!70!black,
@@ -571,6 +564,8 @@ We weten uit de vorige stap welke grootheden het netwerk als input en output geb
 % ============================================================
 \begin{center}
 \begin{tikzpicture}[
+    scale=0.6,
+    transform shape,
     neuron/.style={
         circle,
         draw=gray!70!black,
@@ -619,6 +614,8 @@ We weten uit de vorige stap welke grootheden het netwerk als input en output geb
 % ============================================================
 \begin{center}
 \begin{tikzpicture}[
+    scale=0.6,
+    transform shape,
     neuron/.style={
         circle,
         draw=gray!70!black,
@@ -678,6 +675,10 @@ De twee tussenliggende lagen zijn de hidden layers, die we voor deze oefening el
 
 \end{feedback}
 \vspace{2mm}
+
+\end{question}
+
+\begin{question} \textbf{Stap 2: Het neurale netwerk bouwen}
 
 We kunnen deze architectuur nu in PyTorch opbouwen.
 
