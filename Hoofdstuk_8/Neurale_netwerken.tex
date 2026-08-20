@@ -13,17 +13,21 @@
 
 \section*{Wat is een neuraal netwerk?}
 
-Een \textbf{neuraal netwerk} is een Machine Learning-model dat een verband tussen invoer- en uitvoergegevens kan leren. Het netwerk bestaat uit verschillende lagen waarin eenvoudige berekeningen worden uitgevoerd.
+Op de vorige pagina zagen we dat een Machine Learning-model een verband probeert te leren tussen een invoer $x$ en een gewenste uitvoer $y$. Voor een supervised-learningprobleem kunnen we dit algemeen voorstellen als $\hat{y}=f_\theta(x),$ waarbij $\hat{y}$ de voorspelling van het model is en $\theta$ de trainbare parameters van het model bevat.
 
-We kunnen een neuraal netwerk algemeen voorstellen als
+Een \textbf{neuraal netwerk} is één specifiek type Machine Learning-model.
+Het volgt dus hetzelfde algemene principe: op basis van gegevens wordt een functie $f_\theta$ geleerd die een invoer omzet in een voorspelling:
+
 \[
-x\quad\longrightarrow\quad
+x
+\quad\longrightarrow\quad
 f_\theta
-\quad\longrightarrow\quad\hat{y}
+\quad\longrightarrow\quad
+\hat{y}.
 \]
-waarbij $\theta$ de trainbare parameters van het netwerk bevat.
 
-In tegenstelling tot een klassieke kinetische vergelijking leggen we de vorm van $f_\theta$ niet vooraf vast. Het netwerk leert deze relatie uit de beschikbare gegevens.
+Het verschil is dat een neuraal netwerk deze functie opbouwt uit meerdere opeenvolgende lagen van eenvoudige berekeningen. De parameters $\theta$ bestaan hierbij uit de \textbf{weights} en \textbf{biases} van het netwerk. Deze parameters worden tijdens het trainen aangepast op basis van de
+trainingsgegevens. 
 
 
 \begin{remark} \textbf{Neuraal netwerk als black-boxmodel}
@@ -34,7 +38,7 @@ r=kC_A^n.
 \]
 Het doel is vervolgens om de parameters $k$ en $n$ te bepalen.
 
-Bij een neuraal netwerk wordt de functionele vorm daarentegen niet vooraf opgelegd. Het netwerk leert zelf een geschikte relatie tussen de invoer en uitvoer.
+Bij een neuraal netwerk wordt de relatie tussen invoer en uitvoer daarentegen niet vooraf opgelegd. Het netwerk leert zelf een geschikte relatie.
 
 Een neuraal netwerk wordt daarom vaak een \textbf{black-boxmodel} genoemd: de invoer en uitvoer zijn bekend, maar de volledige geleerde relatie is doorgaans moeilijk fysisch te interpreteren.
 \end{remark}
@@ -131,22 +135,27 @@ De structuur van een neuraal netwerk bepaalt hoe de informatie door het model st
 
 \begin{definition}\textbf{Neuronen}
 
-Een neuraal netwerk is opgebouwd uit neuronen. Een neuron ontvangt één of meerdere invoerwaarden en combineert deze tot één uitvoerwaarde.
+Een neuraal netwerk is opgebouwd uit neuronen. Een neuron ontvangt één of meerdere invoerwaarden en gebruikt deze om één uitvoerwaarde te berekenen.
 
-Voor invoerwaarden $x_1,\ldots,x_n$ berekent een neuron eerst
+De invoerwaarden $x_1,\ldots,x_n$ zijn de waarden die het neuron op dat moment ontvangt. Dit kunnen bijvoorbeeld de features van een gegeven voorbeeld zijn. 
 
+Het neuron gebruikt vervolgens \textbf{weights} en een \textbf{bias} als trainbare parameters. Deze parameters bepalen hoe de invoerwaarden worden gebruikt om de uitvoer van het neuron te berekenen. 
+
+Dit gebeurt in twee stappen.
+
+Eerst worden de invoerwaarden gecombineerd met de weights en de bias:
 \[
 z=\mathbf{w}^T\mathbf{x}+b,
 \]
+waarbij $\mathbf{w}$ de weights, $b$ de bias en $\mathbf{x}$ de invoerwaarden zijn.
 
-waarbij $\mathbf{w}$ de \textbf{weights} en $b$ de \textbf{bias} zijn.
-
-Vervolgens wordt een \textbf{activatiefunctie} $g$ toegepast:
+Vervolgens wordt op deze waarde een activatiefunctie $g$ toegepast:
 
 \[
-a=g\left(\mathbf{w}^T\mathbf{x}+b\right)
+a=g(z)=g\left(\mathbf{w}^T\mathbf{x}+b\right).
 \]
-De weights en biases zijn de trainbare parameters van het neuron. De weights bepalen hoe sterk de verschillende invoerwaarden bijdragen aan z, terwijl de bias de waarde van z verschuift. Tijdens het trainen worden deze parameters aangepast om de voorspellingen van het netwerk te verbeteren.
+
+De waarde $a$ is de uitvoer van het neuron en kan vervolgens als invoer worden gebruikt door een neuron in de volgende laag.
 
 \begin{figure}[ht]
 \centering
@@ -209,7 +218,6 @@ De weights en biases zijn de trainbare parameters van het neuron. De weights bep
 gewogen en opgeteld met een bias, waarna een activatiefunctie wordt toegepast.}
 \label{fig:single_neuron}
 \end{figure}
-
 \end{definition}
 
 \begin{remark} \textbf{Waarom een activatiefunctie?}
@@ -423,7 +431,16 @@ Op deze manier wordt de informatie achtereenvolgens door het netwerk verwerkt to
 
 \subsection*{Het trainen van een neuraal netwerk}
 
-Bij het trainen van een neuraal netwerk worden de weights en biases aangepast zodat de voorspellingen van het netwerk beter overeenkomen met de gewenste uitvoer. De algemene principes van de training en het gebruik van een lossfunctie en optimizer werden reeds besproken bij \textit{'Het Machine Learning-proces'} in de vorige sectie.
+Zoals we op de vorige pagina zagen, worden tijdens het trainen de parameters van een Machine Learning-model aangepast om de voorspellingen te verbeteren. Bij een neuraal netwerk bestaan deze parameters uit de
+\textbf{weights} en \textbf{biases}.
+
+Voordat het trainen begint, krijgen alle weights en biases een \textbf{beginwaarde}. Deze waarden worden meestal automatisch
+geïnitialiseerd. De precieze initialisatiemethode hangt af van het gekozen
+netwerk en de gebruikte software.
+
+De beginwaarden vormen het startpunt van de training. Tijdens het trainen worden de weights en biases vervolgens stap voor stap aangepast, zodat de voorspellingen van het netwerk steeds beter overeenkomen met de gewenste uitvoer.
+
+De algemene principes van de training, zoals de lossfunctie en de optimizer, werden reeds besproken bij \textit{Het Machine Learning-proces} op de vorige pagina.
 
 Voor een neuraal netwerk kunnen we het leerproces schematisch voorstellen als
 
@@ -506,16 +523,16 @@ Het trainen van een neuraal netwerk kan compact worden samengevat als
 \]
 
 Deze cyclus wordt herhaald voor de trainingsgegevens. Op die manier worden de parameters van het netwerk geleidelijk aangepast.
-\end{conclusion} \text{ }
+\end{conclusion} 
+\text{ } \\
 
 
 \section*{Neurale netwerken in de reactorkunde}
 
-We kunnen de principes van neurale netwerken nu toepassen op een
-reactiesysteem in een batchreactor. Stel dat tijdens een experiment de concentraties van verschillende componenten op verschillende tijdstippen worden gemeten. 
+We kunnen de principes van neurale netwerken nu toepassen op een reactiesysteem in een batchreactor. Stel dat tijdens een experiment de concentraties van verschillende componenten op verschillende tijdstippen worden gemeten. 
 We beschikken bijvoorbeeld over concentratieprofielen: $C_A(t), C_B(t), C_C(t)$. 
 
-Bij een klassieke kinetische analyses wordt eerst een geschikte kinetische vergelijking gekozen, waarna de onbekende kinetische parameters uit experimentele gegevens worden bepaald. 
+Bij een klassieke kinetische analyse wordt eerst een geschikte kinetische vergelijking gekozen, waarna de onbekende kinetische parameters uit experimentele gegevens worden bepaald. 
 
 Bij een data-driven benadering hoeven we echter niet vooraf een specifieke vorm voor de reactiesnelheid te kiezen. In plaats daarvan gebruiken we een neuraal netwerk om te leren hoe de toestand van het reactiesysteem verandert.
 
