@@ -31,7 +31,7 @@ We gebruiken bijvoorbeeld de volgende waarden van $x$:
 -10,-8,-6,-5,-4,-2,-1,0,1,2,4,5,6,8,10.
 \]
 
-Voor iedere waarde van $x$ berekenen we de overeenkomstige waarde van $y$.
+Voor iedere waarde van $x$ berekenen we de overeenkomstige waarde van $y$. Zo verkrijgen we een verzameling van trainingsvoorbeelden.
 
 De berekeningen voer je uit in de bijhorende Google Colab-notebook. Open de notebook via onderstaande link en gebruik deze tijdens het
 oplossen van de oefening.
@@ -54,7 +54,7 @@ Doorloop hierbij de volgende stappen:
 \downarrow\\
 \text{3. Netwerk trainen}\\
 \downarrow\\
-\text{4. Netwerk testen}\\
+\text{4. Netwerk evalueren}\\
 \downarrow\\
 \text{5. Nieuwe waarde voorspellen}
 \end{array}
@@ -138,7 +138,12 @@ Zijn de voorspellingen van het netwerk vóór de training al goed?
 
 \begin{feedback} \text{ }
 
-Het netwerk kent de onderliggende relatie $y=x^2+1$ nog niet. Wanneer het netwerk wordt aangemaakt, krijgen de parameters zoals de gewichten en biases beginwaarden. Deze waarden zijn nog niet afgestemd op onze trainingsgegevens.
+Een eerste voorspelling van het ongetrainde netwerk kan je maken met de volgende code: 
+\begin{verbatim}
+y_pred = model(x)
+\end{verbatim}
+
+Het netwerk kent op dit moment de onderliggende relatie $y=x^2+1$ nog niet. Wanneer het netwerk wordt aangemaakt, krijgen de parameters zoals de gewichten en biases beginwaarden. Deze waarden zijn nog niet afgestemd op onze trainingsgegevens.
 
 Het netwerk kan dus al wel een voorspelling maken, $\hat y= f_\theta(x),$ maar deze voorspelling zal in het begin nog niet goed overeenkomen met de werkelijke waarden.
 
@@ -182,15 +187,15 @@ We hebben nu alles wat nodig is om het netwerk te trainen. Tijdens één volledi
 \[
 \boxed{
 \begin{array}{c}
-\text{oude gradiënten verwijderen}\\
+\text{Oude gradiënten verwijderen}\\
 \downarrow\\
-\text{nieuwe voorspelling maken}\\
+\text{Nieuwe voorspelling maken}\\
 \downarrow\\
-\text{loss berekenen}\\
+\text{Loss berekenen}\\
 \downarrow\\
-\text{backpropagation}\\
+\text{Backpropagation om gradiënten te berekenen}\\
 \downarrow\\
-\text{parameters aanpassen}
+\text{Parameters aanpassen met de optimizer}
 \end{array}}
 \]
 
@@ -327,7 +332,7 @@ De nauwkeurigheid van het netwerk kan verder worden verbeterd door het model te 
 
 \text{ } \\
 
-\section*{Oefening 2: Opeenvolgende reacties met een neuraal netwerk}
+\section*{Oefening 2: De dynamica van een reactiesysteem leren met een neuraal netwerk}
 
 In de vorige oefening hebben we een eenvoudig neuraal netwerk gebouwd en getraind. We hebben gezien hoe een netwerk een verband tussen invoer en uitvoer kan leren door middel van forward propagation, een lossfunctie, backpropagation en een optimizer.
 
@@ -335,13 +340,15 @@ In deze oefening passen we deze kennis toe op een reactiesysteem.
 
 \textbf{Gegeven}
 
-In een isotherme batchreactor zijn de componenten $A$, $B$ en $C$ aanwezig. Tijdens een experiment werden de concentraties van deze componenten gemeten
-als functie van de tijd. De experimentele gegevens zijn opgenomen in de bijbehorende Google Colab-notebook.
+In een isotherme batchreactor zijn de componenten $A$, $B$ en $C$ aanwezig. Tijdens een experiment worden de concentraties van deze componenten op verschillende tijdstippen gemeten. De experimentele gegevens zijn opgenomen in de bijbehorende Google Colab-notebook.
 
-Op basis van de gemeten concentratieprofielen vermoeden we dat er een reactie plaatsvindt waarbij de componenten met elkaar in verband staan.
-De exacte kinetische vergelijkingen en reactiesnelheden zijn echter niet gekend.
+Op basis van de gemeten concentratieprofielen vermoeden we dat de componenten met elkaar reageren. De exacte reactiesnelheden en kinetische vergelijkingen zijn echter niet gekend.
 
-Tijdens het experiment werden de concentraties van de drie componenten gemeten als functie van de tijd. De experimentele concentratiegegevens zijn opgenomen in de bijbehorende Google Colab-notebook.
+In plaats van vooraf een specifieke kinetische vergelijking te kiezen, gebruiken we een neuraal netwerk om de dynamica van het reactiesysteem rechtstreeks uit de experimentele gegevens te leren. Het netwerk leert hierbij hoe de huidige toestand van het systeem samenhangt met de verandering van de concentraties in de tijd.
+
+\textbf{Gevraagd}
+
+Gebruik een neuraal netwerk om de dynamiek van het reactiesysteem te leren en te voorspellen.
 
 De berekeningen en visualisaties in deze oefening voer je uit in dezelfde Google Colab-notebook als bij oefening 1. Open de notebook via onderstaande link en gebruik deze tijdens het oplossen van de oefening.
 
@@ -349,13 +356,6 @@ De berekeningen en visualisaties in deze oefening voer je uit in dezelfde Google
 \href{https://colab.research.google.com/drive/17OMMkgFNeBZeORY04bA9OUqVQtMOB594?usp=sharing}
 {\Large Open de Google Colab-notebook}
 \end{center}
-
-In deze oefening kennen we de exacte kinetische vergelijkingen niet. In plaats daarvan gebruiken we een neuraal netwerk om de dynamica van het
-reactiesysteem rechtstreeks uit de experimentele gegevens te leren.
-
-\textbf{Gevraagd}
-
-Gebruik een neuraal netwerk om de dynamiek van het reactiesysteem te leren en te voorspellen.
 
 \begin{question} \textbf{Stap 1: Data voorbereiden}
 
@@ -381,6 +381,21 @@ Welke grootheden moeten daarom als input en output van het netwerk worden gebrui
 
 
 \begin{feedback} \text{ }
+
+Je kunt de experimentele concentratieprofielen met de volgende code plotten:
+\begin{verbatim}
+plt.figure(figsize=(8,5))
+
+plt.plot(df["t_exp"], df["CA"], "o", label="$C_A$")
+plt.plot(df["t_exp"], df["CB"], "o", label="$C_B$")
+plt.plot(df["t_exp"], df["CC"], "o", label="$C_C$")
+
+plt.xlabel("Tijd (min)")
+plt.ylabel("Concentratie (mol/L)")
+plt.legend()
+plt.grid()
+plt.show()
+\end{verbatim}
 
 Uit de grafiek kunnen we bijvoorbeeld zien dat $A$ geleidelijk wordt verbruikt, terwijl $C$ wordt gevormd. De concentratie van $B$ neemt eerst
 toe en daalt later weer. Dit kan erop wijzen dat $B$ een tussenproduct is en dat het reactiesysteem bijvoorbeeld de volgende vorm heeft:
@@ -683,19 +698,19 @@ De training gebeurt door telkens dezelfde cyclus te doorlopen:
 \[
 \boxed{
 \begin{array}{c}
-\text{huidige netwerkparameters}\\
+\text{Huidige netwerkparameters}\\
 \downarrow\\
 \text{NN voorspelt }d\mathbf C/dt\\
 \downarrow\\
 \text{ODE oplossen}\\
 \downarrow\\
-\text{voorspeld concentratieprofiel}\\
+\text{Voorspeld concentratieprofiel}\\
 \downarrow\\
-\text{loss berekenen}\\
+\text{Loss berekenen}\\
 \downarrow\\
-\text{backpropagation}\\
+\text{Backpropagation}\\
 \downarrow\\
-\text{parameters aanpassen}
+\text{Parameters aanpassen}
 \end{array}
 }
 \]
