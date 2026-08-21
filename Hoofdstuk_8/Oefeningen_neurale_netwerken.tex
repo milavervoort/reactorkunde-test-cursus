@@ -320,9 +320,9 @@ De nauwkeurigheid van het netwerk kan verder worden verbeterd door het model te 
 
 \section*{Oefening 2: De dynamica van een reactiesysteem leren met een neuraal netwerk}
 
-In de vorige oefening hebben we een eenvoudig neuraal netwerk gebouwd en getraind. We hebben gezien hoe een netwerk een verband tussen invoer en uitvoer kan leren door middel van forward propagation, een lossfunctie, backpropagation en een optimizer.
+In de vorige oefening hebben we een eenvoudig neuraal netwerk gebouwd en getraind. We hebben gezien hoe een netwerk een verband tussen invoer en uitvoer kan leren met behulp van forward propagation, een lossfunctie, backpropagation en een optimizer.
 
-In deze oefening passen we deze kennis toe op een reactiesysteem.
+In deze oefening passen we deze kennis toe op een probleem uit de reactorkunde. We gebruiken een neuraal netwerk om de dynamica van een reactiesysteem te leren.
 
 \textbf{Gegeven}
 
@@ -350,8 +350,7 @@ Voor verschillende tijdstippen kennen we de concentraties $C_A(t), C_B(t), C_C(t
 De code om de gegevens om te zetten naar tensors waarmee PyTorch kan werken,
 is al uitgeschreven. Deze code kan je dus gewoon uitvoeren.
 
-Vul vervolgens de code in de Google Colab aan om de experimentele concentraties als functie van de tijd te plotten en bekijk de grafiek.
-
+Vul vervolgens de code in de Google Colab aan om de experimentele concentraties als functie van de tijd te plotten en bekijk de grafiek. \\
 Kan je op basis van de concentratieprofielen al een idee krijgen van hoe het reactiesysteem verloopt? Zou je zelf een wiskundig verband kunnen voorstellen dat de concentratieveranderingen beschrijft?
 
 We willen de kinetiek van het reactiesysteem nu laten leren door een neuraal netwerk. Het netwerk moet daarbij leren hoe de verandering van de concentraties afhangt van de huidige concentraties.
@@ -369,19 +368,19 @@ Welke grootheden moeten daarom als input en output van het netwerk worden gebrui
 \begin{feedback} \text{ }
 
 Je kunt de experimentele concentratieprofielen met de volgende code plotten:
-\begin{verbatim}
-plt.figure(figsize=(8,5))
-
-plt.plot(df["t_exp"], df["CA"], "o", label="$C_A$")
-plt.plot(df["t_exp"], df["CB"], "o", label="$C_B$")
-plt.plot(df["t_exp"], df["CC"], "o", label="$C_C$")
-
-plt.xlabel("Tijd (min)")
-plt.ylabel("Concentratie (mol/L)")
-plt.legend()
-plt.grid()
-plt.show()
-\end{verbatim}
+\[
+\begin{array}{l}
+\texttt{plt.figure(figsize=(8,5))}\\[2mm]
+\texttt{plt.plot(df["t\string_ exp"], df["CA"], "o", label="C\string_ A")}\\
+\texttt{plt.plot(df["t\string_ exp"], df["CB"], "o", label="C\string_ B")}\\
+\texttt{plt.plot(df["t\string_ exp"], df["CC"], "o", label="C\string_ C")}\\[2mm]
+\texttt{plt.xlabel("Tijd (min)")}\\
+\texttt{plt.ylabel("Concentratie (mol/L)")}\\
+\texttt{plt.legend()}\\
+\texttt{plt.grid()}\\
+\texttt{plt.show()}
+\end{array}
+\]
 
 Uit de grafiek kunnen we bijvoorbeeld zien dat $A$ geleidelijk wordt verbruikt, terwijl $C$ wordt gevormd. De concentratie van $B$ neemt eerst
 toe en daalt later weer. Dit kan erop wijzen dat $B$ een tussenproduct is en dat het reactiesysteem bijvoorbeeld de volgende vorm heeft:
