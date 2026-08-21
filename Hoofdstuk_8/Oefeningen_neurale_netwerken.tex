@@ -11,7 +11,7 @@
 \maketitle
 \label{xim:Oefeningen op neurale netwerken}
 
-\section*{Oefening 1: Eenvoudig neuraal netwerk}
+\section*{Oefening 1: Eenvoudig neuraal netwerk trainen om een verband te leren}
 
 In de theorie zagen we dat Machine Learning kan worden gebruikt om een verband uit gegevens te leren. In deze oefening bouwen en trainen we
 zelf een eenvoudig neuraal netwerk met \texttt{PyTorch}.
@@ -20,18 +20,14 @@ zelf een eenvoudig neuraal netwerk met \texttt{PyTorch}.
 
 We beschikken over gegevens van de vorm $x \longrightarrow y$ en willen een neuraal netwerk trainen dat op basis van $x$ een voorspelling $\hat y$ kan maken.
 
-Voor deze oefening gebruiken we gegevens die afkomstig zijn van de functie $y=x^2+1.$
+Voor deze oefening gebruiken we gegevens die afkomstig zijn van de functie $y=x^2+1.$ We doen hierbij alsof deze gegevens afkomstig zijn uit een experiment. Het neurale netwerk krijgt de onderliggende vergelijking dus niet te zien.
+Het krijgt enkel de gegenereerde trainingvoorbeelden en moet daaruit zelf het verband leren.
 
-We doen hierbij alsof deze gegevens afkomstig zijn uit een experiment.
-Het neurale netwerk krijgt de onderliggende vergelijking dus niet te zien.
-Het krijgt enkel de gegevens en moet daaruit zelf het verband leren.
-
-We gebruiken bijvoorbeeld de volgende waarden van $x$:
+We gebruiken de volgende waarden van $x$:
 \[
 -10,-8,-6,-5,-4,-2,-1,0,1,2,4,5,6,8,10.
 \]
-
-Voor iedere waarde van $x$ berekenen we de overeenkomstige waarde van $y$. Zo verkrijgen we een verzameling van trainingsvoorbeelden.
+Voor elk van deze $x$-waarden berekenen we de bijbehorende waarde van $y$. Op die manier verkrijgen we in totaal 15 trainingsvoorbeelden.
 
 \textbf{Gevraagd}
 
@@ -62,10 +58,7 @@ De berekeningen voer je uit in de bijhorende Google Colab-notebook. Open de note
 
 \begin{question} \textbf{Stap 1: Data voorbereiden}
 
-Een neuraal netwerk kan niet rechtstreeks met een Python-lijst van getallen werken. De gegevens moeten eerst worden omgezet naar
-\textit{PyTorch-tensors}.
-
-Voer de eerste stap in de Google Colab-notebook uit. De trainingsgegevens worden automatisch aangemaakt en vervolgens omgezet naar tensors.
+Een neuraal netwerk kan niet rechtstreeks werken met een Python-lijst van getallen. Daarom moeten de gegevens eerst worden omgezet naar \textit{PyTorch-tensors}. Voer hiervoor de eerste stap in de Google Colab-notebook uit. De trainingsgegevens worden daarbij automatisch aangemaakt en vervolgens omgezet naar tensors.
 
 Welke uitspraak is correct?
 
@@ -110,19 +103,16 @@ In deze oefening gebruiken we een netwerk met de structuur
 \]
 
 Dit betekent:
-
 \begin{itemize}
     \item één inputneuron;
     \item twee hidden layers met telkens acht neuronen;
     \item één outputneuron.
 \end{itemize}
-
 De hidden layers gebruiken de activatiefunctie \texttt{Tanh}.
 
 De structuur van het netwerk is reeds voorgeprogrammeerd in de Google Colab-notebook. Bekijk de code en probeer de verschillende lagen te herkennen. Voer daarna het codeblok uit om het netwerk aan te maken.
 
-We kunnen het netwerk nu al een voorspelling laten maken: $\hat y=f_\theta(x).$
-
+We kunnen het netwerk nu al een voorspelling laten maken: $\hat y=f_\theta(x).$ \\
 Vul in de Google Colab-notebook de ontbrekende code aan om voor de trainingsgegevens een eerste voorspelling te maken.
 
 Zijn de voorspellingen van het netwerk vóór de training al goed?
@@ -143,7 +133,7 @@ y_pred = model(x)
 
 Het netwerk kent op dit moment de onderliggende relatie $y=x^2+1$ nog niet. Wanneer het netwerk wordt aangemaakt, krijgen de parameters zoals de gewichten en biases beginwaarden. Deze waarden zijn nog niet afgestemd op onze trainingsgegevens.
 
-Het netwerk kan dus al wel een voorspelling maken, $\hat y= f_\theta(x),$ maar deze voorspelling zal in het begin nog niet goed overeenkomen met de werkelijke waarden.
+Het netwerk kan dus al wel een voorspelling maken, $\hat y= f_\theta(x)$, maar deze voorspelling zal in het begin nog niet goed overeenkomen met de werkelijke waarden.
 
 Tijdens het trainen worden de parameters $\theta$ aangepast zodat de
 voorspellingen steeds beter worden.
@@ -174,8 +164,7 @@ Hiervoor hebben we twee dingen nodig:
     \item een methode om de parameters van het netwerk aan te passen.
 \end{enumerate}
 
-De eerste stap gebeurt met behulp van een \textbf{lossfunctie}. De tweede stap gebeurt met behulp van een \textbf{optimizer}.
-
+De eerste stap gebeurt met behulp van een \textbf{lossfunctie}. De tweede stap gebeurt met behulp van een \textbf{optimizer}. \\
 Voor dit probleem gebruiken we de \textit{Mean Squared Error (MSE)} als lossfunctie en het \textit{Adam-algoritme} als optimizer.
 
 Voer de code voor het definiëren van de loss-functie en optimizer uit in de Google Colab-notebook. 
@@ -223,13 +212,13 @@ Wat kan je uit de grafiek besluiten over het leerproces?
 
 Een mogelijke code is:
 
-\begin{verbatim}
+\begin{lstlisting}[language=Python]
 plt.plot(loss_history)
 plt.xlabel("Epoch")
 plt.ylabel("Loss")
 plt.title("Loss tijdens de training")
 plt.show()
-\end{verbatim}
+\end{lstlisting}
 
 De grafiek toont hoe de loss verandert terwijl het netwerk wordt getraind.
 
