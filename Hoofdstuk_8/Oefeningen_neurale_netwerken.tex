@@ -212,13 +212,15 @@ Wat kan je uit de grafiek besluiten over het leerproces?
 
 Een mogelijke code is:
 
-\begin{lstlisting}[language=Python]
-plt.plot(loss_history)
-plt.xlabel("Epoch")
-plt.ylabel("Loss")
-plt.title("Loss tijdens de training")
-plt.show()
-\end{lstlisting}
+\[
+\begin{aligned}
+&\texttt{plt.plot(loss\string_ history)}\\
+&\texttt{plt.xlabel("Epoch")}\\
+&\texttt{plt.ylabel("Loss")}\\
+&\texttt{plt.title("Loss tijdens de training")}\\
+&\texttt{plt.show()}
+\end{aligned}
+\]
 
 De grafiek toont hoe de loss verandert terwijl het netwerk wordt getraind.
 
@@ -298,9 +300,7 @@ want de voorspelling moet exact gelijk zijn aan $50$.}
 \choice[correct]{Het netwerk heeft de relatie goed benaderd,\\
 maar de voorspelling wijkt nog enigszins af van de exacte waarde.}
 
-\choice{De voorspelling is correct, \\
-want $49.2$ en $50$ zijn dezelfde waarde
-binnen een neuraal netwerk.}
+\choice{De voorspelling is volledig correct.}
 
 \end{multipleChoice}
 
