@@ -305,7 +305,7 @@ Hoeveel trainbare parameters heeft dit netwerk in totaal?
 \[
 N_{\mathrm{parameters}}
 =
-\answer{41}
+\answer{35}
 \]
 
 \begin{feedback} \text{ }
@@ -317,7 +317,7 @@ Om het aantal weights te bepalen, kijken we naar de verbindingen tussen opeenvol
 Tussen de inputlaag met $3$ neuronen en de eerste hidden layer met $4$ neuronen zijn er daarom $3\times4=12$ weights. Elk van de $4$ neuronen in de eerste hidden layer is immers verbonden met alle $3$ inputneuronen.
 Tussen de eerste hidden layer en de tweede hidden layer zijn er $4\times3=12$ weights en tussen de tweede hidden layer zijn er $3\times1=3$ weights.
 
-Er zijn in totaal dus \[N_{\mathrm{weights}} = 3\times4+4\times3+3\times1=33\]
+Er zijn in totaal dus \[N_{\mathrm{weights}} = 3\times4+4\times3+3\times1=27\]
 weights. 
 
 Daarnaast heeft elk neuron in de hidden layers en de outputlaag één bias. Er zijn dus
@@ -335,9 +335,9 @@ Het totale aantal trainbare parameters is dus
 \[
 N_{\mathrm{parameters}}
 =
-33+8
+27+8
 =
-\boxed{41}.
+\boxed{35}.
 \]
     
 \end{feedback}
@@ -441,13 +441,13 @@ De algemene principes van de training, zoals de lossfunctie en de optimizer, wer
 
 \[
 \boxed{
-\text{forward propagation}
+\text{Forward propagation}
 \rightarrow
-\text{loss}
+\text{Loss}
 \rightarrow
-\text{backpropagation}
+\text{Backpropagation}
 \rightarrow
-\text{optimizer}
+\text{Optimizer}
 }
 \]
 
